@@ -1,6 +1,6 @@
 {
   "domain": "pontos",
-  "name": "Pontos Sensors",
+  "name": "Pontos Base",
   "config_flow": true,
   "version": "1.0",
   "requirements": [],
