@@ -1,0 +1,10 @@
+{
+  "domain": "pontos",
+  "name": "Pontos Sensors",
+  "config_flow": true,
+  "version": "1.0",
+  "requirements": [],
+  "dependencies": ["rest"],
+  "codeowners": ["@yourusername"],
+  "iot_class": "local_polling"
+}
