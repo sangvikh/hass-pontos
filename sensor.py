@@ -2,7 +2,6 @@ import asyncio
 from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.const import VOLUME_LITERS
 from . import DOMAIN
 
 FETCH_INTERVAL = timedelta(seconds=60)  # Set fetch interval to 60 seconds
@@ -17,7 +16,7 @@ class PontosSensor(SensorEntity):
         self._ip = ip
         self._attr_name = name
         self._endpoint = endpoint
-        self._attr_unit_of_measurement = unit
+        self._attr_native_unit_of_measurement = unit
         self._attr_device_class = device_class
         self._format_dict = format_dict
         self._code_dict = code_dict
@@ -64,7 +63,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     ip_address = config['ip_address']
     session = aiohttp.ClientSession()
     async_add_entities([
-        PontosSensor(session, ip_address, "Total consumption in liters", "getVOL", VOLUME_LITERS, "water", format_dict={"Vol[L]": ""}),
+        PontosSensor(session, ip_address, "Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
         PontosSensor(session, ip_address, "Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
         PontosSensor(session, ip_address, "Water temperature", "getCEL", "°C", "temperature", scale=0.1),
         PontosSensor(session, ip_address, "Time in seconds since turbine received no pulse", "getNPS", "s", None),
