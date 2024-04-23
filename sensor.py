@@ -5,8 +5,8 @@ from homeassistant.components.sensor import SensorEntity
 import logging
 
 from . import DOMAIN
-LOGGER = logging.getLogger(__name__)
 
+LOGGER = logging.getLogger(__name__)
 FETCH_INTERVAL = timedelta(seconds=15)  # Set fetch interval to 60 seconds
 
 class PontosSensor(SensorEntity):
@@ -14,9 +14,9 @@ class PontosSensor(SensorEntity):
     _data = None
     _lock = asyncio.Lock()
 
-    def __init__(self, session, ip, name, endpoint, unit, device_class, format_dict=None, code_dict=None, scale=None):
-        self._session = session
-        self._ip = ip
+class PontosSensor(SensorEntity):
+    def __init__(self, data, name, endpoint, unit, device_class, format_dict=None, code_dict=None, scale=None):
+        self._data = data
         self._attr_name = f"Pontos {name}"
         self._endpoint = endpoint
         self._attr_native_unit_of_measurement = unit
@@ -32,82 +32,75 @@ class PontosSensor(SensorEntity):
         return self._attr_unique_id
 
     async def async_update(self):
-        async with PontosSensor._lock:
-            if not PontosSensor._data or not PontosSensor._last_fetch or (datetime.now() - PontosSensor._last_fetch) > FETCH_INTERVAL:
-                # Choose URL endpoint
-                if self._endpoint == "getCND":
-                    url = f"http://{self._ip}:5333/pontos-base/get/cnd"
-                else:
-                    url = f"http://{self._ip}:5333/pontos-base/get/all"
-
-                # Read data from sensor
-                async with self._session.get(url) as response:
-                    if response.status == 200:
-                        PontosSensor._data = await response.json()
-                        PontosSensor._last_fetch = datetime.now()
-                    else:
-                        LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
+        pass
 
     @property   
     def state(self):
-        raw_value = PontosSensor._data.get(self._endpoint) if PontosSensor._data else None
+        raw_value = self._data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
-        if self._format_dict and isinstance(raw_value, str):
+        if self._format_dict is not None:
             for old, new in self._format_dict.items():
                 raw_value = raw_value.replace(old, new)
 
         # Translate alarm codes if code_dict is present
-        if self._code_dict and raw_value is not None:
+        if self._code_dict is not None:
             translated_value = self._code_dict.get(raw_value)
             if translated_value is not None:
                 return translated_value
 
         # Scale sensor data if scale is present
-        if self._scale is not None and raw_value is not None:
+        if self._scale is not None:
             try:
                 value = float(raw_value) * self._scale
                 return value
             except ValueError:
                 return raw_value
-        
         return raw_value
-    
+
+
+async def fetch_data(ip):
+    urls = {
+        "cnd": f"http://{ip}:5333/pontos-base/get/cnd",
+        "all": f"http://{ip}:5333/pontos-base/get/all"
+    }
+    data = {}
+    async with aiohttp.ClientSession() as session:
+        for key, url in urls.items():
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data[key] = await response.json()
+                else:
+                    LOGGER.error(f"Failed to fetch {key} data: HTTP {response.status}")
+    return data
+
 
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
     ip_address = config['ip_address']
-
-    session_all = aiohttp.ClientSession()
-    session_cnd = aiohttp.ClientSession()
+    data = await fetch_data(ip_address)
 
     async_add_entities([
-        PontosSensor(session_all, ip_address, "Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
-        PontosSensor(session_all, ip_address, "Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
-        PontosSensor(session_all, ip_address, "Water temperature", "getCEL", "°C", "temperature", scale=0.1),
-        PontosSensor(session_all, ip_address, "Time in seconds since turbine received no pulse", "getNPS", "s", None),
-        PontosSensor(session_all, ip_address, "Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
-        PontosSensor(session_all, ip_address, "Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
-        PontosSensor(session_all, ip_address, "Wifi connection state", "getWFS", None, None),
-        PontosSensor(session_all, ip_address, "Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
-        PontosSensor(session_all, ip_address, "Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
-        PontosSensor(session_all, ip_address, "Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
-        PontosSensor(session_all, ip_address, "Serial number", "getSRN", None, None),
-        PontosSensor(session_all, ip_address, "Firmware version", "getVER", None, None),
-        PontosSensor(session_all, ip_address, "Type", "getTYP", None, None),
-        PontosSensor(session_all, ip_address, "MAC Address", "getMAC", None, None),
-        PontosSensor(session_all, ip_address, "Alarm", "getALA", None, None, code_dict=alarm_codes),
-        PontosSensor(session_all, ip_address, "Active profile", "getPRF", None, None, code_dict=profile_codes),
-        PontosSensor(session_all, ip_address, "Valve status", "getVLV", None, None, code_dict=valve_codes),
-        PontosSensor(session_cnd, ip_address, "Water conductivity", "getCND", "µS/cm", None),
-        PontosSensor(session_cnd, ip_address, "Water hardness", "getCND", "dH", None, scale=1/30)
+        PontosSensor(data['all'], "Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
+        PontosSensor(data['all'], "Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
+        PontosSensor(data['all'], "Water temperature", "getCEL", "°C", "temperature", scale=0.1),
+        PontosSensor(data['all'], "Time in seconds since turbine received no pulse", "getNPS", "s", None),
+        PontosSensor(data['all'], "Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
+        PontosSensor(data['all'], "Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
+        PontosSensor(data['all'], "Wifi connection state", "getWFS", None, None),
+        PontosSensor(data['all'], "Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
+        PontosSensor(data['all'], "Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
+        PontosSensor(data['all'], "Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
+        PontosSensor(data['all'], "Serial number", "getSRN", None, None),
+        PontosSensor(data['all'], "Firmware version", "getVER", None, None),
+        PontosSensor(data['all'], "Type", "getTYP", None, None),
+        PontosSensor(data['all'], "MAC Address", "getMAC", None, None),
+        PontosSensor(data['all'], "Alarm", "getALA", None, None, code_dict=alarm_codes),
+        PontosSensor(data['all'], "Active profile", "getPRF", None, None, code_dict=profile_codes),
+        PontosSensor(data['all'], "Valve status", "getVLV", None, None, code_dict=valve_codes),
+        PontosSensor(data['cnd'], "Water conductivity", "getCND", "µS/cm", None),
+        PontosSensor(data['cnd'], "Water hardness", "getCND", "dH", None, scale=1/30)
     ])
-
-    # Registering cleanup to close sessions when Home Assistant stops
-    hass.bus.async_listen_once("homeassistant_stop", lambda _: asyncio.gather(session_all.close(), session_cnd.close()))
-
-    # Don't forget to close the sessions when the Home Assistant stops
-    hass.bus.async_listen_once("homeassistant_stop", session_all.close)
 
 alarm_codes = {
     "FF": "no alarm",
