@@ -15,7 +15,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if user_input is not None:
             valid = await self._test_connection(user_input[CONF_IP_ADDRESS])
             if valid:
-                return self.async_create_entry(title="Pontos Sensors", data=user_input)
+                return self.async_create_entry(title="Pontos Base", data=user_input)
             else:
                 errors['base'] = 'cannot_connect'
 
