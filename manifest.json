@@ -1,6 +1,6 @@
 {
-  "domain": "pontosbase",
-  "name": "Pontos Base",
+  "domain": "hass_pontos",
+  "name": "Hansgrohe Pontos",
   "config_flow": true,
   "version": "1.0",
   "requirements": [],
