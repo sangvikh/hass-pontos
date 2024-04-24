@@ -96,26 +96,27 @@ sensors = [
         PontosSensor("Water hardness", "getCND", "dH", None, scale=1/30)
     ]
 
+url_list = [
+    "http://{ip}:5333/pontos-base/get/cnd",
+    "http://{ip}:5333/pontos-base/get/all"
+]
+
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
     ip_address = config['ip_address']
-
     async_add_entities(sensors)
 
     # Fetching data
     async def fetch_data(ip):
-        urls = {
-            "cnd": f"http://{ip}:5333/pontos-base/get/cnd",
-            "all": f"http://{ip}:5333/pontos-base/get/all"
-        }
+        urls = [sub.replace('{ip}', str(ip)) for sub in url_list]
         data = {}
         async with aiohttp.ClientSession() as session:
-            for key, url in urls.items():
+            for url in urls:
                 async with session.get(url) as response:
                     if response.status == 200:
-                        data[key] = await response.json()
+                        data.update(await response.json())
                     else:
-                        LOGGER.error(f"Failed to fetch {key} data: HTTP {response.status}")
+                        LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
         return data
 
     # Parsing sensor data
@@ -146,12 +147,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        new_data = await fetch_data(ip_address)
+        data = await fetch_data(ip_address)
         for sensor in sensors:
-            if sensor._endpoint in ["getCND"]:
-                sensor.set_data(parse_data(new_data['cnd'], sensor))
-            else:
-                sensor.set_data(parse_data(new_data['all'], sensor))
+                sensor.set_data(parse_data(data, sensor))
 
     # Schedule updates using the fetch interval
     async_track_time_interval(hass, update_data, FETCH_INTERVAL)
