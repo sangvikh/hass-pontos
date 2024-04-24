@@ -95,6 +95,7 @@ sensors = [
     ]
 
 url_list = [
+    "http://{ip}:5333/pontos-base/set/ADM/(2)f",
     "http://{ip}:5333/pontos-base/get/cnd",
     "http://{ip}:5333/pontos-base/get/all"
 ]
