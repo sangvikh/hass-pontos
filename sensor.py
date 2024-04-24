@@ -11,12 +11,13 @@ LOGGER = logging.getLogger(__name__)
 FETCH_INTERVAL = timedelta(seconds=10)  # Set fetch interval to 60 seconds
 
 class PontosSensor(SensorEntity):
-    def __init__(self, name, endpoint, unit, device_class, format_dict=None, code_dict=None, scale=None):
+    def __init__(self, name, endpoint, unit, device_class, state_class = None, format_dict=None, code_dict=None, scale=None):
         self._data = None
         self._attr_name = f"Pontos {name}"
         self._endpoint = endpoint
         self._attr_native_unit_of_measurement = unit
         self._attr_device_class = device_class
+        self._attr_state_class = state_class
         self._format_dict = format_dict
         self._code_dict = code_dict
         self._scale = scale
@@ -32,9 +33,6 @@ class PontosSensor(SensorEntity):
     def unique_id(self):
         """Return the unique ID of the sensor."""
         return self._attr_unique_id
-
-    async def async_update(self):
-        pass
 
     @property   
     def state(self):
@@ -75,7 +73,7 @@ valve_codes = {
 }
 
 sensors = [
-        PontosSensor("Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
+        PontosSensor("Total consumption in liters", "getVOL", "L", "water", "total_increasing", format_dict={"Vol[L]": ""}),
         PontosSensor("Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
         PontosSensor("Water temperature", "getCEL", "°C", "temperature", scale=0.1),
         PontosSensor("Time in seconds since turbine received no pulse", "getNPS", "s", None),
