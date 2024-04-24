@@ -2,17 +2,13 @@ import asyncio
 from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.helpers.event import async_track_time_interval
 import logging
 
 from . import DOMAIN
 
 LOGGER = logging.getLogger(__name__)
-FETCH_INTERVAL = timedelta(seconds=15)  # Set fetch interval to 60 seconds
-
-class PontosSensor(SensorEntity):
-    _last_fetch = None
-    _data = None
-    _lock = asyncio.Lock()
+FETCH_INTERVAL = timedelta(seconds=60)  # Set fetch interval to 60 seconds
 
 class PontosSensor(SensorEntity):
     def __init__(self, data, name, endpoint, unit, device_class, format_dict=None, code_dict=None, scale=None):
@@ -39,23 +35,22 @@ class PontosSensor(SensorEntity):
         raw_value = self._data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
-        if self._format_dict is not None:
+        if self._format_dict is not None and raw_value is not None:
             for old, new in self._format_dict.items():
                 raw_value = raw_value.replace(old, new)
 
         # Translate alarm codes if code_dict is present
-        if self._code_dict is not None:
-            translated_value = self._code_dict.get(raw_value)
-            if translated_value is not None:
-                return translated_value
+        if self._code_dict is not None and raw_value is not None:
+            raw_value = self._code_dict.get(raw_value, raw_value)  # Use original raw_value if no translation found
 
         # Scale sensor data if scale is present
-        if self._scale is not None:
+        if self._scale is not None and raw_value is not None:
             try:
                 value = float(raw_value) * self._scale
                 return value
             except ValueError:
-                return raw_value
+                pass  # If conversion fails, proceed to return raw_value without scaling
+
         return raw_value
 
 
@@ -80,27 +75,44 @@ async def async_setup_entry(hass, entry, async_add_entities):
     ip_address = config['ip_address']
     data = await fetch_data(ip_address)
 
-    async_add_entities([
-        PontosSensor(data['all'], "Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
-        PontosSensor(data['all'], "Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
-        PontosSensor(data['all'], "Water temperature", "getCEL", "°C", "temperature", scale=0.1),
-        PontosSensor(data['all'], "Time in seconds since turbine received no pulse", "getNPS", "s", None),
-        PontosSensor(data['all'], "Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
-        PontosSensor(data['all'], "Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
-        PontosSensor(data['all'], "Wifi connection state", "getWFS", None, None),
-        PontosSensor(data['all'], "Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
-        PontosSensor(data['all'], "Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
-        PontosSensor(data['all'], "Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
-        PontosSensor(data['all'], "Serial number", "getSRN", None, None),
-        PontosSensor(data['all'], "Firmware version", "getVER", None, None),
-        PontosSensor(data['all'], "Type", "getTYP", None, None),
-        PontosSensor(data['all'], "MAC Address", "getMAC", None, None),
-        PontosSensor(data['all'], "Alarm", "getALA", None, None, code_dict=alarm_codes),
-        PontosSensor(data['all'], "Active profile", "getPRF", None, None, code_dict=profile_codes),
-        PontosSensor(data['all'], "Valve status", "getVLV", None, None, code_dict=valve_codes),
-        PontosSensor(data['cnd'], "Water conductivity", "getCND", "µS/cm", None),
-        PontosSensor(data['cnd'], "Water hardness", "getCND", "dH", None, scale=1/30)
-    ])
+    sensors = [
+            PontosSensor(data['all'], "Total consumption in liters", "getVOL", "L", "water", format_dict={"Vol[L]": ""}),
+            PontosSensor(data['all'], "Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
+            PontosSensor(data['all'], "Water temperature", "getCEL", "°C", "temperature", scale=0.1),
+            PontosSensor(data['all'], "Time in seconds since turbine received no pulse", "getNPS", "s", None),
+            PontosSensor(data['all'], "Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
+            PontosSensor(data['all'], "Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
+            PontosSensor(data['all'], "Wifi connection state", "getWFS", None, None),
+            PontosSensor(data['all'], "Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
+            PontosSensor(data['all'], "Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
+            PontosSensor(data['all'], "Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
+            PontosSensor(data['all'], "Serial number", "getSRN", None, None),
+            PontosSensor(data['all'], "Firmware version", "getVER", None, None),
+            PontosSensor(data['all'], "Type", "getTYP", None, None),
+            PontosSensor(data['all'], "MAC Address", "getMAC", None, None),
+            PontosSensor(data['all'], "Alarm", "getALA", None, None, code_dict=alarm_codes),
+            PontosSensor(data['all'], "Active profile", "getPRF", None, None, code_dict=profile_codes),
+            PontosSensor(data['all'], "Valve status", "getVLV", None, None, code_dict=valve_codes),
+            PontosSensor(data['cnd'], "Water conductivity", "getCND", "µS/cm", None),
+            PontosSensor(data['cnd'], "Water hardness", "getCND", "dH", None, scale=1/30)
+        ]
+
+    async_add_entities(sensors)
+
+    # Function to fetch new data and update all sensors
+    async def update_data(_):
+        new_data = await fetch_data(ip_address)
+        for sensor in sensors:
+            if sensor._endpoint in ["getCND"]:
+                sensor._data = new_data['cnd']
+            else:
+                sensor._data = new_data['all']
+            await sensor.async_update()
+            await sensor.async_update_ha_state()
+
+    # Schedule updates using the fetch interval
+    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
+
 
 alarm_codes = {
     "FF": "no alarm",
