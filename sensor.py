@@ -32,7 +32,10 @@ class PontosSensor(SensorEntity):
 
     @property   
     def state(self):
-        raw_value = self._data.get(self._endpoint, None)
+        if self._data is not None:
+            raw_value = self._data.get(self._endpoint, None)
+        else:
+            return None
 
         # Apply format replacements if format_dict is present
         if self._format_dict is not None and raw_value is not None:
