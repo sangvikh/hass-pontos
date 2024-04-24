@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 import logging
 
 from . import DOMAIN
@@ -22,6 +23,7 @@ class PontosSensor(SensorEntity):
         self._code_dict = code_dict
         self._scale = scale
         self._attr_unique_id = f"pontos_{name}"
+        self._device_id = None
 
     def set_data(self, data):
         """Set the sensor data and perform any necessary processing."""
@@ -29,14 +31,25 @@ class PontosSensor(SensorEntity):
         # You can add additional checks or processing here
         self.async_write_ha_state()
 
+    def set_device_id(self, device_id):
+        """Sets the device ID for the sensor."""
+        self._device_id = device_id
+
     @property
     def unique_id(self):
         """Return the unique ID of the sensor."""
         return self._attr_unique_id
 
+    @property
+    def device_info(self):
+        return {
+            "identifiers": self._device_id,
+        }
+
     @property   
     def state(self):
         return self._data
+    
 
 alarm_codes = {
     "FF": "no alarm",
@@ -102,6 +115,25 @@ url_list = [
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
     ip_address = config['ip_address']
+    device_registry = async_get_device_registry(hass)
+    
+    # Create a device entry
+    device_info = {
+        "identifiers": {(DOMAIN, entry.entry_id)},
+        "name": "Pontos Base",
+        "manufacturer": "Hansgrohe",
+        "model": "",
+        "sw_version": "",
+    }
+
+    device = device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        **device_info
+    )
+
+    # Assign device id to each sensor and add entities
+    for sensor in sensors:
+        sensor.set_device_id(device_info['identifiers'])
     async_add_entities(sensors)
 
     # Fetching data
