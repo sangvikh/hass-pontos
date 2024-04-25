@@ -108,6 +108,7 @@ sensors = [
     ]
 
 url_list = [
+    "http://{ip}:5333/pontos-base/set/ADM/(2)f",
     "http://{ip}:5333/pontos-base/get/cnd",
     "http://{ip}:5333/pontos-base/get/all"
 ]
@@ -152,10 +153,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
     # Parsing sensor data
     def parse_data(data, sensor):
         """Process, format, and validate sensor data."""
-        if data is not None:
-            _data = data.get(sensor._endpoint, None)
-        else:
+        if data is None:
             return None
+        _data = data.get(sensor._endpoint, None)
 
         # Apply format replacements if format_dict is present
         if sensor._format_dict is not None and _data is not None:
@@ -169,11 +169,11 @@ async def async_setup_entry(hass, entry, async_add_entities):
         # Scale sensor data if scale is present
         if sensor._scale is not None and _data is not None:
             try:
-                return float(_data) * sensor._scale
+                _data = float(_data) * sensor._scale
             except (ValueError, TypeError):
-                return _data
-        else:
-            return _data
+                pass
+
+        return _data
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
