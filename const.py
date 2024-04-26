@@ -46,3 +46,115 @@ VALVE_CODES = {
     "20": "Open",
     "21": "Opening"
 }
+
+# In const.py
+
+SENSOR_DETAILS = {
+    "total_consumption": {
+        "name": "Total consumption in liters",
+        "endpoint": "getVOL",
+        "unit": "L",
+        "device_class": "water",
+        "state_class": "total_increasing",
+        "format_dict": {"Vol[L]": ""}
+    },
+    "water_pressure": {
+        "name": "Water pressure",
+        "endpoint": "getBAR",
+        "unit": "mbar",
+        "device_class": "pressure",
+        "format_dict": {"mbar": ""}
+    },
+    "water_temperature": {
+        "name": "Water temperature",
+        "endpoint": "getCEL",
+        "unit": "°C",
+        "device_class": "temperature",
+        "scale": 0.1
+    },
+    "no_pulse_time": {
+        "name": "Time since last pulse",
+        "endpoint": "getNPS",
+        "unit": "s"
+    },
+    "current_consumption": {
+        "name": "Current water consumption",
+        "endpoint": "getAVO",
+        "unit": "mL",
+        "device_class": "water",
+        "format_dict": {"mL": ""}
+    },
+    "leak_test_pressure": {
+        "name": "Leak test pressure",
+        "endpoint": "getDBD",
+        "unit": "bar",
+        "device_class": "pressure"
+    },
+    "wifi_state": {
+        "name": "Wifi state",
+        "endpoint": "getWFS"
+    },
+    "wifi_signal_strength": {
+        "name": "Wifi signal strength",
+        "endpoint": "getWFR",
+        "unit": "dB",
+        "device_class": "signal_strength",
+        "scale": -1
+    },
+    "battery_voltage": {
+        "name": "Battery voltage",
+        "endpoint": "getBAT",
+        "unit": "V",
+        "device_class": "voltage",
+        "format_dict": {",": "."}
+    },
+    "mains_voltage": {
+        "name": "Mains voltage",
+        "endpoint": "getNET",
+        "unit": "V",
+        "device_class": "voltage",
+        "format_dict": {",": "."}
+    },
+    "serial_number": {
+        "name": "Serial number",
+        "endpoint": "getSRN"
+    },
+    "firmware_version": {
+        "name": "Firmware version",
+        "endpoint": "getVER"
+    },
+    "device_type": {
+        "name": "Device type",
+        "endpoint": "getTYP"
+    },
+    "mac_address": {
+        "name": "MAC Address",
+        "endpoint": "getMAC"
+    },
+    "alarm_status": {
+        "name": "Alarm status",
+        "endpoint": "getALA",
+        "code_dict": ALARM_CODES
+    },
+    "active_profile": {
+        "name": "Active profile",
+        "endpoint": "getPRF",
+        "code_dict": PROFILE_CODES
+    },
+    "valve_status": {
+        "name": "Valve status",
+        "endpoint": "getVLV",
+        "code_dict": VALVE_CODES
+    },
+    "water_conductivity": {
+        "name": "Water conductivity",
+        "endpoint": "getCND",
+        "unit": "µS/cm"
+    },
+    "water_hardness": {
+        "name": "Water hardness",
+        "endpoint": "getCND",
+        "unit": "dH",
+        "scale": 1/30
+    }
+}

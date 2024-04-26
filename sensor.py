@@ -1,42 +1,36 @@
-#import asyncio
-#from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 import logging
 
-from .const import DOMAIN, CONF_IP_ADDRESS, FETCH_INTERVAL, URL_LIST, ALARM_CODES, PROFILE_CODES, VALVE_CODES
+from .const import *
 
 LOGGER = logging.getLogger(__name__)
 
 class PontosSensor(SensorEntity):
-    def __init__(self, name, endpoint, unit, device_class, state_class = None, format_dict=None, code_dict=None, scale=None):
+    def __init__(self, sensor_config):
         self._data = None
-        self._attr_name = f"Pontos {name}"
-        self._endpoint = endpoint
-        self._attr_native_unit_of_measurement = unit
-        self._attr_device_class = device_class
-        self._attr_state_class = state_class
-        self._format_dict = format_dict
-        self._code_dict = code_dict
-        self._scale = scale
-        self._attr_unique_id = f"pontos_{name}"
+        self._attr_name = f"Pontos {sensor_config['name']}"
+        self._endpoint = sensor_config['endpoint']
+        self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
+        self._attr_device_class = sensor_config.get('device_class', None)
+        self._attr_state_class = sensor_config.get('state_class', None)
+        self._format_dict = sensor_config.get('format_dict', None)
+        self._code_dict = sensor_config.get('code_dict', None)
+        self._scale = sensor_config.get('scale', None)
+        self._attr_unique_id = f"pontos_{sensor_config['name']}"
         self._device_id = None
 
     def set_data(self, data):
-        """Set the sensor data and perform any necessary processing."""
         self._data = data
-        # You can add additional checks or processing here
         self.async_write_ha_state()
 
     def set_device_id(self, device_id):
-        """Sets the device ID for the sensor."""
         self._device_id = device_id
 
     @property
     def unique_id(self):
-        """Return the unique ID of the sensor."""
         return self._attr_unique_id
 
     @property
@@ -49,27 +43,7 @@ class PontosSensor(SensorEntity):
     def state(self):
         return self._data
 
-sensors = [
-        PontosSensor("Total consumption in liters", "getVOL", "L", "water", "total_increasing", format_dict={"Vol[L]": ""}),
-        PontosSensor("Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
-        PontosSensor("Water temperature", "getCEL", "°C", "temperature", scale=0.1),
-        PontosSensor("Time in seconds since turbine received no pulse", "getNPS", "s", None),
-        PontosSensor("Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
-        PontosSensor("Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
-        PontosSensor("Wifi connection state", "getWFS", None, None),
-        PontosSensor("Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
-        PontosSensor("Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
-        PontosSensor("Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
-        PontosSensor("Serial number", "getSRN", None, None),
-        PontosSensor("Firmware version", "getVER", None, None),
-        PontosSensor("Type", "getTYP", None, None),
-        PontosSensor("MAC Address", "getMAC", None, None),
-        PontosSensor("Alarm", "getALA", None, None, code_dict=ALARM_CODES),
-        PontosSensor("Active profile", "getPRF", None, None, code_dict=PROFILE_CODES),
-        PontosSensor("Valve status", "getVLV", None, None, code_dict=VALVE_CODES),
-        PontosSensor("Water conductivity", "getCND", "µS/cm", None),
-        PontosSensor("Water hardness", "getCND", "dH", None, scale=1/30)
-    ]
+sensors = [PontosSensor(config) for key, config in SENSOR_DETAILS.items()]
 
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
