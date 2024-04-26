@@ -1,15 +1,14 @@
-import asyncio
-from datetime import datetime, timedelta
+#import asyncio
+#from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 import logging
 
-from . import DOMAIN
+from .const import DOMAIN, CONF_IP_ADDRESS, FETCH_INTERVAL, URL_LIST, ALARM_CODES, PROFILE_CODES, VALVE_CODES
 
 LOGGER = logging.getLogger(__name__)
-FETCH_INTERVAL = timedelta(seconds=10)  # Set fetch interval to 60 seconds
 
 class PontosSensor(SensorEntity):
     def __init__(self, name, endpoint, unit, device_class, state_class = None, format_dict=None, code_dict=None, scale=None):
@@ -49,41 +48,6 @@ class PontosSensor(SensorEntity):
     @property   
     def state(self):
         return self._data
-    
-
-alarm_codes = {
-    "FF": "no alarm",
-    "A1": "ALARM END SWITCH",
-    "A2": "ALARM: Turbine blocked!",
-    "A3": "ALARM: Leakage volume reached!",
-    "A4": "ALARM: Leakage time reached!",
-    "A5": "ALARM: Maximum flow rate reached!",
-    "A6": "ALARM: Microleakage detected!",
-    "A7": "ALARM EXT. SENSOR LEAKAGE RADIO",
-    "A8": "ALARM EXT. SENSOR LEAKAGE CABLE",
-    "A9": "ALARM: Pressure sensor faulty!",
-    "AA": "ALARM: Temperature sensor faulty!",
-    "AB": "ALARM: Weak battery!",
-    "AE": "Error: no information available"
-}
-
-profile_codes = {
-    "1": "Present",
-    "2": "Absent",
-    "3": "Vacation",
-    "4": "Increased consumption",
-    "5": "Maximum consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
-}
-
-valve_codes = {
-    "10": "Closed",
-    "11": "Closing",
-    "20": "Open",
-    "21": "Opening"
-}
 
 sensors = [
         PontosSensor("Total consumption in liters", "getVOL", "L", "water", "total_increasing", format_dict={"Vol[L]": ""}),
@@ -100,30 +64,24 @@ sensors = [
         PontosSensor("Firmware version", "getVER", None, None),
         PontosSensor("Type", "getTYP", None, None),
         PontosSensor("MAC Address", "getMAC", None, None),
-        PontosSensor("Alarm", "getALA", None, None, code_dict=alarm_codes),
-        PontosSensor("Active profile", "getPRF", None, None, code_dict=profile_codes),
-        PontosSensor("Valve status", "getVLV", None, None, code_dict=valve_codes),
+        PontosSensor("Alarm", "getALA", None, None, code_dict=ALARM_CODES),
+        PontosSensor("Active profile", "getPRF", None, None, code_dict=PROFILE_CODES),
+        PontosSensor("Valve status", "getVLV", None, None, code_dict=VALVE_CODES),
         PontosSensor("Water conductivity", "getCND", "µS/cm", None),
         PontosSensor("Water hardness", "getCND", "dH", None, scale=1/30)
     ]
 
-url_list = [
-    "http://{ip}:5333/pontos-base/set/ADM/(2)f",
-    "http://{ip}:5333/pontos-base/get/cnd",
-    "http://{ip}:5333/pontos-base/get/all"
-]
-
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
-    ip_address = config['ip_address']
+    ip_address = config[CONF_IP_ADDRESS]
     device_registry = async_get_device_registry(hass)
     
     # Create a device entry
     device_info = {
-        "identifiers": {(DOMAIN, entry.entry_id)},
+        "identifiers": {(DOMAIN, "pontos_base")},
         "name": "Pontos Base",
         "manufacturer": "Hansgrohe",
-        "model": "",
+        "model": "Pontos Base",
         "sw_version": "",
     }
 
@@ -139,7 +97,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Fetching data
     async def fetch_data(ip):
-        urls = [sub.replace('{ip}', str(ip)) for sub in url_list]
+        urls = [url.format(ip=ip) for url in URL_LIST]
         data = {}
         async with aiohttp.ClientSession() as session:
             for url in urls:
