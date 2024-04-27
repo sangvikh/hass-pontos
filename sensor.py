@@ -1,151 +1,131 @@
-import asyncio
-from datetime import datetime, timedelta
 import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.helpers.device_registry import async_get as async_get_device_registry
+from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 import logging
 
-from . import DOMAIN
+from .const import *
 
 LOGGER = logging.getLogger(__name__)
-FETCH_INTERVAL = timedelta(seconds=10)  # Set fetch interval to 60 seconds
 
 class PontosSensor(SensorEntity):
-    def __init__(self, name, endpoint, unit, device_class, state_class = None, format_dict=None, code_dict=None, scale=None):
+    def __init__(self, sensor_config):
         self._data = None
-        self._attr_name = f"Pontos {name}"
-        self._endpoint = endpoint
-        self._attr_native_unit_of_measurement = unit
-        self._attr_device_class = device_class
-        self._attr_state_class = state_class
-        self._format_dict = format_dict
-        self._code_dict = code_dict
-        self._scale = scale
-        self._attr_unique_id = f"pontos_{name}"
+        self._attr_name = f"Pontos {sensor_config['name']}"
+        self._endpoint = sensor_config['endpoint']
+        self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
+        self._attr_device_class = sensor_config.get('device_class', None)
+        self._attr_state_class = sensor_config.get('state_class', None)
+        self._format_dict = sensor_config.get('format_dict', None)
+        self._code_dict = sensor_config.get('code_dict', None)
+        self._scale = sensor_config.get('scale', None)
+        self._attr_unique_id = f"pontos_{sensor_config['name']}"
+        self._device_id = None
 
     def set_data(self, data):
-        """Set the sensor data and perform any necessary processing."""
         self._data = data
-        # You can add additional checks or processing here
         self.async_write_ha_state()
+
+    def set_device_id(self, device_id):
+        self._device_id = device_id
 
     @property
     def unique_id(self):
-        """Return the unique ID of the sensor."""
         return self._attr_unique_id
+
+    @property
+    def device_info(self):
+        return {
+            "identifiers": self._device_id,
+        }
 
     @property   
     def state(self):
         return self._data
 
-alarm_codes = {
-    "FF": "no alarm",
-    "A1": "ALARM END SWITCH",
-    "A2": "ALARM: Turbine blocked!",
-    "A3": "ALARM: Leakage volume reached!",
-    "A4": "ALARM: Leakage time reached!",
-    "A5": "ALARM: Maximum flow rate reached!",
-    "A6": "ALARM: Microleakage detected!",
-    "A7": "ALARM EXT. SENSOR LEAKAGE RADIO",
-    "A8": "ALARM EXT. SENSOR LEAKAGE CABLE",
-    "A9": "ALARM: Pressure sensor faulty!",
-    "AA": "ALARM: Temperature sensor faulty!",
-    "AB": "ALARM: Weak battery!",
-    "AE": "Error: no information available"
-}
+sensors = [PontosSensor(config) for key, config in SENSOR_DETAILS.items()]
 
-profile_codes = {
-    "1": "Present",
-    "2": "Absent",
-    "3": "Vacation",
-    "4": "Increased consumption",
-    "5": "Maximum consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
-}
+# Fetching data
+async def fetch_data(ip, url_list):
+    urls = [url.format(ip=ip) for url in url_list]
+    data = {}
+    async with aiohttp.ClientSession() as session:
+        for url in urls:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data.update(await response.json())
+                else:
+                    LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
+    return data
 
-valve_codes = {
-    "10": "Closed",
-    "11": "Closing",
-    "20": "Open",
-    "21": "Opening"
-}
+# Parsing sensor data
+def parse_data(data, sensor):
+    """Process, format, and validate sensor data."""
+    if data is None:
+        return None
+    _data = data.get(sensor._endpoint, None)
 
-sensors = [
-        PontosSensor("Total consumption in liters", "getVOL", "L", "water", "total_increasing", format_dict={"Vol[L]": ""}),
-        PontosSensor("Water pressure", "getBAR", "mbar", "pressure", format_dict={"mbar": ""}),
-        PontosSensor("Water temperature", "getCEL", "°C", "temperature", scale=0.1),
-        PontosSensor("Time in seconds since turbine received no pulse", "getNPS", "s", None),
-        PontosSensor("Volume of current water consumption in ml", "getAVO", "mL", "water", format_dict={"mL": ""}),
-        PontosSensor("Configured Micro Leakage test pressure drop in bar", "getDBD", "bar", "pressure"),
-        PontosSensor("Wifi connection state", "getWFS", None, None),
-        PontosSensor("Wifi signal strength (RSSI)", "getWFR", "dB", "signal_strength", scale=-1),
-        PontosSensor("Battery voltage", "getBAT", "V", "voltage", format_dict={",": "."}),
-        PontosSensor("Mains voltage", "getNET", "V", "voltage", format_dict={",": "."}),
-        PontosSensor("Serial number", "getSRN", None, None),
-        PontosSensor("Firmware version", "getVER", None, None),
-        PontosSensor("Type", "getTYP", None, None),
-        PontosSensor("MAC Address", "getMAC", None, None),
-        PontosSensor("Alarm", "getALA", None, None, code_dict=alarm_codes),
-        PontosSensor("Active profile", "getPRF", None, None, code_dict=profile_codes),
-        PontosSensor("Valve status", "getVLV", None, None, code_dict=valve_codes),
-        PontosSensor("Water conductivity", "getCND", "µS/cm", None),
-        PontosSensor("Water hardness", "getCND", "dH", None, scale=1/30)
-    ]
+    # Apply format replacements if format_dict is present
+    if sensor._format_dict is not None and _data is not None:
+        for old, new in sensor._format_dict.items():
+            _data = _data.replace(old, new)
 
-url_list = [
-    "http://{ip}:5333/pontos-base/set/ADM/(2)f",
-    "http://{ip}:5333/pontos-base/get/cnd",
-    "http://{ip}:5333/pontos-base/get/all"
-]
+    # Translate alarm codes if code_dict is present
+    if sensor._code_dict is not None and _data is not None:
+        _data = sensor._code_dict.get(_data, _data)
+
+    # Scale sensor data if scale is present
+    if sensor._scale is not None and _data is not None:
+        try:
+            _data = float(_data) * sensor._scale
+        except (ValueError, TypeError):
+            pass
+
+    return _data
 
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
-    ip_address = config['ip_address']
+    ip_address = config[CONF_IP_ADDRESS]
+    device_registry = async_get_device_registry(hass)
+
+    # Fetching all relevant data from the device
+    data = await fetch_data(ip_address, URL_LIST)
+
+    # Assign data to variables
+    mac_address = data.get("getMAC", "00:00:00:00:00:00:00:00")
+    serial_number = data.get("getSRN", "")
+    firmware_version = data.get("getVER", "")
+    device_type = data.get("getTYP", "")
+
+    # Create a device entry with fetched data
+    device_info = {
+        "identifiers": {(DOMAIN, "pontos_base")},
+        "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
+        "name": "Pontos Base",
+        "manufacturer": "Hansgrohe",
+        "model": device_type,
+        "sw_version": firmware_version,
+        "serial_number": serial_number,
+    }
+
+    device = device_registry.async_get_or_create(
+        config_entry_id=entry.entry_id,
+        **device_info
+    )
+
+    # Assign device id to each sensor and add entities
+    for sensor in sensors:
+        sensor.set_device_id(device_info['identifiers'])
     async_add_entities(sensors)
 
-    # Fetching data
-    async def fetch_data(ip):
-        urls = [sub.replace('{ip}', str(ip)) for sub in url_list]
-        data = {}
-        async with aiohttp.ClientSession() as session:
-            for url in urls:
-                async with session.get(url) as response:
-                    if response.status == 200:
-                        data.update(await response.json())
-                    else:
-                        LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
-        return data
-
-    # Parsing sensor data
-    def parse_data(data, sensor):
-        """Process, format, and validate sensor data."""
-        if data is None:
-            return None
-        _data = data.get(sensor._endpoint, None)
-
-        # Apply format replacements if format_dict is present
-        if sensor._format_dict is not None and _data is not None:
-            for old, new in sensor._format_dict.items():
-                _data = _data.replace(old, new)
-
-        # Translate alarm codes if code_dict is present
-        if sensor._code_dict is not None and _data is not None:
-            _data = sensor._code_dict.get(_data, _data)
-
-        # Scale sensor data if scale is present
-        if sensor._scale is not None and _data is not None:
-            try:
-                _data = float(_data) * sensor._scale
-            except (ValueError, TypeError):
-                pass
-
-        return _data
+    # Update data so sensors is available immediately
+    for sensor in sensors:
+        sensor.set_data(parse_data(data, sensor))
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        data = await fetch_data(ip_address)
+        data = await fetch_data(ip_address, URL_LIST)
         for sensor in sensors:
                 sensor.set_data(parse_data(data, sensor))
 

@@ -4,7 +4,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from .const import DOMAIN, CONF_IP_ADDRESS
+from .const import DOMAIN, CONF_IP_ADDRESS, URL_COMMAND
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
@@ -28,7 +28,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         )
 
     async def _test_connection(self, ip_address):
-        url = f"http://{ip_address}:5333/pontos-base/set/ADM/(2)f"
+        url = URL_COMMAND.format(ip=ip_address)
         session = async_get_clientsession(self.hass)
         try:
             async with session.get(url, timeout=5) as response:
@@ -64,7 +64,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         )
 
     async def _test_connection(self, ip_address):
-        url = f"http://{ip_address}:5333/pontos-base/set/ADM/(2)f"
+        url = URL_COMMAND.format(ip=ip_address)
         session = async_get_clientsession(self.hass)
         try:
             async with session.get(url, timeout=5) as response:
