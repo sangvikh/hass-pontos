@@ -47,8 +47,6 @@ VALVE_CODES = {
     "21": "Opening"
 }
 
-# In const.py
-
 SENSOR_DETAILS = {
     "total_consumption": {
         "name": "Total consumption in liters",
