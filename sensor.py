@@ -90,7 +90,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     device_registry = async_get_device_registry(hass)
 
     # Fetching all relevant data from the device
-    data = await fetch_data(ip_address, [URL_ALL_DATA])  # Assuming URL_ALL_DATA points to the endpoint containing all necessary data
+    data = await fetch_data(ip_address, URL_LIST)
 
     # Assign data to variables
     mac_address = data.get("getMAC", "00:00:00:00:00:00:00:00")
@@ -119,6 +119,10 @@ async def async_setup_entry(hass, entry, async_add_entities):
         sensor.set_device_id(device_info['identifiers'])
     async_add_entities(sensors)
 
+    # Update data so sensors is available immediately
+    for sensor in sensors:
+        sensor.set_data(parse_data(data, sensor))
+
     # Function to fetch new data and update all sensors
     async def update_data(_):
         data = await fetch_data(ip_address, URL_LIST)
@@ -127,6 +131,3 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Schedule updates using the fetch interval
     async_track_time_interval(hass, update_data, FETCH_INTERVAL)
-
-    # Lastly update data to get fresh data immediately
-    await update_data(None)
