@@ -49,7 +49,7 @@ VALVE_CODES = {
 
 SENSOR_DETAILS = {
     "total_consumption": {
-        "name": "Total consumption in liters",
+        "name": "Total water consumption",
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": "water",
@@ -71,7 +71,7 @@ SENSOR_DETAILS = {
         "scale": 0.1
     },
     "no_pulse_time": {
-        "name": "Time since last pulse",
+        "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
         "unit": "s"
     },
@@ -83,7 +83,7 @@ SENSOR_DETAILS = {
         "format_dict": {"mL": ""}
     },
     "leak_test_pressure": {
-        "name": "Leak test pressure",
+        "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
         "device_class": "pressure"
@@ -95,7 +95,7 @@ SENSOR_DETAILS = {
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
-        "unit": "dB",
+        "unit": "dBm",
         "device_class": "signal_strength",
         "scale": -1
     },
