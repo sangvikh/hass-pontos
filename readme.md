@@ -16,8 +16,8 @@ Then integration can be added from ui after a restart
 
 # TODO
 
-- [] Add services
-- [] Add water valve button
-- [] Read profile names
-- [] Support for [Syr SafeTech+] (https://www.syr.de/de/Produkte/9928E3CC-EAFC-4DC6-9B26-0665888F77E1/SafeTech-plus-Connect)
-- [] Include in HACS
+- [ ] Add services
+- [ ] Add water valve button
+- [ ] Read profile names
+- [ ] Support for [Syr SafeTech+](https://www.syr.de/de/Produkte/9928E3CC-EAFC-4DC6-9B26-0665888F77E1/SafeTech-plus-Connect)
+- [ ] Include in HACS
