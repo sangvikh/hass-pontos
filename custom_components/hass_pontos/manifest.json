@@ -3,7 +3,7 @@
   "name": "Hansgrohe Pontos",
   "config_flow": true,
   "documentation": "https://github.com/sangvikh/hass-pontos",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "requirements": [],
   "dependencies": [],
   "codeowners": ["@sangvikh"],

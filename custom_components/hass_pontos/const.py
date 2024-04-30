@@ -1,15 +1,17 @@
 from datetime import  timedelta
+
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
 FETCH_INTERVAL = timedelta(seconds=10)
 
-URL_COMMAND = "http://{ip}:5333/pontos-base/set/ADM/(2)f"
-URL_CONDITIONS = "http://{ip}:5333/pontos-base/get/cnd"
-URL_ALL_DATA = "http://{ip}:5333/pontos-base/get/all"
+BASE_URL = "http://{ip}:5333/pontos-base/"
+URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
+URL_CONDITION = f"{BASE_URL}get/cnd"
+URL_ALL_DATA = f"{BASE_URL}get/all"
 
 URL_LIST = [
-    URL_COMMAND,
-    URL_CONDITIONS,
+    URL_ADMIN,
+    URL_CONDITION,
     URL_ALL_DATA
 ]
 
@@ -155,4 +157,19 @@ SENSOR_DETAILS = {
         "unit": "dH",
         "scale": 1/30
     }
+}
+
+SERVICES = {
+    "open_valve": {
+        "name": "Open valve",
+        "endpoint": "set/ab/1"
+    },
+    "close_valve": {
+        "name": "Close valve",
+        "endpoint": "set/ab/2"
+    },
+    "clear_alarm": {
+        "name": "Clear alarms",
+        "endpoint": "clr/ala"
+    },
 }
