@@ -4,11 +4,12 @@ HACS integration for Hansgrohe Pontos
 
 # Installation
 
-Clone repo into home assistant custom_components folder
-
-``git clone https://github.com/sangvikh/hass-pontos.git``
-
-Then integration can be added from ui after a restart
+1. Install HACS if you haven't already (see [installation guide](https://hacs.xyz/docs/configuration/basic/)).
+2. Add custom repository https://github.com/sangvikh/hass-pontos as "Integration" in the settings tab of HACS.
+3. Find and install Hansgrohe Pontos integration in HACS's "Integrations" tab.
+4. Restart Home Assistant.
+5. Go to your integrations page and click Add Integration and look for Hansgrohe Pontos.
+6. Set up sensor using IP address of your pontos, fixed ip is reccomended
 
 # Known issues
 
@@ -19,5 +20,4 @@ Then integration can be added from ui after a restart
 - [ ] Add services
 - [ ] Add water valve button
 - [ ] Read profile names
-- [ ] Support for [Syr SafeTech+](https://www.syr.de/de/Produkte/9928E3CC-EAFC-4DC6-9B26-0665888F77E1/SafeTech-plus-Connect)
 - [ ] Include in HACS
