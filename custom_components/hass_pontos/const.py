@@ -32,11 +32,11 @@ ALARM_CODES = {
 }
 
 PROFILE_CODES = {
-    "1": "Present",
-    "2": "Absent",
-    "3": "Vacation",
+    "1": "Home",
+    "2": "Away",
+    "3": "Holiday",
     "4": "Increased consumption",
-    "5": "Maximum consumption",
+    "5": "Max. consumption",
     "6": "not defined",
     "7": "not defined",
     "8": "not defined"
