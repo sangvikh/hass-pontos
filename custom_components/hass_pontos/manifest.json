@@ -1,6 +1,6 @@
 {
-  "domain": "hass_pontos",
-  "name": "Hansgrohe Pontos",
+	"domain": "hass_pontos",
+	"name": "Hansgrohe Pontos",
 	"codeowners": [
 		"@sangvikh"
 	],

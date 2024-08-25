@@ -1,10 +1,11 @@
-import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 import logging
 
+from .utils import fetch_data
+from .device import get_device_info
 from .const import *
 
 LOGGER = logging.getLogger(__name__)
@@ -46,19 +47,6 @@ class PontosSensor(SensorEntity):
 
 sensors = [PontosSensor(config) for key, config in SENSOR_DETAILS.items()]
 
-# Fetching data
-async def fetch_data(ip, url_list):
-    urls = [url.format(ip=ip) for url in url_list]
-    data = {}
-    async with aiohttp.ClientSession() as session:
-        for url in urls:
-            async with session.get(url) as response:
-                if response.status == 200:
-                    data.update(await response.json())
-                else:
-                    LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
-    return data
-
 # Parsing sensor data
 def parse_data(data, sensor):
     """Process, format, and validate sensor data."""
@@ -87,32 +75,7 @@ def parse_data(data, sensor):
 async def async_setup_entry(hass, entry, async_add_entities):
     config = entry.data
     ip_address = config[CONF_IP_ADDRESS]
-    device_registry = async_get_device_registry(hass)
-
-    # Fetching all relevant data from the device
-    data = await fetch_data(ip_address, URL_LIST)
-
-    # Assign data to variables
-    mac_address = data.get("getMAC", "00:00:00:00:00:00:00:00")
-    serial_number = data.get("getSRN", "")
-    firmware_version = data.get("getVER", "")
-    device_type = data.get("getTYP", "")
-
-    # Create a device entry with fetched data
-    device_info = {
-        "identifiers": {(DOMAIN, "pontos_base")},
-        "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
-        "name": "Pontos Base",
-        "manufacturer": "Hansgrohe",
-        "model": device_type,
-        "sw_version": firmware_version,
-        "serial_number": serial_number,
-    }
-
-    device = device_registry.async_get_or_create(
-        config_entry_id=entry.entry_id,
-        **device_info
-    )
+    device_info, data = await get_device_info(hass, entry)
 
     # Assign device id to each sensor and add entities
     for sensor in sensors:
