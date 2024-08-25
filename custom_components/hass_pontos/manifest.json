@@ -8,7 +8,7 @@
 	"dependencies": [],
 	"documentation": "https://github.com/sangvikh/hass-pontos",
 	"iot_class": "local_polling",
-  "issue_tracker": "https://github.com/sangvikh/hass-pontos/issues",
+  	"issue_tracker": "https://github.com/sangvikh/hass-pontos/issues",
 	"requirements": [],
 	"version": "1.0.4"
 }
