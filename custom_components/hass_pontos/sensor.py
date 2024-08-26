@@ -73,8 +73,7 @@ def parse_data(data, sensor):
     return _data
 
 async def async_setup_entry(hass, entry, async_add_entities):
-    config = entry.data
-    ip_address = config[CONF_IP_ADDRESS]
+    ip_address = entry.data[CONF_IP_ADDRESS]
     device_info, data = await get_device_info(hass, entry)
 
     # Assign device id to each sensor and add entities

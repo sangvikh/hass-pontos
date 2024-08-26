@@ -42,7 +42,8 @@ async def get_device_info(hass, entry):
         "serial_number": serial_number,
     }
 
-    device = device_registry.async_get_or_create(
+    # Register device in the device registry
+    device_registry.async_get_or_create(
         config_entry_id=entry_id,
         **device_info
     )

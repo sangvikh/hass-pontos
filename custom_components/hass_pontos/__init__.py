@@ -11,9 +11,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
 
-    # Register sensors
+    # Register entities
     hass.async_create_task(
-        hass.config_entries.async_forward_entry_setups(entry, ['sensor'])
+        hass.config_entries.async_forward_entry_setups(entry, ['sensor', 'button'])
     )
 
     # Register services

@@ -168,7 +168,7 @@ SERVICES = {
         "name": "Close valve",
         "endpoint": "set/ab/2"
     },
-    "clear_alarm": {
+    "clear_alarms": {
         "name": "Clear alarms",
         "endpoint": "clr/ala"
     },
