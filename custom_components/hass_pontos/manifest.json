@@ -9,7 +9,7 @@
 	"documentation": "https://github.com/sangvikh/hass-pontos",
 	"iot_class": "local_polling",
   	"issue_tracker": "https://github.com/sangvikh/hass-pontos/issues",
-	"supported_features": ["sensor", "button"],
+	"supported_features": ["sensor", "button", "valve"],
 	"requirements": [],
 	"version": "1.1.0"
 }
