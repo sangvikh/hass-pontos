@@ -14,3 +14,4 @@ async def fetch_data(ip, url_list):
                 else:
                     LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
     return data
+

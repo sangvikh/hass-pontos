@@ -1,7 +1,5 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
-from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 import logging
 
 from .utils import fetch_data
