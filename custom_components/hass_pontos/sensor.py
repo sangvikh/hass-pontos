@@ -4,7 +4,7 @@ import logging
 
 from .utils import fetch_data, parse_data
 from .device import get_device_info
-from .const import *
+from .const import CONF_IP_ADDRESS, SENSOR_DETAILS, FETCH_INTERVAL, URL_LIST
 
 LOGGER = logging.getLogger(__name__)
 
