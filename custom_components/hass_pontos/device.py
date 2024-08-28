@@ -1,8 +1,9 @@
 import logging
+import time
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 
-from .const import DOMAIN, URL_LIST, CONF_IP_ADDRESS
+from .const import DOMAIN, URL_LIST, CONF_IP_ADDRESS, FETCH_INTERVAL
 from .utils import fetch_data
 
 LOGGER = logging.getLogger(__name__)
@@ -14,10 +15,15 @@ async def get_device_info(hass, entry):
     entry_id = entry.entry_id
     ip_address = entry.data[CONF_IP_ADDRESS]
 
-    # Check if the data is already cached
+    # Check if the data is already cached and not expired
     if entry_id in _device_cache:
-        LOGGER.debug(f"Using cached data for device {entry_id}")
-        return _device_cache[entry_id]['device_info'], _device_cache[entry_id]['data']
+        cache_entry = _device_cache[entry_id]
+        cache_age = time.time() - cache_entry['timestamp']
+        if cache_age < FETCH_INTERVAL.total_seconds():
+            LOGGER.debug(f"Using cached data for device {entry_id} (age: {cache_age} seconds)")
+            return cache_entry['device_info'], cache_entry['data']
+        else:
+            LOGGER.debug(f"Cache expired for device {entry_id} (age: {cache_age} seconds)")
 
     LOGGER.debug(f"Fetching data for device {entry_id} from the device")
 
@@ -43,7 +49,8 @@ async def get_device_info(hass, entry):
     # Cache the device info and data
     _device_cache[entry_id] = {
         'device_info': device_info,
-        'data': data
+        'data': data,
+        'timestamp': time.time()
     }
 
     return device_info, data
