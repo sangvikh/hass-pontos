@@ -12,11 +12,8 @@ async def async_setup_entry(hass, entry, async_add_entities):
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_info, data = await get_device_info(hass, entry)
 
-    sensors = [PontosSensor(config) for key, config in SENSOR_DETAILS.items()]
-
-    # Assign device id to each sensor and add entities
-    for sensor in sensors:
-        sensor.set_device_id(device_info['identifiers'])
+    # Instantiate and add sensors
+    sensors = [PontosSensor(sensor_config, device_info) for key, sensor_config in SENSOR_DETAILS.items()]
     async_add_entities(sensors)
 
     # Update data so sensors is available immediately
@@ -33,7 +30,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     async_track_time_interval(hass, update_data, FETCH_INTERVAL)
 
 class PontosSensor(SensorEntity):
-    def __init__(self, sensor_config):
+    def __init__(self, sensor_config, device_info):
         self._data = None
         self._attr_name = f"Pontos {sensor_config['name']}"
         self._endpoint = sensor_config['endpoint']
@@ -44,14 +41,11 @@ class PontosSensor(SensorEntity):
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
         self._attr_unique_id = f"pontos_{sensor_config['name']}"
-        self._device_id = None
+        self._device_id = device_info['identifiers']
 
     def set_data(self, data):
         self._data = data
         self.async_write_ha_state()
-
-    def set_device_id(self, device_id):
-        self._device_id = device_id
 
     @property
     def unique_id(self):
