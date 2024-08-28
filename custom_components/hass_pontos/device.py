@@ -30,8 +30,6 @@ async def get_device_info(hass, entry):
     firmware_version = data.get("getVER", "")
     device_type = data.get("getTYP", "")
 
-    # Create a device entry with fetched data
-    device_registry = async_get_device_registry(hass)
     device_info = {
         "identifiers": {(DOMAIN, "pontos_base")},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
@@ -42,12 +40,6 @@ async def get_device_info(hass, entry):
         "serial_number": serial_number,
     }
 
-    # Register device in the device registry
-    device_registry.async_get_or_create(
-        config_entry_id=entry_id,
-        **device_info
-    )
-
     # Cache the device info and data
     _device_cache[entry_id] = {
         'device_info': device_info,
@@ -55,3 +47,17 @@ async def get_device_info(hass, entry):
     }
 
     return device_info, data
+
+async def register_device(hass, entry):
+    entry_id = entry.entry_id
+
+    # Create a device entry with fetched data
+    device_registry = async_get_device_registry(hass)
+
+    device_info, _ = await get_device_info(hass, entry)
+
+    # Register device in the device registry
+    device_registry.async_get_or_create(
+        config_entry_id=entry_id,
+        **device_info
+    )

@@ -1,7 +1,8 @@
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
-from .services import register_services
 
+from .services import register_services
+from .device import register_device
 from .const import DOMAIN
 
 async def async_setup(hass: HomeAssistant, config: dict):
@@ -10,6 +11,9 @@ async def async_setup(hass: HomeAssistant, config: dict):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
+
+    # Register the device
+    await register_device(hass, entry)
 
     # Register services
     await register_services(hass)
