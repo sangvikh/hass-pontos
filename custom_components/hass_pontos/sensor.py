@@ -32,7 +32,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class PontosSensor(SensorEntity):
     def __init__(self, sensor_config, device_info):
         self._data = None
-        self._attr_name = f"Pontos {sensor_config['name']}"
+        self._attr_name = f"{device_info['name']} {sensor_config['name']}"
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
         self._attr_device_class = sensor_config.get('device_class', None)
@@ -41,7 +41,7 @@ class PontosSensor(SensorEntity):
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
         self._attr_unique_id = f"pontos_{sensor_config['name']}"
-        self._device_id = device_info['identifiers']
+        self._attr_device_id = device_info['identifiers']
 
     def set_data(self, data):
         self._data = data
@@ -54,7 +54,7 @@ class PontosSensor(SensorEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._device_id,
+            "identifiers": self._attr_device_id,
         }
 
     @property   

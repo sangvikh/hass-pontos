@@ -11,7 +11,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     device_info, _ = await get_device_info(hass, entry)
 
     # Explicitly instantiate the PontosValve entity
-    valve_entity = PontosValve(hass, entry, device_info['identifiers'])
+    valve_entity = PontosValve(hass, entry, device_info)
 
     # Add the entity to Home Assistant
     async_add_entities([valve_entity], True)
@@ -22,16 +22,16 @@ async def async_setup_entry(hass, entry, async_add_entities):
 class PontosValve(ValveEntity):
     """Representation of the Pontos Valve entity."""
 
-    def __init__(self, hass, entry, device_id):
+    def __init__(self, hass, entry, device_info):
         """Initialize the Pontos Valve."""
         self._hass = hass
         self._entry = entry
-        self._attr_unique_id = "pontos_valve"
-        self._attr_name = "Pontos Valve"
+        self._attr_name = f"{device_info['name']} Water Supply"
+        self._attr_unique_id = f"{device_info['serial_number']}_water_supply"
         self._attr_reports_position = False
         self._attr_device_class = ValveDeviceClass.WATER
         self._state = None  # Initial state will be set during the first update
-        self._device_id = device_id
+        self._device_id = device_info['identifiers']
 
     @property   
     def state(self):

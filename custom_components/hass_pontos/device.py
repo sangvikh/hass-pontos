@@ -60,7 +60,6 @@ async def register_device(hass, entry):
 
     # Create a device entry with fetched data
     device_registry = async_get_device_registry(hass)
-
     device_info, _ = await get_device_info(hass, entry)
 
     # Register device in the device registry
