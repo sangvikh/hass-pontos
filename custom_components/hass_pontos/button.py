@@ -24,7 +24,7 @@ class PontosClearAlarmsButton(ButtonEntity):
         """Initialize the button."""
         self._hass = hass
         self._entry = entry
-        self._attr_name = f"{device_info['name']} Clear Alarms"
+        self._attr_name = f"{device_info['name']} Clear alarms"
         self._attr_unique_id = f"{device_info['serial_number']}_clear_alarms"
         self._attr_device_id = device_info['identifiers']
 

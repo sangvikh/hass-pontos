@@ -1,14 +1,14 @@
 open_valve:
   name: Open Valve
-  description: Opens the valve.
+  description: Opens the valve
   fields: {}
 
 close_valve:
   name: Close Valve
-  description: Closes the valve.
+  description: Closes the valve
   fields: {}
 
 clear_alarm:
   name: Clear Alarms
-  description: Clears any active alarms.
+  description: Clears any active alarms
   fields: {}
