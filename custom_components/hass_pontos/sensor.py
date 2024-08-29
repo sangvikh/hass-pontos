@@ -40,8 +40,8 @@ class PontosSensor(SensorEntity):
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
-        self._attr_unique_id = f"pontos_{sensor_config['name']}"
-        self._attr_device_id = device_info['identifiers']
+        self._attr_unique_id = f"{device_info['serial_number']}_{sensor_config['name']}"
+        self._device_info = device_info
 
     def set_data(self, data):
         self._data = data
@@ -54,7 +54,7 @@ class PontosSensor(SensorEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._attr_device_id,
+            "identifiers": self._device_info['identifiers'],
         }
 
     @property   

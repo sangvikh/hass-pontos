@@ -31,7 +31,7 @@ class PontosValve(ValveEntity):
         self._attr_reports_position = False
         self._attr_device_class = ValveDeviceClass.WATER
         self._state = None  # Initial state will be set during the first update
-        self._device_id = device_info['identifiers']
+        self._device_info = device_info
 
     @property   
     def state(self):
@@ -52,7 +52,7 @@ class PontosValve(ValveEntity):
     def device_info(self):
         """Return device info to link this entity with the device."""
         return {
-            "identifiers": self._device_id,
+            "identifiers": self._device_info['identifiers'],
         }
 
     def open_valve(self) -> None:
@@ -83,7 +83,7 @@ class PontosValve(ValveEntity):
 
     async def async_update(self, time_event=None):
         """Update the valve's state from the valve status sensor."""
-        sensor_entity_id = f"sensor.{VALVE_STATUS_SENSOR}"
+        sensor_entity_id = f"{VALVE_STATUS_SENSOR}"
 
         # Fetch the state of the sensor
         sensor_state = self._hass.states.get(sensor_entity_id)

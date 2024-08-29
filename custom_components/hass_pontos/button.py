@@ -26,7 +26,7 @@ class PontosClearAlarmsButton(ButtonEntity):
         self._entry = entry
         self._attr_name = f"{device_info['name']} Clear alarms"
         self._attr_unique_id = f"{device_info['serial_number']}_clear_alarms"
-        self._attr_device_id = device_info['identifiers']
+        self._device_info = device_info
 
     async def async_press(self):
         """Handle the button press to clear alarms."""
@@ -44,5 +44,5 @@ class PontosClearAlarmsButton(ButtonEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._attr_device_id,
+            "identifiers": self._device_info['identifiers'],
         }

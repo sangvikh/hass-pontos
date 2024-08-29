@@ -175,4 +175,4 @@ SERVICES = {
     },
 }
 
-VALVE_STATUS_SENSOR = "pontos_valve_status"
+VALVE_STATUS_SENSOR = "sensor.pontos_base_valve_status"
