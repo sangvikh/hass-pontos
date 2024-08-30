@@ -18,20 +18,20 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Update data so sensors is available immediately
     for sensor in sensors:
-        sensor.set_state(sensor.parse_data(data))
+        sensor.parse_data(data)
 
-    # Function to fetch new state and update all sensors
-    async def update_state(_):
-        state = await fetch_data(ip_address, URL_LIST)
+    # Function to fetch new data and update all sensors
+    async def update_data(_):
+        data = await fetch_data(ip_address, URL_LIST)
         for sensor in sensors:
-                sensor.set_state(sensor.parse_data(data))
+                sensor.parse_data(data)
 
     # Schedule updates using the fetch interval
-    async_track_time_interval(hass, update_state, FETCH_INTERVAL)
+    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
 
 class PontosSensor(SensorEntity):
     def __init__(self, sensor_config, device_info):
-        self._state = None
+        self._data = None
         self._attr_name = f"{device_info['name']} {sensor_config['name']}"
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
@@ -43,8 +43,8 @@ class PontosSensor(SensorEntity):
         self._attr_unique_id = f"{device_info['serial_number']}_{sensor_config['name']}"
         self._device_info = device_info
 
-    def set_state(self, state):
-        self._state = state
+    def set_data(self, data):
+        self._data = data
         self.async_write_ha_state()
 
     @property
@@ -59,9 +59,9 @@ class PontosSensor(SensorEntity):
 
     @property   
     def state(self):
-        return self._state
-
-    # Parsing sensor data
+        return self._data
+    
+    # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
         if data is None:
@@ -83,5 +83,6 @@ class PontosSensor(SensorEntity):
                 _data = float(_data) * self._scale
             except (ValueError, TypeError):
                 pass
-
-        return _data
+        
+        # Update sensor data
+        self.set_data(_data)
