@@ -1,7 +1,7 @@
 # custom_components/hass_pontos/button.py
 import logging
 from homeassistant.components.button import ButtonEntity
-from homeassistant.helpers.entity import Entity
+from homeassistant.util import slugify
 from .const import DOMAIN
 from .device import get_device_info
 
@@ -25,7 +25,7 @@ class PontosClearAlarmsButton(ButtonEntity):
         self._hass = hass
         self._entry = entry
         self._attr_name = f"{device_info['name']} Clear alarms"
-        self._attr_unique_id = f"{device_info['serial_number']}_clear_alarms"
+        self._attr_unique_id = slugify(f"{device_info['serial_number']}_clear_alarms")
         self._device_info = device_info
 
     async def async_press(self):

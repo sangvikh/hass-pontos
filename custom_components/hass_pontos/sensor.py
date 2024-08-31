@@ -1,5 +1,6 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
+from homeassistant.util import slugify
 import logging
 
 from .utils import fetch_data
@@ -40,7 +41,7 @@ class PontosSensor(SensorEntity):
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
-        self._attr_unique_id = f"{device_info['serial_number']}_{sensor_config['name']}"
+        self._attr_unique_id = slugify(f"{device_info['serial_number']}_{sensor_config['name']}")
         self._device_info = device_info
 
     def set_data(self, data):
