@@ -1,6 +1,8 @@
 import logging
 from homeassistant.components.select import SelectEntity
-from homeassistant.core import callback
+from homeassistant.helpers import entity_registry as er
+from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.core import callback, Event
 from .device import get_device_info
 from .const import DOMAIN, PROFILE_CODES
 
@@ -21,6 +23,7 @@ class PontosProfileSelect(SelectEntity):
         self._entry = entry
         self._attr_name = f"{device_info['name']} Profile"
         self._attr_unique_id = f"{device_info['serial_number']}_profile_select"
+        self._sensor_unique_id = f"{device_info['serial_number']}_active_profile"
         self._attr_options = [
             name if name else "Not Defined"
             for name in PROFILE_CODES.values()
@@ -32,9 +35,42 @@ class PontosProfileSelect(SelectEntity):
     async def async_added_to_hass(self):
         """When entity is added to hass."""
         await super().async_added_to_hass()
-        # Retrieve the current profile from the device and set it as the current option
-        current_profile = await self.get_current_profile()
-        self._attr_current_option = self.map_profile_number_to_name(current_profile)
+
+        # Get the entity ID of the sensor using the unique ID
+        entity_registry = er.async_get(self.hass)
+        sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
+        
+        # Fetch the initial state from the sensor entity
+        if sensor_entity_id:
+            sensor_state = self.hass.states.get(sensor_entity_id)
+            initial_state = sensor_state.state if sensor_state else None
+            LOGGER.debug(f"Fetched initial profile state from sensor: {initial_state}")
+            self._attr_current_option = initial_state
+            self.async_write_ha_state()
+
+            # Register state change listener
+            LOGGER.debug(f"Registering state change listener for {sensor_entity_id}")
+            async_track_state_change_event(
+                self.hass,
+                sensor_entity_id,
+                self._sensor_state_changed
+            )
+        else:
+            LOGGER.error(f"Sensor with unique ID {self._sensor_unique_id} not found")
+
+    @callback
+    def _sensor_state_changed(self, event: Event) -> None:
+        """Handle active profile sensor state changes."""
+        new_state = event.data.get('new_state')
+        if new_state is not None:
+            new_option = self.map_profile_number_to_name(new_state.state)
+            if new_option != self._attr_current_option:
+                LOGGER.debug(f"Profile state changed to: {new_option}")
+                self.set_state(new_option)
+
+    def set_state(self, state):
+        """Set the valve state and update Home Assistant."""
+        self._attr_current_option = state
         self.async_write_ha_state()
 
     async def async_select_option(self, option: str):
@@ -55,11 +91,6 @@ class PontosProfileSelect(SelectEntity):
         return {
             "identifiers": self._device_info['identifiers'],
         }
-
-    async def get_current_profile(self):
-        """Fetch the current profile from the device."""
-        # Add your logic here to fetch the current profile from the device
-        return 1  # Example return value
 
     def map_profile_number_to_name(self, profile_number):
         """Map profile number to profile name."""
