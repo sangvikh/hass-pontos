@@ -174,5 +174,3 @@ SERVICES = {
         "endpoint": "clr/ala"
     },
 }
-
-VALVE_STATUS_SENSOR = "sensor.pontos_base_valve_status"
