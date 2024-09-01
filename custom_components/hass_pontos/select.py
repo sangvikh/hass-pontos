@@ -63,7 +63,7 @@ class PontosProfileSelect(SelectEntity):
         """Handle active profile sensor state changes."""
         new_state = event.data.get('new_state')
         if new_state is not None:
-            new_option = self.map_profile_number_to_name(new_state.state)
+            new_option = new_state.state
             if new_option != self._attr_current_option:
                 LOGGER.debug(f"Profile state changed to: {new_option}")
                 self.set_state(new_option)
@@ -91,10 +91,6 @@ class PontosProfileSelect(SelectEntity):
         return {
             "identifiers": self._device_info['identifiers'],
         }
-
-    def map_profile_number_to_name(self, profile_number):
-        """Map profile number to profile name."""
-        return PROFILE_CODES.get(str(profile_number), "not defined")
 
     def map_profile_name_to_number(self, profile_name):
         """Map profile name to profile number."""
