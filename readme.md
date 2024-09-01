@@ -41,7 +41,7 @@ The sensors and services can be added using restful integration. This is a bit l
 
 - [x] Add services
 - [x] Add water valve button
-- [ ] Add profile selection
+- [x] Add profile selection
 - [ ] Read profile names
-- [ ] Select active profile
+- [x] Select active profile
 - [ ] Include in HACS
