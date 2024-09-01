@@ -173,4 +173,8 @@ SERVICES = {
         "name": "Clear alarms",
         "endpoint": "clr/ala"
     },
+    "set_profile": {
+        "name": "Set Profile",
+        "endpoint": "set/prf/{profile_number}"
+    },
 }

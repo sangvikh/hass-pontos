@@ -12,3 +12,12 @@ clear_alarm:
   name: Clear Alarms
   description: Clears any active alarms
   fields: {}
+
+set_profile:
+  name: "Set Profile"
+  description: "Set the water valve profile"
+  fields:
+    profile_number:
+      description: "The profile number to set (e.g., 1, 2, 3, ...)"
+      example: 1
+      required: true
