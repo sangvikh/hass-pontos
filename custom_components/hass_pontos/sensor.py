@@ -1,18 +1,39 @@
-import aiohttp
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
-from homeassistant.helpers.device_registry import async_get as async_get_device_registry
-from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
+from homeassistant.util import slugify
 import logging
 
-from .const import *
+from .utils import fetch_data
+from .device import get_device_info
+from .const import CONF_IP_ADDRESS, SENSOR_DETAILS, FETCH_INTERVAL, URL_LIST
 
 LOGGER = logging.getLogger(__name__)
 
+async def async_setup_entry(hass, entry, async_add_entities):
+    ip_address = entry.data[CONF_IP_ADDRESS]
+    device_info, data = await get_device_info(hass, entry)
+
+    # Instantiate and add sensors
+    sensors = [PontosSensor(sensor_config, device_info) for key, sensor_config in SENSOR_DETAILS.items()]
+    async_add_entities(sensors)
+
+    # Update data so sensors is available immediately
+    for sensor in sensors:
+        sensor.parse_data(data)
+
+    # Function to fetch new data and update all sensors
+    async def update_data(_):
+        data = await fetch_data(ip_address, URL_LIST)
+        for sensor in sensors:
+                sensor.parse_data(data)
+
+    # Schedule updates using the fetch interval
+    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
+
 class PontosSensor(SensorEntity):
-    def __init__(self, sensor_config):
+    def __init__(self, sensor_config, device_info):
         self._data = None
-        self._attr_name = f"Pontos {sensor_config['name']}"
+        self._attr_name = f"{device_info['name']} {sensor_config['name']}"
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
         self._attr_device_class = sensor_config.get('device_class', None)
@@ -20,15 +41,12 @@ class PontosSensor(SensorEntity):
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
-        self._attr_unique_id = f"pontos_{sensor_config['name']}"
-        self._device_id = None
+        self._attr_unique_id = slugify(f"{device_info['serial_number']}_{sensor_config['name']}")
+        self._device_info = device_info
 
     def set_data(self, data):
         self._data = data
         self.async_write_ha_state()
-
-    def set_device_id(self, device_id):
-        self._device_id = device_id
 
     @property
     def unique_id(self):
@@ -37,97 +55,35 @@ class PontosSensor(SensorEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._device_id,
+            "identifiers": self._device_info['identifiers'],
         }
 
     @property   
     def state(self):
         return self._data
+    
+    # Parsing and updating sensor data
+    def parse_data(self, data):
+        """Process, format, and validate sensor data."""
+        if data is None:
+            return None
+        _data = data.get(self._endpoint, None)
 
-sensors = [PontosSensor(config) for key, config in SENSOR_DETAILS.items()]
+        # Apply format replacements if format_dict is present
+        if self._format_dict is not None and _data is not None:
+            for old, new in self._format_dict.items():
+                _data = _data.replace(old, new)
 
-# Fetching data
-async def fetch_data(ip, url_list):
-    urls = [url.format(ip=ip) for url in url_list]
-    data = {}
-    async with aiohttp.ClientSession() as session:
-        for url in urls:
-            async with session.get(url) as response:
-                if response.status == 200:
-                    data.update(await response.json())
-                else:
-                    LOGGER.error(f"Failed to fetch data: HTTP {response.status}")
-    return data
+        # Translate alarm codes if code_dict is present
+        if self._code_dict is not None and _data is not None:
+            _data = self._code_dict.get(_data, _data)
 
-# Parsing sensor data
-def parse_data(data, sensor):
-    """Process, format, and validate sensor data."""
-    if data is None:
-        return None
-    _data = data.get(sensor._endpoint, None)
-
-    # Apply format replacements if format_dict is present
-    if sensor._format_dict is not None and _data is not None:
-        for old, new in sensor._format_dict.items():
-            _data = _data.replace(old, new)
-
-    # Translate alarm codes if code_dict is present
-    if sensor._code_dict is not None and _data is not None:
-        _data = sensor._code_dict.get(_data, _data)
-
-    # Scale sensor data if scale is present
-    if sensor._scale is not None and _data is not None:
-        try:
-            _data = float(_data) * sensor._scale
-        except (ValueError, TypeError):
-            pass
-
-    return _data
-
-async def async_setup_entry(hass, entry, async_add_entities):
-    config = entry.data
-    ip_address = config[CONF_IP_ADDRESS]
-    device_registry = async_get_device_registry(hass)
-
-    # Fetching all relevant data from the device
-    data = await fetch_data(ip_address, URL_LIST)
-
-    # Assign data to variables
-    mac_address = data.get("getMAC", "00:00:00:00:00:00:00:00")
-    serial_number = data.get("getSRN", "")
-    firmware_version = data.get("getVER", "")
-    device_type = data.get("getTYP", "")
-
-    # Create a device entry with fetched data
-    device_info = {
-        "identifiers": {(DOMAIN, "pontos_base")},
-        "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
-        "name": "Pontos Base",
-        "manufacturer": "Hansgrohe",
-        "model": device_type,
-        "sw_version": firmware_version,
-        "serial_number": serial_number,
-    }
-
-    device = device_registry.async_get_or_create(
-        config_entry_id=entry.entry_id,
-        **device_info
-    )
-
-    # Assign device id to each sensor and add entities
-    for sensor in sensors:
-        sensor.set_device_id(device_info['identifiers'])
-    async_add_entities(sensors)
-
-    # Update data so sensors is available immediately
-    for sensor in sensors:
-        sensor.set_data(parse_data(data, sensor))
-
-    # Function to fetch new data and update all sensors
-    async def update_data(_):
-        data = await fetch_data(ip_address, URL_LIST)
-        for sensor in sensors:
-                sensor.set_data(parse_data(data, sensor))
-
-    # Schedule updates using the fetch interval
-    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
+        # Scale sensor data if scale is present
+        if self._scale is not None and _data is not None:
+            try:
+                _data = float(_data) * self._scale
+            except (ValueError, TypeError):
+                pass
+        
+        # Update sensor data
+        self.set_data(_data)

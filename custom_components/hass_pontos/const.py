@@ -1,4 +1,5 @@
 from datetime import  timedelta
+from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
 
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
@@ -43,10 +44,10 @@ PROFILE_CODES = {
 }
 
 VALVE_CODES = {
-    "10": "Closed",
-    "11": "Closing",
-    "20": "Open",
-    "21": "Opening"
+    "10": STATE_CLOSED,
+    "11": STATE_CLOSING,
+    "20": STATE_OPEN,
+    "21": STATE_OPENING
 }
 
 SENSOR_DETAILS = {
@@ -168,8 +169,12 @@ SERVICES = {
         "name": "Close valve",
         "endpoint": "set/ab/2"
     },
-    "clear_alarm": {
+    "clear_alarms": {
         "name": "Clear alarms",
         "endpoint": "clr/ala"
+    },
+    "set_profile": {
+        "name": "Set Profile",
+        "endpoint": "set/prf/{profile_number}"
     },
 }
