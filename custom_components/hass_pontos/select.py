@@ -21,7 +21,11 @@ class PontosProfileSelect(SelectEntity):
         self._entry = entry
         self._attr_name = f"{device_info['name']} Profile"
         self._attr_unique_id = f"{device_info['serial_number']}_profile_select"
-        self._attr_options = [name for name in PROFILE_CODES.values() if name != "not defined"]
+        self._attr_options = [
+            name if name else "Not Defined"
+            for name in PROFILE_CODES.values()
+            if name and name != "not defined"
+        ]
         self._attr_current_option = None
         self._device_info = device_info
 
@@ -59,7 +63,7 @@ class PontosProfileSelect(SelectEntity):
 
     def map_profile_number_to_name(self, profile_number):
         """Map profile number to profile name."""
-        return PROFILE_CODES.get(str(profile_number), "Unknown")
+        return PROFILE_CODES.get(str(profile_number), "not defined")
 
     def map_profile_name_to_number(self, profile_name):
         """Map profile name to profile number."""
