@@ -81,7 +81,7 @@ class PontosSensor(SensorEntity):
         # Scale sensor data if scale is present
         if self._scale is not None and _data is not None:
             try:
-                _data = float(_data) * self._scale
+                _data = round(float(_data) * self._scale, 2)
             except (ValueError, TypeError):
                 pass
         
