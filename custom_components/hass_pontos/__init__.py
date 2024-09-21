@@ -1,5 +1,6 @@
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
+import asyncio
 
 from .services import register_services
 from .device import register_device
@@ -29,13 +30,19 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Unload each platform
-    unload_ok = all(
-        await hass.config_entries.async_forward_entry_unload(entry, platform)
+    tasks = [
+        hass.config_entries.async_forward_entry_unload(entry, platform)
         for platform in platforms
-    )
+    ]
+    
+    # Wait for all tasks to complete and gather results
+    results = await asyncio.gather(*tasks)
+
+    # Ensure all platforms unloaded successfully
+    unload_ok = all(results)
 
     # Remove data related to this entry if everything is unloaded successfully
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
-        
+
     return unload_ok
