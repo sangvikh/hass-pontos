@@ -37,6 +37,7 @@ class PontosSensor(SensorEntity):
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
         self._attr_device_class = sensor_config.get('device_class', None)
+        self._attr_entity_category = sensor_config.get("entity_category", None)
         self._attr_state_class = sensor_config.get('state_class', None)
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
