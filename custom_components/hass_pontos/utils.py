@@ -1,7 +1,6 @@
 import aiohttp
 import logging
 import asyncio
-from aiohttp import ClientConnectorError
 
 LOGGER = logging.getLogger(__name__)
 
@@ -18,7 +17,7 @@ async def fetch_data(ip, url_list):
                     else:
                         LOGGER.error(f"Failed to fetch data from {url}: HTTP {response.status}")
             # Handle connection errors
-            except ClientConnectorError as e:
+            except aiohttp.ClientConnectorError as e:
                 LOGGER.error(f"Connection failed for {url}: {str(e)}")
             # Handle network unreachable errors
             except OSError as e:
