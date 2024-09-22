@@ -66,8 +66,6 @@ class PontosSensor(SensorEntity):
     # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
-        if data is None:
-            return None
         _data = data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
