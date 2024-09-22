@@ -64,9 +64,10 @@ SENSOR_DETAILS = {
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
-        "unit": "mbar",
+        "unit": "bar",
         "device_class": "pressure",
-        "format_dict": {"mbar": ""}
+        "format_dict": {"mbar": ""},
+        "scale": 0.001
     },
     "water_temperature": {
         "name": "Water temperature",
@@ -78,8 +79,7 @@ SENSOR_DETAILS = {
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
-        "unit": "s",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "unit": "s"
     },
     "current_consumption": {
         "name": "Current water consumption",
