@@ -36,6 +36,11 @@ async def get_device_info(hass, entry):
     firmware_version = data.get("getVER", "")
     device_type = data.get("getTYP", "")
 
+    # Validate the data (skip if MAC address or serial number is invalid)
+    if not mac_address or mac_address == "00:00:00:00:00:00:00:00" or not serial_number:
+        LOGGER.error(f"Invalid MAC address or serial number for device {entry_id}. Skipping device registration.")
+        return None, None
+
     device_info = {
         "identifiers": {(DOMAIN, "pontos_base")},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
@@ -58,11 +63,14 @@ async def get_device_info(hass, entry):
 async def register_device(hass, entry):
     entry_id = entry.entry_id
 
-    # Create a device entry with fetched data
-    device_registry = async_get_device_registry(hass)
+    # Get device info and skip registration if the info is None
     device_info, _ = await get_device_info(hass, entry)
+    if device_info is None:
+        LOGGER.error(f"Device registration skipped for entry {entry_id} due to missing or invalid data.")
+        return
 
     # Register device in the device registry
+    device_registry = async_get_device_registry(hass)
     device_registry.async_get_or_create(
         config_entry_id=entry_id,
         **device_info
