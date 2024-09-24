@@ -1,4 +1,5 @@
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
 import logging
@@ -66,6 +67,9 @@ class PontosSensor(SensorEntity):
     # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
+        if data is None:
+            self.set_data = STATE_UNAVAILABLE
+            return None
         _data = data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
