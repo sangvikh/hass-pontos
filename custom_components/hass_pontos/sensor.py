@@ -62,14 +62,13 @@ class PontosSensor(SensorEntity):
 
     @property   
     def state(self):
+        if self._data is None:
+            return STATE_UNAVAILABLE
         return self._data
     
     # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
-        if data is None:
-            self.set_data = STATE_UNAVAILABLE
-            return None
         _data = data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
