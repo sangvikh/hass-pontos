@@ -3,7 +3,7 @@ import time
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 
-from .const import DOMAIN, URL_LIST, CONF_IP_ADDRESS, FETCH_INTERVAL
+from .const import DOMAIN, URL_LIST, CONF_IP_ADDRESS, CONF_DEVICE_NAME, FETCH_INTERVAL
 from .utils import fetch_data
 
 LOGGER = logging.getLogger(__name__)
@@ -14,6 +14,7 @@ _device_cache = {}
 async def get_device_info(hass, entry):
     entry_id = entry.entry_id
     ip_address = entry.data[CONF_IP_ADDRESS]
+    device_name = entry.data[CONF_DEVICE_NAME]
 
     # Check if the data is already cached and not expired
     if entry_id in _device_cache:
@@ -44,7 +45,7 @@ async def get_device_info(hass, entry):
     device_info = {
         "identifiers": {(DOMAIN, "pontos_base")},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
-        "name": "Pontos Base",
+        "name": device_name,
         "manufacturer": "Hansgrohe",
         "model": device_type,
         "sw_version": firmware_version,

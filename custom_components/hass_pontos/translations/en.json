@@ -1,0 +1,31 @@
+{
+    "title": "Hansgrohe Pontos",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Set up Pontos Base",
+                "description": "Please enter the IP address and device name for your Pontos Base",
+                "data": {
+                    "ip_address": "IP Address",
+                    "device_name": "Device Name"
+                }
+            },
+            "options": {
+                "title": "Configure Pontos Base",
+                "description": "Update your Pontos Base configuration",
+                "data": {
+                    "ip_address": "IP Address"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to the device"
+        }
+    },
+    "services": {
+        "set_profile": {
+            "name": "Set Profile",
+            "description": "Set the active profile on your Pontos Base"
+        }
+    }
+}

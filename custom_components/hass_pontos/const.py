@@ -5,6 +5,7 @@ from homeassistant.components.sensor import SensorDeviceClass
 
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
+CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/pontos-base/"
