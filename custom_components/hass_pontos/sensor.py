@@ -1,5 +1,4 @@
 from homeassistant.components.sensor import SensorEntity
-from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
 import logging
