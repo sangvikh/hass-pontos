@@ -85,10 +85,11 @@ SENSOR_DETAILS = {
     "current_consumption": {
         "name": "Current water consumption",
         "endpoint": "getAVO",
-        "unit": "mL",
+        "unit": "L",
         "device_class": SensorDeviceClass.WATER,
         "format_dict": {"mL": ""},
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 0.001
     },
     "leak_test_pressure": {
         "name": "Leak test pressure drop",
