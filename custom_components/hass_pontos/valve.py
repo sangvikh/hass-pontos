@@ -1,7 +1,9 @@
 import logging
+from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
 from homeassistant.components.valve import ValveEntity, ValveEntityFeature, ValveDeviceClass
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers import entity_registry as er
+from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.util import slugify
 from homeassistant.core import callback, Event
 from .device import get_device_info
@@ -67,13 +69,27 @@ class PontosValve(ValveEntity):
     @callback
     def _sensor_state_changed(self, event: Event) -> None:
         new_state = event.data.get('new_state')
-        if new_state is not None:
-            self.set_state(new_state.state)
+        self.set_state(new_state.state)
+    
+    @property
+    def is_open(self):
+        return self._state == STATE_OPEN
 
-    @property   
-    def state(self):
-        """Return the current state of the valve."""
-        return self._state
+    @property
+    def is_closed(self):
+        return self._state == STATE_CLOSED
+    
+    @property
+    def is_opening(self):
+        return self._state == STATE_OPENING
+
+    @property
+    def is_closing(self):
+        return self._state == STATE_CLOSING
+    
+    @property
+    def available(self):
+        return self._state != STATE_UNAVAILABLE
 
     @property
     def supported_features(self):
@@ -92,28 +108,17 @@ class PontosValve(ValveEntity):
             "identifiers": self._device_info['identifiers'],
         }
 
-    def open_valve(self) -> None:
-        """Synchronously open the valve."""
-        # Execute the async function within the event loop
-        self._hass.add_job(self.async_open)
-
-    def close_valve(self) -> None:
-        """Synchronously close the valve."""
-        # Execute the async function within the event loop
-        self._hass.add_job(self.async_close)
-
-    async def async_open(self) -> None:
-        """Asynchronously open the valve."""
+    async def async_open_valve(self, **kwargs):
         await self._hass.services.async_call(
-            DOMAIN, 
+            DOMAIN,
             "open_valve",
             service_data={"entry_id": self._entry.entry_id}
         )
 
-    async def async_close(self) -> None:
-        """Asynchronously close the valve."""
+    async def async_close_valve(self, **kwargs):
         await self._hass.services.async_call(
-            DOMAIN, 
+            DOMAIN,
             "close_valve",
             service_data={"entry_id": self._entry.entry_id}
         )
+
