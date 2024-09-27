@@ -4,13 +4,20 @@
         "step": {
             "user": {
                 "title": "Sett opp Pontos Base",
-                "description": "Vennligst oppgi IP-adresse og enhetsnavn for din Pontos Base",
+                "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din Pontos Base",
                 "data": {
                     "ip_address": "IP-adresse",
                     "device_name": "Enhetsnavn"
                 }
-            },
-            "options": {
+            }
+        },
+        "error": {
+            "cannot_connect": "Kunne ikke koble til enheten"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
                 "title": "Konfigurer Pontos Base",
                 "description": "Oppdater konfigurasjonen for din Pontos Base",
                 "data": {
@@ -24,8 +31,8 @@
     },
     "services": {
         "set_profile": {
-            "name": "Angi profil",
-            "description": "Angi aktiv profil for din Pontos Base"
+            "name": "Sett profil",
+            "description": "Angi aktiv profil på din Pontos Base"
         }
     }
 }
