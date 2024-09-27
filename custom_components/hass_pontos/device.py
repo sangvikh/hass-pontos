@@ -31,16 +31,21 @@ async def get_device_info(hass, entry):
     # Fetching all relevant data from the device
     data = await fetch_data(ip_address, URL_LIST)
 
+    # If data is None or empty, raise an exception
+    if not data:
+        LOGGER.error(f"Failed to fetch data from the device at {ip_address}")
+        raise Exception("Failed to fetch data from the device")
+
     # Assign data to variables
     mac_address = data.get("getMAC", "00:00:00:00:00:00:00:00")
     serial_number = data.get("getSRN", "")
     firmware_version = data.get("getVER", "")
     device_type = data.get("getTYP", "")
 
-    # Validate the data (skip if MAC address or serial number is invalid)
+    # Validate the data (raise exception if MAC address or serial number is invalid)
     if not mac_address or mac_address == "00:00:00:00:00:00:00:00" or not serial_number:
-        LOGGER.error(f"Invalid MAC address or serial number for device {entry_id}. Skipping device registration.")
-        return None, None
+        LOGGER.error(f"Invalid MAC address or serial number for device {entry_id}.")
+        raise Exception("Invalid MAC address or serial number")
 
     device_info = {
         "identifiers": {(DOMAIN, "pontos_base")},
@@ -64,11 +69,8 @@ async def get_device_info(hass, entry):
 async def register_device(hass, entry):
     entry_id = entry.entry_id
 
-    # Get device info and skip registration if the info is None
+    # Get device info (will raise exception if it fails)
     device_info, _ = await get_device_info(hass, entry)
-    if device_info is None:
-        LOGGER.error(f"Device registration skipped for entry {entry_id} due to missing or invalid data.")
-        return
 
     # Register device in the device registry
     device_registry = async_get_device_registry(hass)

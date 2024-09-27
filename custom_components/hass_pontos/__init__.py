@@ -1,10 +1,14 @@
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.exceptions import ConfigEntryNotReady
 import asyncio
+import logging
 
 from .services import register_services
 from .device import register_device
 from .const import DOMAIN
+
+LOGGER = logging.getLogger(__name__)
 
 platforms = ['sensor', 'button', 'valve', 'select']
 
@@ -15,8 +19,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
 
-    # Register the device
-    await register_device(hass, entry)
+    try:
+        # Register the device
+        await register_device(hass, entry)
+    except Exception as e:
+        LOGGER.error(f"Error setting up device: {e}")
+        raise ConfigEntryNotReady from e
 
     # Register services
     await register_services(hass)
