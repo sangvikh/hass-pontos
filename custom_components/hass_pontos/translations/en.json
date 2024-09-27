@@ -9,8 +9,15 @@
                     "ip_address": "IP Address",
                     "device_name": "Device Name"
                 }
-            },
-            "options": {
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to the device"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
                 "title": "Configure Pontos Base",
                 "description": "Update your Pontos Base configuration",
                 "data": {
