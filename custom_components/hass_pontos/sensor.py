@@ -61,7 +61,7 @@ class PontosSensor(SensorEntity):
         }
 
     @property   
-    def state(self):
+    def native_value(self):
         if self._data is None:
             return STATE_UNAVAILABLE
         return self._data
