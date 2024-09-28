@@ -12,9 +12,6 @@ LOGGER = logging.getLogger(__name__)
 
 platforms = ['sensor', 'button', 'valve', 'select']
 
-async def async_setup(hass: HomeAssistant, config: dict):
-    return True
-
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
