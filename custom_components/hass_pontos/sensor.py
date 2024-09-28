@@ -23,7 +23,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        data = await fetch_data(ip_address, URL_LIST)
+        data = await fetch_data(hass, ip_address, URL_LIST)
         for sensor in sensors:
                 sensor.parse_data(data)
 

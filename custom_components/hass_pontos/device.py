@@ -29,7 +29,7 @@ async def get_device_info(hass, entry):
     LOGGER.debug(f"Fetching data for device {entry_id} from the device")
 
     # Fetching all relevant data from the device
-    data = await fetch_data(ip_address, URL_LIST)
+    data = await fetch_data(hass, ip_address, URL_LIST)
 
     # If data is None or empty, raise an exception
     if not data:
