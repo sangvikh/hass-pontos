@@ -1,8 +1,11 @@
 from datetime import  timedelta
 from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
+from homeassistant.helpers.entity import EntityCategory
+from homeassistant.components.sensor import SensorDeviceClass
 
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
+CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/pontos-base/"
@@ -62,9 +65,10 @@ SENSOR_DETAILS = {
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
-        "unit": "mbar",
+        "unit": "bar",
         "device_class": "pressure",
-        "format_dict": {"mbar": ""}
+        "format_dict": {"mbar": ""},
+        "scale": 0.001
     },
     "water_temperature": {
         "name": "Water temperature",
@@ -81,56 +85,67 @@ SENSOR_DETAILS = {
     "current_consumption": {
         "name": "Current water consumption",
         "endpoint": "getAVO",
-        "unit": "mL",
-        "device_class": "water",
-        "format_dict": {"mL": ""}
+        "unit": "L",
+        "device_class": SensorDeviceClass.WATER,
+        "format_dict": {"mL": ""},
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 0.001
     },
     "leak_test_pressure": {
         "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
-        "device_class": "pressure"
+        "device_class": "pressure",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
         "name": "Wifi state",
-        "endpoint": "getWFS"
+        "endpoint": "getWFS",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
         "unit": "dBm",
         "device_class": "signal_strength",
-        "scale": -1
+        "scale": -1,
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "battery_voltage": {
         "name": "Battery voltage",
         "endpoint": "getBAT",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."}
+        "format_dict": {",": "."},
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mains_voltage": {
         "name": "Mains voltage",
         "endpoint": "getNET",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."}
+        "format_dict": {",": "."},
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "serial_number": {
         "name": "Serial number",
-        "endpoint": "getSRN"
+        "endpoint": "getSRN",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "firmware_version": {
         "name": "Firmware version",
-        "endpoint": "getVER"
+        "endpoint": "getVER",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "device_type": {
         "name": "Device type",
-        "endpoint": "getTYP"
+        "endpoint": "getTYP",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
         "name": "MAC Address",
-        "endpoint": "getMAC"
+        "endpoint": "getMAC",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "alarm_status": {
         "name": "Alarm status",
@@ -140,12 +155,14 @@ SENSOR_DETAILS = {
     "active_profile": {
         "name": "Active profile",
         "endpoint": "getPRF",
-        "code_dict": PROFILE_CODES
+        "code_dict": PROFILE_CODES,
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "valve_status": {
         "name": "Valve status",
         "endpoint": "getVLV",
-        "code_dict": VALVE_CODES
+        "code_dict": VALVE_CODES,
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
     "water_conductivity": {
         "name": "Water conductivity",

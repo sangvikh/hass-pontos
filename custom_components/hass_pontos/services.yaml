@@ -8,7 +8,7 @@ close_valve:
   description: Closes the valve
   fields: {}
 
-clear_alarm:
+clear_alarms:
   name: Clear Alarms
   description: Clears any active alarms
   fields: {}

@@ -23,7 +23,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        data = await fetch_data(ip_address, URL_LIST)
+        data = await fetch_data(hass, ip_address, URL_LIST)
         for sensor in sensors:
                 sensor.parse_data(data)
 
@@ -37,6 +37,7 @@ class PontosSensor(SensorEntity):
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
         self._attr_device_class = sensor_config.get('device_class', None)
+        self._attr_entity_category = sensor_config.get("entity_category", None)
         self._attr_state_class = sensor_config.get('state_class', None)
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
@@ -59,14 +60,16 @@ class PontosSensor(SensorEntity):
         }
 
     @property   
-    def state(self):
+    def native_value(self):
         return self._data
+    
+    @property
+    def available(self):
+        return self._data is not None
     
     # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
-        if data is None:
-            return None
         _data = data.get(self._endpoint, None)
 
         # Apply format replacements if format_dict is present
@@ -81,7 +84,7 @@ class PontosSensor(SensorEntity):
         # Scale sensor data if scale is present
         if self._scale is not None and _data is not None:
             try:
-                _data = float(_data) * self._scale
+                _data = round(float(_data) * self._scale, 2)
             except (ValueError, TypeError):
                 pass
         

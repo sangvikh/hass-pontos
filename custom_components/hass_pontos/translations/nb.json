@@ -1,0 +1,38 @@
+{
+    "title": "Hansgrohe Pontos",
+    "config": {
+        "step": {
+            "user": {
+                "title": "Sett opp Pontos Base",
+                "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din Pontos Base",
+                "data": {
+                    "ip_address": "IP-adresse",
+                    "device_name": "Enhetsnavn"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Kunne ikke koble til enheten"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "Konfigurer Pontos Base",
+                "description": "Oppdater konfigurasjonen for din Pontos Base",
+                "data": {
+                    "ip_address": "IP-adresse"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Kunne ikke koble til enheten"
+        }
+    },
+    "services": {
+        "set_profile": {
+            "name": "Sett profil",
+            "description": "Angi aktiv profil på din Pontos Base"
+        }
+    }
+}

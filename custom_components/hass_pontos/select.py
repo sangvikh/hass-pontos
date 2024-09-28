@@ -2,6 +2,7 @@ import logging
 from homeassistant.components.select import SelectEntity
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.event import async_track_state_change_event
+from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import callback, Event
 from .device import get_device_info
 from .const import DOMAIN, PROFILE_CODES
@@ -91,6 +92,10 @@ class PontosProfileSelect(SelectEntity):
         return {
             "identifiers": self._device_info['identifiers'],
         }
+    
+    @property
+    def available(self):
+        return self._attr_current_option != STATE_UNAVAILABLE
 
     def map_profile_name_to_number(self, profile_name):
         """Map profile name to profile number."""
