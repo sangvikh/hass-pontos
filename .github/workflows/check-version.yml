@@ -26,7 +26,7 @@ jobs:
       - name: Read version from manifest.json
         id: read_version
         run: |
-          version=$(jq -r '.version' manifest.json)
+          version=$(jq -r '.version' custom_components/hass_pontos/manifest.json)
           echo "::set-output name=version::$version"
 
       - name: Compare versions
