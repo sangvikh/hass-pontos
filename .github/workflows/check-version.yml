@@ -11,28 +11,28 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all tags
 
       - name: Get latest tag
         id: get_latest_tag
         run: |
           if git describe --tags `git rev-list --tags --max-count=1` > /dev/null 2>&1; then
             latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-            echo "::set-output name=latest_tag::$latest_tag"
+            echo "latest_tag=$latest_tag" >> $GITHUB_ENV
           else
             echo "No tags found."
-            echo "::set-output name=latest_tag::"
+            echo "latest_tag=" >> $GITHUB_ENV
           fi
 
       - name: Read version from manifest.json
         id: read_version
         run: |
           version=$(jq -r '.version' custom_components/hass_pontos/manifest.json)
-          echo "::set-output name=version::$version"
+          echo "version=$version" >> $GITHUB_ENV
 
       - name: Compare versions
         run: |
-          latest_tag=${{ steps.get_latest_tag.outputs.latest_tag }}
-          version=${{ steps.read_version.outputs.version }}
           if [ -z "$latest_tag" ]; then
             echo "No tags found, skipping version check."
           elif [ "$latest_tag" = "$version" ]; then
