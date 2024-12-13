@@ -1,0 +1,36 @@
+name: Check Version
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "::set-output name=latest_tag::$latest_tag"
+
+      - name: Read version from manifest.json
+        id: read_version
+        run: |
+          version=$(jq -r '.version' manifest.json)
+          echo "::set-output name=version::$version"
+
+      - name: Compare versions
+        run: |
+          latest_tag=${{ steps.get_latest_tag.outputs.latest_tag }}
+          version=${{ steps.read_version.outputs.version }}
+          if [ "$latest_tag" = "$version" ]; then
+            echo "Version in manifest.json ($version) is the same as the latest tag ($latest_tag)."
+            exit 1
+          else
+            echo "Version in manifest.json ($version) is different from the latest tag ($latest_tag)."
+          fi
