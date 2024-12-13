@@ -15,8 +15,13 @@ jobs:
       - name: Get latest tag
         id: get_latest_tag
         run: |
-          latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-          echo "::set-output name=latest_tag::$latest_tag"
+          if git describe --tags `git rev-list --tags --max-count=1` > /dev/null 2>&1; then
+            latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+            echo "::set-output name=latest_tag::$latest_tag"
+          else
+            echo "No tags found."
+            echo "::set-output name=latest_tag::"
+          fi
 
       - name: Read version from manifest.json
         id: read_version
@@ -28,7 +33,9 @@ jobs:
         run: |
           latest_tag=${{ steps.get_latest_tag.outputs.latest_tag }}
           version=${{ steps.read_version.outputs.version }}
-          if [ "$latest_tag" = "$version" ]; then
+          if [ -z "$latest_tag" ]; then
+            echo "No tags found, skipping version check."
+          elif [ "$latest_tag" = "$version" ]; then
             echo "Version in manifest.json ($version) is the same as the latest tag ($latest_tag)."
             exit 1
           else
