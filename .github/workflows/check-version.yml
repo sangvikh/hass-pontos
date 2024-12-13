@@ -1,0 +1,49 @@
+name: Check Version
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all tags
+
+      - name: Get latest tag
+        id: get_latest_tag
+        run: |
+          if git describe --tags `git rev-list --tags --max-count=1` > /dev/null 2>&1; then
+            latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+            echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+          else
+            echo "No tags found."
+            echo "latest_tag=" >> $GITHUB_ENV
+          fi
+
+      - name: Read version from manifest.json
+        id: read_version
+        run: |
+          version=$(jq -r '.version' custom_components/hass_pontos/manifest.json)
+          echo "version=$version" >> $GITHUB_ENV
+
+      - name: Compare versions
+        run: |
+          latest_tag=${{ env.latest_tag }}
+          version=${{ env.version }}
+          if [ -z "$latest_tag" ]; then
+            echo "No tags found, skipping version check."
+          else
+            latest_tag_numeric=$(echo $latest_tag | sed 's/v//; s/[^0-9.]//g')
+            version_numeric=$(echo $version | sed 's/v//; s/[^0-9.]//g')
+            if [ "$(printf '%s\n' "$latest_tag_numeric" "$version_numeric" | sort -V | head -n1)" = "$latest_tag_numeric" ] && [ "$latest_tag_numeric" != "$version_numeric" ]; then
+              echo "Version in manifest.json ($version) is greater than the latest tag ($latest_tag)."
+            else
+              echo "Version in manifest.json ($version) is not greater than the latest tag ($latest_tag)."
+              exit 1
+            fi
+          fi
