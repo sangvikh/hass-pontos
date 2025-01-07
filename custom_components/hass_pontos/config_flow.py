@@ -4,7 +4,7 @@ import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
-from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, URL_ADMIN
+from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, URL_ADMIN, CONF_SENSOR_TYPE, SENSOR_CONFIG_FILES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
@@ -24,12 +24,13 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             else:
                 errors['base'] = 'cannot_connect'
 
-        # Display the form to collect IP address and device name
+        # Display the form to collect IP address, device name, and sensor type
         return self.async_show_form(
             step_id="user", 
             data_schema=vol.Schema({
                 vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
                 vol.Optional(CONF_DEVICE_NAME, default="Pontos Base"): str,
+                vol.Required(CONF_SENSOR_TYPE): vol.In(SENSOR_CONFIG_FILES.keys()),
             }),
             errors=errors
         )
