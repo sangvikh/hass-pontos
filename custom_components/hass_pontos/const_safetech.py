@@ -3,6 +3,8 @@ from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOS
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
+PLATFORMS = ['sensor', 'button', 'valve', 'select']
+
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"

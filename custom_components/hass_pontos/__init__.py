@@ -3,18 +3,23 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.exceptions import ConfigEntryNotReady
 import asyncio
 import logging
+import importlib
 
 from .services import register_services
 from .device import register_device
-from .const import DOMAIN
+from .const import DOMAIN, MAKES, CONF_MAKE
 
 LOGGER = logging.getLogger(__name__)
 
-platforms = ['sensor', 'button', 'valve', 'select']
-
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][entry.entry_id] = entry.data
+    
+    make = entry.data[CONF_MAKE]
+    config_module = importlib.import_module(f".{MAKES[make]}", package=__name__)
+    hass.data[DOMAIN][entry.entry_id] = {
+        "entry": entry.data,
+        "sensor_config": config_module.SENSOR_TYPES,
+    }
 
     try:
         # Register the device
@@ -26,10 +31,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Register services
     await register_services(hass)
 
-    # Register entities for each platform
-    hass.async_create_task(
-        hass.config_entries.async_forward_entry_setups(entry, platforms)
-    )
+    for platform in config_module.PLATFORMS:
+        hass.async_create_task(
+            hass.config_entries.async_forward_entry_setup(entry, platform)
+        )
 
     return True
 

@@ -2,33 +2,38 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
 import logging
+import importlib
 
 from .utils import fetch_data
 from .device import get_device_info
-from .const import CONF_IP_ADDRESS, SENSOR_DETAILS, FETCH_INTERVAL, URL_LIST
+from .const import CONF_IP_ADDRESS, DOMAIN, MAKES, CONF_MAKE
 
 LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
+    make = entry.data[CONF_MAKE]
+    config_module = importlib.import_module(f".{MAKES[make]}", package=__name__)
+    sensor_configs = config_module.SENSOR_DETAILS
+    url_list = config_module.URL_LIST
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_info, data = await get_device_info(hass, entry)
 
     # Instantiate and add sensors
-    sensors = [PontosSensor(sensor_config, device_info) for key, sensor_config in SENSOR_DETAILS.items()]
+    sensors = [PontosSensor(sensor_config, device_info) for sensor_config in sensor_configs.values()]
     async_add_entities(sensors)
 
-    # Update data so sensors is available immediately
+    # Update data so sensors are available immediately
     for sensor in sensors:
         sensor.parse_data(data)
 
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        data = await fetch_data(hass, ip_address, URL_LIST)
+        data = await fetch_data(hass, ip_address, url_list)
         for sensor in sensors:
-                sensor.parse_data(data)
+            sensor.parse_data(data)
 
     # Schedule updates using the fetch interval
-    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
+    async_track_time_interval(hass, update_data, config_module.FETCH_INTERVAL)
 
 class PontosSensor(SensorEntity):
     def __init__(self, sensor_config, device_info):
