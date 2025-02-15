@@ -1,15 +1,28 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
+import importlib
 import logging
 
 from .utils import fetch_data
 from .device import get_device_info
-from .const import CONF_IP_ADDRESS, SENSOR_DETAILS, FETCH_INTERVAL, URL_LIST
+from .const import DOMAIN, CONF_MAKE, CONF_IP_ADDRESS, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
+    """Set up sensors for the selected device."""
+    # Dynamically import the constants module for this device
+    make = entry.data.get(CONF_MAKE, "pontos")
+    module_name = MAKES.get(make, "const_pontos")
+    device_const = importlib.import_module(f".{module_name}", __package__)
+    
+    # Now you can access e.g. device_const.SENSOR_DETAILS, device_const.FETCH_INTERVAL, device_const.URL_LIST
+    SENSOR_DETAILS = device_const.SENSOR_DETAILS
+    FETCH_INTERVAL = device_const.FETCH_INTERVAL
+    URL_LIST       = device_const.URL_LIST
+
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_info, data = await get_device_info(hass, entry)
 
