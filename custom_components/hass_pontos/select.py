@@ -1,5 +1,4 @@
 import logging
-import importlib
 from homeassistant.components.select import SelectEntity
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.event import async_track_state_change_event
@@ -7,7 +6,7 @@ from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import callback, Event
 
 from .device import get_device_info
-from .const import DOMAIN, CONF_MAKE, MAKES, CONF_IP_ADDRESS
+from .const import DOMAIN, CONF_MAKE, MAKES, CONF_IP_ADDRESS, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
@@ -16,8 +15,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Dynamically load the device-specific constants
     make = entry.data.get(CONF_MAKE, "pontos")
-    module_name = MAKES.get(make, "const_pontos")
-    device_const = importlib.import_module(f".{module_name}", __package__)
+    device_const = MAKES[make]
 
     # Get the device info (and possibly data if you need it)    
     device_info, data = await get_device_info(hass, entry)

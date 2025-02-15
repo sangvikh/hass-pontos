@@ -18,7 +18,7 @@ async def fetch_data(hass, ip, url_list):
     for url in urls:
         try:
             # Use async with only on the request, not the session
-            async with session.get(url, timeout=10) as response:
+            async with session.get(url, timeout=10) as response:    
                 if response.status == 200:
                     data.update(await response.json())  # Update data with response
                 else:

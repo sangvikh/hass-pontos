@@ -1,6 +1,4 @@
-# FILE: __init__.py
 import asyncio
-import importlib
 import logging
 
 from homeassistant.core import HomeAssistant
@@ -15,12 +13,8 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Access which 'make' the user selected in config_flow
-    make = entry.data.get(CONF_MAKE, "pontos")  # default if missing
-    module_name = MAKES.get(make, "const_pontos")  # fallback if needed
-    
-    # Dynamically import the device-specific constants module, e.g. const_pontos
-    device_const = importlib.import_module(f".{module_name}", __package__)
-    # For example, device_const.PLATFORMS might be ["sensor", "button", "valve", ...]
+    make = entry.data.get(CONF_MAKE, "pontos")
+    device_const = MAKES[make]
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
@@ -46,8 +40,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Dynamically figure out which device_const file to unload from
     make = entry.data.get(CONF_MAKE, "pontos")
-    module_name = MAKES.get(make, "const_pontos")
-    device_const = importlib.import_module(f".{module_name}", __package__)
+    device_const = MAKES[make]
 
     # Unload each relevant platform
     platforms = getattr(device_const, "PLATFORMS", [])

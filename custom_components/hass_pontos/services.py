@@ -1,10 +1,7 @@
-# FILE: services.py
 import logging
-import importlib
 import aiohttp
 
-from .const import DOMAIN, MAKES, CONF_MAKE
-from .const import FETCH_INTERVAL  # if needed globally
+from .const import DOMAIN, MAKES, CONF_MAKE, MAKES
 LOGGER = logging.getLogger(__name__)
 
 async def async_service_handler(hass, call, service_name):
@@ -13,8 +10,7 @@ async def async_service_handler(hass, call, service_name):
     # For each entry in hass.data[DOMAIN], load that device's consts, etc.
     for entry_data in hass.data[DOMAIN].values():
         make = entry_data.get(CONF_MAKE, "pontos")
-        module_name = MAKES.get(make, "const_pontos")
-        device_const = importlib.import_module(f".{module_name}", __package__)
+        device_const = MAKES[make]
 
         ip_address = entry_data.get("ip_address")
         endpoint = device_const.SERVICES[service_name]["endpoint"]
@@ -35,8 +31,7 @@ async def register_services(hass):
     """Register all custom services from the device's service definitions."""
     for entry_data in hass.data[DOMAIN].values():
         make = entry_data.get(CONF_MAKE, "pontos")
-        module_name = MAKES.get(make, "const_pontos")
-        device_const = importlib.import_module(f".{module_name}", __package__)
+        device_const = MAKES[make]
 
         for service_name in device_const.SERVICES.keys():
             # Only register once. If multiple entries are the same make,

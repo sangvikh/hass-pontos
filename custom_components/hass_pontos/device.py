@@ -1,7 +1,6 @@
 # FILE: device.py
 import logging
 import time
-import importlib
 
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
@@ -20,8 +19,8 @@ async def get_device_info(hass, entry):
     make = entry.data.get(CONF_MAKE, "pontos")
 
     # Import the device-specific const module
-    module_name = MAKES.get(make, "const_pontos")
-    device_const = importlib.import_module(f".{module_name}", __package__)
+    make = entry.data.get(CONF_MAKE, "pontos")
+    device_const = MAKES[make]
 
     # Example: Use the device_const.URL_LIST to fetch data
     # (Your existing code does something similar.)
