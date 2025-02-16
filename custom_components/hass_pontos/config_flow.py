@@ -59,7 +59,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         if not device_const:
             return False
 
-        url_list = device_const.URL_LIST  # Each make-specific file defines URL_LIST
+        url_list = device_const.URL_ADMIN  # Each make-specific file defines URL_LIST
         data = await fetch_data(self.hass, ip_address, url_list)
         return bool(data)
 
@@ -115,7 +115,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         if not device_const:
             return False
 
-        url_list = device_const.URL_LIST
+        url_list = device_const.URL_ADMIN
         data = await fetch_data(self.hass, ip_address, url_list)
         return bool(data)
 
