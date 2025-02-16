@@ -8,6 +8,10 @@ LOGGER = logging.getLogger(__name__)
 # Fetching data with error handling and URL logging
 async def fetch_data(hass, ip, url_list):
     """Fetch data from the Pontos device using the shared aiohttp session."""
+    if isinstance(url_list, str):
+        # Convert to a one-element list
+        url_list = [url_list]
+
     urls = [url.format(ip=ip) for url in url_list]
     data = {}
 
@@ -18,7 +22,7 @@ async def fetch_data(hass, ip, url_list):
     for url in urls:
         try:
             # Use async with only on the request, not the session
-            async with session.get(url, timeout=10) as response:    
+            async with session.get(url, timeout=10) as response:
                 if response.status == 200:
                     data.update(await response.json())  # Update data with response
                 else:
