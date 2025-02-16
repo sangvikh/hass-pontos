@@ -61,7 +61,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
         url_list = device_const.URL_LIST  # Each make-specific file defines URL_LIST
         data = await fetch_data(self.hass, ip_address, url_list)
-        return data is not None
+        return bool(data)
 
     @staticmethod
     @callback
@@ -71,17 +71,56 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class PontosOptionsFlowHandler(config_entries.OptionsFlow):
-    """Example options flow to update IP or other device options."""
+    """Handle options flow, allowing editing the IP address (and/or other settings)."""
 
     def __init__(self, config_entry):
+        """Store the config_entry so we can retrieve/update it."""
         self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
-        """Kick off the options flow."""
-        return await self.async_step_user()
+        """
+        The first (and possibly only) step of the options flow.
+        We'll let the user change the IP address.
+        """
+        errors = {}
 
-    async def async_step_user(self, user_input=None):
-        """Show a form to edit IP or other settings."""
-        # This is just an example placeholder.
-        # In reality, you'd create a similar vol.Schema to edit IP, etc.
-        return self.async_show_form(step_id="user")
+        if user_input is not None:
+            # Validate the new IP by fetching from the device
+            new_ip = user_input[CONF_IP_ADDRESS]
+            make = self.config_entry.data[CONF_MAKE]  # e.g. "pontos"
+
+            if await self._test_connection(new_ip, make):
+                # If valid, create (or update) the options
+                return self.async_create_entry(title="", data=user_input)
+            else:
+                errors["base"] = "cannot_connect"
+
+        # Show the form to edit IP address
+        current_ip = self.config_entry.data.get(CONF_IP_ADDRESS)
+        if self.config_entry.options.get(CONF_IP_ADDRESS):
+            # If there's already an IP in the options, use that instead
+            current_ip = self.config_entry.options[CONF_IP_ADDRESS]
+
+        return self.async_show_form(
+            step_id="init",
+            data_schema=vol.Schema({
+                vol.Required(CONF_IP_ADDRESS, default=current_ip): str,
+            }),
+            errors=errors
+        )
+
+    async def _test_connection(self, ip_address: str, make: str) -> bool:
+        """Test if we can successfully reach the device with the new IP."""
+        device_const = MAKES.get(make)
+        if not device_const:
+            return False
+
+        url_list = device_const.URL_LIST
+        data = await fetch_data(self.hass, ip_address, url_list)
+        return bool(data)
+
+    @staticmethod
+    @callback
+    def async_get_options_flow(config_entry):
+        """Return the options flow handler for this config entry."""
+        return PontosOptionsFlowHandler(config_entry)
