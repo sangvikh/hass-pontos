@@ -1,79 +1,87 @@
-import aiohttp
-import asyncio
 import voluptuous as vol
-
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
+from .utils import fetch_data
 from .const import (
-    DOMAIN, 
-    CONF_IP_ADDRESS, 
-    CONF_DEVICE_NAME, 
+    DOMAIN,
+    CONF_IP_ADDRESS,
+    CONF_DEVICE_NAME,
     CONF_MAKE,
-    MAKES,         # The dict mapping make -> module
+    MAKES,
 )
+
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
-        """Handle the initial step where users enter IP, device name, and pick the make."""
+        """Handle the initial step where the user enters IP, device name, and picks the make."""
         errors = {}
-        
+
         if user_input is not None:
-            # Optional: Validate IP or do a test connection
-            valid = await self._test_connection(user_input[CONF_IP_ADDRESS])
+            # Extract IP and make from the form data
+            ip = user_input[CONF_IP_ADDRESS]
+            make = user_input[CONF_MAKE]
+
+            # Optional: validate the IP by attempting a connection
+            valid = await self._test_connection(ip, make)
             if valid:
-                # Make sure the selected make is in our dictionary
-                if user_input[CONF_MAKE] in MAKES:
+                # Ensure the selected make actually exists in our dictionary
+                if make in MAKES:
                     return self.async_create_entry(
                         title=user_input.get(CONF_DEVICE_NAME, "Pontos Device"),
-                        data=user_input
+                        data=user_input,
                     )
                 else:
                     errors["base"] = "invalid_make"
             else:
                 errors["base"] = "cannot_connect"
-        
-        # Show the form (including the selection for make)
-        schema = vol.Schema({
+
+        # Show the form (including the dropdown for make)
+        data_schema = vol.Schema({
             vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
             vol.Optional(CONF_DEVICE_NAME, default="Pontos Base"): str,
             vol.Required(CONF_MAKE, default="pontos"): vol.In(list(MAKES.keys())),
         })
-        
+
         return self.async_show_form(
-            step_id="user", 
-            data_schema=schema,
-            errors=errors
+            step_id="user",
+            data_schema=data_schema,
+            errors=errors,
         )
 
-    async def _test_connection(self, ip_address: str) -> bool:
-        """Test the connection to the device (optional)."""
-        session = async_get_clientsession(self.hass)
-        try:
-            async with session.get(f"http://{ip_address}:5333/pontos-base/get/all", timeout=5) as response:
-                return response.status == 200
-        except (aiohttp.ClientError, asyncio.TimeoutError):
+    async def _test_connection(self, ip_address: str, make: str) -> bool:
+        """Test a connection to the selected device's URLs."""
+        device_const = MAKES.get(make)
+        if not device_const:
             return False
+
+        url_list = device_const.URL_LIST  # Each make-specific file defines URL_LIST
+        data = await fetch_data(self.hass, ip_address, url_list)
+        return data is not None
 
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        """Return the options flow if any."""
+        """Return the options flow handler."""
         return PontosOptionsFlowHandler(config_entry)
 
 
 class PontosOptionsFlowHandler(config_entries.OptionsFlow):
-    """Example of an OptionsFlow if you want to edit IP or other settings."""
+    """Example options flow to update IP or other device options."""
+
     def __init__(self, config_entry):
         self.config_entry = config_entry
 
     async def async_step_init(self, user_input=None):
+        """Kick off the options flow."""
         return await self.async_step_user()
 
     async def async_step_user(self, user_input=None):
-        # Similar form for editing IP, or make, etc.
+        """Show a form to edit IP or other settings."""
+        # This is just an example placeholder.
+        # In reality, you'd create a similar vol.Schema to edit IP, etc.
         return self.async_show_form(step_id="user")
