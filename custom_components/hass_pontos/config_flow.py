@@ -44,17 +44,21 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def async_migrate_entry(self, config_entry):
         """Handle migration of config entry."""
-        if config_entry.version == 1:  # Assuming version 1 doesn't have the "make" set
+        if config_entry.version == 1:  # Migration from version 1
             new_data = dict(config_entry.data)
-            # Set "make" to "pontos" if it's not already there
+
+            # Check if "make" exists, if not, set it to "pontos"
             if CONF_MAKE not in new_data:
                 new_data[CONF_MAKE] = "pontos"
-            
-            # Update the entry and increment the version number
+
+            # Log the migration action for debugging
+            _LOGGER.info(f"Migrating config entry {config_entry.entry_id} from version 1: Adding 'make' field with default value 'pontos'")
+
+            # Return the migrated entry with updated data and incremented version
             return self.async_create_entry(
                 title=config_entry.title,
                 data=new_data,
-                version=2,  # Increment the version after migration
+                version=2,  # Incremented version after migration
             )
 
     async def _test_connection(self, ip_address: str, make: str) -> bool:
