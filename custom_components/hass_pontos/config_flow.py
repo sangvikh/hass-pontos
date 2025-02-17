@@ -7,7 +7,7 @@ from .utils import fetch_data
 from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 2  # Increment the version to indicate this is the new version with migration logic
+    VERSION = 2
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
@@ -41,25 +41,6 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=data_schema,
             errors=errors,
         )
-
-    async def async_migrate_entry(self, config_entry):
-        """Handle migration of config entry."""
-        if config_entry.version == 1:  # Migration from version 1
-            new_data = dict(config_entry.data)
-
-            # Check if "make" exists, if not, set it to "pontos"
-            if CONF_MAKE not in new_data:
-                new_data[CONF_MAKE] = "pontos"
-
-            # Log the migration action for debugging
-            _LOGGER.info(f"Migrating config entry {config_entry.entry_id} from version 1: Adding 'make' field with default value 'pontos'")
-
-            # Return the migrated entry with updated data and incremented version
-            return self.async_create_entry(
-                title=config_entry.title,
-                data=new_data,
-                version=2,  # Incremented version after migration
-            )
 
     async def _test_connection(self, ip_address: str, make: str) -> bool:
         """Test a connection to the selected device's URLs."""

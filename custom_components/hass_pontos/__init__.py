@@ -56,3 +56,27 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old entry data to new format/version."""
+    if config_entry.version == 1:
+        new_data = dict(config_entry.data)
+
+        # Ensure 'make' is set
+        if CONF_MAKE not in new_data:
+            new_data[CONF_MAKE] = "pontos"
+
+        # Update the entry by passing version=2
+        hass.config_entries.async_update_entry(
+            config_entry,
+            data=new_data,
+            version=2,
+        )
+
+        _LOGGER.info(
+            "Migrated config entry '%s' from version 1 to 2",
+            config_entry.entry_id
+        )
+
+    # Return True if migration was successful (or if no migration needed)
+    return True
