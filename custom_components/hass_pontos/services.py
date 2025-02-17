@@ -43,14 +43,13 @@ async def register_services(hass):
 
         # Register services for the specific device
         for service_name in device_const.SERVICES.keys():
-            if not hass.services.has_service(DOMAIN, service_name):
-                async def _service_handler(call, service_name=service_name):
-                    await async_service_handler(hass, call, service_name)
+            async def service_handler(call, service_name=service_name):
+                await async_service_handler(hass, call, service_name)
 
-                # Register each service with Hass
-                hass.services.async_register(
-                    DOMAIN,
-                    service_name,
-                    _service_handler,
-                    schema=None
-                )
+            # Register each service with Hass
+            hass.services.async_register(
+                DOMAIN,
+                service_name,
+                service_handler,
+                schema=None
+            )
