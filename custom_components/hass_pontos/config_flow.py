@@ -30,7 +30,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             valid = await self._test_connection(ip, make)
             if valid:
                 return self.async_create_entry(
-                    title=user_input.get(CONF_DEVICE_NAME, "Pontos Device"),
+                    title=user_input.get(CONF_DEVICE_NAME, "pontos"),
                     data=user_input,
                 )
             else:
@@ -39,7 +39,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # Show the form (including the dropdown for make)
         data_schema = vol.Schema({
             vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
-            vol.Optional(CONF_DEVICE_NAME, default="Pontos Base"): str,
+            vol.Optional(CONF_DEVICE_NAME, default="Pontos"): str,
             vol.Required(CONF_MAKE, default="pontos"): vol.In(list(MAKES.keys())),
         })
 
