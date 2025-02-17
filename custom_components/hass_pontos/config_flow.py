@@ -26,17 +26,13 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             ip = user_input[CONF_IP_ADDRESS]
             make = user_input[CONF_MAKE]
 
-            # Optional: validate the IP by attempting a connection
+            # Validate the IP by attempting a connection
             valid = await self._test_connection(ip, make)
             if valid:
-                # Ensure the selected make actually exists in our dictionary
-                if make in MAKES:
-                    return self.async_create_entry(
-                        title=user_input.get(CONF_DEVICE_NAME, "Pontos Device"),
-                        data=user_input,
-                    )
-                else:
-                    errors["base"] = "invalid_make"
+                return self.async_create_entry(
+                    title=user_input.get(CONF_DEVICE_NAME, "Pontos Device"),
+                    data=user_input,
+                )
             else:
                 errors["base"] = "cannot_connect"
 
