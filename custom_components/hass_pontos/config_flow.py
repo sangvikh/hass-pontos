@@ -4,17 +4,10 @@ from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .utils import fetch_data
-from .const import (
-    DOMAIN,
-    CONF_IP_ADDRESS,
-    CONF_DEVICE_NAME,
-    CONF_MAKE,
-    MAKES,
-)
-
+from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 1
+    VERSION = 2  # Increment the version to indicate this is the new version with migration logic
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
@@ -48,6 +41,21 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=data_schema,
             errors=errors,
         )
+
+    async def async_migrate_entry(self, config_entry):
+        """Handle migration of config entry."""
+        if config_entry.version == 1:  # Assuming version 1 doesn't have the "make" set
+            new_data = dict(config_entry.data)
+            # Set "make" to "pontos" if it's not already there
+            if CONF_MAKE not in new_data:
+                new_data[CONF_MAKE] = "pontos"
+            
+            # Update the entry and increment the version number
+            return self.async_create_entry(
+                title=config_entry.title,
+                data=new_data,
+                version=2,  # Increment the version after migration
+            )
 
     async def _test_connection(self, ip_address: str, make: str) -> bool:
         """Test a connection to the selected device's URLs."""
