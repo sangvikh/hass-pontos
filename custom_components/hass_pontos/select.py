@@ -14,7 +14,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the custom profile select entity."""
 
     # Dynamically load the device-specific constants
-    make = entry.data.get(CONF_MAKE, "pontos")
+    make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
     # Get the device info (and possibly data if you need it)    

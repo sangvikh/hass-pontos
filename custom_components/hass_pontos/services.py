@@ -26,7 +26,7 @@ async def async_service_handler(hass, call, service_name):
         ip_address = entry_data.get("ip_address")
         
         # Dynamically determine which device constants to use
-        make = entry_data.get(CONF_MAKE, "pontos")
+        make = entry_data.get(CONF_MAKE)
         device_const = MAKES[make]
 
         # Extract service endpoint from the corresponding device constants
@@ -38,7 +38,7 @@ async def async_service_handler(hass, call, service_name):
 async def register_services(hass):
     """Register all custom services based on the device's service definitions."""
     for entry_data in hass.data[DOMAIN].values():
-        make = entry_data.get(CONF_MAKE, "pontos")
+        make = entry_data.get(CONF_MAKE)
         device_const = MAKES[make]
 
         # Register services for the specific device

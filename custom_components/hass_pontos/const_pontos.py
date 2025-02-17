@@ -146,7 +146,7 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
-        "name": "MAC Address",
+        "name": "MAC address",
         "endpoint": "getMAC",
         "entity_category": EntityCategory.DIAGNOSTIC
     },

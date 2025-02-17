@@ -6,19 +6,17 @@ from homeassistant.components.sensor import SensorDeviceClass
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
 DOMAIN = "hass_pontos"
-MANUFACTURER = "Hansgrohe Trio"
+MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
-BASE_URL = "http://{ip}:5333/pontos-base/"
+BASE_URL = "http://{ip}:5333/trio/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
-URL_CONDITION = f"{BASE_URL}get/cnd"
 URL_ALL_DATA = f"{BASE_URL}get/all"
 
 URL_LIST = [
     URL_ADMIN,
-    URL_CONDITION,
     URL_ALL_DATA
 ]
 
@@ -65,21 +63,6 @@ SENSOR_DETAILS = {
         "state_class": "total_increasing",
         "format_dict": {"Vol[L]": ""}
     },
-    "water_pressure": {
-        "name": "Water pressure",
-        "endpoint": "getBAR",
-        "unit": "bar",
-        "device_class": "pressure",
-        "format_dict": {"mbar": ""},
-        "scale": 0.001
-    },
-    "water_temperature": {
-        "name": "Water temperature",
-        "endpoint": "getCEL",
-        "unit": "°C",
-        "device_class": "temperature",
-        "scale": 0.1
-    },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
@@ -101,19 +84,6 @@ SENSOR_DETAILS = {
         "device_class": "pressure",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "wifi_state": {
-        "name": "Wifi state",
-        "endpoint": "getWFS",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
-    "wifi_signal_strength": {
-        "name": "Wifi signal strength",
-        "endpoint": "getWFR",
-        "unit": "dBm",
-        "device_class": "signal_strength",
-        "scale": -1,
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
     "battery_voltage": {
         "name": "Battery voltage",
         "endpoint": "getBAT",
@@ -130,29 +100,14 @@ SENSOR_DETAILS = {
         "format_dict": {",": "."},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "serial_number": {
-        "name": "Serial number",
-        "endpoint": "getSRN",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
     "firmware_version": {
         "name": "Firmware version",
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "device_type": {
-        "name": "Device type",
-        "endpoint": "getTYP",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
-    "mac_address": {
-        "name": "MAC Address",
-        "endpoint": "getMAC",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
     "alarm_status": {
         "name": "Alarm status",
-        "endpoint": "getALA",
+        "endpoint": "getALM",
         "code_dict": ALARM_CODES
     },
     "active_profile": {
@@ -166,32 +121,21 @@ SENSOR_DETAILS = {
         "endpoint": "getVLV",
         "code_dict": VALVE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
-    },
-    "water_conductivity": {
-        "name": "Water conductivity",
-        "endpoint": "getCND",
-        "unit": "µS/cm"
-    },
-    "water_hardness": {
-        "name": "Water hardness",
-        "endpoint": "getCND",
-        "unit": "dH",
-        "scale": 1/30
     }
 }
 
 SERVICES = {
     "open_valve": {
         "name": "Open valve",
-        "endpoint": "set/ab/1"
+        "endpoint": "set/ab/false"
     },
     "close_valve": {
         "name": "Close valve",
-        "endpoint": "set/ab/2"
+        "endpoint": "set/ab/true"
     },
     "clear_alarms": {
         "name": "Clear alarms",
-        "endpoint": "clr/ala"
+        "endpoint": "set/ala/255"
     },
     "set_profile": {
         "name": "Set Profile",

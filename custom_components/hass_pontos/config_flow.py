@@ -23,7 +23,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             valid = await self._test_connection(ip, make)
             if valid:
                 return self.async_create_entry(
-                    title=user_input.get(CONF_DEVICE_NAME, "pontos"),
+                    title=user_input.get(CONF_DEVICE_NAME, "Hansgrohe Pontos"),
                     data=user_input,
                 )
             else:
@@ -33,7 +33,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema({
             vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
             vol.Optional(CONF_DEVICE_NAME, default="Pontos"): str,
-            vol.Required(CONF_MAKE, default="pontos"): vol.In(list(MAKES.keys())),
+            vol.Required(CONF_MAKE, default="Hansgrohe Pontos"): vol.In(list(MAKES.keys())),
         })
 
         return self.async_show_form(
@@ -76,7 +76,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             # Validate the new IP by fetching from the device
             new_ip = user_input[CONF_IP_ADDRESS]
-            make = self.config_entry.data[CONF_MAKE]  # e.g. "pontos"
+            make = self.config_entry.data[CONF_MAKE]
 
             if await self._test_connection(new_ip, make):
                 # If valid, create (or update) the options

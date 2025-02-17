@@ -16,10 +16,10 @@ async def get_device_info(hass, entry):
     entry_id = entry.entry_id
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_name = entry.data[CONF_DEVICE_NAME]
-    make = entry.data.get(CONF_MAKE, "pontos")
+    make = entry.data.get(CONF_MAKE)
 
     # Import the device-specific const module
-    make = entry.data.get(CONF_MAKE, "pontos")
+    make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
     # Example: Use the device_const.URL_LIST to fetch data

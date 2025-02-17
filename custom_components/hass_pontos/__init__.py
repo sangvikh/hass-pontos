@@ -13,7 +13,7 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Access which 'make' the user selected in config_flow
-    make = entry.data.get(CONF_MAKE, "pontos")
+    make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
     hass.data.setdefault(DOMAIN, {})
@@ -39,7 +39,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Dynamically figure out which device_const file to unload from
-    make = entry.data.get(CONF_MAKE, "pontos")
+    make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
     # Unload each relevant platform
@@ -64,7 +64,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         # Ensure 'make' is set
         if CONF_MAKE not in new_data:
-            new_data[CONF_MAKE] = "pontos"
+            new_data[CONF_MAKE] = "Hansgrohe Pontos"
 
         # Update the entry by passing version=2
         hass.config_entries.async_update_entry(

@@ -6,12 +6,12 @@ from homeassistant.components.sensor import SensorDeviceClass
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
 DOMAIN = "hass_pontos"
-MANUFACTURER = "Hansgrohe Safetech"
+MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
-BASE_URL = "http://{ip}:5333/pontos-base/"
+BASE_URL = "http://{ip}:5333/trio/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
 URL_CONDITION = f"{BASE_URL}get/cnd"
 URL_ALL_DATA = f"{BASE_URL}get/all"
@@ -141,13 +141,13 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "device_type": {
-        "name": "Device type",
-        "endpoint": "getTYP",
+        "name": "Hardware version",
+        "endpoint": "getHWV",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
-        "name": "MAC Address",
-        "endpoint": "getMAC",
+        "name": "MAC address",
+        "endpoint": "getMAC1",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "alarm_status": {
@@ -183,15 +183,15 @@ SENSOR_DETAILS = {
 SERVICES = {
     "open_valve": {
         "name": "Open valve",
-        "endpoint": "set/ab/1"
+        "endpoint": "set/ab/false"
     },
     "close_valve": {
         "name": "Close valve",
-        "endpoint": "set/ab/2"
+        "endpoint": "set/ab/true"
     },
     "clear_alarms": {
         "name": "Clear alarms",
-        "endpoint": "clr/ala"
+        "endpoint": "set/ala/255"
     },
     "set_profile": {
         "name": "Set Profile",
