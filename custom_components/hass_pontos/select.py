@@ -63,7 +63,7 @@ class PontosProfileSelect(SelectEntity):
         """When entity is added to hass."""
         await super().async_added_to_hass()
 
-        # Look up the sensor entity tracking the current profile
+        # Get the entity ID of the sensor using the unique ID
         entity_registry = er.async_get(self._hass)
         sensor_entity_id = entity_registry.async_get_entity_id(
             "sensor",
@@ -71,6 +71,7 @@ class PontosProfileSelect(SelectEntity):
             self._sensor_unique_id
         )
         
+        # Fetch the initial state from the sensor entity
         if sensor_entity_id:
             sensor_state = self._hass.states.get(sensor_entity_id)
             initial_state = sensor_state.state if sensor_state else None

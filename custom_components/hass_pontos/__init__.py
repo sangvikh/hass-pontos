@@ -9,7 +9,7 @@ from .services import register_services
 from .device import register_device
 from .const import DOMAIN, CONF_MAKE, MAKES
 
-_LOGGER = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Access which 'make' the user selected in config_flow
@@ -23,10 +23,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         # Register the device
         await register_device(hass, entry)
     except Exception as e:
-        _LOGGER.error(f"Error setting up device: {e}")
+        LOGGER.error(f"Error setting up device: {e}")
         raise ConfigEntryNotReady from e
 
-    # Register services (services.py also uses dynamic import under the hood)
+    # Register services
     await register_services(hass)
 
     # Forward entry setup to all platforms for this device
@@ -73,7 +73,7 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
             version=2,
         )
 
-        _LOGGER.info(
+        LOGGER.info(
             "Migrated config entry '%s' from version 1 to 2",
             config_entry.entry_id
         )

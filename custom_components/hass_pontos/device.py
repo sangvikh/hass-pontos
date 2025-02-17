@@ -59,6 +59,7 @@ async def get_device_info(hass, entry):
         "serial_number": serial_number,
     }
 
+    # Cache the device info and data
     _device_cache[entry_id] = {
         'device_info': device_info,
         'data': data,
@@ -68,9 +69,14 @@ async def get_device_info(hass, entry):
     return device_info, data
 
 async def register_device(hass, entry):
+    entry_id = entry.entry_id
+
+    # Get device info (will raise exception if it fails)
     device_info, _ = await get_device_info(hass, entry)
+
+    # Register device in the device registry
     device_registry = async_get_device_registry(hass)
     device_registry.async_get_or_create(
-        config_entry_id=entry.entry_id,
+        config_entry_id=entry_id,
         **device_info
     )
