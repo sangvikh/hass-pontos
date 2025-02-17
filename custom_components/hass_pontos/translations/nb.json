@@ -3,11 +3,12 @@
     "config": {
         "step": {
             "user": {
-                "title": "Sett opp Pontos Base",
-                "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din Pontos Base",
+                "title": "Sett opp enhet",
+                "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din enhet",
                 "data": {
                     "ip_address": "IP-adresse",
-                    "device_name": "Enhetsnavn"
+                    "device_name": "Enhetsnavn",
+                    "make": "Type"
                 }
             }
         },
@@ -18,8 +19,8 @@
     "options": {
         "step": {
             "init": {
-                "title": "Konfigurer Pontos Base",
-                "description": "Oppdater konfigurasjonen for din Pontos Base",
+                "title": "Konfigurer enhet",
+                "description": "Oppdater konfigurasjonen for din enhet",
                 "data": {
                     "ip_address": "IP-adresse"
                 }
@@ -32,7 +33,7 @@
     "services": {
         "set_profile": {
             "name": "Sett profil",
-            "description": "Angi aktiv profil på din Pontos Base"
+            "description": "Angi aktiv profil på din enhet"
         }
     }
 }

@@ -4,7 +4,7 @@
 [![hassfest](https://img.shields.io/github/actions/workflow/status/sangvikh/hass-pontos/hassfest.yaml?branch=master&label=hassfest)](https://github.com/sangvikh/hass-pontos/actions/workflows/hassfest.yaml)
 [![HACS](https://img.shields.io/github/actions/workflow/status/sangvikh/hass-pontos/validate.yaml?branch=master&label=HACS)](https://github.com/sangvikh/hass-pontos/actions/workflows/validate.yaml)
 
-HACS integration for Hansgrohe Pontos
+HACS integration for Hansgrohe Pontos and SYR water meters
 
 ## Features
 
@@ -15,6 +15,8 @@ HACS integration for Hansgrohe Pontos
 ## Supported devices
 
 * Hansgrohe Pontos
+* SYR Trio
+* SYR SafeTech+
 
 ## Installation
 

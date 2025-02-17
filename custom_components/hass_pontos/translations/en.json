@@ -3,11 +3,12 @@
     "config": {
         "step": {
             "user": {
-                "title": "Set up Pontos Base",
-                "description": "Please enter the IP address and device name for your Pontos Base",
+                "title": "Set up device",
+                "description": "Please enter the IP address and device name for your device",
                 "data": {
                     "ip_address": "IP Address",
-                    "device_name": "Device Name"
+                    "device_name": "Device Name",
+                    "make": "Device Type"
                 }
             }
         },
@@ -18,8 +19,8 @@
     "options": {
         "step": {
             "init": {
-                "title": "Configure Pontos Base",
-                "description": "Update your Pontos Base configuration",
+                "title": "Configure device",
+                "description": "Update your device configuration",
                 "data": {
                     "ip_address": "IP Address"
                 }
@@ -32,7 +33,7 @@
     "services": {
         "set_profile": {
             "name": "Set Profile",
-            "description": "Set the active profile on your Pontos Base"
+            "description": "Set the active profile on your device"
         }
     }
 }

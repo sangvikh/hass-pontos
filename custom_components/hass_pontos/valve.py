@@ -69,7 +69,8 @@ class PontosValve(ValveEntity):
     @callback
     def _sensor_state_changed(self, event: Event) -> None:
         new_state = event.data.get('new_state')
-        self.set_state(new_state.state)
+        if new_state is not None:
+            self.set_state(new_state.state)
     
     @property
     def is_open(self):
@@ -121,4 +122,3 @@ class PontosValve(ValveEntity):
             "close_valve",
             service_data={"entry_id": self._entry.entry_id}
         )
-

@@ -1,18 +1,21 @@
-from homeassistant.core import HomeAssistant
-from homeassistant.config_entries import ConfigEntry
-from homeassistant.exceptions import ConfigEntryNotReady
 import asyncio
 import logging
 
+from homeassistant.core import HomeAssistant
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.exceptions import ConfigEntryNotReady
+
 from .services import register_services
 from .device import register_device
-from .const import DOMAIN
+from .const import DOMAIN, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
-platforms = ['sensor', 'button', 'valve', 'select']
-
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
+    # Access which 'make' the user selected in config_flow
+    make = entry.data.get(CONF_MAKE)
+    device_const = MAKES[make]
+
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
 
@@ -26,7 +29,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Register services
     await register_services(hass)
 
-    # Register entities for each platform
+    # Forward entry setup to all platforms for this device
+    platforms = getattr(device_const, "PLATFORMS", [])
     hass.async_create_task(
         hass.config_entries.async_forward_entry_setups(entry, platforms)
     )
@@ -34,20 +38,45 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     return True
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
-    # Unload each platform
+    # Dynamically figure out which device_const file to unload from
+    make = entry.data.get(CONF_MAKE)
+    device_const = MAKES[make]
+
+    # Unload each relevant platform
+    platforms = getattr(device_const, "PLATFORMS", [])
     tasks = [
         hass.config_entries.async_forward_entry_unload(entry, platform)
         for platform in platforms
     ]
     
-    # Wait for all tasks to complete and gather results
     results = await asyncio.gather(*tasks)
-
-    # Ensure all platforms unloaded successfully
     unload_ok = all(results)
 
-    # Remove data related to this entry if everything is unloaded successfully
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
 
     return unload_ok
+
+async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
+    """Migrate old entry data to new format/version."""
+    if config_entry.version == 1:
+        new_data = dict(config_entry.data)
+
+        # Ensure 'make' is set
+        if CONF_MAKE not in new_data:
+            new_data[CONF_MAKE] = "Hansgrohe Pontos"
+
+        # Update the entry by passing version=2
+        hass.config_entries.async_update_entry(
+            config_entry,
+            data=new_data,
+            version=2,
+        )
+
+        LOGGER.info(
+            "Migrated config entry '%s' from version 1 to 2",
+            config_entry.entry_id
+        )
+
+    # Return True if migration was successful (or if no migration needed)
+    return True
