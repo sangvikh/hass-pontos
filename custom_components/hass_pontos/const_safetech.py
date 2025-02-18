@@ -19,7 +19,7 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "FF": "no alarm",
+    "FF": "No alarm",
     "A1": "ALARM END SWITCH",
     "A2": "ALARM: Turbine blocked!",
     "A3": "ALARM: Leakage volume reached!",
@@ -32,6 +32,19 @@ ALARM_CODES = {
     "AA": "ALARM: Temperature sensor faulty!",
     "AB": "ALARM: Weak battery!",
     "AE": "Error: no information available"
+}
+
+WARING_CODES = {
+    "1": "Power outage",
+    "7": "Leak warning",
+    "8": "Battery low",
+    "FF": "No warning"
+}
+
+NOTIFICATION_CODES = {
+    "1": "New Software Update Available!",
+    "4": "New software update installed!",
+    "FF": "No notification",
 }
 
 PROFILE_CODES = {
@@ -58,15 +71,13 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": "water",
-        "state_class": "total_increasing",
-        "format_dict": {"Vol[L]": ""}
+        "state_class": "total_increasing"
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
         "device_class": "pressure",
-        "format_dict": {"mbar": ""},
         "scale": 0.001
     },
     "water_temperature": {
@@ -150,6 +161,16 @@ SENSOR_DETAILS = {
         "name": "Alarm status",
         "endpoint": "getALA",
         "code_dict": ALARM_CODES
+    },
+    "warning_status": {
+        "name": "Warning status",
+        "endpoint": "getWRN",
+        "code_dict": WARING_CODES
+    },
+    "notification_status": {
+        "name": "Notification status",
+        "endpoint": "getNOT",
+        "code_dict": NOTIFICATION_CODES
     },
     "active_profile": {
         "name": "Active profile",
