@@ -74,20 +74,6 @@ SENSOR_DETAILS = {
         "device_class": "water",
         "state_class": "total_increasing"
     },
-    "water_pressure": {
-        "name": "Water pressure",
-        "endpoint": "getBAR",
-        "unit": "bar",
-        "device_class": "pressure",
-        "scale": 0.001
-    },
-    "water_temperature": {
-        "name": "Water temperature",
-        "endpoint": "getCEL",
-        "unit": "°C",
-        "device_class": "temperature",
-        "scale": 0.1
-    },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
@@ -183,17 +169,6 @@ SENSOR_DETAILS = {
         "endpoint": "getVLV",
         "code_dict": VALVE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
-    },
-    "water_conductivity": {
-        "name": "Water conductivity",
-        "endpoint": "getCND",
-        "unit": "µS/cm"
-    },
-    "water_hardness": {
-        "name": "Water hardness",
-        "endpoint": "getCND",
-        "unit": "dH",
-        "scale": 1/30
     }
 }
 
