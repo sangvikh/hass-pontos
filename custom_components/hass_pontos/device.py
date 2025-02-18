@@ -45,11 +45,11 @@ async def get_device_info(hass, entry):
         raise Exception("Invalid device data")
 
     device_info = {
-        "identifiers": {(DOMAIN, "pontos_base")},
+        "identifiers": {(DOMAIN, make)},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
         "name": device_name,
-        "manufacturer": getattr(device_const, "MANUFACTURER", "Unknown"),
-        "model": make,
+        "manufacturer": device_const.MANUFACTURER,
+        "model": device_const.MODEL,
         "sw_version": firmware_version,
         "serial_number": serial_number,
     }

@@ -6,6 +6,7 @@ from homeassistant.components.sensor import SensorDeviceClass
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
 DOMAIN = "hass_pontos"
+MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
