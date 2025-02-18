@@ -12,38 +12,30 @@ LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the custom profile select entity."""
-
-    # Dynamically load the device-specific constants
-    make = entry.data.get(CONF_MAKE)
-    device_const = MAKES[make]
-
-    # Get the device info (and possibly data if you need it)    
-    device_info, data = await get_device_info(hass, entry)
+    # Get the device info
+    device_info, _ = await get_device_info(hass, entry)
 
     # Instantiate the select entity, passing in the needed constants
-    select_entity = PontosProfileSelect(
-        hass,
-        entry,
-        device_info,
-        profile_codes=device_const.PROFILE_CODES,
-        services=device_const.SERVICES,
-    )
-
+    select_entity = PontosProfileSelect(hass, entry, device_info)
     async_add_entities([select_entity], True)
 
 
 class PontosProfileSelect(SelectEntity):
     """Representation of a Select entity for setting profiles."""
 
-    def __init__(self, hass, entry, device_info, profile_codes, services):
+    def __init__(self, hass, entry, device_info):
         """Initialize the profile select entity."""
         self._hass = hass
         self._entry = entry
         self._device_info = device_info
 
-        # Store the device-specific data passed in
-        self._profile_codes = profile_codes
-        self._services = services
+        # Get device-specific constants directly from the entry data
+        make = self._entry.data.get(CONF_MAKE)
+        device_const = MAKES[make]
+        
+        # Store the device-specific data
+        self._profile_codes = device_const.PROFILE_CODES
+        self._services = device_const.SERVICES
 
         # Build name/unique_id from device info
         self._attr_name = f"{device_info['name']} Profile"
