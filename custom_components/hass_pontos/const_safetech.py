@@ -19,7 +19,7 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "FF": "No alarm",
+    "ff": "No alarm",
     "A1": "ALARM END SWITCH",
     "A2": "ALARM: Turbine blocked!",
     "A3": "ALARM: Leakage volume reached!",
@@ -38,31 +38,31 @@ WARING_CODES = {
     "1": "Power outage",
     "7": "Leak warning",
     "8": "Battery low",
-    "FF": "No warning"
+    "ff": "No warning"
 }
 
 NOTIFICATION_CODES = {
     "1": "New Software Update Available!",
     "4": "New software update installed!",
-    "FF": "No notification",
+    "ff": "No notification",
 }
 
 PROFILE_CODES = {
-    "1": "Home",
-    "2": "Away",
-    "3": "Holiday",
-    "4": "Increased consumption",
-    "5": "Max. consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
+    1: "Home",
+    2: "Away",
+    3: "Holiday",
+    4: "Increased consumption",
+    5: "Max. consumption",
+    6: "not defined",
+    7: "not defined",
+    8: "not defined"
 }
 
 VALVE_CODES = {
-    "10": STATE_CLOSED,
-    "11": STATE_CLOSING,
-    "20": STATE_OPEN,
-    "21": STATE_OPENING
+    10: STATE_CLOSED,
+    11: STATE_CLOSING,
+    20: STATE_OPEN,
+    21: STATE_OPENING
 }
 
 SENSOR_DETAILS = {
@@ -97,7 +97,6 @@ SENSOR_DETAILS = {
         "endpoint": "getAVO",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "format_dict": {"mL": ""},
         "entity_category": EntityCategory.DIAGNOSTIC,
         "scale": 0.001
     },
@@ -126,7 +125,7 @@ SENSOR_DETAILS = {
         "endpoint": "getBAT",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."},
+        "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mains_voltage": {
@@ -134,7 +133,7 @@ SENSOR_DETAILS = {
         "endpoint": "getNET",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."},
+        "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "serial_number": {
@@ -147,7 +146,7 @@ SENSOR_DETAILS = {
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "device_type": {
+    "hardware_version": {
         "name": "Hardware version",
         "endpoint": "getHWV",
         "entity_category": EntityCategory.DIAGNOSTIC
