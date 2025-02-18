@@ -17,13 +17,9 @@ async def get_device_info(hass, entry):
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_name = entry.data[CONF_DEVICE_NAME]
     make = entry.data.get(CONF_MAKE)
-
-    # Import the device-specific const module
-    make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
-    # Example: Use the device_const.URL_LIST to fetch data
-    # (Your existing code does something similar.)
+    # Use the device_const.URL_LIST to fetch data
     if entry_id in _device_cache:
         cache_entry = _device_cache[entry_id]
         cache_age = time.time() - cache_entry['timestamp']
@@ -40,21 +36,20 @@ async def get_device_info(hass, entry):
         LOGGER.error(f"Failed to fetch data from the device at {ip_address}")
         raise Exception("Failed to fetch data from the device")
 
-    mac_address = data.get("getMAC", "00:00:00:00:00:00")
-    serial_number = data.get("getSRN", "")
-    firmware_version = data.get("getVER", "")
-    device_type = data.get("getTYP", "")
+    mac_address = data.get(device_const.SENSOR_DETAILS.get("mac_address", {}).get("endpoint"), "00:00:00:00:00:00")
+    serial_number = data.get(device_const.SENSOR_DETAILS.get("serial_number", {}).get("endpoint"), "")
+    firmware_version = data.get(device_const.SENSOR_DETAILS.get("firmware_version", {}).get("endpoint"), "")
 
     if not mac_address or not serial_number:
         LOGGER.error("Invalid MAC address or serial number")
         raise Exception("Invalid device data")
 
     device_info = {
-        "identifiers": {(DOMAIN, "pontos_base")},
+        "identifiers": {(DOMAIN, make)},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
         "name": device_name,
-        "manufacturer": getattr(device_const, "MANUFACTURER", "Unknown"),
-        "model": device_type,
+        "manufacturer": device_const.MANUFACTURER,
+        "model": device_const.MODEL,
         "sw_version": firmware_version,
         "serial_number": serial_number,
     }

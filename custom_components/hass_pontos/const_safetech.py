@@ -6,24 +6,21 @@ from homeassistant.components.sensor import SensorDeviceClass
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
 DOMAIN = "hass_pontos"
+MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/trio/"
-URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
-URL_CONDITION = f"{BASE_URL}get/cnd"
 URL_ALL_DATA = f"{BASE_URL}get/all"
 
 URL_LIST = [
-    URL_ADMIN,
-    URL_CONDITION,
     URL_ALL_DATA
 ]
 
 ALARM_CODES = {
-    "FF": "no alarm",
+    "ff": "No alarm",
     "A1": "ALARM END SWITCH",
     "A2": "ALARM: Turbine blocked!",
     "A3": "ALARM: Leakage volume reached!",
@@ -38,22 +35,35 @@ ALARM_CODES = {
     "AE": "Error: no information available"
 }
 
+WARING_CODES = {
+    "1": "Power outage",
+    "7": "Leak warning",
+    "8": "Battery low",
+    "ff": "No warning"
+}
+
+NOTIFICATION_CODES = {
+    "1": "New Software Update Available!",
+    "4": "New software update installed!",
+    "ff": "No notification",
+}
+
 PROFILE_CODES = {
-    "1": "Home",
-    "2": "Away",
-    "3": "Holiday",
-    "4": "Increased consumption",
-    "5": "Max. consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
+    1: "Home",
+    2: "Away",
+    3: "Holiday",
+    4: "Increased consumption",
+    5: "Max. consumption",
+    6: "not defined",
+    7: "not defined",
+    8: "not defined"
 }
 
 VALVE_CODES = {
-    "10": STATE_CLOSED,
-    "11": STATE_CLOSING,
-    "20": STATE_OPEN,
-    "21": STATE_OPENING
+    10: STATE_CLOSED,
+    11: STATE_CLOSING,
+    20: STATE_OPEN,
+    21: STATE_OPENING
 }
 
 SENSOR_DETAILS = {
@@ -62,15 +72,13 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": "water",
-        "state_class": "total_increasing",
-        "format_dict": {"Vol[L]": ""}
+        "state_class": "total_increasing"
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
         "device_class": "pressure",
-        "format_dict": {"mbar": ""},
         "scale": 0.001
     },
     "water_temperature": {
@@ -90,7 +98,6 @@ SENSOR_DETAILS = {
         "endpoint": "getAVO",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "format_dict": {"mL": ""},
         "entity_category": EntityCategory.DIAGNOSTIC,
         "scale": 0.001
     },
@@ -119,7 +126,7 @@ SENSOR_DETAILS = {
         "endpoint": "getBAT",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."},
+        "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mains_voltage": {
@@ -127,7 +134,7 @@ SENSOR_DETAILS = {
         "endpoint": "getNET",
         "unit": "V",
         "device_class": "voltage",
-        "format_dict": {",": "."},
+        "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "serial_number": {
@@ -140,7 +147,7 @@ SENSOR_DETAILS = {
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "device_type": {
+    "hardware_version": {
         "name": "Hardware version",
         "endpoint": "getHWV",
         "entity_category": EntityCategory.DIAGNOSTIC
@@ -154,6 +161,16 @@ SENSOR_DETAILS = {
         "name": "Alarm status",
         "endpoint": "getALA",
         "code_dict": ALARM_CODES
+    },
+    "warning_status": {
+        "name": "Warning status",
+        "endpoint": "getWRN",
+        "code_dict": WARING_CODES
+    },
+    "notification_status": {
+        "name": "Notification status",
+        "endpoint": "getNOT",
+        "code_dict": NOTIFICATION_CODES
     },
     "active_profile": {
         "name": "Active profile",
