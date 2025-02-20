@@ -90,7 +90,7 @@ class PontosSensor(SensorEntity):
 
         # Translate alarm codes if code_dict is present
         if self._code_dict is not None and _data is not None:
-            _data = self._code_dict.get(_data, _data)
+            _data = self._code_dict.get(_data.upper(), _data)
 
         # Scale sensor data if scale is present
         if self._scale is not None and _data is not None:

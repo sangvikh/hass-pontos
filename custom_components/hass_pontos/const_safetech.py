@@ -19,7 +19,7 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "ff": "No alarm",
+    "FF": "No alarm",
     "A1": "ALARM END SWITCH",
     "A2": "ALARM: Turbine blocked!",
     "A3": "ALARM: Leakage volume reached!",
@@ -38,13 +38,13 @@ WARING_CODES = {
     "1": "Power outage",
     "7": "Leak warning",
     "8": "Battery low",
-    "ff": "No warning"
+    "FF": "No warning"
 }
 
 NOTIFICATION_CODES = {
     "1": "New Software Update Available!",
     "4": "New software update installed!",
-    "ff": "No notification",
+    "FF": "No notification",
 }
 
 PROFILE_CODES = {
