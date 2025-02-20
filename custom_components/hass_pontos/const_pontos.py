@@ -5,7 +5,6 @@ from homeassistant.components.sensor import SensorDeviceClass
 
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
-DOMAIN = "hass_pontos"
 MODEL = "Pontos Base"
 MANUFACTURER = "Hansgrohe"
 CONF_IP_ADDRESS = "ip_address"
