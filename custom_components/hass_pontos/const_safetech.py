@@ -5,7 +5,6 @@ from homeassistant.components.sensor import SensorDeviceClass
 
 PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
-DOMAIN = "hass_pontos"
 MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
@@ -20,7 +19,7 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "ff": "No alarm",
+    "FF": "No alarm",
     "A1": "ALARM END SWITCH",
     "A2": "ALARM: Turbine blocked!",
     "A3": "ALARM: Leakage volume reached!",
@@ -39,31 +38,31 @@ WARING_CODES = {
     "1": "Power outage",
     "7": "Leak warning",
     "8": "Battery low",
-    "ff": "No warning"
+    "FF": "No warning"
 }
 
 NOTIFICATION_CODES = {
     "1": "New Software Update Available!",
     "4": "New software update installed!",
-    "ff": "No notification",
+    "FF": "No notification",
 }
 
 PROFILE_CODES = {
-    1: "Home",
-    2: "Away",
-    3: "Holiday",
-    4: "Increased consumption",
-    5: "Max. consumption",
-    6: "not defined",
-    7: "not defined",
-    8: "not defined"
+    "1": "Home",
+    "2": "Away",
+    "3": "Holiday",
+    "4": "Increased consumption",
+    "5": "Max. consumption",
+    "6": "not defined",
+    "7": "not defined",
+    "8": "not defined"
 }
 
 VALVE_CODES = {
-    10: STATE_CLOSED,
-    11: STATE_CLOSING,
-    20: STATE_OPEN,
-    21: STATE_OPENING
+    "10": STATE_CLOSED,
+    "11": STATE_CLOSING,
+    "20": STATE_OPEN,
+    "21": STATE_OPENING
 }
 
 SENSOR_DETAILS = {

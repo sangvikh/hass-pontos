@@ -74,9 +74,10 @@ class PontosClearAlarmsButton(ButtonEntity):
     @callback
     def _sensor_state_changed(self, event):
         new_state = event.data.get('new_state')
-        self._available = new_state.state != STATE_UNAVAILABLE
         if new_state is not None:
-            self.async_write_ha_state()
+            self._available = new_state.state != STATE_UNAVAILABLE
+            if new_state is not None:
+                self.async_write_ha_state()
 
     @property
     def unique_id(self):
