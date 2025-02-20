@@ -49,21 +49,21 @@ NOTIFICATION_CODES = {
 }
 
 PROFILE_CODES = {
-    1: "Home",
-    2: "Away",
-    3: "Holiday",
-    4: "Increased consumption",
-    5: "Max. consumption",
-    6: "not defined",
-    7: "not defined",
-    8: "not defined"
+    "1": "Home",
+    "2": "Away",
+    "3": "Holiday",
+    "4": "Increased consumption",
+    "5": "Max. consumption",
+    "6": "not defined",
+    "7": "not defined",
+    "8": "not defined"
 }
 
 VALVE_CODES = {
-    10: STATE_CLOSED,
-    11: STATE_CLOSING,
-    20: STATE_OPEN,
-    21: STATE_OPENING
+    "10": STATE_CLOSED,
+    "11": STATE_CLOSING,
+    "20": STATE_OPEN,
+    "21": STATE_OPENING
 }
 
 SENSOR_DETAILS = {
