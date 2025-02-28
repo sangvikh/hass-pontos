@@ -205,7 +205,7 @@ SENSOR_DETAILS = {
     },
         "profile_name_3": {
         "name": "Profile 3 name",
-        "endpoint": "getPN2",
+        "endpoint": "getPN3",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_4": {
