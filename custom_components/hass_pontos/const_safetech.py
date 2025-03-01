@@ -87,6 +87,13 @@ SENSOR_DETAILS = {
         "device_class": "temperature",
         "scale": 0.1
     },
+    "water_flow": {
+        "name": "Water flow",
+        "endpoint": "getFLO",
+        "unit": "L/min",
+        "device_class": "volume_flow_rate",
+        "scale": 1
+    },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
