@@ -13,5 +13,5 @@ MAKES = {
     "Hansgrohe Pontos": const_pontos,
     "SYR Trio": const_trio,
     "SYR SafeTech+": const_safetech,
-    "SYR SafeTech+ (New firmware)": const_safetech_v4,
+    "SYR SafeTech+ (Old firmware)": const_safetech_v4,
 }
