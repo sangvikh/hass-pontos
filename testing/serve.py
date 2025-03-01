@@ -1,122 +1,187 @@
+import argparse
 import json
 import os
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
-app = Flask(__name__)
+DEVICE_CONFIGS = {
+    "safetech": {
+        "prefix": "/trio",
+        "filename": "safetech.json",
+        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"}
+    },
+    "pontos": {
+        "prefix": "/pontos-base",
+        "filename": "pontos.json",
+        "defaults": {
+            "getVLV": 20,  # 10=closed, 20=open in your example
+            "getPRF": 1,
+            "getALA": "ff",
+            "getCND": "300"  # For "water conductivity/hardness"
+        }
+    },
+    "safetech_v4": {
+        "prefix": "/safe-tec",
+        "filename": "safetech_v4.json",
+        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
+    },
+}
 
-# Global in-memory storage of device state
-device_data = {}
+ALL_DEVICE_DATA = {}
 
-def load_device_data():
-    """Load the initial JSON data from safetech.json into 'device_data'."""
-    global device_data
-    file_path = os.path.join(os.path.dirname(__file__), "safetech.json")
+def parse_args():
+    parser = argparse.ArgumentParser(description="Run the test server for a specific device type.")
+    parser.add_argument(
+        "--device",
+        choices=DEVICE_CONFIGS.keys(),
+        required=True,
+        help="Which device to serve: 'safetech', 'pontos', or 'safetech_v4'."
+    )
+    return parser.parse_args()
+
+def load_device_data(device_key):
+    """
+    Load the JSON file for the selected device into memory.
+    """
+    config = DEVICE_CONFIGS[device_key]
+    filename = config["filename"]
+    path = os.path.join(os.path.dirname(__file__), filename)
+
     try:
-        with open(file_path, "r") as f:
-            device_data = json.load(f)
-        print("Loaded safetech.json into memory.")
-    except FileNotFoundError:
-        device_data = {}
-        print(f"Warning: {file_path} not found; using empty data.")
-    except json.JSONDecodeError:
-        device_data = {}
-        print("Warning: Could not parse safetech.json; using empty data.")
+        with open(path, "r") as f:
+            ALL_DEVICE_DATA[device_key] = json.load(f)
+        print(f"Loaded {filename} for '{device_key}'.")
+    except (FileNotFoundError, json.JSONDecodeError):
+        ALL_DEVICE_DATA[device_key] = {}
+        print(f"Warning: Could not load {filename} for '{device_key}', using empty data.")
 
-@app.route("/trio/get/all", methods=["GET"])
-def get_all_data():
+def register_device_endpoints(app, device_key):
     """
-    Return the full 'device_data' dict, simulating a GET /trio/get/all endpoint.
+    Dynamically create the “/get” and “/set” routes for the chosen device type.
+    Ensures the same valve/profile logic is implemented for each device.
     """
-    return jsonify(device_data)
+    prefix = DEVICE_CONFIGS[device_key]["prefix"]
+    defaults = DEVICE_CONFIGS[device_key]["defaults"]
 
-@app.route("/trio/get/<command>", methods=["GET"])
-def get_command(command):
-    """
-    Handle requests like: GET /trio/get/<command>
-    We'll look up 'command' in device_data and return a JSON object.
-    For example, /trio/get/vlv -> { "getVLV": device_data["getVLV"] }
-    """
-    cmd_upper = command.upper()
-    response_data = {}
+    @app.route(prefix + "/get/all", methods=["GET"])
+    def get_all():
+        return jsonify(ALL_DEVICE_DATA[device_key])
 
-    if cmd_upper == "VLV":
-        # The doc says "getVLV" is an integer in device_data
-        response_data["getVLV"] = device_data.get("getVLV", 10)
-    elif cmd_upper == "PRF":
-        response_data["getPRF"] = device_data.get("getPRF", 1)
-    elif cmd_upper == "ALA":
-        response_data["getALA"] = device_data.get("getALA", "ff")
-    else:
-        # Fallback: Just return { "command": device_data["someKey"] } if it exists
-        key = "get" + cmd_upper
-        if key in device_data:
-            response_data[key] = device_data[key]
+    @app.route(prefix + "/get/<command>", methods=["GET"])
+    def get_command(command):
+        data = ALL_DEVICE_DATA[device_key]
+        cmd_upper = command.upper()
+        response_data = {}
+
+        # --- Example for valve status:
+        if cmd_upper == "VLV":
+            response_data["getVLV"] = data.get("getVLV", defaults["getVLV"])
+
+        # --- Example for the profile:
+        elif cmd_upper == "PRF":
+            response_data["getPRF"] = data.get("getPRF", defaults["getPRF"])
+
+        # --- Example for the alarm:
+        elif cmd_upper == "ALA":
+            response_data["getALA"] = data.get("getALA", defaults["getALA"])
+
+        # --- Example for the Pontos “CND” (water conductivity/hardness):
+        elif cmd_upper == "CND":
+            # Some devices might not have CND at all. For Pontos, it’s used. If you want it for others, add it similarly.
+            response_data["getCND"] = data.get("getCND", defaults.get("getCND", "300"))
+
         else:
-            response_data = {"error": f"Unknown command: {command}"}
+            # Fallback
+            key = "get" + cmd_upper
+            if key in data:
+                response_data[key] = data[key]
+            else:
+                response_data = {"error": f"Unknown command: {command}"}
 
-    return jsonify(response_data)
+        return jsonify(response_data)
 
-@app.route("/trio/set/<command>", methods=["GET"])
-@app.route("/trio/set/<command>/<value>", methods=["GET"])
-def set_command(command, value=None):
-    """
-    Handle requests like:
-      GET /trio/set/<command>           (without value)
-      GET /trio/set/<command>/<value>   (with value)
-    We'll parse <command> and <value>, then modify 'device_data' accordingly.
-    """
+    @app.route(prefix + "/set/<command>", methods=["GET"])
+    @app.route(prefix + "/set/<command>/<value>", methods=["GET"])
+    def set_command(command, value=None):
+        data = ALL_DEVICE_DATA[device_key]
+        cmd_upper = command.upper()
+        response_data = {}
 
-    cmd_upper = command.upper()
-    response_data = {}
+    # The AB command is used for opening/closing the valve. 
+        if cmd_upper == "AB":
+            if value is None:
+                return jsonify({"error": "Missing value for AB command"}), 400
+            
+            # Check which device we’re dealing with:
+            if device_key == "pontos" or device_key == "safetech_v4":
+                # For Pontos, "1" => open, "2" => close
+                if value == "1":
+                    data["getVLV"] = 20  # 20 => valve open
+                    data["setAB"] = "open"
+                    response_data["getVLV"] = data["getVLV"]
+                    response_data["setAB"] = "open"
+                elif value == "2":
+                    data["getVLV"] = 10  # 10 => valve closed
+                    data["setAB"] = "close"
+                    response_data["getVLV"] = data["getVLV"]
+                    response_data["setAB"] = "close"
+                else:
+                    return jsonify({"error": f"Invalid AB value for Pontos: {value}"}), 400
+            else:
+                # For Trio / SafeTec, "true" => closed (10), "false" => open (20)
+                bool_val = (value.lower() == "true")
+                data["setAB"] = bool_val
+                # If “true” => valve closed => getVLV=10; “false” => valve open => getVLV=20
+                data["getVLV"] = 10 if bool_val else 20
+                response_data["setAB"] = bool_val
+                response_data["getVLV"] = data["getVLV"]
+            
+        # Profile switching logic:
+        elif cmd_upper == "PRF":
+            if value is None:
+                return jsonify({"error": "Missing value for PRF command"}), 400
+            try:
+                profile_num = int(value)
+            except ValueError:
+                return jsonify({"error": f"Invalid profile number: {value}"}), 400
 
-    # Example: /trio/set/ab/true  -> closes the valve
-    #          /trio/set/ab/false -> opens the valve
-    if cmd_upper == "AB":
-        if value is None:
-            return jsonify({"error": "Missing value for AB command"}), 400
+            data["getPRF"] = profile_num
+            response_data["setPRF"] = profile_num
 
-        # The doc says: AB bool => false => valve open, true => valve closed
-        bool_val = (value.lower() == "true")
-        device_data["setAB"] = bool_val
-        if bool_val:
-            # Valve closed
-            device_data["getVLV"] = 10
+        # --- Example of the special “CND” set command (optional):
+        #     If you wanted to allow setting getCND, do something like:
+        elif cmd_upper == "CND":
+            if not value:
+                return jsonify({"error": "Missing value for CND"}), 400
+            data["getCND"] = value
+            response_data["setCND"] = value
+
         else:
-            # Valve open
-            device_data["getVLV"] = 20
+            # Fallback
+            if value is None:
+                data[f"set{cmd_upper}"] = "OK"
+                response_data[f"set{cmd_upper}"] = "OK"
+            else:
+                data[f"set{cmd_upper}{value}"] = "OK"
+                response_data[f"set{cmd_upper}{value}"] = "OK"
 
-        response_data["setAB"] = bool_val
-        response_data["getVLV"] = device_data["getVLV"]
+        return jsonify(response_data)
 
-    # Example: /trio/set/prf/2 -> sets the active profile to 2
-    elif cmd_upper == "PRF":
-        if value is None:
-            return jsonify({"error": "Missing value for PRF command"}), 400
-
-        try:
-            profile_num = int(value)
-        except ValueError:
-            return jsonify({"error": f"Invalid profile number: {value}"}), 400
-
-        # The doc says "1-8" are valid
-        if profile_num < 1 or profile_num > 8:
-            return jsonify({"error": f"Profile out of range: {profile_num}"}), 400
-
-        device_data["getPRF"] = profile_num
-        response_data["setPRF"] = profile_num
-
-    else:
-        # Fallback for unknown commands
-        # We store them generically to avoid errors.
-        if value is None:
-            device_data[f"set{cmd_upper}"] = "OK"
-            response_data[f"set{cmd_upper}"] = "OK"
-        else:
-            device_data[f"set{cmd_upper}{value}"] = "OK"
-            response_data[f"set{cmd_upper}{value}"] = "OK"
-
-    return jsonify(response_data)
+def create_app(device_key):
+    """
+    Create a Flask app that only serves endpoints for the specified device.
+    """
+    app = Flask(__name__)
+    register_device_endpoints(app, device_key)
+    return app
 
 if __name__ == "__main__":
-    load_device_data()
-    app.run(host="0.0.0.0", port=5333)
+    args = parse_args()
+    device_key = args.device
+
+    # Load the JSON data for that device
+    load_device_data(device_key)
+
+    # Create and run the Flask app with that device’s routes
+    app = create_app(device_key)
+    print(f"Starting Flask app for device: {device_key}")
+    app.run(host="0.0.0.0", port=5333, debug=True)
