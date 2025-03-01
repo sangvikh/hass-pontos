@@ -11,10 +11,12 @@ CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
 FETCH_INTERVAL = timedelta(seconds=10)
 
-BASE_URL = "http://{ip}:5333/trio/"
+BASE_URL = "http://{ip}:5333/safe-tec/"
+URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
 URL_ALL_DATA = f"{BASE_URL}get/all"
 
 URL_LIST = [
+    URL_ADMIN,
     URL_ALL_DATA
 ]
 
@@ -32,19 +34,6 @@ ALARM_CODES = {
     "AA": "ALARM: Temperature sensor faulty!",
     "AB": "ALARM: Weak battery!",
     "AE": "Error: no information available"
-}
-
-WARING_CODES = {
-    "1": "Power outage",
-    "7": "Leak warning",
-    "8": "Battery low",
-    "FF": "No warning"
-}
-
-NOTIFICATION_CODES = {
-    "1": "New Software Update Available!",
-    "4": "New software update installed!",
-    "FF": "No notification",
 }
 
 PROFILE_CODES = {
@@ -71,21 +60,16 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": "water",
-        "state_class": "total_increasing"
+        "state_class": "total_increasing",
+        "format_dict": {"Vol[L]": ""}
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
         "device_class": "pressure",
+        "format_dict": {"mbar": ""},
         "scale": 0.001
-    },
-    "water_temperature": {
-        "name": "Water temperature",
-        "endpoint": "getCEL",
-        "unit": "°C",
-        "device_class": "temperature",
-        "scale": 0.1
     },
     "water_flow": {
         "name": "Water flow",
@@ -93,6 +77,13 @@ SENSOR_DETAILS = {
         "unit": "L/min",
         "device_class": "volume_flow_rate",
         "scale": 1
+    },
+    "water_temperature": {
+        "name": "Water temperature",
+        "endpoint": "getCEL",
+        "unit": "°C",
+        "device_class": "temperature",
+        "scale": 0.1
     },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
@@ -104,6 +95,7 @@ SENSOR_DETAILS = {
         "endpoint": "getAVO",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
+        "format_dict": {"mL": ""},
         "entity_category": EntityCategory.DIAGNOSTIC,
         "scale": 0.001
     },
@@ -132,7 +124,7 @@ SENSOR_DETAILS = {
         "endpoint": "getBAT",
         "unit": "V",
         "device_class": "voltage",
-        "scale": 0.01,
+        "format_dict": {",": "."},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mains_voltage": {
@@ -140,7 +132,7 @@ SENSOR_DETAILS = {
         "endpoint": "getNET",
         "unit": "V",
         "device_class": "voltage",
-        "scale": 0.01,
+        "format_dict": {",": "."},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "serial_number": {
@@ -153,30 +145,20 @@ SENSOR_DETAILS = {
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "hardware_version": {
-        "name": "Hardware version",
-        "endpoint": "getHWV",
+    "device_type": {
+        "name": "Device type",
+        "endpoint": "getTYP",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
         "name": "MAC address",
-        "endpoint": "getMAC1",
+        "endpoint": "getMAC",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
         "code_dict": ALARM_CODES
-    },
-    "warning_status": {
-        "name": "Warning status",
-        "endpoint": "getWRN",
-        "code_dict": WARING_CODES
-    },
-    "notification_status": {
-        "name": "Notification status",
-        "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES
     },
     "active_profile": {
         "name": "Active profile",
@@ -206,15 +188,15 @@ SENSOR_DETAILS = {
 SERVICES = {
     "open_valve": {
         "name": "Open valve",
-        "endpoint": "set/ab/false"
+        "endpoint": "set/ab/1"
     },
     "close_valve": {
         "name": "Close valve",
-        "endpoint": "set/ab/true"
+        "endpoint": "set/ab/2"
     },
     "clear_alarms": {
         "name": "Clear alarms",
-        "endpoint": "set/ala/255"
+        "endpoint": "clr/ala"
     },
     "set_profile": {
         "name": "Set Profile",
