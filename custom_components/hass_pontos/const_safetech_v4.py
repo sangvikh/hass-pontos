@@ -71,6 +71,13 @@ SENSOR_DETAILS = {
         "format_dict": {"mbar": ""},
         "scale": 0.001
     },
+    "water_flow": {
+        "name": "Water flow",
+        "endpoint": "getFLO",
+        "unit": "L/min",
+        "device_class": "volume_flow_rate",
+        "scale": 1
+    },
     "water_temperature": {
         "name": "Water temperature",
         "endpoint": "getCEL",
