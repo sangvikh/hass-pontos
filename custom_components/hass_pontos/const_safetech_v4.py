@@ -36,19 +36,6 @@ ALARM_CODES = {
     "AE": "Error: no information available"
 }
 
-WARING_CODES = {
-    "1": "Power outage",
-    "7": "Leak warning",
-    "8": "Battery low",
-    "FF": "No warning"
-}
-
-NOTIFICATION_CODES = {
-    "1": "New Software Update Available!",
-    "4": "New software update installed!",
-    "FF": "No notification",
-}
-
 PROFILE_CODES = {
     "1": "Home",
     "2": "Away",
@@ -151,30 +138,20 @@ SENSOR_DETAILS = {
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "hardware_version": {
-        "name": "Hardware version",
-        "endpoint": "getHWV",
+    "device_type": {
+        "name": "Device type",
+        "endpoint": "getTYP",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
         "name": "MAC address",
-        "endpoint": "getMAC1",
+        "endpoint": "getMAC",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
         "code_dict": ALARM_CODES
-    },
-    "warning_status": {
-        "name": "Warning status",
-        "endpoint": "getWRN",
-        "code_dict": WARING_CODES
-    },
-    "notification_status": {
-        "name": "Notification status",
-        "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES
     },
     "active_profile": {
         "name": "Active profile",
@@ -204,15 +181,15 @@ SENSOR_DETAILS = {
 SERVICES = {
     "open_valve": {
         "name": "Open valve",
-        "endpoint": "set/ab/false"
+        "endpoint": "set/ab/1"
     },
     "close_valve": {
         "name": "Close valve",
-        "endpoint": "set/ab/true"
+        "endpoint": "set/ab/2"
     },
     "clear_alarms": {
         "name": "Clear alarms",
-        "endpoint": "set/ala/255"
+        "endpoint": "clr/ala"
     },
     "set_profile": {
         "name": "Set Profile",
