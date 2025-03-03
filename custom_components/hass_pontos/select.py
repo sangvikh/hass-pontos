@@ -42,11 +42,9 @@ class PontosProfileSelect(SelectEntity):
         self._attr_unique_id = f"{device_info['serial_number']}_profile_select"
         self._sensor_unique_id = f"{device_info['serial_number']}_active_profile"
 
-        # Build the list of valid profile options (skip "not defined")
+        # Build the list of valid profile options
         self._attr_options = [
-            name if name else "Not Defined"
-            for name in self._profile_codes.values()
-            if name and name != "not defined"
+            for name in self._profile_codes.values() if name
         ]
 
         self._attr_current_option = None

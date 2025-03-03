@@ -53,9 +53,9 @@ PROFILE_CODES = {
     "3": "Holiday",
     "4": "Increased consumption",
     "5": "Max. consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
+    "6": "",
+    "7": "",
+    "8": ""
 }
 
 VALVE_CODES = {
