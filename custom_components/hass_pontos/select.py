@@ -43,10 +43,7 @@ class PontosProfileSelect(SelectEntity):
         self._sensor_unique_id = f"{device_info['serial_number']}_active_profile"
 
         # Build the list of valid profile options
-        self._attr_options = [
-            for name in self._profile_codes.values() if name
-        ]
-
+        self._attr_options = [name for name in self._profile_codes.values() if name]
         self._attr_current_option = None
 
     async def async_added_to_hass(self):
