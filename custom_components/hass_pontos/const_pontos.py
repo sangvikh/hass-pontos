@@ -38,17 +38,6 @@ ALARM_CODES = {
     "AE": "Error: no information available"
 }
 
-PROFILE_CODES = {
-    "1": "Home",
-    "2": "Away",
-    "3": "Holiday",
-    "4": "Increased consumption",
-    "5": "Max. consumption",
-    "6": "",
-    "7": "",
-    "8": ""
-}
-
 VALVE_CODES = {
     "10": STATE_CLOSED,
     "11": STATE_CLOSING,
@@ -158,7 +147,6 @@ SENSOR_DETAILS = {
     "active_profile": {
         "name": "Active profile",
         "endpoint": "getPRF",
-        "code_dict": PROFILE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "valve_status": {
