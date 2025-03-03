@@ -47,17 +47,6 @@ NOTIFICATION_CODES = {
     "FF": "No notification",
 }
 
-PROFILE_CODES = {
-    "1": "Home",
-    "2": "Away",
-    "3": "Holiday",
-    "4": "Increased consumption",
-    "5": "Max. consumption",
-    "6": "",
-    "7": "",
-    "8": ""
-}
-
 VALVE_CODES = {
     "10": STATE_CLOSED,
     "11": STATE_CLOSING,
@@ -181,7 +170,6 @@ SENSOR_DETAILS = {
     "active_profile": {
         "name": "Active profile",
         "endpoint": "getPRF",
-        "code_dict": PROFILE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "valve_status": {
@@ -200,7 +188,47 @@ SENSOR_DETAILS = {
         "endpoint": "getCND",
         "unit": "dH",
         "scale": 1/30
-    }
+    },
+        "profile_name_1": {
+        "name": "Profile 1 name",
+        "endpoint": "getPN1",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_2": {
+        "name": "Profile 2 name",
+        "endpoint": "getPN2",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_3": {
+        "name": "Profile 3 name",
+        "endpoint": "getPN3",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_4": {
+        "name": "Profile 4 name",
+        "endpoint": "getPN4",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_5": {
+        "name": "Profile 5 name",
+        "endpoint": "getPN5",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_6": {
+        "name": "Profile 6 name",
+        "endpoint": "getPN6",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_7": {
+        "name": "Profile 7 name",
+        "endpoint": "getPN7",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_8": {
+        "name": "Profile 8 name",
+        "endpoint": "getPN8",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
 }
 
 SERVICES = {
