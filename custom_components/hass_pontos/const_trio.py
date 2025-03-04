@@ -85,14 +85,14 @@ SENSOR_DETAILS = {
     "wifi_state": {
         "name": "Wifi state",
         "endpoint": "getWFS",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "code_dict": {"0":"Not connected","1":"Connecting","2":"Connected"}
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
-        "unit": "dBm",
+        "unit": "%",
         "device_class": "signal_strength",
-        "scale": -1,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "battery_voltage": {
@@ -195,6 +195,12 @@ SENSOR_DETAILS = {
         "profile_name_8": {
         "name": "Profile 8 name",
         "endpoint": "getPN8",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "microleakage_schedule": {
+        "name": "Microleakage test schedule",
+        "endpoint": "getDRP",
+        "code_dict": {"1": "Daily", "2": "Weekly", "3": "Montly"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
 }
