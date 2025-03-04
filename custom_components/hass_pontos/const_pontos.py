@@ -166,6 +166,12 @@ SENSOR_DETAILS = {
         "unit": "dH",
         "scale": 1/30
     },
+        "microleakage_schedule": {
+        "name": "Microleakage test schedule",
+        "endpoint": "getDRP",
+        "code_dict": {"1": "Daily", "2": "Weekly", "3": "Montly"},
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
         "profile_name_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
@@ -204,12 +210,6 @@ SENSOR_DETAILS = {
         "profile_name_8": {
         "name": "Profile 8 name",
         "endpoint": "getPN8",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
-        "microleakage_schedule": {
-        "name": "Microleakage test schedule",
-        "endpoint": "getDRP",
-        "code_dict": {"1": "Daily", "2": "Weekly", "3": "Montly"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
 }
