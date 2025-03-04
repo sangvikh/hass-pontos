@@ -256,4 +256,4 @@ class PontosProfileSelect(SelectEntity):
     @property
     def available(self):
         """Entity is unavailable if the current option is STATE_UNAVAILABLE."""
-        return self._attr_current_option != STATE_UNAVAILABLE
+        return self._attr_current_option != None
