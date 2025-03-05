@@ -92,7 +92,6 @@ SENSOR_DETAILS = {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
         "unit": "%",
-        "device_class": "signal_strength",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "battery_voltage": {
