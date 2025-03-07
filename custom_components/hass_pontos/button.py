@@ -29,7 +29,8 @@ class PontosClearAlarmsButton(ButtonEntity):
         """Initialize the button."""
         self._hass = hass
         self._entry = entry
-        self._attr_name = f"{device_info['name']} Clear alarms"
+        self._attr_translation_key = "clear_alarms"
+        self._attr_has_entity_name = True
         self._attr_unique_id = slugify(f"{device_info['serial_number']}_clear_alarms")
         self._device_info = device_info
         self._availability_sensor_unique_id = slugify(f"{device_info['serial_number']}_alarm_status")

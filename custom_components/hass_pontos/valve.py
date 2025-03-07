@@ -28,7 +28,8 @@ class PontosValve(ValveEntity):
         """Initialize the Pontos Valve."""
         self._hass = hass
         self._entry = entry
-        self._attr_name = f"{device_info['name']} Water supply"
+        self._attr_translation_key = "water_supply"
+        self._attr_has_entity_name = True
         self._attr_unique_id = slugify(f"{device_info['serial_number']}_water_supply")
         self._attr_reports_position = False
         self._attr_device_class = ValveDeviceClass.WATER

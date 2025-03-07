@@ -41,6 +41,7 @@
         "total_consumption": { "name": "Gesamtwasserverbrauch" },
         "water_pressure": { "name": "Wasserdruck" },
         "water_temperature": { "name": "Wassertemperatur" },
+        "water_flow": { "name": "Wasserfluss" },
         "no_pulse_time": { "name": "Zeit seit letztem Turbinenpuls" },
         "current_consumption": { "name": "Aktueller Wasserverbrauch" },
         "leak_test_pressure": { "name": "Druckabfall beim Lecktest" },
@@ -69,6 +70,15 @@
         "profile_name_6": { "name": "Profilname 6" },
         "profile_name_7": { "name": "Profilname 7" },
         "profile_name_8": { "name": "Profilname 8" }
+      },
+      "valve": {
+        "water_supply": {"name": "Wasserversorgung"}
+      },
+      "button": {
+        "clear_alarms": {"name": "Alarme löschen"}
+      },
+      "select": {
+        "profile_select": {"name": "Aktives Profil"}
       }
     }
   }

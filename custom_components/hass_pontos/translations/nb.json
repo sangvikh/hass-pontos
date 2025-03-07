@@ -41,13 +41,14 @@
         "total_consumption": {"name": "Totalt vannforbruk"},
         "water_pressure": {"name": "Vanntrykk"},
         "water_temperature": {"name": "Vanntemperatur"},
+        "water_flow": { "name": "Vanngjennomstrømning" },
         "no_pulse_time": {"name": "Tid siden siste turbinpuls"},
         "current_consumption": {"name": "Nåværende vannforbruk"},
         "leak_test_pressure": {"name": "Trykkfall ved lekkasjetest"},
         "wifi_state": {"name": "WiFi-status"},
         "wifi_signal_strength": {"name": "WiFi-signalstyrke"},
         "battery_voltage": {"name": "Batterispenning"},
-        "mains_voltage": {"name": "Netspenning"},
+        "mains_voltage": {"name": "Nettspenning"},
         "serial_number": {"name": "Serienummer"},
         "firmware_version": {"name": "Fastvareversjon"},
         "device_type": {"name": "Enhetstype"},
@@ -57,7 +58,7 @@
         "valve_status": {"name": "Ventilstatus"},
         "water_conductivity": {"name": "Vannledningsevne"},
         "water_hardness": {"name": "Vannhardhet"},
-        "warning_status": {"name": "Varselstatus"},
+        "warning_status": {"name": "Advarselstatus"},
         "notification_status": {"name": "Varslingsstatus"},
         "hardware_version": {"name": "Maskinvareversjon"},
         "microleakage_schedule": {"name": "Mikrolekkasjetestintervall"},
@@ -69,6 +70,15 @@
         "profile_name_6": { "name": "Profilnavn 6" },
         "profile_name_7": { "name": "Profilnavn 7" },
         "profile_name_8": { "name": "Profilnavn 8" }        
+      },
+      "valve": {
+        "water_supply": {"name": "Vanntilførsel"}
+      },
+      "button": {
+        "clear_alarms": {"name": "Tilbakestill alarmer"}
+      },
+      "select": {
+        "profile_select": {"name": "Aktiv profil"}
       }
     }
   }

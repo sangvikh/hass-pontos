@@ -38,7 +38,8 @@ class PontosProfileSelect(SelectEntity):
 
         # Construct entity metadata
         serial_number = device_info["serial_number"]
-        self._attr_name = f"{device_info['name']} Profile"
+        self._attr_translation_key = "profile_select"
+        self._attr_has_entity_name = True
         self._attr_unique_id = f"{serial_number}_profile_select"
 
         # The sensor that holds the numeric active profile code
