@@ -166,7 +166,7 @@ SENSOR_DETAILS = {
         "scale": 1/30
     },
         "microleakage_schedule": {
-        "name": "Microleakage test schedule",
+        "name": "Microleakage test interval",
         "endpoint": "getDRP",
         "code_dict": {"1": "Daily", "2": "Weekly", "3": "Montly"},
         "entity_category": EntityCategory.DIAGNOSTIC

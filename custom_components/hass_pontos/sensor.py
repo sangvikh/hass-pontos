@@ -25,7 +25,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     device_info, data = await get_device_info(hass, entry)
 
     # Instantiate and add sensors
-    sensors = [PontosSensor(sensor_config, device_info) for key, sensor_config in SENSOR_DETAILS.items()]
+    sensors = [PontosSensor(key, sensor_config, device_info) for key, sensor_config in SENSOR_DETAILS.items()]
     async_add_entities(sensors)
 
     # Update data so sensors is available immediately
@@ -42,9 +42,10 @@ async def async_setup_entry(hass, entry, async_add_entities):
     async_track_time_interval(hass, update_data, FETCH_INTERVAL)
 
 class PontosSensor(SensorEntity):
-    def __init__(self, sensor_config, device_info):
+    def __init__(self, key, sensor_config, device_info):
         self._data = None
-        self._attr_name = f"{device_info['name']} {sensor_config['name']}"
+        self._attr_translation_key = key
+        self._attr_has_entity_name = True
         self._endpoint = sensor_config['endpoint']
         self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
         self._attr_device_class = sensor_config.get('device_class', None)

@@ -1,39 +1,75 @@
 {
     "title": "Hansgrohe Pontos",
     "config": {
-        "step": {
-            "user": {
-                "title": "Gerät einrichten",
-                "description": "Bitte geben Sie die IP-Adresse und den Gerätenamen für Ihr Gerät",
-                "data": {
-                    "ip_address": "IP-Adresse",
-                    "device_name": "Gerätename",
-                    "make": "Gerätetyp"
-                }
-            }
-        },
-        "error": {
-            "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+      "step": {
+        "user": {
+          "title": "Gerät einrichten",
+          "description": "Bitte geben Sie die IP-Adresse und den Gerätenamen für Ihr Gerät",
+          "data": {
+            "ip_address": "IP-Adresse",
+            "device_name": "Gerätename",
+            "make": "Gerätetyp"
+          }
         }
+      },
+      "error": {
+        "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+      }
     },
     "options": {
-        "step": {
-            "init": {
-                "title": "Gerät konfigurieren",
-                "description": "Aktualisieren Sie die Konfiguration Ihres Geräts",
-                "data": {
-                    "ip_address": "IP-Adresse"
-                }
-            }
-        },
-        "error": {
-            "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+      "step": {
+        "init": {
+          "title": "Gerät konfigurieren",
+          "description": "Aktualisieren Sie die Konfiguration Ihres Geräts",
+          "data": {
+            "ip_address": "IP-Adresse"
+          }
         }
+      },
+      "error": {
+        "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+      }
     },
     "services": {
-        "set_profile": {
-            "name": "Profil einstellen",
-            "description": "Aktives Profil auf Ihrer Gerät einstellen"
-        }
+      "set_profile": {
+        "name": "Profil einstellen",
+        "description": "Aktives Profil auf Ihrer Gerät einstellen"
+      }
+    },
+    "entity": {
+      "sensor": {
+        "total_consumption": { "name": "Gesamtwasserverbrauch" },
+        "water_pressure": { "name": "Wasserdruck" },
+        "water_temperature": { "name": "Wassertemperatur" },
+        "no_pulse_time": { "name": "Zeit seit letztem Turbinenpuls" },
+        "current_consumption": { "name": "Aktueller Wasserverbrauch" },
+        "leak_test_pressure": { "name": "Druckabfall beim Lecktest" },
+        "wifi_state": { "name": "WLAN-Zustand" },
+        "wifi_signal_strength": { "name": "WLAN-Signalstärke" },
+        "battery_voltage": { "name": "Batteriespannung" },
+        "mains_voltage": { "name": "Netzspannung" },
+        "serial_number": { "name": "Seriennummer" },
+        "firmware_version": { "name": "Firmware-Version" },
+        "device_type": { "name": "Gerätetyp" },
+        "mac_address": { "name": "MAC-Adresse" },
+        "alarm_status": { "name": "Alarmstatus" },
+        "active_profile": { "name": "Aktives Profil" },
+        "valve_status": { "name": "Ventilstatus" },
+        "water_conductivity": { "name": "Wasserleitfähigkeit" },
+        "water_hardness": { "name": "Wasserhärte" },
+        "warning_status": { "name": "Warnstatus" },
+        "notification_status": { "name": "Benachrichtigungsstatus" },
+        "hardware_version": { "name": "Hardware-Version" },
+        "microleakage_schedule": {"name": "Mikroleckage-Testintervall"},
+        "profile_name_1": { "name": "Profilname 1" },
+        "profile_name_2": { "name": "Profilname 2" },
+        "profile_name_3": { "name": "Profilname 3" },
+        "profile_name_4": { "name": "Profilname 4" },
+        "profile_name_5": { "name": "Profilname 5" },
+        "profile_name_6": { "name": "Profilname 6" },
+        "profile_name_7": { "name": "Profilname 7" },
+        "profile_name_8": { "name": "Profilname 8" }
+      }
     }
-}
+  }
+  
