@@ -1,0 +1,124 @@
+{
+    "title": "Hansgrohe Pontos",
+    "config": {
+      "step": {
+        "user": {
+          "title": "Configurer l'appareil",
+          "description": "Veuillez saisir l'adresse IP et le nom de votre appareil",
+          "data": {
+            "ip_address": "Adresse IP",
+            "device_name": "Nom de l'appareil",
+            "make": "Type d'appareil"
+          }
+        }
+      },
+      "error": {
+        "cannot_connect": "Échec de connexion à l'appareil"
+      }
+    },
+    "options": {
+      "step": {
+        "init": {
+          "title": "Configurer l'appareil",
+          "description": "Mettez à jour la configuration de votre appareil",
+          "data": {
+            "ip_address": "Adresse IP"
+          }
+        }
+      },
+      "error": {
+        "cannot_connect": "Impossible de se connecter à l'appareil"
+      }
+    },
+    "services": {
+      "set_profile": {
+        "name": "Définir le profil",
+        "description": "Définit le profil actif sur votre appareil"
+      }
+    },
+    "entity": {
+      "sensor": {
+        "total_consumption": {"name": "Consommation totale d'eau"},
+        "water_pressure": {"name": "Pression de l'eau"},
+        "water_temperature": {"name": "Température de l'eau"},
+        "water_flow": { "name": "Débit d'eau" },
+        "no_pulse_time": {"name": "Temps depuis la dernière impulsion de la turbine"},
+        "current_consumption": {"name": "Consommation d'eau actuelle"},
+        "leak_test_pressure": {"name": "Perte de pression (test de fuite)"},
+        "wifi_state": {"name": "État du WiFi"},
+        "wifi_signal_strength": {"name": "Force du signal WiFi"},
+        "battery_voltage": {"name": "Tension de la batterie"},
+        "mains_voltage": {"name": "Tension secteur"},
+        "serial_number": {"name": "Numéro de série"},
+        "firmware_version": {"name": "Version du firmware"},
+        "device_type": {"name": "Type d'appareil"},
+        "mac_address": {"name": "Adresse MAC"},
+        "alarm_status": {
+            "name": "État d'alarme",
+            "state": {
+              "No alarm": "Aucune alarme",
+              "ALARM END SWITCH": "ALARME FIN DE COURSE",
+              "ALARM: Turbine blocked!": "ALARME : Turbine bloquée !",
+              "ALARM: Leakage volume reached!": "ALARME : Volume de fuite atteint !",
+              "ALARM: Leakage time reached!": "ALARM: Durée de fuite atteinte !",
+              "ALARM: Maximum flow rate reached!": "ALARM: Débit maximum atteint !",
+              "ALARM: Microleakage detected!": "ALARM: Micro-fuite détectée !",
+              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Fuite détectée par capteur radio externe",
+              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Fuite détectée par câble externe",
+              "ALARM: Pressure sensor faulty!": "ALARM: Capteur de pression défectueux !",
+              "ALARM: Temperature sensor faulty!": "ALARM: Capteur de température défectueux !",
+              "ALARM: Weak battery!": "ALARM: Batterie faible !",
+              "Error: no information available": "Erreur : aucune information disponible"
+          }
+        },
+        "warning_status": {
+            "name": "État des avertissements",
+            "state": {
+                "Power outage": "Coupure de courant",
+                "Leak warning": "Avertissement de fuite",
+                "Battery low": "Batterie faible",
+                "No warning": "Aucun avertissement"
+            }
+        },
+        "notification_status": {
+            "name": "État des notifications",
+            "state": {
+                "New Software Update Available!": "Nouvelle mise à jour disponible !",
+                "New software update installed!": "Nouvelle mise à jour installée !",
+                "No notification": "Aucune notification"
+            }
+        },
+        "active_profile": {"name": "Profil actif"},
+        "valve_status": {
+            "name": "État de la vanne",
+            "state": {
+                "open": "Ouverte",
+                "closed": "Fermée",
+                "opening": "Ouverture",
+                "closing": "Fermeture"
+            }
+        },
+        "water_conductivity": {"name": "Conductivité de l'eau"},
+        "water_hardness": {"name": "Dureté de l'eau"},
+        "hardware_version": {"name": "Version matérielle"},
+        "microleakage_schedule": {"name": "Intervalle test de micro-fuite"},
+        "profile_name_1": {"name": "Profil 1"},
+        "profile_name_2": {"name": "Profil 2"},
+        "profile_name_3": {"name": "Profil 3"},
+        "profile_name_4": {"name": "Profil 4"},
+        "profile_name_5": {"name": "Profil 5"},
+        "profile_name_6": {"name": "Profil 6"},
+        "profile_name_7": {"name": "Profil 7"},
+        "profile_name_8": {"name": "Profil 8"}
+      },
+      "valve": {
+        "water_supply": {"name": "Arrivée d'eau"}
+      },
+      "button": {
+        "clear_alarms": {"name": "Effacer les alarmes"}
+      },
+      "select": {
+        "profile_select": {"name": "Profil actif"}
+      }
+    }
+}  
