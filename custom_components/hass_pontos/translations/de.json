@@ -4,7 +4,7 @@
       "step": {
         "user": {
           "title": "Gerät einrichten",
-          "description": "Bitte geben Sie die IP-Adresse und den Gerätenamen für Ihr Gerät",
+          "description": "Bitte gib die IP-Adresse und den Gerätenamen für dein Gerät ein",
           "data": {
             "ip_address": "IP-Adresse",
             "device_name": "Gerätename",
@@ -20,7 +20,7 @@
       "step": {
         "init": {
           "title": "Gerät konfigurieren",
-          "description": "Aktualisieren Sie die Konfiguration Ihres Geräts",
+          "description": "Aktualisiere die Konfiguration für dein Gerät",
           "data": {
             "ip_address": "IP-Adresse"
           }
@@ -33,7 +33,7 @@
     "services": {
       "set_profile": {
         "name": "Profil einstellen",
-        "description": "Aktives Profil auf Ihrer Gerät einstellen"
+        "description": "Aktives Profil auf deinem Gerät einstellen"
       }
     },
     "entity": {
@@ -92,10 +92,10 @@
         "valve_status": {
             "name": "Ventilstatus",
             "state": {
-              "open": "Offen",
+              "open": "Geöffnet",
               "closed": "Geschlossen",
-              "opening": "Öffnet",
-              "closing": "Schließt"
+              "opening": "Wird geöffnet",
+              "closing": "Wird verschlossen"
             }
         },          
         "water_conductivity": { "name": "Wasserleitfähigkeit" },
