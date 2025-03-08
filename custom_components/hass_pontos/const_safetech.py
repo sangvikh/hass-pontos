@@ -159,7 +159,7 @@ SENSOR_DETAILS = {
     "warning_status": {
         "name": "Warning status",
         "endpoint": "getWRN",
-        "code_dict": WARING_CODES
+        "code_dict": WARNING_CODES
     },
     "notification_status": {
         "name": "Notification status",
