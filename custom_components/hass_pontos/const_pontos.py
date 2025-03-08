@@ -23,19 +23,19 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "FF": "No alarm",
-    "A1": "ALARM END SWITCH",
-    "A2": "ALARM: Turbine blocked!",
-    "A3": "ALARM: Leakage volume reached!",
-    "A4": "ALARM: Leakage time reached!",
-    "A5": "ALARM: Maximum flow rate reached!",
-    "A6": "ALARM: Microleakage detected!",
-    "A7": "ALARM EXT. SENSOR LEAKAGE RADIO",
-    "A8": "ALARM EXT. SENSOR LEAKAGE CABLE",
-    "A9": "ALARM: Pressure sensor faulty!",
-    "AA": "ALARM: Temperature sensor faulty!",
-    "AB": "ALARM: Weak battery!",
-    "AE": "Error: no information available"
+    "FF": "no_alarm",
+    "A1": "alarm_end_switch",
+    "A2": "alarm_turbine_blocked",
+    "A3": "alarm_leakage_volume_reached",
+    "A4": "alarm_leakage_time_reached",
+    "A5": "alarm_max_flow_rate_reached",
+    "A6": "alarm_microleakage_detected",
+    "A7": "alarm_external_sensor_leakage_radio",
+    "A8": "alarm_external_sensor_leakage_cable",
+    "A9": "alarm_pressure_sensor_faulty",
+    "AA": "alarm_temperature_sensor_faulty",
+    "AB": "alarm_weak_battery",
+    "AE": "error_no_information"
 }
 
 VALVE_CODES = {

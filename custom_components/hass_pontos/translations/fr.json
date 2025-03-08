@@ -56,36 +56,36 @@
         "alarm_status": {
             "name": "État d'alarme",
             "state": {
-              "No alarm": "Aucune alarme",
-              "ALARM END SWITCH": "ALARME FIN DE COURSE",
-              "ALARM: Turbine blocked!": "ALARME : Turbine bloquée !",
-              "ALARM: Leakage volume reached!": "ALARME : Volume de fuite atteint !",
-              "ALARM: Leakage time reached!": "ALARM: Durée de fuite atteinte !",
-              "ALARM: Maximum flow rate reached!": "ALARM: Débit maximum atteint !",
-              "ALARM: Microleakage detected!": "ALARM: Micro-fuite détectée !",
-              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Fuite détectée par capteur radio externe",
-              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Fuite détectée par câble externe",
-              "ALARM: Pressure sensor faulty!": "ALARM: Capteur de pression défectueux !",
-              "ALARM: Temperature sensor faulty!": "ALARM: Capteur de température défectueux !",
-              "ALARM: Weak battery!": "ALARM: Batterie faible !",
-              "Error: no information available": "Erreur : aucune information disponible"
+            "no_alarm": "Aucune alarme",
+            "alarm_end_switch": "ALARM END SWITCH",
+            "alarm_turbine_blocked": "ALARM: Turbine bloquée!",
+            "alarm_leakage_volume_reached": "ALARM: Volume de fuite atteint!",
+            "alarm_leakage_time_reached": "ALARM: Durée de fuite atteinte!",
+            "alarm_max_flow_rate_reached": "ALARM: Débit maximal atteint!",
+            "alarm_microleakage_detected": "ALARM: Micro-fuite détectée!",
+            "alarm_external_sensor_leakage_radio": "ALARM: Fuite détectée par capteur radio externe",
+            "alarm_external_sensor_leakage_cable": "ALARM: Fuite détectée par câble externe",
+            "alarm_pressure_sensor_faulty": "ALARM: Capteur de pression défectueux!",
+            "alarm_temperature_sensor_faulty": "ALARM: Capteur de température défectueux!",
+            "alarm_weak_battery": "ALARM: Batterie faible!",
+            "error_no_information": "Erreur : aucune information disponible"
           }
         },
         "warning_status": {
             "name": "État des avertissements",
             "state": {
-                "Power outage": "Coupure de courant",
-                "Leak warning": "Avertissement de fuite",
-                "Battery low": "Batterie faible",
-                "No warning": "Aucun avertissement"
+                "power_outage": "Coupure de courant",
+                "leak warning": "Avertissement de fuite",
+                "battery_low": "Batterie faible",
+                "no_warning": "Aucun avertissement"
             }
         },
         "notification_status": {
             "name": "État des notifications",
             "state": {
-                "New Software Update Available!": "Nouvelle mise à jour disponible !",
-                "New software update installed!": "Nouvelle mise à jour installée !",
-                "No notification": "Aucune notification"
+            "new_software_available": "Nouvelle mise à jour disponible !",
+            "new_software_installed": "Nouvelle mise à jour installée !",
+            "no_notification": "Aucune notification"
             }
         },
         "active_profile": {"name": "Profil actif"},
@@ -102,17 +102,17 @@
         "water_hardness": {"name": "Dureté de l'eau"},
         "hardware_version": {"name": "Version matérielle"},
         "microleakage_schedule": {"name": "Intervalle test de micro-fuite"},
-        "profile_name_1": {"name": "Profil 1"},
-        "profile_name_2": {"name": "Profil 2"},
-        "profile_name_3": {"name": "Profil 3"},
-        "profile_name_4": {"name": "Profil 4"},
-        "profile_name_5": {"name": "Profil 5"},
-        "profile_name_6": {"name": "Profil 6"},
-        "profile_name_7": {"name": "Profil 7"},
-        "profile_name_8": {"name": "Profil 8"}
+        "profile_name_1": { "name": "Profil 1" },
+        "profile_name_2": { "name": "Profil 2" },
+        "profile_name_3": { "name": "Profil 3" },
+        "profile_name_4": { "name": "Profil 4" },
+        "profile_name_5": { "name": "Profil 5" },
+        "profile_name_6": { "name": "Profil 6" },
+        "profile_name_7": { "name": "Profil 7" },
+        "profile_name_8": { "name": "Profil 8" }
       },
       "valve": {
-        "water_supply": {"name": "Arrivée d'eau"}
+        "water_supply": {"name": "Alimentation en eau"}
       },
       "button": {
         "clear_alarms": {"name": "Effacer les alarmes"}

@@ -54,40 +54,40 @@
         "device_type": {"name": "Device type"},
         "mac_address": {"name": "MAC address"},
         "alarm_status": {
-            "name": "Alarm status",
-            "state": {
-              "No alarm": "No alarm",
-              "ALARM END SWITCH": "ALARM END SWITCH",
-              "ALARM: Turbine blocked!": "ALARM: Turbine blocked!",
-              "ALARM: Leakage volume reached!": "ALARM: Leakage volume reached!",
-              "ALARM: Leakage time reached!": "ALARM: Leakage time reached!",
-              "ALARM: Maximum flow rate reached!": "ALARM: Maximum flow rate reached!",
-              "ALARM: Microleakage detected!": "ALARM: Microleakage detected!",
-              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM EXT. SENSOR LEAKAGE RADIO",
-              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM EXT. SENSOR LEAKAGE CABLE",
-              "ALARM: Pressure sensor faulty!": "ALARM: Pressure sensor faulty!",
-              "ALARM: Temperature sensor faulty!": "ALARM: Temperature sensor faulty!",
-              "ALARM: Weak battery!": "ALARM: Weak battery!",
-              "Error: no information available": "Error: no information available"
-            }
+          "name": "Alarm status",
+          "state": {
+            "no_alarm": "No alarm",
+            "alarm_end_switch": "ALARM END SWITCH",
+            "alarm_turbine_blocked": "ALARM: Turbine blocked!",
+            "alarm_leakage_volume_reached": "ALARM: Leakage volume reached!",
+            "alarm_leakage_time_reached": "ALARM: Leakage time reached!",
+            "alarm_max_flow_rate_reached": "ALARM: Maximum flow rate reached!",
+            "alarm_microleakage_detected": "ALARM: Microleakage detected!",
+            "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LEAKAGE RADIO",
+            "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LEAKAGE CABLE",
+            "alarm_pressure_sensor_faulty": "ALARM: Pressure sensor faulty!",
+            "alarm_temperature_sensor_faulty": "ALARM: Temperature sensor faulty!",
+            "alarm_weak_battery": "ALARM: Weak battery!",
+            "error_no_information": "Error: no information available"
+          }
         },
         "warning_status": {
-            "name": "Warning status",
-            "state": {
-                "Power outage": "Power outage",
-                "Leak warning": "Leak warning",
-                "Battery low": "Battery low",
-                "No warning": "No warning"
-            }
+          "name": "Warning status",
+          "state": {
+            "power_outage": "Power outage",
+            "leak_warning": "Leak warning",
+            "battery_low": "Battery low",
+            "no_warning": "No warning"
+          }
         },
         "notification_status": {
-            "name": "Notification status",
-            "state": {
-              "New Software Update Available!": "New Software Update Available!",
-              "New software update installed!": "New software update installed!",
-              "No notification": "No notification"
-            }
-        },          
+          "name": "Notification status",
+          "state": {
+            "new_software_available": "New software update available!",
+            "new_software_installed": "New software update installed!",
+            "no_notification": "No notification"
+          }
+        },                   
         "active_profile": {"name": "Active profile"},
         "valve_status": {
             "name": "Valve status",

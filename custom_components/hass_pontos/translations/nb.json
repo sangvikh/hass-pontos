@@ -54,38 +54,38 @@
         "device_type": {"name": "Enhetstype"},
         "mac_address": {"name": "MAC-adresse"},
         "alarm_status": {
-            "name": "Alarmstatus",
-            "state": {
-              "No alarm": "Ingen alarm",
-              "ALARM END SWITCH": "ALARM ENDESTOPPBRYTER",
-              "ALARM: Turbine blocked!": "ALARM: Turbin blokkert!",
-              "ALARM: Leakage volume reached!": "ALARM: Lekkasjevolum nådd!",
-              "ALARM: Leakage time reached!": "ALARM: Lekkasjetid nådd!",
-              "ALARM: Maximum flow rate reached!": "ALARM: Maksimal vannstrøm nådd!",
-              "ALARM: Microleakage detected!": "ALARM: Mikrolekkasje oppdaget!",
-              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Ekstern radiosensor lekkasje",
-              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Ekstern kabelsensor lekkasje",
-              "ALARM: Pressure sensor faulty!": "ALARM: Trykksensorfeil!",
-              "ALARM: Temperature sensor faulty!": "ALARM: Temperatursensorfeil!",
-              "ALARM: Weak battery!": "ALARM: Svakt batteri!",
-              "Error: no information available": "Feil: Ingen informasjon tilgjengelig"
-            }
+          "name": "Alarmstatus",
+          "state": {
+            "no_alarm": "Ingen alarm",
+            "alarm_end_switch": "ALARM END SWITCH",
+            "alarm_turbine_blocked": "ALARM: Turbin blokkert!",
+            "alarm_leakage_volume_reached": "ALARM: Lekkasjevolum nådd!",
+            "alarm_leakage_time_reached": "ALARM: Lekkasjetid nådd!",
+            "alarm_max_flow_rate_reached": "ALARM: Maksimal vannstrøm nådd!",
+            "alarm_microleakage_detected": "ALARM: Mikrolekkasje oppdaget!",
+            "alarm_external_sensor_leakage_radio": "ALARM EKST. SENSOR LEKKASJE RADIO",
+            "alarm_external_sensor_leakage_cable": "ALARM EKST. SENSOR LEKKASJE KABEL",
+            "alarm_pressure_sensor_faulty": "ALARM: Trykksensorfeil!",
+            "alarm_temperature_sensor_faulty": "ALARM: Temperatursensorfeil!",
+            "alarm_weak_battery": "ALARM: Svakt batteri!",
+            "error_no_information": "Feil: Ingen informasjon tilgjengelig"
+          }
         },
         "warning_status": {
-            "name": "Varselstatus",
-            "state": {
-              "Power outage": "Strømbrudd",
-              "Leak warning": "Lekkasjevarsel",
-              "Battery low": "Lavt batterinivå",
-              "No warning": "Ingen varsel"
-            }
-        },
+          "name": "Varselstatus",
+          "state": {
+            "power_outage": "Strømbrudd",
+            "leak_warning": "Lekkasjevarsel",
+            "battery_low": "Lavt batterinivå",
+            "no_warning": "Ingen varsler"
+          }
+        },          
         "notification_status": {
             "name": "Notifikasjoner",
             "state": {
-              "New Software Update Available!": "Ny programvareoppdatering tilgjengelig!",
-              "New software update installed!": "Ny programvareoppdatering installert!",
-              "No notification": "Ingen notifikasjoner"
+              "new_software_available": "Ny programvareoppdatering tilgjengelig!",
+              "new_software_installed": "Ny programvareoppdatering installert!",
+              "no_notification": "Ingen notifikasjoner"
             }
         },                 
         "active_profile": {"name": "Aktiv profil"},

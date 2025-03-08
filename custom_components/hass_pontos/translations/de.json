@@ -56,36 +56,36 @@
         "alarm_status": {
             "name": "Alarmstatus",
             "state": {
-              "No alarm": "Kein Alarm",
-              "ALARM END SWITCH": "ALARM ENDSCHALTER",
-              "ALARM: Turbine blocked!": "ALARM: Turbine blockiert!",
-              "ALARM: Leakage volume reached!": "ALARM: Leckagevolumen erreicht!",
-              "ALARM: Leakage time reached!": "ALARM: Leckagezeit erreicht!",
-              "ALARM: Maximum flow rate reached!": "ALARM: Maximaler Durchfluss erreicht!",
-              "ALARM: Microleakage detected!": "ALARM: Mikroleckage erkannt!",
-              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Leckage Funksensor extern",
-              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Leckage Kabelsensor extern",
-              "ALARM: Pressure sensor faulty!": "ALARM: Drucksensor defekt!",
-              "ALARM: Temperature sensor faulty!": "ALARM: Temperatursensor defekt!",
-              "ALARM: Weak battery!": "ALARM: Batterie schwach!",
-              "Error: no information available": "Fehler: Keine Information verfügbar"
+              "no_alarm": "Kein Alarm",
+              "alarm_end_switch": "ALARM END SWITCH",
+              "alarm_turbine_blocked": "ALARM: Turbine blockiert!",
+              "alarm_leakage_volume_reached": "ALARM: Leckagevolumen erreicht!",
+              "alarm_leakage_time_reached": "ALARM: Leckagezeit erreicht!",
+              "alarm_max_flow_rate_reached": "ALARM: Maximale Durchflussmenge erreicht!",
+              "alarm_microleakage_detected": "ALARM: Mikroleckage erkannt!",
+              "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LEAKAGE RADIO",
+              "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LEAKAGE CABLE",
+              "alarm_pressure_sensor_faulty": "ALARM: Drucksensor defekt!",
+              "alarm_temperature_sensor_faulty": "ALARM: Temperatursensor defekt!",
+              "alarm_weak_battery": "ALARM: Batterie schwach!",
+              "error_no_information": "Fehler: Keine Information verfügbar"
             }
           },
         "warning_status": {
             "name": "Warnungen",
             "state": {
-                "Power outage": "Stromunterbrechung",
-                "Leak warning": "Leckagewarnung",
-                "Battery low": "Batterien erschöpft",
-                "No warning": "Kein Warnung"
+            "power_outage": "Stromunterbrechung",
+            "leak_warning": "Leckagewarnung",
+            "battery_low": "Batterien erschöpft",
+            "no_warning": "Kein Warnung"
             }
         },
         "notification_status": {
             "name": "Notifications",
             "state": {
-              "New Software Update Available!": "Neues Software-Update verfügbar!",
-              "New software update installed!": "Neues Software-Update installiert!",
-              "No notification": "Keine Notification"
+              "new_software_available": "Neues Software-Update verfügbar!",
+              "new_software_installed": "Neues Software-Update installiert!",
+              "no_notification": "Keine Notification"
             }
         },          
         "active_profile": { "name": "Aktives Profil" },
