@@ -23,30 +23,19 @@ URL_LIST = [
 ]
 
 ALARM_CODES = {
-    "FF": "No alarm",
-    "A1": "ALARM END SWITCH",
-    "A2": "ALARM: Turbine blocked!",
-    "A3": "ALARM: Leakage volume reached!",
-    "A4": "ALARM: Leakage time reached!",
-    "A5": "ALARM: Maximum flow rate reached!",
-    "A6": "ALARM: Microleakage detected!",
-    "A7": "ALARM EXT. SENSOR LEAKAGE RADIO",
-    "A8": "ALARM EXT. SENSOR LEAKAGE CABLE",
-    "A9": "ALARM: Pressure sensor faulty!",
-    "AA": "ALARM: Temperature sensor faulty!",
-    "AB": "ALARM: Weak battery!",
-    "AE": "Error: no information available"
-}
-
-PROFILE_CODES = {
-    "1": "Home",
-    "2": "Away",
-    "3": "Holiday",
-    "4": "Increased consumption",
-    "5": "Max. consumption",
-    "6": "not defined",
-    "7": "not defined",
-    "8": "not defined"
+    "FF": "no_alarm",
+    "A1": "alarm_end_switch",
+    "A2": "alarm_turbine_blocked",
+    "A3": "alarm_leakage_volume_reached",
+    "A4": "alarm_leakage_time_reached",
+    "A5": "alarm_max_flow_rate_reached",
+    "A6": "alarm_microleakage_detected",
+    "A7": "alarm_external_sensor_leakage_radio",
+    "A8": "alarm_external_sensor_leakage_cable",
+    "A9": "alarm_pressure_sensor_faulty",
+    "AA": "alarm_temperature_sensor_faulty",
+    "AB": "alarm_weak_battery",
+    "AE": "error_no_information"
 }
 
 VALVE_CODES = {
@@ -104,14 +93,13 @@ SENSOR_DETAILS = {
     "wifi_state": {
         "name": "Wifi state",
         "endpoint": "getWFS",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "code_dict": {"0":"Not connected","1":"Connecting","2":"Connected"}
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
-        "unit": "dBm",
-        "device_class": "signal_strength",
-        "scale": -1,
+        "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "battery_voltage": {
@@ -158,7 +146,6 @@ SENSOR_DETAILS = {
     "active_profile": {
         "name": "Active profile",
         "endpoint": "getPRF",
-        "code_dict": PROFILE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "valve_status": {
@@ -177,7 +164,53 @@ SENSOR_DETAILS = {
         "endpoint": "getCND",
         "unit": "dH",
         "scale": 1/30
-    }
+    },
+        "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "endpoint": "getDRP",
+        "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_1": {
+        "name": "Profile 1 name",
+        "endpoint": "getPN1",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_2": {
+        "name": "Profile 2 name",
+        "endpoint": "getPN2",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_3": {
+        "name": "Profile 3 name",
+        "endpoint": "getPN3",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_4": {
+        "name": "Profile 4 name",
+        "endpoint": "getPN4",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_5": {
+        "name": "Profile 5 name",
+        "endpoint": "getPN5",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_6": {
+        "name": "Profile 6 name",
+        "endpoint": "getPN6",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_7": {
+        "name": "Profile 7 name",
+        "endpoint": "getPN7",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+        "profile_name_8": {
+        "name": "Profile 8 name",
+        "endpoint": "getPN8",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
 }
 
 SERVICES = {
