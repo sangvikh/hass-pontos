@@ -104,9 +104,9 @@
         "microleakage_schedule": {
             "name": "Mikrolekkasjetestintervall",
             "state": {
-                "Daily": "Daglig",
-                "Weekly": "Ukentlig",
-                "Monthly": "Månedlig"
+                "daily": "Daglig",
+                "weekly": "Ukentlig",
+                "monthly": "Månedlig"
             }
         },
         "profile_name_1": { "name": "Profilnavn 1" },

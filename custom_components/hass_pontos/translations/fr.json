@@ -104,9 +104,9 @@
         "microleakage_schedule": {
             "name": "Intervalle test de micro-fuite",
             "state": {
-                "Daily": "Tous les jours",
-                "Weekly": "Hebdomadaire",
-                "Monthly": "Mensuel"
+                "daily": "Tous les jours",
+                "weekly": "Hebdomadaire",
+                "monthly": "Mensuel"
             }
         },
         "profile_name_1": { "name": "Profil 1" },

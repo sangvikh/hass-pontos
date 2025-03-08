@@ -104,9 +104,9 @@
         "microleakage_schedule": {
             "name": "Mikroleckage-Testintervall",
             "state": {
-                "Daily": "Täglich",
-                "Weekly": "Wöchentlich",
-                "Monthly": "Monatlich"
+                "daily": "Täglich",
+                "weekly": "Wöchentlich",
+                "monthly": "Monatlich"
             }
         },
         "profile_name_1": { "name": "Profilname 1" },
