@@ -89,7 +89,15 @@
             }
         },                 
         "active_profile": {"name": "Aktiv profil"},
-        "valve_status": {"name": "Ventilstatus"},
+        "valve_status": {
+            "name": "Ventilstatus",
+            "state": {
+              "open": "Åpen",
+              "closed": "Lukket",
+              "opening": "Åpner",
+              "closing": "Lukker"
+            }
+        },          
         "water_conductivity": {"name": "Vannledningsevne"},
         "water_hardness": {"name": "Vannhardhet"},
         "hardware_version": {"name": "Maskinvareversjon"},

@@ -72,19 +72,34 @@
             }
           },
         "warning_status": {
-            "name": "Warnstatus",
+            "name": "Warnungen",
             "state": {
-                "Power outage": "Stromausfall",
-                "Leak warning": "Leckwarnung",
-                "Battery low": "Batterie schwach",
-                "No warning": "Keine Warnung"
+                "Power outage": "Stromunterbrechung",
+                "Leak warning": "Leckagewarnung",
+                "Battery low": "Batterien erschöpft",
+                "No warning": "Kein Warnung"
             }
         },
+        "notification_status": {
+            "name": "Notifications",
+            "state": {
+              "New Software Update Available!": "Neues Software-Update verfügbar!",
+              "New software update installed!": "Neues Software-Update installiert!",
+              "No notification": "Keine Notification"
+            }
+        },          
         "active_profile": { "name": "Aktives Profil" },
-        "valve_status": { "name": "Ventilstatus" },
+        "valve_status": {
+            "name": "Ventilstatus",
+            "state": {
+              "open": "Offen",
+              "closed": "Geschlossen",
+              "opening": "Öffnet",
+              "closing": "Schließt"
+            }
+        },          
         "water_conductivity": { "name": "Wasserleitfähigkeit" },
         "water_hardness": { "name": "Wasserhärte" },
-        "notification_status": { "name": "Benachrichtigungsstatus" },
         "hardware_version": { "name": "Hardware-Version" },
         "microleakage_schedule": {"name": "Mikroleckage-Testintervall"},
         "profile_name_1": { "name": "Profilname 1" },

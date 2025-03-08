@@ -89,7 +89,15 @@
             }
         },          
         "active_profile": {"name": "Active profile"},
-        "valve_status": {"name": "Valve status"},
+        "valve_status": {
+            "name": "Valve status",
+            "state": {
+              "open": "Open",
+              "closed": "Closed",
+              "opening": "Opening",
+              "closing": "Closing"
+            }
+        },          
         "water_conductivity": {"name": "Water conductivity"},
         "water_hardness": {"name": "Water hardness"},
         "hardware_version": {"name": "Hardware version"},
