@@ -53,13 +53,45 @@
         "firmware_version": {"name": "Firmware version"},
         "device_type": {"name": "Device type"},
         "mac_address": {"name": "MAC address"},
-        "alarm_status": {"name": "Alarm status"},
+        "alarm_status": {
+            "name": "Alarm status",
+            "state": {
+              "No alarm": "No alarm",
+              "ALARM END SWITCH": "ALARM END SWITCH",
+              "ALARM: Turbine blocked!": "ALARM: Turbine blocked!",
+              "ALARM: Leakage volume reached!": "ALARM: Leakage volume reached!",
+              "ALARM: Leakage time reached!": "ALARM: Leakage time reached!",
+              "ALARM: Maximum flow rate reached!": "ALARM: Maximum flow rate reached!",
+              "ALARM: Microleakage detected!": "ALARM: Microleakage detected!",
+              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM EXT. SENSOR LEAKAGE RADIO",
+              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM EXT. SENSOR LEAKAGE CABLE",
+              "ALARM: Pressure sensor faulty!": "ALARM: Pressure sensor faulty!",
+              "ALARM: Temperature sensor faulty!": "ALARM: Temperature sensor faulty!",
+              "ALARM: Weak battery!": "ALARM: Weak battery!",
+              "Error: no information available": "Error: no information available"
+            }
+        },
+        "warning_status": {
+            "name": "Warning status",
+            "state": {
+                "Power outage": "Power outage",
+                "Leak warning": "Leak warning",
+                "Battery low": "Battery low",
+                "No warning": "No warning"
+            }
+        },
+        "notification_status": {
+            "name": "Notification status",
+            "state": {
+              "New Software Update Available!": "New Software Update Available!",
+              "New software update installed!": "New software update installed!",
+              "No notification": "No notification"
+            }
+        },          
         "active_profile": {"name": "Active profile"},
         "valve_status": {"name": "Valve status"},
         "water_conductivity": {"name": "Water conductivity"},
         "water_hardness": {"name": "Water hardness"},
-        "warning_status": {"name": "Warning status"},
-        "notification_status": {"name": "Notification status"},
         "hardware_version": {"name": "Hardware version"},
         "microleakage_schedule": {"name": "Microleakage test interval"},
         "profile_name_1": { "name": "Profile 1 name" },

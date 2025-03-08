@@ -53,13 +53,45 @@
         "firmware_version": {"name": "Fastvareversjon"},
         "device_type": {"name": "Enhetstype"},
         "mac_address": {"name": "MAC-adresse"},
-        "alarm_status": {"name": "Alarmstatus"},
+        "alarm_status": {
+            "name": "Alarmstatus",
+            "state": {
+              "No alarm": "Ingen alarm",
+              "ALARM END SWITCH": "ALARM ENDESTOPPBRYTER",
+              "ALARM: Turbine blocked!": "ALARM: Turbin blokkert!",
+              "ALARM: Leakage volume reached!": "ALARM: Lekkasjevolum nådd!",
+              "ALARM: Leakage time reached!": "ALARM: Lekkasjetid nådd!",
+              "ALARM: Maximum flow rate reached!": "ALARM: Maksimal vannstrøm nådd!",
+              "ALARM: Microleakage detected!": "ALARM: Mikrolekkasje oppdaget!",
+              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Ekstern radiosensor lekkasje",
+              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Ekstern kabelsensor lekkasje",
+              "ALARM: Pressure sensor faulty!": "ALARM: Trykksensorfeil!",
+              "ALARM: Temperature sensor faulty!": "ALARM: Temperatursensorfeil!",
+              "ALARM: Weak battery!": "ALARM: Svakt batteri!",
+              "Error: no information available": "Feil: Ingen informasjon tilgjengelig"
+            }
+        },
+        "warning_status": {
+            "name": "Varselstatus",
+            "state": {
+              "Power outage": "Strømbrudd",
+              "Leak warning": "Lekkasjevarsel",
+              "Battery low": "Lavt batterinivå",
+              "No warning": "Ingen varsel"
+            }
+        },
+        "notification_status": {
+            "name": "Notifikasjoner",
+            "state": {
+              "New Software Update Available!": "Ny programvareoppdatering tilgjengelig!",
+              "New software update installed!": "Ny programvareoppdatering installert!",
+              "No notification": "Ingen notifikasjoner"
+            }
+        },                 
         "active_profile": {"name": "Aktiv profil"},
         "valve_status": {"name": "Ventilstatus"},
         "water_conductivity": {"name": "Vannledningsevne"},
         "water_hardness": {"name": "Vannhardhet"},
-        "warning_status": {"name": "Advarselstatus"},
-        "notification_status": {"name": "Varslingsstatus"},
         "hardware_version": {"name": "Maskinvareversjon"},
         "microleakage_schedule": {"name": "Mikrolekkasjetestintervall"},
         "profile_name_1": { "name": "Profilnavn 1" },

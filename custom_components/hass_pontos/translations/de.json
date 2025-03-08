@@ -53,12 +53,37 @@
         "firmware_version": { "name": "Firmware-Version" },
         "device_type": { "name": "Gerätetyp" },
         "mac_address": { "name": "MAC-Adresse" },
-        "alarm_status": { "name": "Alarmstatus" },
+        "alarm_status": {
+            "name": "Alarmstatus",
+            "state": {
+              "No alarm": "Kein Alarm",
+              "ALARM END SWITCH": "ALARM ENDSCHALTER",
+              "ALARM: Turbine blocked!": "ALARM: Turbine blockiert!",
+              "ALARM: Leakage volume reached!": "ALARM: Leckagevolumen erreicht!",
+              "ALARM: Leakage time reached!": "ALARM: Leckagezeit erreicht!",
+              "ALARM: Maximum flow rate reached!": "ALARM: Maximaler Durchfluss erreicht!",
+              "ALARM: Microleakage detected!": "ALARM: Mikroleckage erkannt!",
+              "ALARM EXT. SENSOR LEAKAGE RADIO": "ALARM: Leckage Funksensor extern",
+              "ALARM EXT. SENSOR LEAKAGE CABLE": "ALARM: Leckage Kabelsensor extern",
+              "ALARM: Pressure sensor faulty!": "ALARM: Drucksensor defekt!",
+              "ALARM: Temperature sensor faulty!": "ALARM: Temperatursensor defekt!",
+              "ALARM: Weak battery!": "ALARM: Batterie schwach!",
+              "Error: no information available": "Fehler: Keine Information verfügbar"
+            }
+          },
+        "warning_status": {
+            "name": "Warnstatus",
+            "state": {
+                "Power outage": "Stromausfall",
+                "Leak warning": "Leckwarnung",
+                "Battery low": "Batterie schwach",
+                "No warning": "Keine Warnung"
+            }
+        },
         "active_profile": { "name": "Aktives Profil" },
         "valve_status": { "name": "Ventilstatus" },
         "water_conductivity": { "name": "Wasserleitfähigkeit" },
         "water_hardness": { "name": "Wasserhärte" },
-        "warning_status": { "name": "Warnstatus" },
         "notification_status": { "name": "Benachrichtigungsstatus" },
         "hardware_version": { "name": "Hardware-Version" },
         "microleakage_schedule": {"name": "Mikroleckage-Testintervall"},
