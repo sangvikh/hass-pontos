@@ -101,7 +101,14 @@
         "water_conductivity": {"name": "Vannledningsevne"},
         "water_hardness": {"name": "Vannhardhet"},
         "hardware_version": {"name": "Maskinvareversjon"},
-        "microleakage_schedule": {"name": "Mikrolekkasjetestintervall"},
+        "microleakage_schedule": {
+            "name": "Mikrolekkasjetestintervall",
+            "state": {
+                "Daily": "Daglig",
+                "Weekly": "Ukentlig",
+                "Monthly": "Månedlig"
+            }
+        },
         "profile_name_1": { "name": "Profilnavn 1" },
         "profile_name_2": { "name": "Profilnavn 2" },
         "profile_name_3": { "name": "Profilnavn 3" },

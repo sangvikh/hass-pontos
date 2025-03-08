@@ -101,7 +101,14 @@
         "water_conductivity": {"name": "Conductivité de l'eau"},
         "water_hardness": {"name": "Dureté de l'eau"},
         "hardware_version": {"name": "Version matérielle"},
-        "microleakage_schedule": {"name": "Intervalle test de micro-fuite"},
+        "microleakage_schedule": {
+            "name": "Intervalle test de micro-fuite",
+            "state": {
+                "Daily": "Tous les jours",
+                "Weekly": "Hebdomadaire",
+                "Monthly": "Mensuel"
+            }
+        },
         "profile_name_1": { "name": "Profil 1" },
         "profile_name_2": { "name": "Profil 2" },
         "profile_name_3": { "name": "Profil 3" },
