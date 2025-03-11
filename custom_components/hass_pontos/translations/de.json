@@ -125,7 +125,7 @@
         "clear_alarms": {"name": "Alarme löschen"}
       },
       "select": {
-        "profile_select": {"name": "Aktives Profil"}
+        "profile_select": {"name": "Profil"}
       }
     }
   }

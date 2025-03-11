@@ -125,7 +125,7 @@
         "clear_alarms": {"name": "Tilbakestill alarmer"}
       },
       "select": {
-        "profile_select": {"name": "Aktiv profil"}
+        "profile_select": {"name": "Profil"}
       }
     }
   }

@@ -125,7 +125,7 @@
         "clear_alarms": {"name": "Effacer les alarmes"}
       },
       "select": {
-        "profile_select": {"name": "Profil actif"}
+        "profile_select": {"name": "Profil"}
       }
     }
 }  
