@@ -9,7 +9,6 @@ MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
-FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/trio/"
 URL_ALL_DATA = f"{BASE_URL}get/all"

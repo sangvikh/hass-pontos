@@ -7,6 +7,7 @@
           "description": "Bitte gib die IP-Adresse und den Gerätenamen für dein Gerät ein",
           "data": {
             "ip_address": "IP-Adresse",
+            "fetch_interval": "Aktualisierungshäufigkeit (s)",
             "device_name": "Gerätename",
             "make": "Gerätetyp"
           }
@@ -22,7 +23,8 @@
           "title": "Gerät konfigurieren",
           "description": "Aktualisiere die Konfiguration für dein Gerät",
           "data": {
-            "ip_address": "IP-Adresse"
+            "ip_address": "IP-Adresse",
+            "fetch_interval": "Aktualisierungshäufigkeit (s)"
           }
         }
       },

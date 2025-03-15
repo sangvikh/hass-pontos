@@ -7,6 +7,7 @@
           "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din enhet",
           "data": {
             "ip_address": "IP-adresse",
+            "fetch_interval": "Oppdateringsfrekvens (s)",
             "device_name": "Enhetsnavn",
             "make": "Type"
           }
@@ -22,7 +23,8 @@
           "title": "Konfigurer enhet",
           "description": "Oppdater konfigurasjonen for din enhet",
           "data": {
-            "ip_address": "IP-adresse"
+            "ip_address": "IP-adresse",
+            "fetch_interval": "Oppdateringsfrekvens (s)"
           }
         }
       },

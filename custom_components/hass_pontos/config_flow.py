@@ -1,13 +1,12 @@
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.core import callback
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .utils import fetch_data
-from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
+from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 2
+    VERSION = 3
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
@@ -32,6 +31,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         # Show the form (including the dropdown for make)
         data_schema = vol.Schema({
             vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
+            vol.Required(CONF_FETCH_INTERVAL, default=10): vol.All(vol.Coerce(int), vol.Range(min=1)),
             vol.Optional(CONF_DEVICE_NAME, default="Pontos"): str,
             vol.Required(CONF_MAKE, default="Hansgrohe Pontos"): vol.In(list(MAKES.keys())),
         })
@@ -60,7 +60,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class PontosOptionsFlowHandler(config_entries.OptionsFlow):
-    """Handle options flow, allowing editing the IP address (and/or other settings)."""
+    """Handle options flow, allowing editing the IP address and fetch interval."""
 
     def __init__(self, config_entry):
         """Store the config_entry so we can retrieve/update it."""
@@ -69,7 +69,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
     async def async_step_init(self, user_input=None):
         """
         The first (and possibly only) step of the options flow.
-        We'll let the user change the IP address.
+        We'll let the user change the IP address and fetch interval.
         """
         errors = {}
 
@@ -84,8 +84,10 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
             else:
                 errors["base"] = "cannot_connect"
 
-        # Show the form to edit IP address
+        # Show the form to edit IP address and fetch interval
         current_ip = self.config_entry.data.get(CONF_IP_ADDRESS)
+        current_fetch_interval = self.config_entry.options.get(CONF_FETCH_INTERVAL, 10)
+
         if self.config_entry.options.get(CONF_IP_ADDRESS):
             # If there's already an IP in the options, use that instead
             current_ip = self.config_entry.options[CONF_IP_ADDRESS]
@@ -94,6 +96,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
             step_id="init",
             data_schema=vol.Schema({
                 vol.Required(CONF_IP_ADDRESS, default=current_ip): str,
+                vol.Optional(CONF_FETCH_INTERVAL, default=current_fetch_interval): vol.All(vol.Coerce(int), vol.Range(min=1)),
             }),
             errors=errors
         )

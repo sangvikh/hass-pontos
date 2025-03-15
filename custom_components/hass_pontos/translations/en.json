@@ -7,6 +7,7 @@
           "description": "Please enter the IP address and device name for your device",
           "data": {
             "ip_address": "IP Address",
+            "fetch_interval": "Fetch interval (s)",
             "device_name": "Device Name",
             "make": "Device Type"
           }
@@ -22,7 +23,8 @@
           "title": "Configure device",
           "description": "Update your device configuration",
           "data": {
-            "ip_address": "IP Address"
+            "ip_address": "IP Address",
+            "fetch_interval": "Fetch interval (s)"
           }
         }
       },
