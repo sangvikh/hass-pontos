@@ -54,8 +54,8 @@ microleakage_schedule:
         select:
           options:
             - label: Daily
-              value: 1
+              value: "1"
             - label: Weekly
-              value: 2
+              value: "2"
             - label: Monthly
-              value: 3
+              value: "3"
