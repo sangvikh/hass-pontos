@@ -109,6 +109,15 @@
                 "monthly": "Monthly"
             }
         },
+        "microleakage_status": {
+            "name": "Microleakage test status",
+            "state": {
+                "not_active": "Test not active",
+                "active": "Test active",
+                "aborted": "Aborted due to pressure drop",
+                "skipped": "Test skipped"
+            }
+        },
         "profile_name_1": { "name": "Profile 1 name" },
         "profile_name_2": { "name": "Profile 2 name" },
         "profile_name_3": { "name": "Profile 3 name" },

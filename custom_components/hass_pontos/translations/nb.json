@@ -109,6 +109,15 @@
                 "monthly": "Månedlig"
             }
         },
+        "microleakage_status": {
+            "name": "Mikrolekkasjeteststatus",
+            "state": {
+                "not_active": "Test ikke aktiv",
+                "active": "Test aktiv",
+                "aborted": "Avbrutt på grunn av trykkfall",
+                "skipped": "Test hoppet over"
+            }
+        },
         "profile_name_1": { "name": "Profilnavn 1" },
         "profile_name_2": { "name": "Profilnavn 2" },
         "profile_name_3": { "name": "Profilnavn 3" },

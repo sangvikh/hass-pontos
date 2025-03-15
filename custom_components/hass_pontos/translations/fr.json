@@ -109,6 +109,15 @@
                 "monthly": "Mensuel"
             }
         },
+        "microleakage_status": {
+            "name": "État du test de microfuite",
+            "state": {
+                "not_active": "Test inactif",
+                "active": "Test actif",
+                "aborted": "Abandonné en raison d'une chute de pression",
+                "skipped": "Test ignoré"
+            }
+        },
         "profile_name_1": { "name": "Profil 1" },
         "profile_name_2": { "name": "Profil 2" },
         "profile_name_3": { "name": "Profil 3" },

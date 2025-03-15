@@ -194,6 +194,12 @@ SENSOR_DETAILS = {
         "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
+        "microleakage_status": {
+        "name": "Microleakage test status",
+        "endpoint": "getDRP",
+        "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
         "profile_name_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
