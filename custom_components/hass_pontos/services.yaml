@@ -15,14 +15,47 @@ clear_alarms:
 
 set_profile:
   name: Set Profile
-  description: Sets the profile for the device.
+  description: Sets the profile for the device
   fields:
     profile_number:
       name: Profile Number
-      description: The profile number to set.
+      description: The profile number to set
       required: true
       selector:
         number:
           min: 1
           max: 8
 
+microleakage_test:
+  name: Microleakage test
+  description: Start microleakage test
+  fields: {}
+
+microleakage_time:
+  name: Set microleakage test time
+  description: Set the time for the microleakage test in the format HH:MM
+  fields:
+    time:
+      name: Time
+      description: The time in HH:MM format
+      required: true
+      selector:
+        time:
+
+microleakage_schedule:
+  name: Set microleakage test schedule
+  description: Set the schedule for the microleakage test
+  fields:
+    schedule:
+      name: Schedule
+      description: The schedule for the microleakage test
+      required: true
+      selector:
+        select:
+          options:
+            - label: Daily
+              value: 1
+            - label: Weekly
+              value: 2
+            - label: Monthly
+              value: 3

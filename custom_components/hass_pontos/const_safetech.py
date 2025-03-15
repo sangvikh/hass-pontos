@@ -258,4 +258,16 @@ SERVICES = {
         "name": "Set Profile",
         "endpoint": "set/prf/{profile_number}"
     },
+    "microleakage_test": {
+        "name": "Start microleakage test",
+        "endpoint": "set/dex"
+    },
+    "microleakage_time": {
+        "name": "Set microleakage test time",
+        "endpoint": "set/dtt/{time}"
+    },
+    "microleakage_schedule": {
+        "name": "Set microleakage test schedule",
+        "endpoint": "set/drp/{schedule}"
+    },
 }
