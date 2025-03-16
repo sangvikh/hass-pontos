@@ -9,7 +9,6 @@ MODEL = "Pontos Base"
 MANUFACTURER = "Hansgrohe"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
-FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/pontos-base/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
@@ -229,5 +228,9 @@ SERVICES = {
     "set_profile": {
         "name": "Set Profile",
         "endpoint": "set/prf/{profile_number}"
+    },
+    "generic_service": {
+        "name": "Generic service call",
+        "endpoint": "set/{endpoint}/{data}"
     },
 }

@@ -1,11 +1,11 @@
-# FILE: device.py
 import logging
 import time
+from datetime import  timedelta
 
 from homeassistant.helpers.device_registry import async_get as async_get_device_registry
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 
-from .const import DOMAIN, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
+from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 from .utils import fetch_data
 
 LOGGER = logging.getLogger(__name__)
@@ -14,6 +14,7 @@ _device_cache = {}
 
 async def get_device_info(hass, entry):
     entry_id = entry.entry_id
+    fetch_interval = timedelta(seconds=entry.data[CONF_FETCH_INTERVAL])
     ip_address = entry.data[CONF_IP_ADDRESS]
     device_name = entry.data[CONF_DEVICE_NAME]
     make = entry.data.get(CONF_MAKE)
@@ -23,7 +24,7 @@ async def get_device_info(hass, entry):
     if entry_id in _device_cache:
         cache_entry = _device_cache[entry_id]
         cache_age = time.time() - cache_entry['timestamp']
-        if cache_age < device_const.FETCH_INTERVAL.total_seconds():
+        if cache_age < fetch_interval.total_seconds():
             LOGGER.debug(f"Using cached data for device {entry_id}")
             return cache_entry['device_info'], cache_entry['data']
         else:

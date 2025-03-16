@@ -7,6 +7,7 @@
           "description": "Bitte gib die IP-Adresse und den Gerätenamen für dein Gerät ein",
           "data": {
             "ip_address": "IP-Adresse",
+            "fetch_interval": "Aktualisierungshäufigkeit (s)",
             "device_name": "Gerätename",
             "make": "Gerätetyp"
           }
@@ -22,7 +23,8 @@
           "title": "Gerät konfigurieren",
           "description": "Aktualisiere die Konfiguration für dein Gerät",
           "data": {
-            "ip_address": "IP-Adresse"
+            "ip_address": "IP-Adresse",
+            "fetch_interval": "Aktualisierungshäufigkeit (s)"
           }
         }
       },
@@ -109,6 +111,15 @@
                 "monthly": "Monatlich"
             }
         },
+        "microleakage_status": {
+            "name": "Status der Mikroleckage",
+            "state": {
+                "not_active": "Test nicht aktiv",
+                "active": "Test aktiv",
+                "aborted": "Abgebrochen durch druckabfall",
+                "skipped": "Test übersprungen"
+            }
+        },
         "profile_name_1": { "name": "Profilname 1" },
         "profile_name_2": { "name": "Profilname 2" },
         "profile_name_3": { "name": "Profilname 3" },
@@ -125,7 +136,7 @@
         "clear_alarms": {"name": "Alarme löschen"}
       },
       "select": {
-        "profile_select": {"name": "Aktives Profil"}
+        "profile_select": {"name": "Profil"}
       }
     }
   }

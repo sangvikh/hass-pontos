@@ -1,11 +1,12 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
+from datetime import  timedelta
 import logging
 
 from .utils import fetch_data
 from .device import get_device_info
-from .const import DOMAIN, CONF_MAKE, CONF_IP_ADDRESS, MAKES
+from .const import CONF_FETCH_INTERVAL, CONF_MAKE, CONF_IP_ADDRESS, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
@@ -16,12 +17,12 @@ async def async_setup_entry(hass, entry, async_add_entities):
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
     
-    # Now you can access e.g. device_const.SENSOR_DETAILS, device_const.FETCH_INTERVAL, device_const.URL_LIST
+    # Now we can access e.g. device_const.SENSOR_DETAILS
     SENSOR_DETAILS = device_const.SENSOR_DETAILS
-    FETCH_INTERVAL = device_const.FETCH_INTERVAL
     URL_LIST = device_const.URL_LIST
 
     ip_address = entry.data[CONF_IP_ADDRESS]
+    fetch_interval = timedelta(seconds=entry.data[CONF_FETCH_INTERVAL])
     device_info, data = await get_device_info(hass, entry)
 
     # Instantiate and add sensors
@@ -39,7 +40,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                 sensor.parse_data(data)
 
     # Schedule updates using the fetch interval
-    async_track_time_interval(hass, update_data, FETCH_INTERVAL)
+    async_track_time_interval(hass, update_data, fetch_interval)
 
 class PontosSensor(SensorEntity):
     def __init__(self, key, sensor_config, device_info):

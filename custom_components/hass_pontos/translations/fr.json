@@ -7,6 +7,7 @@
           "description": "Veuillez saisir l'adresse IP et le nom de votre appareil",
           "data": {
             "ip_address": "Adresse IP",
+            "fetch_interval": "fréquence de mise à jour (s)",
             "device_name": "Nom de l'appareil",
             "make": "Type d'appareil"
           }
@@ -22,7 +23,8 @@
           "title": "Configurer l'appareil",
           "description": "Mettez à jour la configuration de votre appareil",
           "data": {
-            "ip_address": "Adresse IP"
+            "ip_address": "Adresse IP",
+            "fetch_interval": "fréquence de mise à jour (s)"
           }
         }
       },
@@ -109,6 +111,15 @@
                 "monthly": "Mensuel"
             }
         },
+        "microleakage_status": {
+            "name": "État du test de microfuite",
+            "state": {
+                "not_active": "Test inactif",
+                "active": "Test actif",
+                "aborted": "Abandonné en raison d'une chute de pression",
+                "skipped": "Test ignoré"
+            }
+        },
         "profile_name_1": { "name": "Profil 1" },
         "profile_name_2": { "name": "Profil 2" },
         "profile_name_3": { "name": "Profil 3" },
@@ -125,7 +136,7 @@
         "clear_alarms": {"name": "Effacer les alarmes"}
       },
       "select": {
-        "profile_select": {"name": "Profil actif"}
+        "profile_select": {"name": "Profil"}
       }
     }
 }  

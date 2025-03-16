@@ -1,4 +1,3 @@
-from datetime import  timedelta
 from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
@@ -9,7 +8,6 @@ MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
 CONF_IP_ADDRESS = "ip_address"
 CONF_DEVICE_NAME = "device_name"
-FETCH_INTERVAL = timedelta(seconds=10)
 
 BASE_URL = "http://{ip}:5333/safe-tec/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
@@ -234,5 +232,9 @@ SERVICES = {
     "set_profile": {
         "name": "Set Profile",
         "endpoint": "set/prf/{profile_number}"
+    },
+    "generic_service": {
+        "name": "Generic service call",
+        "endpoint": "set/{endpoint}/{data}"
     },
 }

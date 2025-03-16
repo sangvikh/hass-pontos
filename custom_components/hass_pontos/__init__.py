@@ -7,7 +7,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 
 from .services import register_services
 from .device import register_device
-from .const import DOMAIN, CONF_MAKE, MAKES
+from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Migrate old entry data to new format/version."""
-    if config_entry.version == 1:
+    if config_entry.version < 2:
         new_data = dict(config_entry.data)
 
         # Ensure 'make' is set
@@ -75,6 +75,25 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         LOGGER.info(
             "Migrated config entry '%s' from version 1 to 2",
+            config_entry.entry_id
+        )
+
+    if config_entry.version < 3:
+        new_data = dict(config_entry.data)
+
+        # Ensure 'fetch_interval' is set in options
+        if CONF_FETCH_INTERVAL not in new_data:
+            new_data[CONF_FETCH_INTERVAL] = 10  # Default to 10 seconds
+
+        # Update the entry to version 3
+        hass.config_entries.async_update_entry(
+            config_entry,
+            data=new_data,
+            version=3,
+        )
+
+        LOGGER.info(
+            "Migrated config entry '%s' from version 2 to 3",
             config_entry.entry_id
         )
 
