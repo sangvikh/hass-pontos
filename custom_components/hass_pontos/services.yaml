@@ -59,3 +59,29 @@ microleakage_schedule:
               value: "2"
             - label: Monthly
               value: "3"
+
+generic_service:
+  name: Generic service call
+  description: >
+    Make a generic service call to the device. This service allows you to specify
+    an endpoint and data to send to the device. Use this for custom commands
+    that are not covered by other services
+  fields:
+    endpoint:
+      name: Endpoint
+      description: >
+        The endpoint to call on the device. This should be a valid endpoint
+        supported by the device (e.g., "set/some_endpoint")
+      required: true
+      example: "set/some_endpoint"
+      selector:
+        text:
+    data:
+      name: Data
+      description: >
+        The data to send with the request. This can be a number, string, time,
+        name, or any other text-based input, depending on the endpoint
+      required: true
+      example: "example_data"
+      selector:
+        text:

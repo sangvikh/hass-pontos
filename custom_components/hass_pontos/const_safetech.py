@@ -270,4 +270,8 @@ SERVICES = {
         "name": "Set microleakage test schedule",
         "endpoint": "set/drp/{schedule}"
     },
+    "generic_service": {
+        "name": "Generic service call",
+        "endpoint": "set/{endpoint}/{data}"
+    },
 }

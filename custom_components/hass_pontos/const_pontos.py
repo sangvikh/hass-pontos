@@ -229,4 +229,8 @@ SERVICES = {
         "name": "Set Profile",
         "endpoint": "set/prf/{profile_number}"
     },
+    "generic_service": {
+        "name": "Generic service call",
+        "endpoint": "set/{endpoint}/{data}"
+    },
 }
