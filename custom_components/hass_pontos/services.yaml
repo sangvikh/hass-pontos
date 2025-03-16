@@ -73,7 +73,7 @@ generic_service:
         The endpoint to call on the device. This should be a valid endpoint
         supported by the device (e.g., "set/some_endpoint")
       required: true
-      example: "set/some_endpoint"
+      example: "some_endpoint"
       selector:
         text:
     data:
