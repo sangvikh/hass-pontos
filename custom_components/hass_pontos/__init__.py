@@ -80,17 +80,15 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
     if config_entry.version < 3:
         new_data = dict(config_entry.data)
-        new_options = dict(config_entry.options)
 
         # Ensure 'fetch_interval' is set in options
-        if CONF_FETCH_INTERVAL not in new_options:
-            new_options[CONF_FETCH_INTERVAL] = 10  # Default to 10 seconds
+        if CONF_FETCH_INTERVAL not in new_data:
+            new_data[CONF_FETCH_INTERVAL] = 10  # Default to 10 seconds
 
         # Update the entry to version 3
         hass.config_entries.async_update_entry(
             config_entry,
             data=new_data,
-            options=new_options,
             version=3,
         )
 

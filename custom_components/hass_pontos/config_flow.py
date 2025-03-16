@@ -86,11 +86,11 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
 
         # Show the form to edit IP address and fetch interval
         current_ip = self.config_entry.data.get(CONF_IP_ADDRESS)
-        current_fetch_interval = self.config_entry.options.get(CONF_FETCH_INTERVAL, 10)
+        current_fetch_interval = self.config_entry.data.get(CONF_FETCH_INTERVAL, 10)
 
-        if self.config_entry.options.get(CONF_IP_ADDRESS):
+        if self.config_entry.data.get(CONF_IP_ADDRESS):
             # If there's already an IP in the options, use that instead
-            current_ip = self.config_entry.options[CONF_IP_ADDRESS]
+            current_ip = self.config_entry.data[CONF_IP_ADDRESS]
 
         return self.async_show_form(
             step_id="init",
