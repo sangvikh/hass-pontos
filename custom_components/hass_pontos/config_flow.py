@@ -32,7 +32,7 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         data_schema = vol.Schema({
             vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
             vol.Required(CONF_FETCH_INTERVAL, default=10): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            vol.Optional(CONF_DEVICE_NAME, default="Pontos"): str,
+            vol.Required(CONF_DEVICE_NAME, default="Pontos"): str,
             vol.Required(CONF_MAKE, default="Hansgrohe Pontos"): vol.In(list(MAKES.keys())),
         })
 
@@ -96,7 +96,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
             step_id="init",
             data_schema=vol.Schema({
                 vol.Required(CONF_IP_ADDRESS, default=current_ip): str,
-                vol.Optional(CONF_FETCH_INTERVAL, default=current_fetch_interval): vol.All(vol.Coerce(int), vol.Range(min=1)),
+                vol.Required(CONF_FETCH_INTERVAL, default=current_fetch_interval): vol.All(vol.Coerce(int), vol.Range(min=1)),
             }),
             errors=errors
         )
