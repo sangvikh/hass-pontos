@@ -1,7 +1,7 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
-from datetime import  timedelta
+from datetime import timedelta
 import logging
 
 from .utils import fetch_data
@@ -10,19 +10,18 @@ from .const import CONF_FETCH_INTERVAL, CONF_MAKE, CONF_IP_ADDRESS, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
-
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up sensors for the selected device."""
     # Dynamically import the constants module for this device
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
-    
+
     # Now we can access e.g. device_const.SENSOR_DETAILS
     SENSOR_DETAILS = device_const.SENSOR_DETAILS
     URL_LIST = device_const.URL_LIST
 
-    ip_address = entry.data[CONF_IP_ADDRESS]
-    fetch_interval = timedelta(seconds=entry.data[CONF_FETCH_INTERVAL])
+    ip_address = entry.options[CONF_IP_ADDRESS]
+    fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
     device_info, data = await get_device_info(hass, entry)
 
     # Instantiate and add sensors
@@ -33,14 +32,39 @@ async def async_setup_entry(hass, entry, async_add_entities):
     for sensor in sensors:
         sensor.parse_data(data)
 
+    # Store the current fetch_interval and the unsubscribe function
+    current_fetch_interval = fetch_interval
+    unsubscribe_interval = None
+
     # Function to fetch new data and update all sensors
     async def update_data(_):
+        nonlocal current_fetch_interval, unsubscribe_interval
+
+        # Check if fetch_interval has changed
+        new_fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
+        if new_fetch_interval != current_fetch_interval:
+            current_fetch_interval = new_fetch_interval
+
+            # Unsubscribe the previous interval
+            if unsubscribe_interval:
+                unsubscribe_interval()
+
+            # Schedule updates using the new fetch interval
+            unsubscribe_interval = async_track_time_interval(hass, update_data, current_fetch_interval)
+
         data = await fetch_data(hass, ip_address, URL_LIST)
         for sensor in sensors:
-                sensor.parse_data(data)
+            sensor.parse_data(data)
 
     # Schedule updates using the fetch interval
-    async_track_time_interval(hass, update_data, fetch_interval)
+    unsubscribe_interval = async_track_time_interval(hass, update_data, fetch_interval)
+
+    # Return a cleanup function to unsubscribe the interval when the integration is removed
+    async def async_remove_entry(_):
+        if unsubscribe_interval:
+            unsubscribe_interval()
+
+    return async_remove_entry
 
 class PontosSensor(SensorEntity):
     def __init__(self, key, sensor_config, device_info):
@@ -72,14 +96,14 @@ class PontosSensor(SensorEntity):
             "identifiers": self._device_info['identifiers'],
         }
 
-    @property   
+    @property
     def native_value(self):
         return self._data
-    
+
     @property
     def available(self):
         return self._data is not None
-    
+
     # Parsing and updating sensor data
     def parse_data(self, data):
         """Process, format, and validate sensor data."""
@@ -113,6 +137,6 @@ class PontosSensor(SensorEntity):
                 _data = round(float(_data) * self._scale, 2)
             except (ValueError, TypeError):
                 pass
-        
+
         # Update sensor data
         self.set_data(_data)

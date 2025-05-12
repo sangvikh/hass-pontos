@@ -6,7 +6,7 @@ from .utils import fetch_data
 from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 3
+    VERSION = 4
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
@@ -21,10 +21,14 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate the IP by attempting a connection
             valid = await self._test_connection(ip, make)
             if valid:
-                return self.async_create_entry(
-                    title=user_input.get(CONF_DEVICE_NAME, "Hansgrohe Pontos"),
-                    data=user_input,
-                )
+                data={  # only store static config data here
+                    CONF_DEVICE_NAME: user_input[CONF_DEVICE_NAME],
+                    CONF_MAKE: user_input[CONF_MAKE],
+                },
+                options={
+                    CONF_IP_ADDRESS: user_input[CONF_IP_ADDRESS],
+                    CONF_FETCH_INTERVAL: user_input[CONF_FETCH_INTERVAL],
+                }
             else:
                 errors["base"] = "cannot_connect"
 
@@ -81,14 +85,17 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
 
             if await self._test_connection(new_ip, make):
                 # If valid, create (or update) the options
-                return self.async_create_entry(title="", data=user_input)
+                return self.async_create_entry(
+                    title=user_input.get(CONF_DEVICE_NAME, "Hansgrohe Pontos"),
+                    data=user_input,
+                )
             else:
                 errors["base"] = "cannot_connect"
 
         # Show the form to edit IP address and fetch interval
         config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)  # Use the new attribute name
-        current_ip = config_entry.data.get(CONF_IP_ADDRESS)
-        current_fetch_interval = config_entry.data.get(CONF_FETCH_INTERVAL, 10)
+        current_ip = config_entry.options.get(CONF_IP_ADDRESS)
+        current_fetch_interval = config_entry.options.get(CONF_FETCH_INTERVAL, 10)
 
         return self.async_show_form(
             step_id="init",

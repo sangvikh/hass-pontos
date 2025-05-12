@@ -212,7 +212,7 @@ class PontosProfileSelect(SelectEntity):
             "set_profile",
             {
                 "profile_number": profile_number,
-                "ip_address": self._entry.data[CONF_IP_ADDRESS],
+                "ip_address": self._entry.options[CONF_IP_ADDRESS],
             },
         )
         self.set_state(option)

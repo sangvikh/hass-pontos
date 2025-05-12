@@ -14,8 +14,8 @@ _device_cache = {}
 
 async def get_device_info(hass, entry):
     entry_id = entry.entry_id
-    fetch_interval = timedelta(seconds=entry.data[CONF_FETCH_INTERVAL])
-    ip_address = entry.data[CONF_IP_ADDRESS]
+    fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
+    ip_address = entry.options[CONF_IP_ADDRESS]
     device_name = entry.data[CONF_DEVICE_NAME]
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
