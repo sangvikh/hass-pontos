@@ -21,14 +21,21 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate the IP by attempting a connection
             valid = await self._test_connection(ip, make)
             if valid:
-                data={  # only store static config data here
+                data = {
                     CONF_DEVICE_NAME: user_input[CONF_DEVICE_NAME],
                     CONF_MAKE: user_input[CONF_MAKE],
-                },
-                options={
+                }
+                options = {
                     CONF_IP_ADDRESS: user_input[CONF_IP_ADDRESS],
                     CONF_FETCH_INTERVAL: user_input[CONF_FETCH_INTERVAL],
                 }
+
+                # Now create the config entry
+                return self.async_create_entry(
+                    title=user_input[CONF_DEVICE_NAME],
+                    data=data,
+                    options=options,
+                )
             else:
                 errors["base"] = "cannot_connect"
 
@@ -86,7 +93,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
             if await self._test_connection(new_ip, make):
                 # If valid, create (or update) the options
                 return self.async_create_entry(
-                    title=user_input.get(CONF_DEVICE_NAME, "Hansgrohe Pontos"),
+                    title="",
                     data=user_input,
                 )
             else:
