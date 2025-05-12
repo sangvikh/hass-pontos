@@ -1,6 +1,7 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
+import asyncio
 from datetime import timedelta
 import logging
 
@@ -54,7 +55,15 @@ async def async_setup_entry(hass, entry, async_add_entities):
             entry.async_on_unload(unsubscribe_interval)
 
         try:
-            data = await fetch_data(hass, ip_address, URL_LIST)
+            # Fetch sensor data
+            for attempt in range(1,4):
+                data = await fetch_data(hass, ip_address, URL_LIST)
+                if data:
+                    break
+                LOGGER.warning(f"Fetch attempt {attempt} failed: Retrying in {entry.options[CONF_FETCH_INTERVAL]*attempt} seconds..")
+                await asyncio.sleep(entry.options[CONF_FETCH_INTERVAL]*attempt)
+
+            # Parse sensor data
             for sensor in sensors:
                 sensor.parse_data(data)
         except Exception as e:
@@ -64,7 +73,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     unsubscribe_interval = async_track_time_interval(hass, update_data, fetch_interval)
     entry.async_on_unload(unsubscribe_interval)
 
-    return True  # No need to return a custom remove function
+    return True
 
 
 class PontosSensor(SensorEntity):
