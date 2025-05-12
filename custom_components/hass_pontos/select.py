@@ -61,6 +61,8 @@ class PontosProfileSelect(SelectEntity):
         active_sensor_id = entity_registry.async_get_entity_id(
             "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
+        LOGGER.debug(f"Active profile sensor unique id: {self._active_profile_sensor_unique_id}")
+        LOGGER.debug(f"Active profile sensor name: {active_sensor_id}")
 
         if active_sensor_id:
             # Fetch its initial state
