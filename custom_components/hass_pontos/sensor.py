@@ -45,26 +45,27 @@ async def async_setup_entry(hass, entry, async_add_entities):
         if new_fetch_interval != current_fetch_interval:
             current_fetch_interval = new_fetch_interval
 
-            # Unsubscribe the previous interval
+            # Cancel previous interval
             if unsubscribe_interval:
                 unsubscribe_interval()
 
-            # Schedule updates using the new fetch interval
+            # Schedule a new interval
             unsubscribe_interval = async_track_time_interval(hass, update_data, current_fetch_interval)
+            entry.async_on_unload(unsubscribe_interval)
 
-        data = await fetch_data(hass, ip_address, URL_LIST)
-        for sensor in sensors:
-            sensor.parse_data(data)
+        try:
+            data = await fetch_data(hass, ip_address, URL_LIST)
+            for sensor in sensors:
+                sensor.parse_data(data)
+        except Exception as e:
+            LOGGER.warning(f"Error fetching data: {e}")
 
-    # Schedule updates using the fetch interval
+    # Initial scheduling of the update
     unsubscribe_interval = async_track_time_interval(hass, update_data, fetch_interval)
+    entry.async_on_unload(unsubscribe_interval)
 
-    # Return a cleanup function to unsubscribe the interval when the integration is removed
-    async def async_remove_entry(_):
-        if unsubscribe_interval:
-            unsubscribe_interval()
+    return True  # No need to return a custom remove function
 
-    return async_remove_entry
 
 class PontosSensor(SensorEntity):
     def __init__(self, key, sensor_config, device_info):
