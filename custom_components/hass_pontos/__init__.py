@@ -116,9 +116,8 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
         )
 
         LOGGER.info(
-            "Migrated config entry '%s' from version %s to 4",
-            config_entry.entry_id,
-            config_entry.version
+            "Migrated config entry '%s' from version 3 to 4",
+            config_entry.entry_id
         )
 
     # Return True if migration was successful (or if no migration needed)
