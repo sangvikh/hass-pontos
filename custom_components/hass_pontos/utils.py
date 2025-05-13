@@ -30,7 +30,7 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
                     else:
                         LOGGER.error(f"HTTP request error (status {response.status}): {url}")
             except (ClientConnectorError, asyncio.TimeoutError) as e:
-                LOGGER.error(f"HTTP request error on attempt {attempt} for {url}: {e}")
+                LOGGER.error(f"HTTP request error for {url}: {e}")
 
         # If data is not empty, break out of the retry loop
         if data:
@@ -39,8 +39,8 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
         # If still no data, wait before retrying (unless it's the last attempt)
         if attempt < max_attempts:
             LOGGER.warning(
-                f"No data retrieved on attempt {attempt}/{max_attempts}. Retrying in {retry_delay} seconds..."
+                f"No data retrieved on attempt {attempt}/{max_attempts}. Retrying in {retry_delay*attempt} seconds..."
             )
-            await asyncio.sleep(retry_delay)
+            await asyncio.sleep(retry_delay*attempt)
 
     return data
