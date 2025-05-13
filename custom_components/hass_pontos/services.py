@@ -1,7 +1,7 @@
 import logging
 import aiohttp
 
-from .const import DOMAIN, MAKES, CONF_MAKE
+from .const import DOMAIN, MAKES, CONF_MAKE, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 
@@ -25,11 +25,14 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
 
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""
-    for entry_data in hass.data[DOMAIN].values():
-        ip_address = entry_data.get("ip_address")
 
-        # Dynamically determine which device constants to use
-        make = entry_data.get(CONF_MAKE)
+    for entry_id in hass.data[DOMAIN]:
+        config_entry = hass.config_entries.async_get_entry(entry_id)
+        if not config_entry:
+            continue
+
+        ip_address = config_entry.options.get(CONF_IP_ADDRESS)
+        make = config_entry.data.get(CONF_MAKE)
         device_const = MAKES[make]
 
         # Grab the device-specific BASE_URL
