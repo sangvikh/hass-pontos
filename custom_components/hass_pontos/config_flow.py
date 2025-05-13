@@ -6,7 +6,7 @@ from .utils import fetch_data
 from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 3
+    VERSION = 4
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
@@ -21,9 +21,20 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate the IP by attempting a connection
             valid = await self._test_connection(ip, make)
             if valid:
+                data = {
+                    CONF_DEVICE_NAME: user_input[CONF_DEVICE_NAME],
+                    CONF_MAKE: user_input[CONF_MAKE],
+                }
+                options = {
+                    CONF_IP_ADDRESS: user_input[CONF_IP_ADDRESS],
+                    CONF_FETCH_INTERVAL: user_input[CONF_FETCH_INTERVAL],
+                }
+
+                # Now create the config entry
                 return self.async_create_entry(
-                    title=user_input.get(CONF_DEVICE_NAME, "Hansgrohe Pontos"),
-                    data=user_input,
+                    title=user_input[CONF_DEVICE_NAME],
+                    data=data,
+                    options=options,
                 )
             else:
                 errors["base"] = "cannot_connect"
@@ -63,8 +74,8 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
     """Handle options flow, allowing editing the IP address and fetch interval."""
 
     def __init__(self, config_entry):
-        """Store the config_entry so we can retrieve/update it."""
-        self.config_entry = config_entry
+        """Store the config_entry's entry_id so we can retrieve/update it."""
+        self.config_entry_id = config_entry.entry_id  # Use a different attribute name
 
     async def async_step_init(self, user_input=None):
         """
@@ -76,21 +87,22 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             # Validate the new IP by fetching from the device
             new_ip = user_input[CONF_IP_ADDRESS]
-            make = self.config_entry.data[CONF_MAKE]
+            config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)  # Use the new attribute name
+            make = config_entry.data[CONF_MAKE]
 
             if await self._test_connection(new_ip, make):
                 # If valid, create (or update) the options
-                return self.async_create_entry(title="", data=user_input)
+                return self.async_create_entry(
+                    title="",
+                    data=user_input,
+                )
             else:
                 errors["base"] = "cannot_connect"
 
         # Show the form to edit IP address and fetch interval
-        current_ip = self.config_entry.data.get(CONF_IP_ADDRESS)
-        current_fetch_interval = self.config_entry.data.get(CONF_FETCH_INTERVAL, 10)
-
-        if self.config_entry.data.get(CONF_IP_ADDRESS):
-            # If there's already an IP in the options, use that instead
-            current_ip = self.config_entry.data[CONF_IP_ADDRESS]
+        config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)  # Use the new attribute name
+        current_ip = config_entry.options.get(CONF_IP_ADDRESS)
+        current_fetch_interval = config_entry.options.get(CONF_FETCH_INTERVAL, 10)
 
         return self.async_show_form(
             step_id="init",

@@ -61,6 +61,8 @@ class PontosProfileSelect(SelectEntity):
         active_sensor_id = entity_registry.async_get_entity_id(
             "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
+        LOGGER.debug(f"Active profile sensor unique id: {self._active_profile_sensor_unique_id}")
+        LOGGER.debug(f"Active profile sensor name: {active_sensor_id}")
 
         if active_sensor_id:
             # Fetch its initial state
@@ -212,7 +214,7 @@ class PontosProfileSelect(SelectEntity):
             "set_profile",
             {
                 "profile_number": profile_number,
-                "ip_address": self._entry.data[CONF_IP_ADDRESS],
+                "ip_address": self._entry.options[CONF_IP_ADDRESS],
             },
         )
         self.set_state(option)

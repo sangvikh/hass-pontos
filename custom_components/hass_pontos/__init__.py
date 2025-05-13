@@ -7,7 +7,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 
 from .services import register_services
 from .device import register_device
-from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_MAKE, MAKES
+from .const import DOMAIN, CONF_IP_ADDRESS, CONF_FETCH_INTERVAL, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
@@ -94,6 +94,29 @@ async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) ->
 
         LOGGER.info(
             "Migrated config entry '%s' from version 2 to 3",
+            config_entry.entry_id
+        )
+
+    if config_entry.version < 4:
+        # Copy existing data and options
+        old_data = dict(config_entry.data)
+        old_options = dict(config_entry.options)
+
+        # Move relevant values from data to options if they exist
+        if CONF_FETCH_INTERVAL in old_data:
+            old_options.setdefault(CONF_FETCH_INTERVAL, old_data.pop(CONF_FETCH_INTERVAL))
+        if CONF_IP_ADDRESS in old_data:
+            old_options.setdefault(CONF_IP_ADDRESS, old_data.pop(CONF_IP_ADDRESS))
+
+        hass.config_entries.async_update_entry(
+            config_entry,
+            data=old_data,
+            options=old_options,
+            version=4,
+        )
+
+        LOGGER.info(
+            "Migrated config entry '%s' from version 3 to 4",
             config_entry.entry_id
         )
 
