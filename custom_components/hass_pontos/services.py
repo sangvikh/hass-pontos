@@ -1,5 +1,5 @@
 import logging
-import aiohttp
+from .utils import fetch_data
 
 from .const import DOMAIN, MAKES, CONF_MAKE, CONF_IP_ADDRESS
 
@@ -14,14 +14,20 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
     # Construct the full URL from the device-specific base URL
     url = base_url.format(ip=ip_address) + endpoint
 
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            if response.status == 200:
-                LOGGER.info(f"Successfully sent command to {endpoint}.")
-            else:
-                LOGGER.error(
-                    f"Failed to send command to {endpoint}: HTTP {response.status}"
-                )
+    # Use fetch_data for retries
+    result = await fetch_data(
+        hass,
+        ip_address,
+        url,
+        max_attempts=4,
+        retry_delay=5
+    )
+
+    # Log the response
+    if result:
+        LOGGER.debug(f"Command sent successfully to {url}: {result}")
+    else:
+        LOGGER.error(f"Failed to send command to {url}")
 
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""

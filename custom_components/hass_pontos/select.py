@@ -87,7 +87,7 @@ class PontosProfileSelect(SelectEntity):
 
         # 2) For each code 1..8, see if we have a name sensor
         for code in range(1, 9):
-            profile_sensor_uid = f"{self._device_info['serial_number']}_profile_{code}_name"
+            profile_sensor_uid = slugify(f"{self._device_info['serial_number']}_profile_{code}_name")
             profile_sensor_entity_id = entity_registry.async_get_entity_id(
                 "sensor", DOMAIN, profile_sensor_uid
             )
