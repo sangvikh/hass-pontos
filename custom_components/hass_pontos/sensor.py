@@ -1,8 +1,8 @@
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.helpers.event import async_track_time_interval
 from homeassistant.util import slugify
-import asyncio
 from datetime import timedelta
+import asyncio
 import logging
 
 from .utils import fetch_data
@@ -37,37 +37,44 @@ async def async_setup_entry(hass, entry, async_add_entities):
     current_fetch_interval = fetch_interval
     unsubscribe_interval = None
 
+    # Lock to prevent concurrent updates
+    update_lock = asyncio.Lock()
+
     # Function to fetch new data and update all sensors
     async def update_data(_):
-        nonlocal current_fetch_interval, unsubscribe_interval
+        if update_lock.locked():
+            LOGGER.debug("Update already in progress, skipping this interval.")
+            return
+        async with update_lock:
+            nonlocal current_fetch_interval, unsubscribe_interval
 
-        # Check if fetch_interval has changed
-        new_fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
-        if new_fetch_interval != current_fetch_interval:
-            current_fetch_interval = new_fetch_interval
+            # Check if fetch_interval has changed
+            new_fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
+            if new_fetch_interval != current_fetch_interval:
+                current_fetch_interval = new_fetch_interval
 
-            # Cancel previous interval
-            if unsubscribe_interval:
-                unsubscribe_interval()
+                # Cancel previous interval
+                if unsubscribe_interval:
+                    unsubscribe_interval()
 
-            # Schedule a new interval
-            unsubscribe_interval = async_track_time_interval(hass, update_data, current_fetch_interval)
-            entry.async_on_unload(unsubscribe_interval)
+                # Schedule a new interval
+                unsubscribe_interval = async_track_time_interval(hass, update_data, current_fetch_interval)
+                entry.async_on_unload(unsubscribe_interval)
 
-        try:
-            # Fetch sensor data
-            for attempt in range(1,4):
-                data = await fetch_data(hass, ip_address, URL_LIST)
-                if data:
-                    break
-                LOGGER.warning(f"Fetch attempt {attempt} failed: Retrying in {entry.options[CONF_FETCH_INTERVAL]*attempt} seconds..")
-                await asyncio.sleep(entry.options[CONF_FETCH_INTERVAL]*attempt)
+            try:
+                # Fetch sensor data
+                for attempt in range(1,4):
+                    data = await fetch_data(hass, ip_address, URL_LIST)
+                    if data:
+                        break
+                    LOGGER.warning(f"Fetch attempt {attempt} failed: Retrying in {entry.options[CONF_FETCH_INTERVAL]*attempt} seconds..")
+                    await asyncio.sleep(entry.options[CONF_FETCH_INTERVAL]*attempt)
 
-            # Parse sensor data
-            for sensor in sensors:
-                sensor.parse_data(data)
-        except Exception as e:
-            LOGGER.warning(f"Error fetching data: {e}")
+                # Parse sensor data
+                for sensor in sensors:
+                    sensor.parse_data(data)
+            except Exception as e:
+                LOGGER.warning(f"Error fetching data: {e}")
 
     # Initial scheduling of the update
     unsubscribe_interval = async_track_time_interval(hass, update_data, fetch_interval)
