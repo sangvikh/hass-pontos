@@ -4,6 +4,7 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.event import async_call_later, async_track_state_change_event
 from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import callback, Event
+from homeassistant.util import slugify
 
 from .device import get_device_info
 from .const import DOMAIN, CONF_MAKE, MAKES, CONF_IP_ADDRESS
@@ -40,10 +41,10 @@ class PontosProfileSelect(SelectEntity):
         serial_number = device_info["serial_number"]
         self._attr_translation_key = "profile_select"
         self._attr_has_entity_name = True
-        self._attr_unique_id = f"{serial_number}_profile_select"
+        self._attr_unique_id = slugify(f"{serial_number}_profile_select")
 
         # The sensor that holds the numeric active profile code
-        self._active_profile_sensor_unique_id = f"{serial_number}_active_profile"
+        self._active_profile_sensor_unique_id = slugify(f"{serial_number}_active_profile")
 
         # Track which entity_id corresponds to each profile code's name sensor
         self._profile_name_entity_ids = {}
