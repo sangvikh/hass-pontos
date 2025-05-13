@@ -68,7 +68,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                     ip_address,
                     URL_LIST,
                     max_attempts=3,
-                    interval=entry.options[CONF_FETCH_INTERVAL]
+                    retry_delay=entry.options[CONF_FETCH_INTERVAL]
                 )
 
                 # Parse sensor data
