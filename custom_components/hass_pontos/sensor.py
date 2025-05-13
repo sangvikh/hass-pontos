@@ -63,12 +63,13 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
             try:
                 # Fetch sensor data
-                for attempt in range(1,4):
-                    data = await fetch_data(hass, ip_address, URL_LIST)
-                    if data:
-                        break
-                    LOGGER.warning(f"Fetch attempt {attempt} failed: Retrying in {entry.options[CONF_FETCH_INTERVAL]*attempt} seconds..")
-                    await asyncio.sleep(entry.options[CONF_FETCH_INTERVAL]*attempt)
+                data = await fetch_data(
+                    hass,
+                    ip_address,
+                    URL_LIST,
+                    max_attempts=3,
+                    interval=entry.options[CONF_FETCH_INTERVAL]
+                )
 
                 # Parse sensor data
                 for sensor in sensors:
