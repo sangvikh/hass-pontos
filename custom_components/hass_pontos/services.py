@@ -19,7 +19,7 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
         hass,
         ip_address,
         url,
-        max_attempts=3,
+        max_attempts=4,
         retry_delay=5
     )
 

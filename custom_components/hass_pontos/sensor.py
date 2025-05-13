@@ -67,7 +67,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
                     hass,
                     ip_address,
                     URL_LIST,
-                    max_attempts=3,
+                    max_attempts=4,
                     retry_delay=entry.options[CONF_FETCH_INTERVAL]
                 )
 
