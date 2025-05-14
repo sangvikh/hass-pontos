@@ -37,10 +37,3 @@ Installation via HACS is the recommended method
 3. Restart Home Assistant.
 4. Go to your integrations page, click Add Integration and look for Hansgrohe Pontos.
 5. Set up sensor using the IP address of your device, fixed ip is recommended.
-
-### Restful integration
-The sensors and services can be added using restful integration. This is a bit limited and not recommended.
-
-1. Copy the contents of restful.yaml into the configuration.yaml of your Home Assistant integration.
-2. Find and replace IP address with the address of your Pontos.
-3. Restart Home Assistant.
