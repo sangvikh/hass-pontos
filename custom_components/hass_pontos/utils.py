@@ -31,10 +31,10 @@ async def fetch_data(hass, ip, url_list, max_attempts=3, retry_delay=10):
                     if response.status == 200:
                         data.update(await response.json())  # Update data with response
                     else:
-                        LOGGER.error(f"HTTP request error (status {response.status}): {url}")
+                        LOGGER.error(f"HTTP response error (status {response.status}): {url}")
                         failed = True
             except (ClientConnectorError, asyncio.TimeoutError) as e:
-                LOGGER.error(f"HTTP request error for {url}: {e}")
+                LOGGER.error(f"HTTP request exeption for {url}: {e}")
                 failed = True
 
         # If no failures, break out of the retry loop
