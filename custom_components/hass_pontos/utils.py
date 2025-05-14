@@ -6,7 +6,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 LOGGER = logging.getLogger(__name__)
 
 # Fetching data with error handling and URL logging
-async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
+async def fetch_data(hass, ip, url_list, max_attempts=3, retry_delay=10):
     """Fetch data from the Pontos device using the shared aiohttp session (with simple retry logic)."""
     if isinstance(url_list, str):
         # Convert to a one-element list
@@ -20,6 +20,9 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
     
     # Loop over attempts for a simple retry mechanism
     for attempt in range(1, max_attempts + 1):
+        data = {}
+        failed = False
+
         # Iterate over each URL and fetch data
         for url in urls:
             try:
@@ -28,19 +31,23 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
                     if response.status == 200:
                         data.update(await response.json())  # Update data with response
                     else:
-                        LOGGER.error(f"HTTP request error (status {response.status}): {url}")
+                        LOGGER.error(f"HTTP response error (status {response.status}): {url}")
+                        failed = True
             except (ClientConnectorError, asyncio.TimeoutError) as e:
-                LOGGER.error(f"HTTP request error for {url}: {e}")
+                LOGGER.error(f"HTTP request exeption for {url}: {e}")
+                failed = True
 
-        # If data is not empty, break out of the retry loop
-        if data:
+        # If no failures, break out of the retry loop
+        if not failed:
             break
 
-        # If still no data, wait before retrying (unless it's the last attempt)
+        # If there were failures, wait before retrying (unless it's the last attempt)
         if attempt < max_attempts:
             LOGGER.warning(
-                f"No data retrieved on attempt {attempt}/{max_attempts}. Retrying in {retry_delay*attempt} seconds..."
+                f"Attempt {attempt}/{max_attempts} failed. Retrying in {retry_delay * attempt} seconds..."
             )
-            await asyncio.sleep(retry_delay*attempt)
+            await asyncio.sleep(retry_delay * attempt)
+        else:
+            LOGGER.error("Max attempts reached. Could not retrieve complete data.")
 
-    return data
+    return data if not failed else {}

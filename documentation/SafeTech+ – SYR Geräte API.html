@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="description" content="Beschreibung der SYR Geräte API">
+    <title>SafeTech+ – SYR Geräte API</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #0592f0;
+}
+.highlight .gr {
+  color: #0592f0;
+}
+.highlight .gt {
+  color: #0592f0;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sa {
+  color: #6c71c4;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/screen-9c19b03a.css" rel="stylesheet" media="screen">
+    <link href="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/print-966d6edc.css" rel="stylesheet" media="print">
+      <script src="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/all-024da600.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
+  </head>
+
+  <body class="index" data-languages="[&quot;http&quot;]">
+    <a href="#" id="nav-button">
+      
+        <span>NAV
+        
+      <img src="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/navbar-cad8cdcb.png" alt=""></span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/logo-127c7d5b.png" class="logo" alt="">
+        <div class="lang-selector">
+              <a href="#" data-language-name="http" class="active">http</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#einleitung" class="toc-h1 toc-link" data-title="Einleitung">Introduction</a>
+              <ul class="toc-list-h2" style="display: none;">
+                  <li>
+                    <a href="#produkte-mit-api-unterstutzung" class="toc-h2 toc-link" data-title="Produkte mit API Unterstützung">Products with API Support</a>
+                  </li>
+                  <li>
+                    <a href="#allgemeine-informationen" class="toc-h2 toc-link" data-title="Allgemeine Informationen">General information</a>
+                  </li>
+                  <li>
+                    <a href="#kommunikation-steuerung" class="toc-h2 toc-link" data-title="Kommunikation / Steuerung">Communication / control</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#gerateinformationen-unterstutzte-gerate" class="toc-h1 toc-link active-parent" data-title="Geräteinformationen - Unterstützte Geräte">Device information - Supported devices</a>
+              <ul class="toc-list-h2 active" style="display: block;">
+                  
+                    <li><a href="#triodfr-ls" class="toc-h2 toc-link" data-title="TrioDFR LS">TrioDFR LS</a></li>
+                  
+                  
+                    <li><a href="#safetech" class="toc-h2 toc-link active" data-title="SafeTech+">SafeTech+</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#leckageschutz" class="toc-h1 toc-link" data-title="Leckageschutz">Leakage protection</a>
+              <ul class="toc-list-h2" style="display: none;">
+                  
+                    <li><a href="#bewegen-der-absperrung" class="toc-h2 toc-link" data-title="Bewegen der Absperrung">Moving the shut-off</a></li>
+                  
+                  
+                    <li><a href="#leckageprofile" class="toc-h2 toc-link" data-title="Leckageprofile">Leakage profiles</a></li>
+                  
+                  
+                    <li><a href="#mikroleckage-test" class="toc-h2 toc-link" data-title="Mikroleckage Test">Microleak test</a></li>
+                  
+                  
+                    <li><a href="#selbstlernphase" class="toc-h2 toc-link" data-title="Selbstlernphase">Self-learning phase</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#netzwerk" class="toc-h1 toc-link" data-title="Netzwerk">Network</a>
+              <ul class="toc-list-h2" style="display: none;">
+                  
+                    <li><a href="#gultigkeit" class="toc-h2 toc-link" data-title="Gültigkeit">Validity</a></li>
+                  
+                  
+                    <li><a href="#befehle" class="toc-h2 toc-link" data-title="Befehle">Commands</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#sensorik-amp-statuswerte" class="toc-h1 toc-link" data-title="Sensorik &amp; Statuswerte">Sensors &amp; status values</a>
+              <ul class="toc-list-h2">
+                  
+                    <li><a href="#gultigkeit" class="toc-h2 toc-link" data-title="Gültigkeit">Validity</a></li>
+                  
+                  
+                    <li><a href="#befehle" class="toc-h2 toc-link" data-title="Befehle">Commands</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#alarm-handling" class="toc-h1 toc-link" data-title="Alarm Handling">Alarm handling</a>
+              <ul class="toc-list-h2">
+                  
+                    <li><a href="#gultigkeit" class="toc-h2 toc-link" data-title="Gültigkeit">Validity</a></li>
+                  
+                  
+                    <li><a href="#befehle" class="toc-h2 toc-link" data-title="Befehle">Commands</a></li>
+                  
+                  
+                    <li><a href="#alarme" class="toc-h2 toc-link" data-title="Alarme">Alarms</a></li>
+                  
+                  
+                    <li><a href="#warnungen" class="toc-h2 toc-link" data-title="Warnungen">Warnings</a></li>
+                  
+                  
+                    <li><a href="#notifications" class="toc-h2 toc-link" data-title="Notifications">Notifications</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#firewall-konfiguration" class="toc-h1 toc-link" data-title="Firewall-Konfiguration">Firewall configuration</a>
+              <ul class="toc-list-h2">
+                  
+                    <li><a href="#azure-iot-hub-kommunikation" class="toc-h2 toc-link" data-title="Azure IoT Hub Kommunikation">Azure IoT Hub Communication</a></li>
+                  
+                  
+                    <li><a href="#azure-blob-storage-firmware-download" class="toc-h2 toc-link" data-title="Azure Blob Storage (Firmware-Download)">Azure Blob Storage (Firmware Download)</a></li>
+                  
+                  
+                    <li><a href="#azure-app-service" class="toc-h2 toc-link" data-title="Azure App Service">Azure App Service</a></li>
+                  
+                  
+                    <li><a href="#zeitsynchronisation-optional" class="toc-h2 toc-link" data-title="Zeitsynchronisation (optional)">Time synchronisation (optional)</a></li>
+                  
+                  
+                    <li><a href="#empfohlene-vorgehensweise" class="toc-h2 toc-link" data-title="Empfohlene Vorgehensweise">Recommended approach</a></li>
+                  
+                  
+                    <li><a href="#beispiel-fqdn-freigabeliste" class="toc-h2 toc-link" data-title="Beispiel: FQDN-Freigabeliste">Example: FQDN Share List</a></li>
+                  
+              </ul>
+          </li>
+          <li>
+            <a href="#syr-api-schlusswort" class="toc-h1 toc-link" data-title="SYR API Schlusswort">SYR API closing word</a>
+              <ul class="toc-list-h2">
+                  
+                    <li><a href="#nutzung" class="toc-h2 toc-link" data-title="Nutzung">Use</a></li>
+                  
+                  
+                    <li><a href="#gewahrleistungsausschluss" class="toc-h2 toc-link" data-title="Gewährleistungsausschluss">Warranty Disclaimer</a></li>
+                  
+                  
+                    <li><a href="#haftungsbeschrankung" class="toc-h2 toc-link" data-title="Haftungsbeschränkung">Limitation of liability</a></li>
+                  
+                  
+                    <li><a href="#support-hilfestellung" class="toc-h2 toc-link" data-title="Support / Hilfestellung">Support / assistance</a></li>
+                  
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href="https://github.com/slatedocs/slate">Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id="einleitung">Introduction</h1>
+<p>The API described below allows the connectable SYR products
+integrate in your own Smarthome system.</p>
+<h2 id="produkte-mit-api-unterstutzung">Products with API Support</h2>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt;v134</td>
+<td>&gt;v134</td>
+</tr>
+</tbody></table>
+<h2 id="allgemeine-informationen">General information</h2>
+<p>SYR devices can be operated either via the AccessPoint mode, as a WLAN client or over LAN.</p>
+<h3 id="befehle">Commands:</h3>
+<p>The SYR Connect products are addressed via HTTP requests. In the requests, between
+the following types are differentiated:</p>
+
+<ul>
+<li>GET-Request: Read value</li>
+<li>SET-Request: Write value</li>
+</ul>
+<h3 id="syntax-aufbau-der-url">Syntax / Structure of the URL:</h3>
+<p>The command syntax looks like this for both requests:</p>
+
+<ul>
+<li>http://-IP-:5333/ Device name/get/command</li>
+<li>http://-IP-:5333/Device name/set/command/value</li>
+</ul>
+<h3 id="geratenamen">Device names:</h3>
+<table><thead>
+<tr>
+<th>Product</th>
+<th>Device name</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TrioDFR LS</td>
+<td>trio</td>
+</tr>
+<tr>
+<td>SafeTech +</td>
+<td>trio</td>
+</tr>
+</tbody></table>
+<h3 id="antworten">Answer:</h3>
+<p>The answers to the requests are in JSON format. The answer includes the original
+Inquiry, as well as the result.</p>
+<h3 id="ports">Ports:</h3>
+<p>The requests are made via port 5333.</p>
+<h3 id="fehlercodes">Error codes:</h3>
+<p>Errors are not returned as status code but in the payload. The following errors can
+be returned:</p>
+
+<ul>
+<li>The command does not exist</li>
+<li>setPRF9:“MIMA – value outside the setting range</li>
+</ul>
+<h3 id="schnittstellen-der-gerate">Interfaces of devices</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AP mode</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Wi-Fi</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>LAN</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h2 id="kommunikation-steuerung">Communication / control</h2>
+<p>The control of SYR Connect products can be controlled via the SYR Connect app, the access point of
+Products or via the local network via WLAN/LAN.</p>
+<h3 id="lokale-kommunikation-uber-den-accesspoint">Local communication via the access point</h3>
+<p>Switching on the access point is used in the respective instructions for use of the product
+described. The SSID of the access point consists of “SYR serial number”. A password is not
+necessary. The following IP address must be used in Accesspoint mode:</p>
+
+<ul>
+<li>http://192.168.4.1</li>
+</ul>
+<h3 id="lokale-kommunikation-im-netzwerk">Local communications in the network</h3>
+<p>The LAN connection can be established into the device via plug-in of the network plug.
+No further actions are necessary for this.</p>
+
+<p>The WLAN connection can be menu-guided via the SYR app as well as via the command chain in the
+Accesspoint mode. More in the section “Network/Commands”.</p>
+
+<p>In the local network, the IP address of the selected interface of the device must be used for the placeholder as follows:</p>
+
+<ul>
+<li>http://-IP:5333/</li>
+</ul>
+<h1 id="gerateinformationen-unterstutzte-gerate">Device information - Supported devices</h1><h2 id="triodfr-ls">TrioDFR LS</h2>
+<p>The SYR TRIO DFR LS Connect is a combination of a semi-automatic, rewindable
+Filter, a pressure reducer and a leakage protection. It is mounted directly behind the water meter on a SYR universal flange.</p>
+
+<p align="center">
+<img src="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/trio-acbb9537.png" style="text-align:center;max-width:25%;max-height:50%;" alt="">
+</p>
+
+<ul>
+<li>Prevents pitting and corrosion</li>
+<li>Reliably regulates the water pressure</li>
+<li>Reliably protects against expensive water damage and waste</li>
+<li>Leakage protection self-terel phase can be activated</li>
+<li>Up to 8 different profiles adjustable</li>
+<li>Regular execution of a microclastic test</li>
+<li>Manual emergency function</li>
+<li>Emergency operation by battery in case of power failure</li>
+</ul>
+<h2 id="safetech">SafeTech+</h2>
+<p>The SafeTech+ Connect leakage protection is directly behind the water meter on the SYR
+Universal flange (DN20-32) mounted. With already existing universal flange, it can be used between
+this and a drinking water filter from SYR.</p>
+
+<p align="center">
+<img src="SafeTech+%20%E2%80%93%20SYR%20Ger%C3%A4te%20API_files/sfp-dab1e157.png" style="text-align:center;max-width:25%;max-height:50%;" alt="">
+</p>
+
+<ul>
+<li>Reliably protects against expensive water damage and waste</li>
+<li>Determines the hardness range, measures water pressure and temperature</li>
+<li>Leakage protection self-terel phase can be activated</li>
+<li>Up to 8 different profiles adjustable</li>
+<li>Regular execution of a microclastic test</li>
+<li>Manual emergency function</li>
+<li>Emergency operation by battery in case of power failure</li>
+</ul>
+<h1 id="leckageschutz">Leakage protection</h1><h2 id="bewegen-der-absperrung">Moving the shut-off</h2>
+<blockquote>
+<p>Example closing shut-off</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/ab/true
+
+{
+  "setAB":true
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Retrieve the position of the barrier</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /get/vlv
+
+{
+  "getVLV":10
+}
+</span></code></pre></div>
+<p>The shut-off can be queried for the current position and opened and closed.</p>
+<h3 id="gultigkeit">Validity</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt; v134</td>
+<td>&gt; v134</td>
+</tr>
+</tbody></table>
+<h3 id="befehle">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AB</td>
+<td>Bool</td>
+<td>Locking opening/closing</td>
+<td>true/false</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>VLV</td>
+<td>int</td>
+<td>Status of the shut-off</td>
+<td>10-21</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+</tbody></table>
+
+<p>To open or close the shut-off, the value of AB is set to true or false.</p>
+
+<ul>
+<li>FALSE shut-off open</li>
+<li>TRUE shut-off closed</li>
+</ul>
+
+<p>The current position of the shut-off can be retrieved with VLV.</p>
+
+<ul>
+<li>10 closure closed</li>
+<li>11 Stops closes</li>
+<li>20 Stop open</li>
+<li>21 Stops opened </li>
+</ul>
+<h2 id="leckageprofile">Leakage profiles</h2>
+<blockquote>
+<p>Example profile 3 Activate</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/pa3/true
+
+{
+  "setPA3":true
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Change volume leak in profile 1 to 500l</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/pv1/500
+
+{
+  "setPV1": 500
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Profile change to profile2</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/prf/2
+
+{
+  "setPRF": 2
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Check which profile is selected</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /get/prf
+
+{
+  "getPRF": 2
+}
+</span></code></pre></div>
+<p>Leakage profiles can be created, processed and changed back and forth between them.</p>
+<h3 id="gultigkeit-2">Validity</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt;v134</td>
+<td>&gt;v134</td>
+</tr>
+</tbody></table>
+<h3 id="befehle-2">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PAx</td>
+<td>Bool</td>
+<td>Profile Availability</td>
+<td>true/false</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PVx</td>
+<td>int</td>
+<td>Profile permitted volume in litern. The volume leakage is disabled at 0</td>
+<td>0-9000</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PTx</td>
+<td>int</td>
+<td>Profile allowed time in min. The timeback is deactivated at 0</td>
+<td>0-1500</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PFx</td>
+<td>int</td>
+<td>Profile of permitted flow in l/h. At 0 the flow leak is disabled</td>
+<td>0-5000</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PMx</td>
+<td>Bool</td>
+<td>Micro leak test Activating/deactivating</td>
+<td>true/false</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PWx</td>
+<td>Bool</td>
+<td>Activation/deactivate leakage warning</td>
+<td>true/false</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PBx</td>
+<td>Bool</td>
+<td>Buzzer Activating/deactivating</td>
+<td>true/false</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PRx</td>
+<td>int</td>
+<td>Return to Profile Present(Profil1) in hours. With 0 the profile remains permanently active</td>
+<td>0-700</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>PRF</td>
+<td>int</td>
+<td>Currently selected profile</td>
+<td>1-8</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+The x in the commands stands for the respective profile number.
+</aside>
+
+<p>The device has stored the profiles of procurement(profile 1) and 
+absent (profile 2) at the factory. Profiles 3-8 must be activated and 
+set. 
+</p><aside class="warning">
+Attention Profiles should be activated in the order. ..pa3/true, ../pa4/true.
+Alternatively, we recommend activating the profiles via the SYR app and then use it via the API.
+</aside>
+<aside class="notice">
+Profiles 1 and 2 cannot be disabled.
+</aside><p></p>
+<h2 id="mikroleckage-test">Microleak test</h2>
+<blockquote>
+<p>Example MicroLacking Test Start</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/dex/true
+
+{
+  "setDEX":true
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Time of the micro leakage at 04:00 setting</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/dtt/04:00
+
+{
+  "setDTT": "04:00"
+}
+</span></code></pre></div>
+<p>The microcagon test can be started manually and terminated in the interval.
+</p><aside class="notice">
+During the test, the barrier is closed. The test takes approx. 4 minutes
+ in demand. We recommend that you take the test in times with low water 
+extraction. 
+</aside><p></p>
+<h3 id="gultigkeit-3">Validity</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt;v134</td>
+<td>&gt;v134</td>
+</tr>
+</tbody></table>
+<h3 id="befehle-3">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>DEX</td>
+<td>Bool</td>
+<td>Starts the MicroLeckage Test</td>
+<td>true</td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>DRP</td>
+<td>int</td>
+<td>Set the test interval</td>
+<td>1-3</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>DSV</td>
+<td>int</td>
+<td>Status of the microclastage. Checks the above test is Active or not.</td>
+<td>0-3</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>DTT</td>
+<td>string</td>
+<td>Sets the time when the test is performed. Format "00:00"</td>
+<td>- -</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+
+<aside class="warning">
+Attention during the test is the closure.
+Water withdrawal during the test will lead to a negative result.
+</aside>
+
+<p>The command DSV retrieves the status of the micro leak. </p>
+
+<ul>
+<li>0 Test not active</li>
+<li>1 test active</li>
+<li>2 Broken due to pressure drop</li>
+<li>3 test skipped</li>
+</ul>
+
+<p>If the test is not started manually, but through the test interval, 
+the device checks whether water was taken 180min beforehand. If water 
+was taken in this period, the status (DSV) is set to the value 3 and the
+ test is only executed again at the next time. </p>
+
+<p>For devices with pressure sensor, the test is stopped and the 
+shut-off is reopened as soon as water is removed. The status is set to 
+2.</p>
+
+<p>The test interval can be set via DRP.</p>
+
+<ul>
+<li>1 The test starts every day</li>
+<li>2 The test starts weekly</li>
+<li>3 The test starts monthly</li>
+</ul>
+
+<p>The time can be set via DTT. The time is passed as a string in the format "HH:MM".</p>
+
+<aside class="notice">
+The time is always set as UTC0. A time difference must be taken into account.
+</aside>
+<h4 id="beispiel">Example</h4>
+<ul>
+<li>DTT Ã 04:00</li>
+<li>DRP 1</li>
+</ul>
+
+<p>The micro leak test is performed daily at 04:00.</p>
+
+<p>The test is deactivated in the profiles in which you set to false.</p>
+<h2 id="selbstlernphase">Self-learning phase</h2>
+<blockquote>
+<p>Example starting self-study phase for 7 days</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/slp/7
+
+{
+  "setSLP7":"OK"
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Get Learned Volume</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /get/slv
+
+{
+  "setSLV": 2500
+}
+</span></code></pre></div>
+<p>The self-learning phase determines the maximum values for volume, 
+time and flow in an adjustable period. The self-learning phase is 
+started for a time x and will be terminated after expiration. The 
+results can be retrieved during or at the end of the phase.</p>
+<h3 id="gultigkeit-4">Validity</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt;v134</td>
+<td>&gt;v134</td>
+</tr>
+</tbody></table>
+<h3 id="befehle-4">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>SLP</td>
+<td>int</td>
+<td>Starts the self-study phase with the specified duration in days. At 0 the self-study phase is terminated</td>
+<td>0-28</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>SLV</td>
+<td>int</td>
+<td>The determined volume in L during the self-study phase</td>
+<td>0-9000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>SLT</td>
+<td>int</td>
+<td>The determined time in s during the self-learning phase</td>
+<td>0-90000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>SLF</td>
+<td>int</td>
+<td>The determined flow rate in l/h during the self-teaching phase</td>
+<td>0-5000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>SLD</td>
+<td>Bool</td>
+<td>Deletes the values when true is sent</td>
+<td>true</td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>SLE</td>
+<td>int</td>
+<td>The remaining time in the active self-learning phase</td>
+<td>0-2419200</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+The values of the self-learning phase are reset at the restart.
+</aside>
+<h1 id="netzwerk">Network</h1>
+<blockquote>
+<p>Example to transmit the network Wi-Fi key</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/wfk/Passwort
+
+{
+  "setWFKPasswort": "OK"
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example WLAN-SSID Setting </p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/WFC/SYR-WLAN
+
+{
+  "setSYR-WLAN": "OK"
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example connection status query </p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /get/wfs
+
+{
+  "getWFS": "2"
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example Reset network parameters </p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/wfd
+
+{
+  "setWFD": "OK"
+}
+</span></code></pre></div><h3 id="gultigkeit">Validity</h3>
+<table><thead>
+<tr>
+<th></th>
+<th>TrioDFR LS</th>
+<th>SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>&gt;v134</td>
+<td>&gt;v134</td>
+</tr>
+</tbody></table>
+<h3 id="befehle">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>WFC</td>
+<td>string</td>
+<td>WLAN SSID</td>
+<td>true</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>WFD</td>
+<td></td>
+<td>SSID and Key Delete</td>
+<td></td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>WFK</td>
+<td>string</td>
+<td>WiFi Key</td>
+<td></td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>WFL</td>
+<td>json</td>
+<td>Provides a lister of available networks</td>
+<td>- -</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>WFR</td>
+<td>int</td>
+<td>WLAN signal strength in %</td>
+<td>1-100</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>WFS</td>
+<td>int</td>
+<td>WLAN connection status</td>
+<td>0-2</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>WGW</td>
+<td>string</td>
+<td>WLAN IP</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>WIP</td>
+<td>string</td>
+<td>WLAN Gateway</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>EGW</td>
+<td>string</td>
+<td>Ethernet IP</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>EIP</td>
+<td>string</td>
+<td>Ethernet Gateway</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>MAC1</td>
+<td>string</td>
+<td>MAC address WLAN interface</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>MAC2</td>
+<td>string</td>
+<td>MAC-Address LAN Interface</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+</tbody></table>
+
+<aside class="notice">
+The EGW and EIP commands are available only for LAN devices.
+</aside>
+
+<p>The connection to a WLAN network can be established via the WFK and WFC commands.</p>
+
+<ul>
+<li><p>The WFK command sets the WLAN key of the network</p></li>
+<li><p>The WFC command sets the SSID</p></li>
+</ul>
+
+<p>After the WFC has been set, the connection attempt is started. 
+</p><aside class="warning">
+WFK must always be set before WFC, otherwise the connection fails.
+</aside><p></p>
+
+<p>The WFS command can be used to read the connection status of the WLAN interface.</p>
+
+<ul>
+<li>0 non-connected</li>
+<li>1 Connection is established</li>
+<li>2 composites</li>
+</ul>
+
+<p>The WFD command is used to delete the connection data from the device. WFD does not pass a value set/WFD.</p>
+<h1 id="sensorik-amp-statuswerte">Sensors &amp; status values</h1>
+<p>The devices provide various telemetry and status values.</p>
+
+<aside class="notice">
+Not every product supports all sensor and status values. The product supported
+You can see values in the table below.
+</aside>
+<h3 id="gultigkeit">Validity</h3>
+<table><thead>
+<tr>
+<th>Commands</th>
+<th>TrioDFR LS</th>
+<th>SafeTech+</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AVO</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>BAR</td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>BAT</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>CEL</td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>CND</td>
+<td>X</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>FLO</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>LTV</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>NPS</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>SRN</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>VER</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+<tr>
+<td>VOL</td>
+<td>✓</td>
+<td>✓</td>
+</tr>
+</tbody></table>
+<h3 id="befehle">Commands</h3>
+<table><thead>
+<tr>
+<th>Command</th>
+<th>Type</th>
+<th>Description</th>
+<th>Value range</th>
+<th>GET</th>
+<th>SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>AVO</td>
+<td>int</td>
+<td>Volume current removal in ml</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>BAR</td>
+<td>int</td>
+<td>Input pressure in mbar</td>
+<td>0-16000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>BAT</td>
+<td>int</td>
+<td>Battery voltage in 1/100 V</td>
+<td>0-1000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>CEL</td>
+<td>int</td>
+<td>Temperature in °C</td>
+<td>0-1000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>CND</td>
+<td>int</td>
+<td>Conductance in uS/cm</td>
+<td>0-5000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>FLO</td>
+<td>int</td>
+<td>Current Flow rate in l/h</td>
+<td>0-5000</td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>LTV</td>
+<td>int</td>
+<td>Last tapped volume in liters</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>NPS</td>
+<td>int</td>
+<td>No turbine impulses since.. in s</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>SRN</td>
+<td>string</td>
+<td>Serial number of the device</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>VER</td>
+<td>string</td>
+<td>Firmware version of the device</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+<tr>
+<td>VOL</td>
+<td>int</td>
+<td>Cumulative volume in liters</td>
+<td></td>
+<td>✓</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<h1 id="alarm-handling">Alarm handling</h1>
+<blockquote>
+<p>Example Retrieving the alarm memory </p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /get/alm
+
+{
+  "getALM":"ff,ff,ff,a3,ff,a6,ff,ff,a5,ff"
+}
+</span></code></pre></div>
+<blockquote>
+<p>Example knowing of the alarms</p>
+</blockquote>
+<div class="highlight"><pre class="highlight http tab-http" style=""><div class="copy-clipboard"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Copy to Clipboard</title><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"></path></svg></div><code><span class="err">GET /set/ala/255
+
+{
+  "setALA255":"OK"
+}
+</span></code></pre></div><h3 id="gultigkeit">Validity</h3>
+<table><thead>
+<tr>
+<th style="text-align: left"></th>
+<th style="text-align: center">TrioDFR LS</th>
+<th style="text-align: center">SafeTech +</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"></td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">✓</td>
+</tr>
+<tr>
+<td style="text-align: left">Version</td>
+<td style="text-align: center">&gt;v134</td>
+<td style="text-align: center">&gt;v134</td>
+</tr>
+</tbody></table>
+
+<p><br><br></p>
+<h3 id="befehle">Commands</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Command</th>
+<th style="text-align: center">Type</th>
+<th>Description</th>
+<th style="text-align: center">Value range</th>
+<th style="text-align: center">GET</th>
+<th style="text-align: center">SET</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">ALA</td>
+<td style="text-align: center">hex</td>
+<td>Retrieving the current alarm</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: center">ALA</td>
+<td style="text-align: center">int</td>
+<td>Answering alarm</td>
+<td style="text-align: center">255</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">✓</td>
+</tr>
+<tr>
+<td style="text-align: center">ALM</td>
+<td style="text-align: center">json</td>
+<td>Retrieve the last 8 alarms</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: center">WRN</td>
+<td style="text-align: center">hex</td>
+<td>Retrieve the current warning</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: center">WRN</td>
+<td style="text-align: center">int</td>
+<td>Clarifier of the current warning</td>
+<td style="text-align: center">255</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">✓</td>
+</tr>
+<tr>
+<td style="text-align: center">ALW</td>
+<td style="text-align: center">json</td>
+<td>Retrieve the last 8 warnings</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: center">NOT</td>
+<td style="text-align: center">hex</td>
+<td>Retrieving the current notification</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+<tr>
+<td style="text-align: center">NOT</td>
+<td style="text-align: center">int</td>
+<td>Rectifying the adjacent notification</td>
+<td style="text-align: center">255</td>
+<td style="text-align: center">X</td>
+<td style="text-align: center">✓</td>
+</tr>
+<tr>
+<td style="text-align: center">ALN</td>
+<td style="text-align: center">json</td>
+<td>Retrieve the last 8 notifications</td>
+<td style="text-align: center">- -</td>
+<td style="text-align: center">✓</td>
+<td style="text-align: center">X</td>
+</tr>
+</tbody></table>
+
+<p>
+<br><br>The devices inform the user about news, warnings, alarms and malfunctions via push message in the app or by e-mail. </p>
+
+<p>A distinction is made between alarms, warnings and notifications. </p>
+
+<ul>
+<li><strong>Alarms</strong> can be <strong>triggered</strong> due to both leakage and system-critical errors. Alarms always lead to the deactivation of the system. </li>
+<li><strong>Warnings</strong> are triggered when events occur which 
+endanger smooth operation. For example, if the batteries have reached 
+the end of their life. </li>
+<li><strong>Notifications</strong> are used to inform the user, a new update is provided or the filter backwash is overdue, so the user is informed. </li>
+</ul>
+
+<p>The message memory of the devices can also be retrieved via command. 
+The message at the top of the output array always represents the most up-to-date message. 
+<br><br></p>
+<h3 id="alarme">Alarms</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Alarm</th>
+<th>Cause</th>
+<th>Description</th>
+<th>Remedy</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">A1</td>
+<td>Limit switch</td>
+<td>The shut-off cannot be reached. Possibly there is a dirt or defect of the motor or the limit switch. <strong>Attention: Limited leakage protection!</strong></td>
+<td>Please check the function by manually clicking the shut-off.</td>
+</tr>
+<tr>
+<td style="text-align: center">A2</td>
+<td>Engine current</td>
+<td>The limit value for the motor current has been exceeded. There may be a dirt or defect of the engine.</td>
+<td>Please check the function by manually pressing the shut-off.</td>
+</tr>
+<tr>
+<td style="text-align: center">A3</td>
+<td>Volume leak</td>
+<td>The maximum permissible volume has been exceeded. Possibly there is a volume leak.</td>
+<td>Please remove the leakage or adjust the protection level. Quit the alarm to reopen the shut-off.</td>
+</tr>
+<tr>
+<td style="text-align: center">A4</td>
+<td>Time leaks</td>
+<td>The maximum permissible time has been exceeded. Possibly there is a time leak.</td>
+<td>Please remove the leakage or adjust the protection level. Quit the alarm to reopen the shut-off.</td>
+</tr>
+<tr>
+<td style="text-align: center">A5</td>
+<td>Flow leaks</td>
+<td>The maximum permissible flow was exceeded. Possibly there is a flow leak, e.g. Pipe break before.</td>
+<td>Please remove the leakage or adjust the protection level. Quit the alarm to reopen the shut-off.</td>
+</tr>
+<tr>
+<td style="text-align: center">A6</td>
+<td>Micro leak suspicion</td>
+<td>The pulse limit has been exceeded. Possibly there is a microclasty, for example, in the toilet flush.</td>
+<td>Check your installation for leakages such as dripping taps or toilet flushing.</td>
+</tr>
+<tr>
+<td style="text-align: center">A7</td>
+<td>Soil sensor leak</td>
+<td>A leakage on the ground sensor was detected.</td>
+<td>Please remove the leakage and check the soil sensor or site.</td>
+</tr>
+<tr>
+<td style="text-align: center">A8</td>
+<td>Malfunction flow sensor</td>
+<td>No turbine pulses were recorded over a longer period of time. 
+Possibly there is a contamination or a defect of the turbine or sensor. <strong>Attention: Limited leakage protection!</strong></td>
+<td>Open a water collection point and check whether there are displaying
+ turbine pulses on the control (LED).  Get the service ready.</td>
+</tr>
+<tr>
+<td style="text-align: center">A9</td>
+<td>Malfunction pressure sensor</td>
+<td>The pressure sensor does not report any information. Possibly there is a defect.</td>
+<td>Please notify the service.</td>
+</tr>
+<tr>
+<td style="text-align: center">AA</td>
+<td>Malt temperature sensor</td>
+<td>The temperature sensor does not report any information. Possibly there is a defect.</td>
+<td>Please notify the service.</td>
+</tr>
+<tr>
+<td style="text-align: center">AB</td>
+<td>Malfunction conductivity sensor</td>
+<td>The conductance sensor does not report any information. Possibly there is a defect.</td>
+<td>Please notify the service.</td>
+</tr>
+<tr>
+<td style="text-align: center">AC</td>
+<td>Malfunction conductivity sensor</td>
+<td>The conductance sensor does not report any information. Possibly there is a defect.</td>
+<td>Please notify the service.</td>
+</tr>
+<tr>
+<td style="text-align: center">AD</td>
+<td>Increased water hardness</td>
+<td>The limit value for the water hardness has been exceeded.</td>
+<td>The use of a soft water system is recommended. Please contact the service.</td>
+</tr>
+<tr>
+<td style="text-align: center">FF</td>
+<td>No alarm</td>
+<td>There is no alarm in the alarm memory.</td>
+<td>No further action is needed.</td>
+</tr>
+</tbody></table>
+
+<p><br><br></p>
+<h3 id="warnungen">Warnings</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Warning</th>
+<th>Cause</th>
+<th>Description</th>
+<th>Remedy</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">1</td>
+<td>Current interruption</td>
+<td>The power supply was interrupted.</td>
+<td>Please ensure that your device is connected to an uninterrupted circuit.</td>
+</tr>
+<tr>
+<td style="text-align: center">7</td>
+<td>Leakage warning</td>
+<td>The maximum permissible volume was reached approximately.</td>
+<td>Please remember to close the tap in good time and acknowledge the warning.</td>
+</tr>
+<tr>
+<td style="text-align: center">8th</td>
+<td>Batteries exhausted</td>
+<td>The batteries are exhausted</td>
+<td>Please change batteries</td>
+</tr>
+<tr>
+<td style="text-align: center">FF</td>
+<td>No warning</td>
+<td>There is no warning in the warning store.</td>
+<td>No further action is needed.</td>
+</tr>
+</tbody></table>
+
+<p><br><br></p>
+<h3 id="notifications">Notifications</h3>
+<table><thead>
+<tr>
+<th style="text-align: center">Notification</th>
+<th>Cause</th>
+<th>Description</th>
+<th>Remedy</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: center">1</td>
+<td>New software update Available!</td>
+<td>A new software update for your device is available for download.</td>
+<td>Please install the software update to ensure proper operation.</td>
+</tr>
+<tr>
+<td style="text-align: center">4</td>
+<td>New software update installed!</td>
+<td>A new software update has been installed.</td>
+<td>You can manage the software updates in the menu under "Settings / Software update".</td>
+</tr>
+<tr>
+<td style="text-align: center">FF</td>
+<td>No notification</td>
+<td>There is no notification in the notification store.</td>
+<td>No further action is needed.</td>
+</tr>
+</tbody></table>
+<h1 id="firewall-konfiguration">Firewall configuration</h1>
+<p>In order for your SYR devices to successfully communicate with SYR 
+Azure services and download firmware updates, the following domains, IP 
+address ranges and ports must be shared in your firewall. </p>
+<h2 id="azure-iot-hub-kommunikation">Azure IoT Hub Communication</h2>
+<p>Enables centralized communication of devices with Azure IoT Hub.</p>
+
+<ul>
+<li><strong>FQDN:</strong> <code>*.azure-devices.net</code></li>
+<li><strong>Ports:</strong>
+
+<ul>
+<li> <code>443</code>(MQTT via WebSocket / HTTPS)</li>
+<li> <code>8883</code>(MQTT via TLS) </li>
+<li> <code>5671</code>(AMQP via TLS) </li>
+</ul></li>
+</ul>
+
+<p><strong>IP address ranges:</strong>
+- Use the service tag  <code>AzureIoTHub</code>in the following file:
+  - <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56519">Azure IP Ranges and Service Tags – Public Cloud</a></p>
+<h2 id="azure-blob-storage-firmware-download">Azure Blob Storage (Firmware Download)</h2>
+<ul>
+<li><strong>FQDN:</strong> <code>*.blob.core.windows.net</code></li>
+<li><strong>Port:</strong>  <code>443, 80</code>(Port 80 as backup)</li>
+</ul>
+
+<p><strong>IP address ranges:</strong>
+- Service day: <code>Storage</code></p>
+<h2 id="azure-app-service">Azure App Service</h2>
+<ul>
+<li><strong>FQDN:</strong> <code>*.azurewebsites.net</code></li>
+<li><strong>Port:</strong> <code>443</code></li>
+</ul>
+
+<p><strong>IP address ranges:</strong>
+- Service day: <code>AppService</code></p>
+<h2 id="zeitsynchronisation-optional">Time synchronisation (optional)</h2>
+<ul>
+<li><strong>FQDN / IP:</strong> <code>pool.ntp.org</code></li>
+<li><strong>Port:</strong> <code>123/UDP</code></li>
+</ul>
+<h2 id="empfohlene-vorgehensweise">Recommended approach</h2><h3 id="whitelist-nach-fqdns-empfohlen">Whitelist after FQDNs (recommended)</h3>
+<p>If your firewall supports FQDN-based rules, use domain names only.</p>
+<h3 id="alternative-ip-adressen">Alternative: IP addresses</h3>
+<p>Use the regularly updated file:
+- <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56519">Azure IP Ranges and Service Tags – Public Cloud</a></p>
+<h2 id="beispiel-fqdn-freigabeliste">Example: FQDN Share List</h2>
+<table><thead>
+<tr>
+<th>Service</th>
+<th>FQDN</th>
+<th>Port</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IoT Hub</td>
+<td><code>*.azure-devices.net</code></td>
+<td>443</td>
+</tr>
+<tr>
+<td>Blob storage</td>
+<td><code>*.blob.core.windows.net</code></td>
+<td>443</td>
+</tr>
+<tr>
+<td>App service</td>
+<td><code>*.azurewebsites.net</code></td>
+<td>443</td>
+</tr>
+<tr>
+<td>NTP (optional)</td>
+<td> <code>*.ntp.org</code>or own NTP</td>
+<td>123</td>
+</tr>
+</tbody></table>
+<h1 id="syr-api-schlusswort">SYR API closing word</h1><h2 id="nutzung">Use</h2>
+<p>The user agrees to the following exclusion of warranty and limitations of liability in which he uses the API.
+The manufacturer has the right to update or change the API at any time. </p>
+<h2 id="gewahrleistungsausschluss">Warranty Disclaimer</h2>
+<p>The API is provided without warranty of defects, i.e. in their 
+respective condition and subject to availability without any warranty. 
+The manufacturer expressly excludes all warranties and warranties, 
+including the implied warranty of ordinary use, availability and 
+security.
+The manufacturer does not guarantee that the API is free from 
+inaccuracies, errors, bugs or interruptions or that it is reliable, 
+flawless, complete or otherwise valid. Use of the API is at its sole 
+discretion and at your own risk. The user is solely responsible for any 
+damage resulting from the use of the API.</p>
+<h2 id="haftungsbeschrankung">Limitation of liability</h2>
+<p>The manufacturer excludes any liability to the extent permissible for
+ indirect or incidental damages, consequential damages arising from or 
+in connection with the use of the API.</p>
+<h2 id="support-hilfestellung">Support / assistance</h2>
+<p>Please send any comments, queries and requests to <a href="mailto:IoT-Development@syr.de">IoT-Development-syr.de</a>. </p>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector" style="width: 845px;">
+                <a href="#" data-language-name="http" class="active">http</a>
+          </div>
+      </div>
+    </div>
+  
+
+</body></html>
