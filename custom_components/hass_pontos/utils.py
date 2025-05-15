@@ -13,7 +13,6 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
         url_list = [url_list]
 
     urls = [url.format(ip=ip) for url in url_list]
-    data = {}
 
     # Get the shared aiohttp session from Home Assistant
     session = async_get_clientsession(hass)
