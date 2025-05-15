@@ -47,6 +47,6 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
             )
             await asyncio.sleep(retry_delay * attempt)
         else:
-            LOGGER.error("Max attempts reached. Could not retrieve complete data.")
+            LOGGER.error("Attempt {attempt}/{max_attempts} failed. Could not retrieve complete data.")
 
     return data if not failed else {}
