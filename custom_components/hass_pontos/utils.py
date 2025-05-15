@@ -6,7 +6,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 LOGGER = logging.getLogger(__name__)
 
 # Fetching data with error handling and URL logging
-async def fetch_data(hass, ip, url_list, max_attempts=3, retry_delay=10):
+async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
     """Fetch data from the Pontos device using the shared aiohttp session (with simple retry logic)."""
     if isinstance(url_list, str):
         # Convert to a one-element list
