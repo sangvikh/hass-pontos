@@ -7,6 +7,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 
 from .services import register_services
 from .device import register_device
+from .coordinator import PontosDataUpdateCoordinator
 from .const import DOMAIN, CONF_IP_ADDRESS, CONF_FETCH_INTERVAL, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
@@ -18,6 +19,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = entry.data
+
+    # Set up the coordinator for data fetching
+    coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
+    await coordinator.async_config_entry_first_refresh()
+    hass.data[DOMAIN].setdefault("coordinators", {})[entry.entry_id] = coordinator
 
     try:
         # Register the device
