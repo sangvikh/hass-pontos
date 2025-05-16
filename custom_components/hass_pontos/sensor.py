@@ -21,7 +21,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     hass.data.setdefault("hass_pontos_coordinators", {})[entry.entry_id] = coordinator
 
     # Get device info (you may want to refactor get_device_info to use coordinator.data)
-    device_info, _ = await get_device_info(hass, entry, coordinator=coordinator)
+    device_info = coordinator.device_info
 
     sensors = [
         PontosSensor(key, sensor_config, device_info, coordinator)
