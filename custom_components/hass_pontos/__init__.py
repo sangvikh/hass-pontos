@@ -60,6 +60,9 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     if unload_ok:
         hass.data[DOMAIN].pop(entry.entry_id)
+        # Remove coordinator
+        if "coordinators" in hass.data[DOMAIN]:
+            hass.data[DOMAIN]["coordinators"].pop(entry.entry_id, None)
 
     return unload_ok
 

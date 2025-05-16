@@ -54,7 +54,7 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
 
                 # Update device info if not already set
                 if not self._device_info:
-                    self._device_info = get_device_info(self.entry, self)
+                    self._device_info = await get_device_info(self.entry, self)
                 
                 return data
             except Exception as err:

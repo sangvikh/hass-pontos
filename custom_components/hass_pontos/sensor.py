@@ -1,3 +1,4 @@
+from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.util import slugify
 import logging
@@ -17,10 +18,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
     await coordinator.async_config_entry_first_refresh()
 
-    # Store coordinator for other platforms (if needed)
-    hass.data.setdefault("hass_pontos_coordinators", {})[entry.entry_id] = coordinator
-
-    # Get device info (you may want to refactor get_device_info to use coordinator.data)
+    # Get device info
     device_info = coordinator.device_info
 
     sensors = [
