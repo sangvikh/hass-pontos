@@ -3,9 +3,8 @@ from datetime import timedelta
 import logging
 import asyncio
 
-from .device import get_device_info
 from .utils import fetch_data
-from .const import DOMAIN
+from .const import DOMAIN, CONF_IP_ADDRESS, CONF_FETCH_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -14,11 +13,10 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
         self.hass = hass
         self.entry = entry
         self.device_const = device_const
-        self.ip_address = entry.options[device_const.CONF_IP_ADDRESS]
+        self.ip_address = entry.options[CONF_IP_ADDRESS]
         self.url_list = device_const.URL_LIST
-        self.fetch_interval = timedelta(seconds=entry.options[device_const.CONF_FETCH_INTERVAL])
+        self.fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
         self._lock = asyncio.Lock()
-        self._cached_data = None
         self._device_info = None
 
         super().__init__(
@@ -28,11 +26,6 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
             update_interval=self.fetch_interval,
         )
 
-    @property
-    def data(self):
-        # Expose the cached data (None if last fetch failed)
-        return self._cached_data
-    
     @property
     def device_info(self):
         return self._device_info
@@ -48,15 +41,12 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
                     retry_delay=self.fetch_interval
                 )
                 if not data:
-                    self._cached_data = None
                     raise UpdateFailed("No data received from device")
-                self._cached_data = data
-
-                # Update device info if not already set
-                if not self._device_info:
-                    self._device_info = await get_device_info(self.entry, self)
                 
+                # Set data using coordinator method
+                self.async_set_updated_data(data)
+
                 return data
+
             except Exception as err:
-                self._cached_data = None
                 raise UpdateFailed(f"Error fetching data: {err}") from err

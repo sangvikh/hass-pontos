@@ -3,8 +3,7 @@ from homeassistant.components.sensor import SensorEntity
 from homeassistant.util import slugify
 import logging
 
-from .device import get_device_info
-from .const import CONF_MAKE, MAKES
+from .const import CONF_MAKE, MAKES, DOMAIN
 from .coordinator import PontosDataUpdateCoordinator
 
 LOGGER = logging.getLogger(__name__)
@@ -15,11 +14,14 @@ async def async_setup_entry(hass, entry, async_add_entities):
     SENSOR_DETAILS = device_const.SENSOR_DETAILS
 
     # Create the coordinator and refresh once
-    coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
-    await coordinator.async_config_entry_first_refresh()
+    #coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
+    coordinator = hass.data[DOMAIN]["entries"][entry.entry_id]["coordinator"]
+    #await coordinator.async_config_entry_first_refresh()
 
     # Get device info
-    device_info = coordinator.device_info
+    
+    device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
+    LOGGER.debug(f"Sensor: Device info: {device_info}")
 
     sensors = [
         PontosSensor(key, sensor_config, device_info, coordinator)

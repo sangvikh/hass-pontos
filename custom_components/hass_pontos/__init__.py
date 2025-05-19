@@ -17,17 +17,21 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
 
-    hass.data.setdefault(DOMAIN, {})
-    hass.data[DOMAIN][entry.entry_id] = entry.data
-
     # Set up the coordinator for data fetching
     coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
     await coordinator.async_config_entry_first_refresh()
-    hass.data[DOMAIN].setdefault("coordinators", {})[entry.entry_id] = coordinator
+
+    # Store entries in hass.data
+    hass.data.setdefault(DOMAIN, {})
+    hass.data[DOMAIN].setdefault("entries", {})[entry.entry_id] = {
+        "entry": entry,
+        "coordinator": coordinator,
+        "device_info": None,  # to be set after register_device()
+    }
 
     try:
         # Register the device
-        await register_device(hass, entry)
+        await register_device(hass, entry, coordinator)
     except Exception as e:
         LOGGER.error(f"Error setting up device: {e}")
         raise ConfigEntryNotReady from e
@@ -59,12 +63,13 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     unload_ok = all(results)
 
     if unload_ok:
-        hass.data[DOMAIN].pop(entry.entry_id)
-        # Remove coordinator
-        if "coordinators" in hass.data[DOMAIN]:
-            hass.data[DOMAIN]["coordinators"].pop(entry.entry_id, None)
-
+        hass.data[DOMAIN]["entries"].pop(entry.entry_id, None)
     return unload_ok
+
+async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
+    """Handle config entry reload (triggered by options flow changes)."""
+    await async_unload_entry(hass, entry)
+    return await async_setup_entry(hass, entry)
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Migrate old entry data to new format/version."""

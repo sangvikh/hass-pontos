@@ -3,7 +3,8 @@ from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOS
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'valve', 'select']
+#PLATFORMS = ['sensor', 'button', 'valve', 'select']
+PLATFORMS = ['sensor']
 
 MODEL = "SafeTech+"
 MANUFACTURER = "SYR"

@@ -4,6 +4,7 @@ from homeassistant.helpers.device_registry import async_get as async_get_device_
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 
 from .const import DOMAIN, CONF_DEVICE_NAME, CONF_MAKE, MAKES
+from .coordinator import PontosDataUpdateCoordinator
 
 LOGGER = logging.getLogger(__name__)
 
@@ -43,6 +44,9 @@ async def register_device(hass, entry, coordinator=None):
 
     # Get device info (will raise exception if it fails)
     device_info = await get_device_info(entry, coordinator=coordinator)
+
+    # Store device_info for later use in platforms
+    hass.data[DOMAIN]["entries"][entry_id]["device_info"] = device_info
 
     # Register device in the device registry
     device_registry = async_get_device_registry(hass)

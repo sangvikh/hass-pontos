@@ -32,7 +32,7 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""
 
-    for entry_id in hass.data[DOMAIN]:
+    for entry_id in hass.data[DOMAIN].get("entries", {}):
         config_entry = hass.config_entries.async_get_entry(entry_id)
         if not config_entry:
             continue
@@ -52,8 +52,10 @@ async def async_service_handler(hass, call, service_name):
 
 async def register_services(hass):
     """Register custom services for all current config entries."""
-    for entry_data in hass.data[DOMAIN].values():
-        make = entry_data.get(CONF_MAKE)
+    entries = hass.data[DOMAIN].get("entries", {})
+    for entry_data in entries.values():
+        config_entry = entry_data["entry"]
+        make = config_entry.data.get(CONF_MAKE)
         device_const = MAKES[make]
 
         # For each service this device supports, register a handler
