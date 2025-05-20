@@ -6,14 +6,13 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.util import slugify
 from homeassistant.core import callback, Event
-from .device import get_device_info
 from .const import DOMAIN
 
 LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     # Get device info
-    device_info, data = await get_device_info(hass, entry)
+    device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
 
     # Instantiate the PontosValve entity
     valve_entity = PontosValve(hass, entry, device_info)
