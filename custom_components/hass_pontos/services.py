@@ -32,8 +32,9 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""
 
-    for entry_id in hass.data[DOMAIN].get("entries", {}):
-        config_entry = hass.config_entries.async_get_entry(entry_id)
+    for entry_id, entry_data in hass.data[DOMAIN].get("entries", {}).items():
+        config_entry = entry_data["entry"]
+        coordinator = entry_data["coordinator"]
         if not config_entry:
             continue
 
@@ -49,6 +50,9 @@ async def async_service_handler(hass, call, service_name):
 
         # Send the command with dynamic data (if any)
         await async_send_command(hass, ip_address, base_url, endpoint, call.data)
+
+        # Trigger a data refresh after the command
+        await coordinator.async_request_refresh()
 
 async def register_services(hass):
     """Register custom services for all current config entries."""
