@@ -27,7 +27,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     hass.data[DOMAIN].setdefault("entries", {})[entry.entry_id] = {
         "entry": entry,
         "coordinator": coordinator,
-        "device_info": None,  # to be set after register_device()
+        "device_info": None,
+        "command_lock": asyncio.Lock(),
     }
 
     try:
