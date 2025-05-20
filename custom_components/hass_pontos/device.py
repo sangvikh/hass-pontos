@@ -4,7 +4,6 @@ from homeassistant.helpers.device_registry import async_get as async_get_device_
 from homeassistant.helpers.device_registry import CONNECTION_NETWORK_MAC
 
 from .const import DOMAIN, CONF_DEVICE_NAME, CONF_MAKE, MAKES
-from .coordinator import PontosDataUpdateCoordinator
 
 LOGGER = logging.getLogger(__name__)
 

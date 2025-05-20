@@ -6,7 +6,7 @@ from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import callback, Event
 from homeassistant.util import slugify
 
-from .const import DOMAIN, CONF_MAKE, MAKES, CONF_IP_ADDRESS
+from .const import DOMAIN, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 

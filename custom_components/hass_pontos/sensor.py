@@ -4,7 +4,6 @@ from homeassistant.util import slugify
 import logging
 
 from .const import CONF_MAKE, MAKES, DOMAIN
-from .coordinator import PontosDataUpdateCoordinator
 
 LOGGER = logging.getLogger(__name__)
 
