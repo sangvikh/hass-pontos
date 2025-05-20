@@ -12,16 +12,8 @@ async def async_setup_entry(hass, entry, async_add_entities):
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
     SENSOR_DETAILS = device_const.SENSOR_DETAILS
-
-    # Create the coordinator and refresh once
-    #coordinator = PontosDataUpdateCoordinator(hass, entry, device_const)
     coordinator = hass.data[DOMAIN]["entries"][entry.entry_id]["coordinator"]
-    #await coordinator.async_config_entry_first_refresh()
-
-    # Get device info
-    
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
-    LOGGER.debug(f"Sensor: Device info: {device_info}")
 
     sensors = [
         PontosSensor(key, sensor_config, device_info, coordinator)
