@@ -15,7 +15,6 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
         self.device_const = device_const
         self.url_list = device_const.URL_LIST
         self._lock = asyncio.Lock()
-        self._device_info = None
 
         super().__init__(
             hass,
@@ -23,10 +22,6 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
             name=f"{DOMAIN}_coordinator_{entry.entry_id}",
             update_interval=timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL]),
         )
-
-    @property
-    def device_info(self):
-        return self._device_info
 
     async def _async_update_data(self):
         async with self._lock:
