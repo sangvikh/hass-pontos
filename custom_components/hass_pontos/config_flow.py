@@ -87,7 +87,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             # Validate the new IP by fetching from the device
             new_ip = user_input[CONF_IP_ADDRESS]
-            config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)  # Use the new attribute name
+            config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)
             make = config_entry.data[CONF_MAKE]
 
             if await self._test_connection(new_ip, make):
@@ -100,7 +100,7 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
                 errors["base"] = "cannot_connect"
 
         # Show the form to edit IP address and fetch interval
-        config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)  # Use the new attribute name
+        config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)
         current_ip = config_entry.options.get(CONF_IP_ADDRESS)
         current_fetch_interval = config_entry.options.get(CONF_FETCH_INTERVAL, 10)
 

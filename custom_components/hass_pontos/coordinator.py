@@ -38,15 +38,14 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
                     self.ip_address,
                     self.url_list,
                     max_attempts=4,
-                    retry_delay=self.fetch_interval
+                    retry_delay=int(self.fetch_interval.total_seconds())
                 )
                 if not data:
+                    self.async_set_updated_data(None)
                     raise UpdateFailed("No data received from device")
-                
-                # Set data using coordinator method
-                self.async_set_updated_data(data)
 
                 return data
 
             except Exception as err:
+                self.async_set_updated_data(None)
                 raise UpdateFailed(f"Error fetching data: {err}") from err

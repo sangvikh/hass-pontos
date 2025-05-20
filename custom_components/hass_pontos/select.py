@@ -15,7 +15,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
 
     # Instantiate the select entity
-    select_entity = PontosProfileSelect(entry, device_info)
+    select_entity = PontosProfileSelect(hass, entry, device_info)
     async_add_entities([select_entity], True)
 
 class PontosProfileSelect(SelectEntity):

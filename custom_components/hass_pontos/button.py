@@ -14,7 +14,7 @@ LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     # Fetch device info
-    device_info, _ = await get_device_info(hass, entry)
+    device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
 
     # Instantiate button
     reset_button = PontosClearAlarmsButton(hass, entry, device_info)
