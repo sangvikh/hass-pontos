@@ -41,7 +41,7 @@ async def async_service_handler(hass, call, service_name):
             continue
 
         if lock.locked():
-            LOGGER.warning("Service '%s' skipped: previous command still running for %s", service_name, entry_id)
+            LOGGER.warning(f"Service '{service_name}' skipped: previous command still running")
             continue
 
         async with lock:
