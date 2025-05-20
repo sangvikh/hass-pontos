@@ -32,6 +32,7 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         async with self._lock:
+            self.update_options()
             try:
                 data = await fetch_data(
                     self.hass,
@@ -49,3 +50,8 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
             except Exception as err:
                 self.async_set_updated_data(None)
                 raise UpdateFailed(f"Error fetching data: {err}") from err
+
+    def update_options(self):
+        self.ip_address = self.entry.options.get(CONF_IP_ADDRESS, self.ip_address)
+        self.fetch_interval = timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL])
+        self.update_interval = self.fetch_interval
