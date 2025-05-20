@@ -13,9 +13,7 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
         self.hass = hass
         self.entry = entry
         self.device_const = device_const
-        self.ip_address = entry.options[CONF_IP_ADDRESS]
         self.url_list = device_const.URL_LIST
-        self.fetch_interval = timedelta(seconds=entry.options[CONF_FETCH_INTERVAL])
         self._lock = asyncio.Lock()
         self._device_info = None
 
@@ -23,7 +21,7 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
             hass,
             _LOGGER,
             name=f"{DOMAIN}_coordinator_{entry.entry_id}",
-            update_interval=self.fetch_interval,
+            update_interval=timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL]),
         )
 
     @property
@@ -32,14 +30,14 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
 
     async def _async_update_data(self):
         async with self._lock:
-            self.update_options()
+            self._update_options()
             try:
                 data = await fetch_data(
                     self.hass,
-                    self.ip_address,
+                    self.entry.options[CONF_IP_ADDRESS],
                     self.url_list,
                     max_attempts=4,
-                    retry_delay=int(self.fetch_interval.total_seconds())
+                    retry_delay=int(self.update_interval.total_seconds())
                 )
                 if not data:
                     self.async_set_updated_data(None)
@@ -51,7 +49,5 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
                 self.async_set_updated_data(None)
                 raise UpdateFailed(f"Error fetching data: {err}") from err
 
-    def update_options(self):
-        self.ip_address = self.entry.options.get(CONF_IP_ADDRESS, self.ip_address)
-        self.fetch_interval = timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL])
-        self.update_interval = self.fetch_interval
+    def _update_options(self):
+        self.update_interval = timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL])
