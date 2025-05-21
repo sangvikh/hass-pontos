@@ -8,6 +8,7 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.const import STATE_UNAVAILABLE
 
 from .const import DOMAIN
+from .device import get_device_info
 
 LOGGER = logging.getLogger(__name__)
 
@@ -50,7 +51,7 @@ class PontosClearAlarmsButton(ButtonEntity):
 
         # Get the entity ID of the alarm sensor using the unique ID
         entity_registry = er.async_get(self._hass)
-        sensor_entity_id = entity_registry.async_resolve_entity_id(f"sensor.{self._availability_sensor_unique_id}")
+        sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._availability_sensor_unique_id)
         
         if sensor_entity_id:
             # Fetch the initial availability from the alarm sensor entity

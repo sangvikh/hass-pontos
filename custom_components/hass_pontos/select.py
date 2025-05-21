@@ -54,8 +54,8 @@ class PontosProfileSelect(SelectEntity):
         entity_registry = er.async_get(self._hass)
 
         # 1) Locate the "active_profile" numeric sensor
-        active_sensor_id = entity_registry.async_resolve_entity_id(
-            f"sensor.{self._active_profile_sensor_unique_id}"
+        active_sensor_id = entity_registry.async_get_entity_id(
+            "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
         LOGGER.debug(f"Active profile sensor unique id: {self._active_profile_sensor_unique_id}")
         LOGGER.debug(f"Active profile sensor name: {active_sensor_id}")
@@ -83,8 +83,8 @@ class PontosProfileSelect(SelectEntity):
         # 2) For each code 1..8, see if we have a name sensor
         for code in range(1, 9):
             profile_sensor_uid = slugify(f"{self._device_info['serial_number']}_profile_{code}_name")
-            profile_sensor_entity_id = entity_registry.async_resolve_entity_id(
-                f"sensor.{profile_sensor_uid}"
+            profile_sensor_entity_id = entity_registry.async_get_entity_id(
+                "sensor", DOMAIN, profile_sensor_uid
             )
             if profile_sensor_entity_id:
                 self._profile_name_entity_ids[code] = profile_sensor_entity_id
@@ -116,8 +116,8 @@ class PontosProfileSelect(SelectEntity):
 
         # Re-check the active_profile sensor in case it wasn't ready earlier
         entity_registry = er.async_get(self._hass)
-        active_sensor_id = entity_registry.async_resolve_entity_id(
-            f"sensor.{self._active_profile_sensor_unique_id}"
+        active_sensor_id = entity_registry.async_get_entity_id(
+            "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
         if active_sensor_id:
             state_obj = self._hass.states.get(active_sensor_id)
@@ -154,8 +154,8 @@ class PontosProfileSelect(SelectEntity):
 
         # Also re-check the numeric code in case we can now map it to a label
         entity_registry = er.async_get(self._hass)
-        active_sensor_id = entity_registry.async_resolve_entity_id(
-            f"sensor.{self._active_profile_sensor_unique_id}"
+        active_sensor_id = entity_registry.async_get_entity_id(
+            "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
         if active_sensor_id:
             state_obj = self._hass.states.get(active_sensor_id)

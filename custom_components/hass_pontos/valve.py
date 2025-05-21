@@ -42,7 +42,7 @@ class PontosValve(ValveEntity):
 
         # Get the entity ID of the sensor using the unique ID
         entity_registry = er.async_get(self.hass)
-        sensor_entity_id = entity_registry.async_resolve_entity_id(f"sensor.{self._sensor_unique_id}")
+        sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
         
         # Fetch the initial state from the sensor entity
         if sensor_entity_id:
