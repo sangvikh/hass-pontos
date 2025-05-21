@@ -6,14 +6,13 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 LOGGER = logging.getLogger(__name__)
 
 # Fetching data with error handling and URL logging
-async def fetch_data(hass, ip, url_list, max_attempts=3, retry_delay=10):
+async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
     """Fetch data from the Pontos device using the shared aiohttp session (with simple retry logic)."""
     if isinstance(url_list, str):
         # Convert to a one-element list
         url_list = [url_list]
 
     urls = [url.format(ip=ip) for url in url_list]
-    data = {}
 
     # Get the shared aiohttp session from Home Assistant
     session = async_get_clientsession(hass)
@@ -48,6 +47,6 @@ async def fetch_data(hass, ip, url_list, max_attempts=3, retry_delay=10):
             )
             await asyncio.sleep(retry_delay * attempt)
         else:
-            LOGGER.error("Max attempts reached. Could not retrieve complete data.")
+            LOGGER.error(f"Attempt {attempt}/{max_attempts} failed. No response from device.")
 
     return data if not failed else {}

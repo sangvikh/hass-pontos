@@ -1,7 +1,7 @@
-from . import const_pontos
-from . import const_trio
-from . import const_safetech
-from . import const_safetech_v4
+from .device_config import conf_pontos
+from .device_config import conf_trio
+from .device_config import conf_safetech
+from .device_config import conf_safetech_v4
 
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
@@ -10,8 +10,8 @@ CONF_MAKE = "make"
 CONF_FETCH_INTERVAL = "fetch_interval"
 
 MAKES = {
-    "Hansgrohe Pontos": const_pontos,
-    "SYR Trio": const_trio,
-    "SYR SafeTech+": const_safetech,
-    "SYR SafeTech+ (Old firmware)": const_safetech_v4,
+    "Hansgrohe Pontos": conf_pontos,
+    "SYR Trio": conf_trio,
+    "SYR SafeTech+": conf_safetech,
+    "SYR SafeTech+ (Old firmware)": conf_safetech_v4,
 }

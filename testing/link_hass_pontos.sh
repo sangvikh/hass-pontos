@@ -22,4 +22,9 @@ mkdir translations
 cd translations
 sudo ln $SOURCE_DIR/translations/* .
 
+cd ..
+mkdir device_config
+cd device_config
+sudo ln $SOURCE_DIR/device_config/* . 
+
 echo "Hard linking completed successfully!"

@@ -19,7 +19,7 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
         hass,
         ip_address,
         url,
-        max_attempts=5,
+        max_attempts=4,
         retry_delay=1
     )
 
@@ -32,28 +32,41 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""
 
-    for entry_id in hass.data[DOMAIN]:
-        config_entry = hass.config_entries.async_get_entry(entry_id)
-        if not config_entry:
+    for entry_id, entry_data in hass.data[DOMAIN].get("entries", {}).items():
+        config_entry = entry_data["entry"]
+        coordinator = entry_data["coordinator"]
+        lock = entry_data["command_lock"]
+
+        if not config_entry or not lock:
             continue
 
-        ip_address = config_entry.options.get(CONF_IP_ADDRESS)
-        make = config_entry.data.get(CONF_MAKE)
-        device_const = MAKES[make]
+        if lock.locked():
+            LOGGER.warning(f"Service '{service_name}' skipped: previous command still running")
+            continue
 
-        # Grab the device-specific BASE_URL
-        base_url = device_const.BASE_URL
+        async with lock:
+            ip_address = config_entry.options.get(CONF_IP_ADDRESS)
+            make = config_entry.data.get(CONF_MAKE)
+            device_const = MAKES[make]
 
-        # Extract the endpoint for the requested service
-        endpoint = device_const.SERVICES[service_name]["endpoint"]
+            # Grab the device-specific BASE_URL
+            base_url = device_const.BASE_URL
 
-        # Send the command with dynamic data (if any)
-        await async_send_command(hass, ip_address, base_url, endpoint, call.data)
+            # Extract the endpoint for the requested service
+            endpoint = device_const.SERVICES[service_name]["endpoint"]
 
+            # Send the command with dynamic data (if any)
+            await async_send_command(hass, ip_address, base_url, endpoint, call.data)
+
+            # Trigger a data refresh after the command
+            await coordinator.async_refresh()
+    
 async def register_services(hass):
     """Register custom services for all current config entries."""
-    for entry_data in hass.data[DOMAIN].values():
-        make = entry_data.get(CONF_MAKE)
+    entries = hass.data[DOMAIN].get("entries", {})
+    for entry_data in entries.values():
+        config_entry = entry_data["entry"]
+        make = config_entry.data.get(CONF_MAKE)
         device_const = MAKES[make]
 
         # For each service this device supports, register a handler

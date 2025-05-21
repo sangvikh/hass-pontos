@@ -6,17 +6,17 @@ from homeassistant.const import STATE_UNAVAILABLE
 from homeassistant.core import callback, Event
 from homeassistant.util import slugify
 
-from .device import get_device_info
-from .const import DOMAIN, CONF_MAKE, MAKES, CONF_IP_ADDRESS
+from .const import DOMAIN, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the custom profile select entity."""
-    device_info, _ = await get_device_info(hass, entry)
+    device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
+
+    # Instantiate the select entity
     select_entity = PontosProfileSelect(hass, entry, device_info)
     async_add_entities([select_entity], True)
-
 
 class PontosProfileSelect(SelectEntity):
     """
@@ -31,11 +31,6 @@ class PontosProfileSelect(SelectEntity):
         self._hass = hass
         self._entry = entry
         self._device_info = device_info
-
-        # Basic device-specific constants (no fallback dict used).
-        make = entry.data.get(CONF_MAKE)
-        device_const = MAKES[make]
-        self._services = device_const.SERVICES
 
         # Construct entity metadata
         serial_number = device_info["serial_number"]

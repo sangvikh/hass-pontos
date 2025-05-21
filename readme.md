@@ -20,20 +20,18 @@ HACS integration for Hansgrohe Pontos and SYR water meters
 
 ## Installation
 
-Installation via HACS is the recommended method
+**Recommended:** Install via HACS
 
 ### HACS
 
-1. Install HACS if you haven't already (see [installation guide](https://hacs.xyz/docs/configuration/basic/)).
-2. Find and install Hansgrohe Pontos integration in HACS's "Integrations" tab.
+1. Install [HACS](https://hacs.xyz/docs/configuration/basic/) if needed.
+2. In HACS, search for and install the "Hansgrohe Pontos" integration.
 3. Restart Home Assistant.
-4. Go to your integrations page, click Add Integration and look for Hansgrohe Pontos.
-5. Set up sensor using the IP address of your device, fixed ip is recommended.
+4. Add the integration via Home Assistant's Integrations page and follow the configuration steps.
 
 ### Manual installation
 
-1. Clone repository or download as zip
-2. Move the custom_components/hass_pontos folder to the custom_components directory of your Home Assistant installation
+1. Download or clone this repository.
+2. Copy `custom_components/hass_pontos` to your Home Assistant `custom_components` directory.
 3. Restart Home Assistant.
-4. Go to your integrations page, click Add Integration and look for Hansgrohe Pontos.
-5. Set up sensor using the IP address of your device, fixed ip is recommended.
+4. Add the integration via Home Assistant's Integrations page and follow the configuration steps.
