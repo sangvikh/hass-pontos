@@ -6,8 +6,6 @@ PLATFORMS = ['sensor', 'button', 'valve', 'select']
 
 MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
-CONF_IP_ADDRESS = "ip_address"
-CONF_DEVICE_NAME = "device_name"
 
 BASE_URL = "http://{ip}:5333/safe-tec/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
