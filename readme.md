@@ -20,25 +20,68 @@ HACS integration for Hansgrohe Pontos and SYR water meters
 
 ## Installation
 
-Installation via HACS is the recommended method
+**Recommended:** Install via HACS
 
 ### HACS
 
-1. Install HACS if you haven't already (see [installation guide](https://hacs.xyz/docs/configuration/basic/)).
-2. Find and install Hansgrohe Pontos integration in HACS's "Integrations" tab.
+1. Install [HACS](https://hacs.xyz/docs/configuration/basic/) if needed.
+2. In HACS, search for and install the "Hansgrohe Pontos" integration.
 3. Restart Home Assistant.
-4. Go to your integrations page, click Add Integration and look for Hansgrohe Pontos.
-5. Set up sensor using the IP address of your device, fixed ip is recommended.
+4. Add the integration via Home Assistant's Integrations page and follow the configuration steps.
 
 ### Manual installation
 
-1. Clone repository or download as zip
-2. Move the custom_components/hass_pontos folder to the custom_components directory of your Home Assistant installation
+1. Download or clone this repository.
+2. Copy `custom_components/hass_pontos` to your Home Assistant `custom_components` directory.
 3. Restart Home Assistant.
-4. Go to your integrations page, click Add Integration and look for Hansgrohe Pontos.
-5. Set up sensor using the IP address of your device, fixed ip is recommended.
+4. Add the integration via Home Assistant's Integrations page and follow the configuration steps.
+
+## Sensors
+
+The integration provides the following sensors in Home Assistant:
+
+| Sensor Name                | Description                        | Unit      |
+|----------------------------|------------------------------------|-----------|
+| Total water consumption    | Total water used                   | L         |
+| Water pressure             | Current water pressure             | bar       |
+| Water temperature          | Current water temperature          | °C        |
+| Current water consumption  | Current water draw                 | L         |
+| Time since last turbine pulse | Time since last water flow      | s         |
+| Leak test pressure drop    | Pressure drop during leak test     | bar       |
+| Wifi state                 | WiFi connection status             |           |
+| Wifi signal strength       | WiFi signal strength               | %         |
+| Battery voltage            | Battery voltage                    | V         |
+| Mains voltage              | Mains voltage                      | V         |
+| Serial number              | Device serial number               |           |
+| Firmware version           | Device firmware version            |           |
+| Device type                | Device type                        |           |
+| MAC address                | MAC address                        |           |
+| Alarm status               | Current alarm status               |           |
+| Active profile             | Currently active profile           |           |
+| Valve status               | Current valve status               |           |
+| Water conductivity         | Water conductivity                 | µS/cm     |
+| Water hardness             | Water hardness                     | dH        |
+| Microleakage test interval | Microleakage test schedule         |           |
+| Profile 1-8 name           | Name of each profile               |           |
+
+*Note: Available sensors may depend on your device model.*
 
 ## Services
+
+The integration provides the following Home Assistant services:
+
+| Service Name                | Description                                      |
+|-----------------------------|--------------------------------------------------|
+| `hass_pontos.open_valve`    | Opens the water valve                            |
+| `hass_pontos.close_valve`   | Closes the water valve                           |
+| `hass_pontos.clear_alarms`  | Clears any active alarms                         |
+| `hass_pontos.set_profile`   | Sets the active profile (1-8)                    |
+| `hass_pontos.microleakage_test` | Starts a microleakage test                  |
+| `hass_pontos.microleakage_time` | Sets the time for the microleakage test     |
+| `hass_pontos.microleakage_schedule` | Sets the schedule for microleakage test |
+| `hass_pontos.generic_service` | Sends a custom command to the device           |
+
+*Note: Available services may depend on your device model.*
 
 ### Generic service call
 
@@ -47,6 +90,10 @@ The generic service call allows you to send commands to the device using the `/s
 Example for changing profile to 1:
 - Endpoint: prf
 - Data: 1
+
+Change maximum water draw for profile 2 to 250 l:
+- Endpoint: pv2
+- Data: 250
 
 #### Commands Overview (Based on SYR documentation)
 
