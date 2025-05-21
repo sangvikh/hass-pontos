@@ -8,7 +8,6 @@ from homeassistant.helpers import entity_registry as er
 from homeassistant.const import STATE_UNAVAILABLE
 
 from .const import DOMAIN
-from .device import get_device_info
 
 LOGGER = logging.getLogger(__name__)
 
