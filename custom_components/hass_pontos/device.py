@@ -27,7 +27,7 @@ async def get_device_info(entry, coordinator):
         raise Exception("Invalid device data")
 
     device_info = {
-        "identifiers": {(DOMAIN, make)},
+        "identifiers": {(DOMAIN, serial_number)},
         "connections": {(CONNECTION_NETWORK_MAC, mac_address)},
         "name": device_name,
         "manufacturer": device_const.MANUFACTURER,
