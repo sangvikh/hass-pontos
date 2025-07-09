@@ -46,4 +46,5 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
                 raise UpdateFailed(f"Error fetching data: {err}")
 
     def _update_options(self):
+        self.ip_address = self.entry.options[CONF_IP_ADDRESS]
         self.update_interval = timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL])
