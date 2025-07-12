@@ -24,6 +24,11 @@ DEVICE_CONFIGS = {
         "filename": "safetech_v4.json",
         "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
     },
+    "safetech_v4_copy": {
+        "prefix": "/safe-tec",
+        "filename": "safetech_v4_copy.json",
+        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
+    }
 }
 
 ALL_DEVICE_DATA = {}
@@ -34,7 +39,19 @@ def parse_args():
         "--device",
         choices=DEVICE_CONFIGS.keys(),
         required=True,
-        help="Which device to serve: 'safetech', 'pontos', or 'safetech_v4'."
+        help="Which device to serve: 'safetech', 'pontos', 'safetech_v4', or 'safetech_v4_copy'."
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=5333,
+        help="Port to run the Flask app on."
+    )
+    parser.add_argument(
+        "--host",
+        type=str,
+        default="0.0.0.0",
+        help="Host to run the Flask app on."
     )
     return parser.parse_args()
 
@@ -183,5 +200,5 @@ if __name__ == "__main__":
 
     # Create and run the Flask app with that device’s routes
     app = create_app(device_key)
-    print(f"Starting Flask app for device: {device_key}")
-    app.run(host="0.0.0.0", port=5333, debug=True)
+    print(f"Starting Flask app for device: {device_key} on port: {args.port}")
+    app.run(host=args.host, port=args.port, debug=True)
