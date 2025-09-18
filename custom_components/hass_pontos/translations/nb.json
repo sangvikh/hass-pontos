@@ -36,6 +36,22 @@
       "set_profile": {
         "name": "Sett profil",
         "description": "Angi aktiv profil på din enhet"
+      },
+      "start_regeneration": {
+        "name": "Start regenerering",
+        "description": "Start en manuell regenereringssyklus for NeoSoft-avkalkeren"
+      },
+      "stop_regeneration": {
+        "name": "Stopp regenerering",
+        "description": "Avbryt pågående regenereringssyklus"
+      },
+      "set_target_hardness": {
+        "name": "Sett målhardhet",
+        "description": "Sett ønsket hardhet på behandlet vann i °dH"
+      },
+      "set_operating_mode": {
+        "name": "Sett driftsmodus",
+        "description": "Bytt driftsmodus for NeoSoft"
       }
     },
     "entity": {
@@ -100,9 +116,53 @@
               "closing": "Lukker"
             }
         },          
-        "water_conductivity": {"name": "Vannledningsevne"},
-        "water_hardness": {"name": "Vannhardhet"},
-        "hardware_version": {"name": "Maskinvareversjon"},
+          "water_conductivity": {"name": "Vannledningsevne"},
+          "water_hardness": {"name": "Vannhardhet"},
+          "raw_water_hardness": {"name": "Råvannshardhet"},
+          "treated_water_hardness": {"name": "Behandlet vannhardhet"},
+          "target_water_hardness": {"name": "Mål for vannhardhet"},
+          "salt_level": {"name": "Saltnivå"},
+          "salt_alarm": {
+            "name": "Saltvarsel",
+            "state": {
+              "salt_level_ok": "Saltnivå OK",
+              "salt_level_low": "Saltnivå lavt",
+              "salt_refill_required": "Påfylling av salt nødvendig"
+            }
+          },
+          "operating_mode": {
+            "name": "Driftsmodus",
+            "state": {
+              "mode_service": "Drift",
+              "mode_bypass": "Bypass",
+              "mode_standby": "Standby"
+            }
+          },
+          "regeneration_state": {
+            "name": "Regenereringsstatus",
+            "state": {
+              "regeneration_idle": "Inaktiv",
+              "regeneration_pending": "Planlagt",
+              "regeneration_running": "Kjører",
+              "regeneration_rinsing": "Skylling",
+              "regeneration_error": "Feil"
+            }
+          },
+          "regeneration_trigger": {
+            "name": "Siste regenereringsutløser",
+            "state": {
+              "trigger_none": "Ingen utløsning",
+              "trigger_volume": "Volumgrense",
+              "trigger_time": "Tidsplan",
+              "trigger_manual": "Manuell",
+              "trigger_service": "Servicemodus"
+            }
+          },
+          "regeneration_time_remaining": {"name": "Gjenværende regenereringstid"},
+          "regeneration_volume_remaining": {"name": "Vannmengde før regenerering"},
+          "days_since_regeneration": {"name": "Dager siden siste regenerering"},
+          "next_regeneration_time": {"name": "Neste regenereringstid"},
+          "hardware_version": {"name": "Maskinvareversjon"},
         "microleakage_schedule": {
             "name": "Mikrolekkasjetestintervall",
             "state": {

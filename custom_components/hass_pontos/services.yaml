@@ -60,6 +60,48 @@ microleakage_schedule:
             - label: Monthly
               value: "3"
 
+start_regeneration:
+  name: Start regeneration
+  description: Start a manual regeneration cycle on a NeoSoft softener
+  fields: {}
+
+stop_regeneration:
+  name: Stop regeneration
+  description: Cancel the running regeneration cycle on a NeoSoft softener
+  fields: {}
+
+set_target_hardness:
+  name: Set target water hardness
+  description: Set the desired treated water hardness in °dH for NeoSoft devices
+  fields:
+    hardness:
+      name: Target hardness (°dH)
+      description: Desired outlet water hardness in degrees German hardness (°dH)
+      required: true
+      selector:
+        number:
+          min: 0
+          max: 30
+          step: 0.5
+
+set_operating_mode:
+  name: Set operating mode
+  description: Change the operating mode of a NeoSoft device
+  fields:
+    mode:
+      name: Operating mode
+      description: Mode to set on the device
+      required: true
+      selector:
+        select:
+          options:
+            - label: Service
+              value: "0"
+            - label: Bypass
+              value: "1"
+            - label: Standby
+              value: "2"
+
 generic_service:
   name: Generic service call
   description: >

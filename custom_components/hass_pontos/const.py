@@ -2,6 +2,7 @@ from .device_config import conf_pontos
 from .device_config import conf_trio
 from .device_config import conf_safetech
 from .device_config import conf_safetech_v4
+from .device_config import conf_neosoft
 
 DOMAIN = "hass_pontos"
 CONF_IP_ADDRESS = "ip_address"
@@ -14,4 +15,5 @@ MAKES = {
     "SYR Trio": conf_trio,
     "SYR SafeTech+": conf_safetech,
     "SYR SafeTech+ (Old firmware)": conf_safetech_v4,
+    "SYR NeoSoft": conf_neosoft,
 }
