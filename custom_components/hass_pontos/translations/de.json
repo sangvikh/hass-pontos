@@ -122,6 +122,7 @@
         "treated_water_hardness": { "name": "Weichwasserhärte" },
         "target_water_hardness": { "name": "Zielwasserhärte" },
         "salt_level": { "name": "Salzfüllstand" },
+	"salt_amount": { "name" : "Salzmenge" },
         "salt_alarm": {
           "name": "Salzmeldung",
           "state": {
