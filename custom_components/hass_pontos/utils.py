@@ -28,7 +28,8 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
                 # Use async with only on the request, not the session
                 async with session.get(url, timeout=5) as response:
                     if response.status == 200:
-                        data.update(await response.json())  # Update data with response
+                        # Allow decoding JSON even if the Content-Type header is missing.
+                        data.update(await response.json(content_type=None))  # Update data with response
                     else:
                         LOGGER.error(f"HTTP response error (status {response.status}): {url}")
                         failed = True
