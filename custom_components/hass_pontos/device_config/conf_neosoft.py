@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ["sensor", "button", "select"]
+PLATFORMS = ["sensor", "button"]
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -31,16 +31,15 @@ SENSOR_DETAILS = {
         "name": "Raw water hardness",
         "endpoint": "getIWH",
         "unit": "°dH",
-        "scale": 0.1
+        "scale": 1
     },
     "target_water_hardness": {
         "name": "Target water hardness",
         "endpoint": "getOWH",
         "unit": "°dH",
-        "scale": 0.1,
-        "entity_category": EntityCategory.CONFIG
+        "scale": 1,
     },
-    "salt_level": {
+    "salt_amount": {
         "name": "Salt amount",
         "endpoint": "getSV1",
         "unit": "kg",
