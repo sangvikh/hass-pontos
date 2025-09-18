@@ -36,6 +36,22 @@
       "set_profile": {
         "name": "Définir le profil",
         "description": "Définit le profil actif sur votre appareil"
+      },
+      "start_regeneration": {
+        "name": "Démarrer la régénération",
+        "description": "Lancer un cycle de régénération manuel sur un adoucisseur NeoSoft"
+      },
+      "stop_regeneration": {
+        "name": "Arrêter la régénération",
+        "description": "Annuler le cycle de régénération en cours"
+      },
+      "set_target_hardness": {
+        "name": "Définir la dureté cible",
+        "description": "Définir la dureté souhaitée de l'eau traitée en °dH"
+      },
+      "set_operating_mode": {
+        "name": "Définir le mode de fonctionnement",
+        "description": "Changer le mode de fonctionnement du NeoSoft"
       }
     },
     "entity": {
@@ -102,6 +118,50 @@
         },
         "water_conductivity": {"name": "Conductivité de l'eau"},
         "water_hardness": {"name": "Dureté de l'eau"},
+        "raw_water_hardness": {"name": "Dureté de l'eau brute"},
+        "treated_water_hardness": {"name": "Dureté de l'eau adoucie"},
+        "target_water_hardness": {"name": "Dureté d'eau cible"},
+        "salt_level": {"name": "Niveau de sel"},
+        "salt_alarm": {
+          "name": "Alerte sel",
+          "state": {
+            "salt_level_ok": "Niveau de sel correct",
+            "salt_level_low": "Niveau de sel faible",
+            "salt_refill_required": "Remplissage de sel requis"
+          }
+        },
+        "operating_mode": {
+          "name": "Mode de fonctionnement",
+          "state": {
+            "mode_service": "Service",
+            "mode_bypass": "Bypass",
+            "mode_standby": "Veille"
+          }
+        },
+        "regeneration_state": {
+          "name": "État de régénération",
+          "state": {
+            "regeneration_idle": "Au repos",
+            "regeneration_pending": "Planifiée",
+            "regeneration_running": "En cours",
+            "regeneration_rinsing": "Rinçage",
+            "regeneration_error": "Erreur"
+          }
+        },
+        "regeneration_trigger": {
+          "name": "Dernier déclencheur de régénération",
+          "state": {
+            "trigger_none": "Non déclenché",
+            "trigger_volume": "Seuil de volume",
+            "trigger_time": "Planification",
+            "trigger_manual": "Manuel",
+            "trigger_service": "Mode service"
+          }
+        },
+        "regeneration_time_remaining": {"name": "Temps de régénération restant"},
+        "regeneration_volume_remaining": {"name": "Volume restant avant régénération"},
+        "days_since_regeneration": {"name": "Jours depuis la dernière régénération"},
+        "next_regeneration_time": {"name": "Prochaine régénération"},
         "hardware_version": {"name": "Version matérielle"},
         "microleakage_schedule": {
             "name": "Intervalle test de micro-fuite",
