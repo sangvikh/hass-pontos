@@ -36,6 +36,22 @@
       "set_profile": {
         "name": "Set Profile",
         "description": "Set the active profile on your device"
+      },
+      "start_regeneration": {
+        "name": "Start regeneration",
+        "description": "Start a manual regeneration cycle on a NeoSoft softener"
+      },
+      "stop_regeneration": {
+        "name": "Stop regeneration",
+        "description": "Cancel the running regeneration cycle"
+      },
+      "set_target_hardness": {
+        "name": "Set target water hardness",
+        "description": "Set the desired treated water hardness in °dH"
+      },
+      "set_operating_mode": {
+        "name": "Set operating mode",
+        "description": "Change the NeoSoft operating mode"
       }
     },
     "entity": {
@@ -102,6 +118,50 @@
         },          
         "water_conductivity": {"name": "Water conductivity"},
         "water_hardness": {"name": "Water hardness"},
+        "raw_water_hardness": {"name": "Raw water hardness"},
+        "treated_water_hardness": {"name": "Treated water hardness"},
+        "target_water_hardness": {"name": "Target water hardness"},
+        "salt_level": {"name": "Salt level"},
+        "salt_alarm": {
+          "name": "Salt alarm",
+          "state": {
+            "salt_level_ok": "Salt level OK",
+            "salt_level_low": "Salt level low",
+            "salt_refill_required": "Salt refill required"
+          }
+        },
+        "operating_mode": {
+          "name": "Operating mode",
+          "state": {
+            "mode_service": "Service",
+            "mode_bypass": "Bypass",
+            "mode_standby": "Standby"
+          }
+        },
+        "regeneration_state": {
+          "name": "Regeneration state",
+          "state": {
+            "regeneration_idle": "Idle",
+            "regeneration_pending": "Pending",
+            "regeneration_running": "Running",
+            "regeneration_rinsing": "Rinsing",
+            "regeneration_error": "Error"
+          }
+        },
+        "regeneration_trigger": {
+          "name": "Last regeneration trigger",
+          "state": {
+            "trigger_none": "Not triggered",
+            "trigger_volume": "Volume threshold",
+            "trigger_time": "Scheduled",
+            "trigger_manual": "Manual",
+            "trigger_service": "Service mode"
+          }
+        },
+        "regeneration_time_remaining": {"name": "Regeneration time remaining"},
+        "regeneration_volume_remaining": {"name": "Water until regeneration"},
+        "days_since_regeneration": {"name": "Days since last regeneration"},
+        "next_regeneration_time": {"name": "Next regeneration time"},
         "hardware_version": {"name": "Hardware version"},
         "microleakage_schedule": {
             "name": "Microleakage test interval",

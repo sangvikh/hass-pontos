@@ -36,6 +36,22 @@
       "set_profile": {
         "name": "Profil einstellen",
         "description": "Aktives Profil auf deinem Gerät einstellen"
+      },
+      "start_regeneration": {
+        "name": "Regeneration starten",
+        "description": "Manuellen Regenerationslauf eines NeoSoft-Weichwasserbereiters starten"
+      },
+      "stop_regeneration": {
+        "name": "Regeneration stoppen",
+        "description": "Laufende Regeneration abbrechen"
+      },
+      "set_target_hardness": {
+        "name": "Zielwasserhärte setzen",
+        "description": "Gewünschte Weichwasserhärte in °dH einstellen"
+      },
+      "set_operating_mode": {
+        "name": "Betriebsart einstellen",
+        "description": "Betriebsart des NeoSoft umschalten"
       }
     },
     "entity": {
@@ -102,6 +118,51 @@
         },          
         "water_conductivity": { "name": "Wasserleitfähigkeit" },
         "water_hardness": { "name": "Wasserhärte" },
+        "raw_water_hardness": { "name": "Rohwasserhärte" },
+        "treated_water_hardness": { "name": "Weichwasserhärte" },
+        "target_water_hardness": { "name": "Zielwasserhärte" },
+        "salt_level": { "name": "Salzfüllstand" },
+	"salt_amount": { "name" : "Salzmenge" },
+        "salt_alarm": {
+          "name": "Salzmeldung",
+          "state": {
+            "salt_level_ok": "Salzstand OK",
+            "salt_level_low": "Salzstand niedrig",
+            "salt_refill_required": "Salz nachfüllen erforderlich"
+          }
+        },
+        "operating_mode": {
+          "name": "Betriebsart",
+          "state": {
+            "mode_service": "Betrieb",
+            "mode_bypass": "Bypass",
+            "mode_standby": "Standby"
+          }
+        },
+        "regeneration_state": {
+          "name": "Regenerationsstatus",
+          "state": {
+            "regeneration_idle": "Wartend",
+            "regeneration_pending": "Geplant",
+            "regeneration_running": "Laufend",
+            "regeneration_rinsing": "Spülung",
+            "regeneration_error": "Fehler"
+          }
+        },
+        "regeneration_trigger": {
+          "name": "Letzter Regenerationsauslöser",
+          "state": {
+            "trigger_none": "Nicht ausgelöst",
+            "trigger_volume": "Volumen",
+            "trigger_time": "Zeitplan",
+            "trigger_manual": "Manuell",
+            "trigger_service": "Servicebetrieb"
+          }
+        },
+        "regeneration_time_remaining": { "name": "Verbleibende Regenerationszeit" },
+        "regeneration_volume_remaining": { "name": "Restwasser bis Regeneration" },
+        "days_since_regeneration": { "name": "Tage seit letzter Regeneration" },
+        "next_regeneration_time": { "name": "Nächste Regeneration" },
         "hardware_version": { "name": "Hardware-Version" },
         "microleakage_schedule": {
             "name": "Mikroleckage-Testintervall",
