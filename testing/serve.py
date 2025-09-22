@@ -28,7 +28,12 @@ DEVICE_CONFIGS = {
         "prefix": "/safe-tec",
         "filename": "safetech_v4_copy.json",
         "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
-    }
+    },
+        "neosoft": {
+        "prefix": "/neosoft",
+        "filename": "neosoft.json",
+        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"}
+    },
 }
 
 ALL_DEVICE_DATA = {}
@@ -39,7 +44,7 @@ def parse_args():
         "--device",
         choices=DEVICE_CONFIGS.keys(),
         required=True,
-        help="Which device to serve: 'safetech', 'pontos', 'safetech_v4', or 'safetech_v4_copy'."
+        help="Which device to serve: 'safetech', 'pontos', 'safetech_v4', 'safetech_v4_copy', or 'neosoft'."
     )
     parser.add_argument(
         "--port",
