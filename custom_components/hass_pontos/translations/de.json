@@ -37,21 +37,9 @@
         "name": "Profil einstellen",
         "description": "Aktives Profil auf deinem Gerät einstellen"
       },
-      "start_regeneration": {
-        "name": "Regeneration starten",
-        "description": "Manuellen Regenerationslauf eines NeoSoft-Weichwasserbereiters starten"
-      },
-      "stop_regeneration": {
-        "name": "Regeneration stoppen",
-        "description": "Laufende Regeneration abbrechen"
-      },
-      "set_target_hardness": {
-        "name": "Zielwasserhärte setzen",
-        "description": "Gewünschte Weichwasserhärte in °dH einstellen"
-      },
-      "set_operating_mode": {
-        "name": "Betriebsart einstellen",
-        "description": "Betriebsart des NeoSoft umschalten"
+      "set_regeneration_mode": {
+        "name": "Regenerationsmodus einstellen",
+        "description": "Regenerationsmodus des NeoSoft ändern"
       }
     },
     "entity": {
@@ -118,11 +106,10 @@
         },          
         "water_conductivity": { "name": "Wasserleitfähigkeit" },
         "water_hardness": { "name": "Wasserhärte" },
-        "raw_water_hardness": { "name": "Rohwasserhärte" },
-        "treated_water_hardness": { "name": "Weichwasserhärte" },
-        "target_water_hardness": { "name": "Zielwasserhärte" },
+        "input_water_hardness": { "name": "Eingangshärte" },
+        "output_water_hardness": { "name": "Ausgangshärte" },
         "salt_level": { "name": "Salzfüllstand" },
-	"salt_amount": { "name" : "Salzmenge" },
+	      "salt_amount": { "name" : "Salzmenge" },
         "salt_alarm": {
           "name": "Salzmeldung",
           "state": {
@@ -132,9 +119,9 @@
           }
         },
         "operating_mode": {
-          "name": "Betriebsart",
+          "name": "Regenerationsmodus",
           "state": {
-            "mode_service": "Betrieb",
+            "mode_service": "Service",
             "mode_bypass": "Bypass",
             "mode_standby": "Standby"
           }
@@ -201,4 +188,4 @@
       }
     }
   }
-  
+
