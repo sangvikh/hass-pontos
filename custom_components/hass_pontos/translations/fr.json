@@ -37,21 +37,9 @@
         "name": "Définir le profil",
         "description": "Définit le profil actif sur votre appareil"
       },
-      "start_regeneration": {
-        "name": "Démarrer la régénération",
-        "description": "Lancer un cycle de régénération manuel sur un adoucisseur NeoSoft"
-      },
-      "stop_regeneration": {
-        "name": "Arrêter la régénération",
-        "description": "Annuler le cycle de régénération en cours"
-      },
-      "set_target_hardness": {
-        "name": "Définir la dureté cible",
-        "description": "Définir la dureté souhaitée de l'eau traitée en °dH"
-      },
-      "set_operating_mode": {
-        "name": "Définir le mode de fonctionnement",
-        "description": "Changer le mode de fonctionnement du NeoSoft"
+      "set_regeneration_mode": {
+        "name": "Définir le mode de régénération",
+        "description": "Changer le mode de régénération du NeoSoft"
       }
     },
     "entity": {
@@ -118,9 +106,8 @@
         },
         "water_conductivity": {"name": "Conductivité de l'eau"},
         "water_hardness": {"name": "Dureté de l'eau"},
-        "raw_water_hardness": {"name": "Dureté de l'eau brute"},
-        "treated_water_hardness": {"name": "Dureté de l'eau adoucie"},
-        "target_water_hardness": {"name": "Dureté d'eau cible"},
+        "input_water_hardness": {"name": "Dureté de l'eau à l'entrée"},
+        "output_water_hardness": {"name": "Dureté de l'eau à la sortie"},
         "salt_level": {"name": "Niveau de sel"},
         "salt_alarm": {
           "name": "Alerte sel",
@@ -131,7 +118,7 @@
           }
         },
         "operating_mode": {
-          "name": "Mode de fonctionnement",
+          "name": "Mode de régénération",
           "state": {
             "mode_service": "Service",
             "mode_bypass": "Bypass",
@@ -199,4 +186,4 @@
         "profile_select": {"name": "Profil"}
       }
     }
-}  
+}

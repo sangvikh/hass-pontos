@@ -37,21 +37,9 @@
         "name": "Sett profil",
         "description": "Angi aktiv profil på din enhet"
       },
-      "start_regeneration": {
-        "name": "Start regenerering",
-        "description": "Start en manuell regenereringssyklus for NeoSoft-avkalkeren"
-      },
-      "stop_regeneration": {
-        "name": "Stopp regenerering",
-        "description": "Avbryt pågående regenereringssyklus"
-      },
-      "set_target_hardness": {
-        "name": "Sett målhardhet",
-        "description": "Sett ønsket hardhet på behandlet vann i °dH"
-      },
-      "set_operating_mode": {
-        "name": "Sett driftsmodus",
-        "description": "Bytt driftsmodus for NeoSoft"
+      "set_regeneration_mode": {
+        "name": "Sett regenereringsmodus",
+        "description": "Endre regenereringsmodus for NeoSoft"
       }
     },
     "entity": {
@@ -118,9 +106,8 @@
         },          
           "water_conductivity": {"name": "Vannledningsevne"},
           "water_hardness": {"name": "Vannhardhet"},
-          "raw_water_hardness": {"name": "Råvannshardhet"},
-          "treated_water_hardness": {"name": "Behandlet vannhardhet"},
-          "target_water_hardness": {"name": "Mål for vannhardhet"},
+          "input_water_hardness": {"name": "Vannhardhet inn"},
+          "output_water_hardness": {"name": "Vannhardhet ut"},
           "salt_level": {"name": "Saltnivå"},
           "salt_alarm": {
             "name": "Saltvarsel",
@@ -131,7 +118,7 @@
             }
           },
           "operating_mode": {
-            "name": "Driftsmodus",
+            "name": "Regenereringsmodus",
             "state": {
               "mode_service": "Drift",
               "mode_bypass": "Bypass",
@@ -200,4 +187,3 @@
       }
     }
   }
-  

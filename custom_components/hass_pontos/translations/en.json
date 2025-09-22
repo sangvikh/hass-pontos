@@ -37,21 +37,9 @@
         "name": "Set Profile",
         "description": "Set the active profile on your device"
       },
-      "start_regeneration": {
-        "name": "Start regeneration",
-        "description": "Start a manual regeneration cycle on a NeoSoft softener"
-      },
-      "stop_regeneration": {
-        "name": "Stop regeneration",
-        "description": "Cancel the running regeneration cycle"
-      },
-      "set_target_hardness": {
-        "name": "Set target water hardness",
-        "description": "Set the desired treated water hardness in °dH"
-      },
-      "set_operating_mode": {
-        "name": "Set operating mode",
-        "description": "Change the NeoSoft operating mode"
+      "set_regeneration_mode": {
+        "name": "Set regeneration mode",
+        "description": "Change the NeoSoft regeneration mode"
       }
     },
     "entity": {
@@ -118,9 +106,8 @@
         },          
         "water_conductivity": {"name": "Water conductivity"},
         "water_hardness": {"name": "Water hardness"},
-        "raw_water_hardness": {"name": "Raw water hardness"},
-        "treated_water_hardness": {"name": "Treated water hardness"},
-        "target_water_hardness": {"name": "Target water hardness"},
+        "input_water_hardness": {"name": "Input water hardness"},
+        "output_water_hardness": {"name": "Output water hardness"},
         "salt_level": {"name": "Salt level"},
         "salt_alarm": {
           "name": "Salt alarm",
