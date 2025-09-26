@@ -158,7 +158,7 @@ SENSOR_DETAILS = {
     "regeneration_time_remaining": {
         "name": "Regeneration time remaining",
         "endpoint": "getRTI",
-        "unit": "sec",
+        "unit": "s",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "reserve_capacity_bottle_1": {
