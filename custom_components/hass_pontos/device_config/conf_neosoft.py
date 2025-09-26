@@ -291,3 +291,21 @@ SERVICES = {
         "endpoint": "set/buz/false"
     },
 }
+
+BUTTONS = {
+    "clear_alarms": {
+        "name": "Clear alarms",
+        "service": "clear_alarms",
+        "availability_sensor": "alarm_status"
+    },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "service": "clear_warnings",
+        "availability_sensor": "warning_status"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "service": "clear_notifications",
+        "availability_sensor": "notification_status"
+    }
+}

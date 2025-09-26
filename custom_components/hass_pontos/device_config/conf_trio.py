@@ -222,3 +222,11 @@ SERVICES = {
         "endpoint": "set/{endpoint}/{data}"
     },
 }
+
+BUTTONS = {
+    "clear_alarms": {
+        "name": "Clear alarms",
+        "service": "clear_alarms",
+        "availability_sensor": "alarm_status"
+    }
+}
