@@ -85,13 +85,13 @@ SENSOR_DETAILS = {
     "no_pulse_time_1": {
         "name": "No turbine pulses control head 1 since",
         "endpoint": "getVPS1",
-        "unit": "s"
+        "unit": "s",
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "no_pulse_time_2": {
         "name": "No turbine pulses control head 2 since",
         "endpoint": "getVPS2",
-        "unit": "s"
+        "unit": "s",
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "water_flow": {
@@ -134,7 +134,7 @@ SENSOR_DETAILS = {
         "endpoint": "getSS1",
         "unit": "weeks"
     },
-    "salt_qantity": {
+    "salt_quantity": {
         "name": "Salt quantity",
         "endpoint": "getSV1",
         "unit": "kg"
