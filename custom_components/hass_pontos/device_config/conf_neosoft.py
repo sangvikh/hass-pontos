@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ["sensor", "button"]
+PLATFORMS = ['sensor', 'button']
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -47,14 +47,14 @@ WARNING_CODES = {
     "FF": "no_warning"
 }
 
-REGEN_STATE_CODES = {
-    "0": "regeneration_idle",
-    "1": "regeneration_bottle_1",
-    "2": "regeneration_bottle_2",
+REGEN_STATUS_CODES = {
+    "0": "no_regeneration",
+    "1": "bottle_1_regenerated",
+    "2": "bottle_2_regenerated",
 }
 
 REGEN_MODE_CODES = {
-    "2": "Standard",
+    "1": "Standard",
     "2": "ECO",
     "3": "Power",
     "4": "Automatic",
@@ -68,6 +68,55 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.WATER,
         "state_class": "total_increasing"
     },
+    "water_pressure": {
+        "name": "Water pressure",
+        "endpoint": "getBAR",
+        "unit": "bar",
+        "device_class": SensorDeviceClass.PRESSURE,
+        "scale": 0.001
+    },
+    "water_temperature": {
+        "name": "Water temperature",
+        "endpoint": "getCEL",
+        "unit": "°C",
+        "device_class": SensorDeviceClass.TEMPERATURE,
+        "scale": 0.1
+    },
+    "no_pulse_time_1": {
+        "name": "No turbine pulses control head 1 since",
+        "endpoint": "getVPS1",
+        "unit": "s"
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "no_pulse_time_2": {
+        "name": "No turbine pulses control head 2 since",
+        "endpoint": "getVPS2",
+        "unit": "s"
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "water_flow": {
+        "name": "Water flow",
+        "endpoint": "getFLO",
+        "unit": "L/min",
+        "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
+        "scale": 1
+    },
+    "current_consumption": {
+        "name": "Current water consumption",
+        "endpoint": "getAVO",
+        "unit": "L",
+        "device_class": SensorDeviceClass.WATER,
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 0.001
+    },
+    "last_tapped_volume": {
+        "name": "Last tapped volume",
+        "endpoint": "getLTV",
+        "unit": "L",
+        "device_class": SensorDeviceClass.WATER,
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 1
+    },
     "input_water_hardness": {
         "name": "Input water hardness",
         "endpoint": "getIWH",
@@ -80,28 +129,25 @@ SENSOR_DETAILS = {
         "unit": "°dH",
         "scale": 1,
     },
-    "salt_amount": {
-        "name": "Salt amount",
-        "endpoint": "getSV1",
-        "unit": "kg",
-        "entity_category": EntityCategory.DIAGNOSTIC
-    },
-    "salt_level": {
-        "name": "Salt supply",
+    "salt_stock": {
+        "name": "Salt stock",
         "endpoint": "getSS1",
-        "unit": "weeks",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "unit": "weeks"
+    },
+    "salt_qantity": {
+        "name": "Salt quantity",
+        "endpoint": "getSV1",
+        "unit": "kg"
     },
     "regeneration_mode": {
         "name": "Regeneration mode",
         "endpoint": "getRMO ",
-        "code_dict": REGEN_MODE_CODES,
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "code_dict": REGEN_MODE_CODES
     },
-    "regeneration_state": {
-        "name": "Regeneration state",
+    "regeneration_status": {
+        "name": "Regeneration status",
         "endpoint": "getRG1",
-        "code_dict": REGEN_STATE_CODES,
+        "code_dict": REGEN_STATUS_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "regeneration_time_remaining": {
@@ -110,9 +156,15 @@ SENSOR_DETAILS = {
         "unit": "sec",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "regeneration_volume_remaining": {
-        "name": "Water until regeneration",
+    "reserve_capacity_bottle_1": {
+        "name": "Reserve capacity bottle 1",
         "endpoint": "getRE1",
+        "unit": "L",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+    "reserve_capacity_bottle_2": {
+        "name": "Reserve capacity bottle 2",
+        "endpoint": "getRE2",
         "unit": "L",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -120,6 +172,11 @@ SENSOR_DETAILS = {
         "name": "Regeneration schedule",
         "endpoint": "getRPD",
         "unit": "days",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+    "regeneration_time": {
+        "name": "Regeneration time",
+        "endpoint": "getRTM",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
@@ -153,7 +210,42 @@ SENSOR_DETAILS = {
         "name": "MAC address",
         "endpoint": "getMAC1",
         "entity_category": EntityCategory.DIAGNOSTIC
-    }
+    },
+    "alarm_status": {
+        "name": "Alarm status",
+        "endpoint": "getALA",
+        "code_dict": ALARM_CODES
+    },
+    "warning_status": {
+        "name": "Warning status",
+        "endpoint": "getWRN",
+        "code_dict": WARNING_CODES
+    },
+    "notification_status": {
+        "name": "Notification status",
+        "endpoint": "getNOT",
+        "code_dict": NOTIFICATION_CODES
+    },
+    "water_conductivity": {
+        "name": "Water conductivity",
+        "endpoint": "getCND",
+        "unit": "µS/cm"
+    },
+    "next_bi_annual_maintenance": {
+        "name": "Next bi-annual maintenance",
+        "endpoint": "getSRH",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+    "next_annual_maintenance": {
+        "name": "Next annual maintenance",
+        "endpoint": "getSRV",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
+    "buzzer_enabled": {
+        "name": "Buzzer enabled",
+        "endpoint": "getBUZ",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
 }
 
 SERVICES = {
@@ -164,6 +256,14 @@ SERVICES = {
     "clear_alarms": {
         "name": "Clear alarms",
         "endpoint": "set/ala/255"
+    },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "endpoint": "set/wrn/255"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "endpoint": "set/not/255"
     },
     "set_regeneration_mode": {
         "name": "Set regeneration mode",
@@ -176,5 +276,13 @@ SERVICES = {
     "set_regeneration_time": {
         "name": "Set regeneration time",
         "endpoint": "set/rtm/{time}"
-    }
+    },
+    "enable_buzzer": {
+        "name": "Enable buzzer",
+        "endpoint": "set/buz/true"
+    },
+    "disable_buzzer": {
+        "name": "Disable buzzer",
+        "endpoint": "set/buz/false"
+    },
 }
