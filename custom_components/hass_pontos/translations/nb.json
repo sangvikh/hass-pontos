@@ -1,190 +1,286 @@
 {
-    "title": "Hansgrohe Pontos",
-    "config": {
+  "title": "Hansgrohe Pontos",
+  "config": {
       "step": {
-        "user": {
-          "title": "Sett opp enhet",
-          "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din enhet",
-          "data": {
-            "ip_address": "IP-adresse",
-            "fetch_interval": "Oppdateringsfrekvens (s)",
-            "device_name": "Enhetsnavn",
-            "make": "Type"
+          "user": {
+              "title": "Sett opp enhet",
+              "description": "Vennligst skriv inn IP-adressen og enhetsnavnet for din enhet",
+              "data": {
+                  "ip_address": "IP-adresse",
+                  "fetch_interval": "Oppdateringsfrekvens (s)",
+                  "device_name": "Enhetsnavn",
+                  "make": "Type"
+              }
           }
-        }
       },
       "error": {
-        "cannot_connect": "Kunne ikke koble til enheten"
+          "cannot_connect": "Kunne ikke koble til enheten"
       }
-    },
-    "options": {
+  },
+  "options": {
       "step": {
-        "init": {
-          "title": "Konfigurer enhet",
-          "description": "Oppdater konfigurasjonen for din enhet",
-          "data": {
-            "ip_address": "IP-adresse",
-            "fetch_interval": "Oppdateringsfrekvens (s)"
+          "init": {
+              "title": "Konfigurer enhet",
+              "description": "Oppdater konfigurasjonen for din enhet",
+              "data": {
+                  "ip_address": "IP-adresse",
+                  "fetch_interval": "Oppdateringsfrekvens (s)"
+              }
           }
-        }
       },
       "error": {
-        "cannot_connect": "Kunne ikke koble til enheten"
+          "cannot_connect": "Kunne ikke koble til enheten"
       }
-    },
-    "services": {
+  },
+  "services": {
       "set_profile": {
-        "name": "Sett profil",
-        "description": "Angi aktiv profil på din enhet"
+          "name": "Sett profil",
+          "description": "Angi aktiv profil på din enhet"
       },
       "set_regeneration_mode": {
-        "name": "Sett regenereringsmodus",
-        "description": "Endre regenereringsmodus for NeoSoft"
+          "name": "Sett regenereringsmodus",
+          "description": "Endre regenereringsmodus for NeoSoft"
       }
-    },
-    "entity": {
+  },
+  "entity": {
       "sensor": {
-      "total_consumption": { "name": "Total vannforbruk" },
-      "water_pressure": { "name": "Vanndekktrykk" },
-      "water_temperature": { "name": "Vanntemperatur" },
-      "water_flow": { "name": "Vannstrøm" },
-      "no_pulse_time": { "name": "Tid siden siste turbinimpuls" },
-      "current_consumption": { "name": "Nåværende vannforbruk" },
-      "leak_test_pressure": { "name": "Trykkfall lekkasjetest" },
-      "wifi_state": { "name": "WiFi‑tilstand" },
-      "wifi_signal_strength": { "name": "WiFi signalstyrke" },
-      "battery_voltage": { "name": "Batterispenning" },
-      "mains_voltage": { "name": "Netspenning" },
-      "serial_number": { "name": "Produksjonsnummer" },
-      "firmware_version": { "name": "Firmware versjon" },
-      "device_type": { "name": "Enhetstype" },
-      "mac_address": { "name": "MAC‑adresse" },
-      "no_pulse_time_1": { "name": "Ingen turbinimpulser hode 1 siden" },
-      "no_pulse_time_2": { "name": "Ingen turbinimpulser hode 2 siden" },
-      "last_tapped_volume": { "name": "Sist tappet volum" },
-      "salt_stock": { "name": "Saltlager" },
-      "salt_quantity": { "name": "Saltmengde" },
-      "reserve_capacity_bottle_1": { "name": "Reservekapasitet flaske 1" },
-      "reserve_capacity_bottle_2": { "name": "Reservekapasitet flaske 2" },
-      "regeneration_schedule": { "name": "Regenereringsplan" },
-      "regeneration_time": { "name": "Regenereringstid" },
-      "next_bi_annual_maintenance": { "name": "Neste halvårlige service" },
-      "next_annual_maintenance": { "name": "Neste årlige service" },
-      "buzzer_enabled": { "name": "Buzzer aktivert" },
-        "alarm_status": {
-          "name": "Alarmstatus",
-          "state": {
-            "no_alarm": "Ingen alarm",
-          "alarm_end_switch": "ALARM: Endebryter",
-            "alarm_turbine_blocked": "ALARM: Turbin blokkert!",
-            "alarm_leakage_volume_reached": "ALARM: Lekkasjevolum nådd!",
-            "alarm_leakage_time_reached": "ALARM: Lekkasjetid nådd!",
-            "alarm_max_flow_rate_reached": "ALARM: Maksimal vannstrøm nådd!",
-            "alarm_microleakage_detected": "ALARM: Mikrolekkasje oppdaget!",
-            "alarm_external_sensor_leakage_radio": "ALARM EKST. SENSOR LEKKASJE RADIO",
-            "alarm_external_sensor_leakage_cable": "ALARM EKST. SENSOR LEKKASJE KABEL",
-          "alarm_pressure_sensor_faulty": "ALARM: Trykksensor feil!",
-          "alarm_temperature_sensor_faulty": "ALARM: Temperaturen sensor feil!",
-          "alarm_weak_battery": "ALARM: Batteri svakt!",
-          "error_no_information": "Feil: ingen informasjon tilgjengelig",
-          "alarm_increased_water_hardness": "ALARM: Økt vannhardhet",
-          "alarm_salt_supply_empty": "ALARM: Saltforsyning tom",
-          "alarm_valve_position": "ALARM: Ventilposisjon"
-          }
-        },
-        "warning_status": {
-          "name": "Varselstatus",
-          "state": {
-            "power_outage": "Strømbrudd",
-            "leak_warning": "Lekkasjevarsel",
-          "leak_warning_volume": "Lekkasjevarsel volum",
-          "leak_warning_time": "Lekkasjevarsel tid",
-          "battery_low": "Lavt batteri",
-          "salt_supply_low": "Lav saltforsyning",
-          "initial_filling": "Initial fylling",
-            "no_warning": "Ingen varsler"
-          }
-        },          
-        "notification_status": {
-            "name": "Notifikasjoner",
-            "state": {
-              "new_software_available": "Ny programvareoppdatering tilgjengelig!",
-          "new_software_installed": "Ny programvare oppdatert!",
-          "bi_annual_maintenance": "Halvårlig service",
-          "annual_maintenance": "Årlig service",
-              "no_notification": "Ingen notifikasjoner"
-            }
-        },                 
-        "active_profile": {"name": "Aktiv profil"},
-        "valve_status": {
-            "name": "Ventilstatus",
-            "state": {
-              "open": "Åpen",
-              "closed": "Lukket",
-              "opening": "Åpner",
-              "closing": "Lukker"
-            }
-        },          
-      "water_conductivity": { "name": "Vannledningsevne" },
-      "water_hardness": { "name": "Vannhardhet" },
-      "input_water_hardness": { "name": "Inngående vannhardhet" },
-      "output_water_hardness": { "name": "Utgående vannhardhet" },
-      "salt_level": { "name": "Saltnivå" },
-      "regeneration_mode": {
-            "name": "Regenereringsmodus",
-            "state": {
-          "mode_standard": "Standard",
-          "mde_eco": "ECO",
-          "mode_power": "Kraft",
-          "mode_automatic": "Automatisk"
-            }
+          "total_consumption": {
+              "name": "Total vannforbruk"
           },
-      "regeneration_status": {
-        "name": "Status for regenerering",
-            "state": {
-          "no_regeneration": "Ingen regenerering",
-          "bottle_1_regenerated": "Flaske 1 regenerert",
-          "bottle_2_regenerated": "Flaske 2 regenerert"
-            }
+          "water_pressure": {
+              "name": "Vanndekktrykk"
           },
-      "regeneration_time_remaining": { "name": "Gjenstående regenereringstid" },
-      "hardware_version": { "name": "Maskinvareversjon" },
-        "microleakage_schedule": {
-            "name": "Mikrolekkasjetestintervall",
-            "state": {
-                "daily": "Daglig",
-                "weekly": "Ukentlig",
-                "monthly": "Månedlig"
-            }
-        },
-        "microleakage_status": {
-        "name": "Status for mikrolekkasjetest",
-            "state": {
-                "not_active": "Test ikke aktiv",
-                "active": "Test aktiv",
-          "aborted": "Avbrutt pga. trykkfall",
-                "skipped": "Test hoppet over"
-            }
-        },
-        "profile_name_1": { "name": "Profilnavn 1" },
-        "profile_name_2": { "name": "Profilnavn 2" },
-        "profile_name_3": { "name": "Profilnavn 3" },
-        "profile_name_4": { "name": "Profilnavn 4" },
-        "profile_name_5": { "name": "Profilnavn 5" },
-        "profile_name_6": { "name": "Profilnavn 6" },
-        "profile_name_7": { "name": "Profilnavn 7" },
-        "profile_name_8": { "name": "Profilnavn 8" }        
+          "water_temperature": {
+              "name": "Vanntemperatur"
+          },
+          "water_flow": {
+              "name": "Vannstrøm"
+          },
+          "no_pulse_time": {
+              "name": "Tid siden siste turbinimpuls"
+          },
+          "current_consumption": {
+              "name": "Nåværende vannforbruk"
+          },
+          "leak_test_pressure": {
+              "name": "Trykkfall lekkasjetest"
+          },
+          "wifi_state": {
+              "name": "WiFi‑tilstand"
+          },
+          "wifi_signal_strength": {
+              "name": "WiFi signalstyrke"
+          },
+          "battery_voltage": {
+              "name": "Batterispenning"
+          },
+          "mains_voltage": {
+              "name": "Netspenning"
+          },
+          "serial_number": {
+              "name": "Produksjonsnummer"
+          },
+          "firmware_version": {
+              "name": "Firmware versjon"
+          },
+          "device_type": {
+              "name": "Enhetstype"
+          },
+          "mac_address": {
+              "name": "MAC‑adresse"
+          },
+          "no_pulse_time_1": {
+              "name": "Ingen turbinimpulser hode 1 siden"
+          },
+          "no_pulse_time_2": {
+              "name": "Ingen turbinimpulser hode 2 siden"
+          },
+          "last_tapped_volume": {
+              "name": "Sist tappet volum"
+          },
+          "salt_stock": {
+              "name": "Saltlager"
+          },
+          "salt_quantity": {
+              "name": "Saltmengde"
+          },
+          "reserve_capacity_bottle_1": {
+              "name": "Reservekapasitet flaske 1"
+          },
+          "reserve_capacity_bottle_2": {
+              "name": "Reservekapasitet flaske 2"
+          },
+          "regeneration_schedule": {
+              "name": "Regenereringsplan"
+          },
+          "regeneration_time": {
+              "name": "Regenereringstid"
+          },
+          "next_bi_annual_maintenance": {
+              "name": "Neste halvårlige service"
+          },
+          "next_annual_maintenance": {
+              "name": "Neste årlige service"
+          },
+          "buzzer_enabled": {
+              "name": "Buzzer aktivert"
+          },
+          "alarm_status": {
+              "name": "Alarmstatus",
+              "state": {
+                  "no_alarm": "Ingen alarm",
+                  "alarm_end_switch": "ALARM: Endebryter",
+                  "alarm_turbine_blocked": "ALARM: Turbin blokkert!",
+                  "alarm_leakage_volume_reached": "ALARM: Lekkasjevolum nådd!",
+                  "alarm_leakage_time_reached": "ALARM: Lekkasjetid nådd!",
+                  "alarm_max_flow_rate_reached": "ALARM: Maksimal vannstrøm nådd!",
+                  "alarm_microleakage_detected": "ALARM: Mikrolekkasje oppdaget!",
+                  "alarm_external_sensor_leakage_radio": "ALARM EKST. SENSOR LEKKASJE RADIO",
+                  "alarm_external_sensor_leakage_cable": "ALARM EKST. SENSOR LEKKASJE KABEL",
+                  "alarm_pressure_sensor_faulty": "ALARM: Trykksensor feil!",
+                  "alarm_temperature_sensor_faulty": "ALARM: Temperaturen sensor feil!",
+                  "alarm_weak_battery": "ALARM: Batteri svakt!",
+                  "error_no_information": "Feil: ingen informasjon tilgjengelig",
+                  "alarm_increased_water_hardness": "ALARM: Økt vannhardhet",
+                  "alarm_salt_supply_empty": "ALARM: Saltforsyning tom",
+                  "alarm_valve_position": "ALARM: Ventilposisjon"
+              }
+          },
+          "warning_status": {
+              "name": "Varselstatus",
+              "state": {
+                  "power_outage": "Strømbrudd",
+                  "leak_warning": "Lekkasjevarsel",
+                  "leak_warning_volume": "Lekkasjevarsel volum",
+                  "leak_warning_time": "Lekkasjevarsel tid",
+                  "battery_low": "Lavt batteri",
+                  "salt_supply_low": "Lav saltforsyning",
+                  "initial_filling": "Initial fylling",
+                  "no_warning": "Ingen varsler"
+              }
+          },
+          "notification_status": {
+              "name": "Notifikasjoner",
+              "state": {
+                  "new_software_available": "Ny programvareoppdatering tilgjengelig!",
+                  "new_software_installed": "Ny programvare oppdatert!",
+                  "bi_annual_maintenance": "Halvårlig service",
+                  "annual_maintenance": "Årlig service",
+                  "no_notification": "Ingen notifikasjoner"
+              }
+          },
+          "active_profile": {
+              "name": "Aktiv profil"
+          },
+          "valve_status": {
+              "name": "Ventilstatus",
+              "state": {
+                  "open": "Åpen",
+                  "closed": "Lukket",
+                  "opening": "Åpner",
+                  "closing": "Lukker"
+              }
+          },
+          "water_conductivity": {
+              "name": "Vannledningsevne"
+          },
+          "water_hardness": {
+              "name": "Vannhardhet"
+          },
+          "input_water_hardness": {
+              "name": "Inngående vannhardhet"
+          },
+          "output_water_hardness": {
+              "name": "Utgående vannhardhet"
+          },
+          "salt_level": {
+              "name": "Saltnivå"
+          },
+          "regeneration_mode": {
+              "name": "Regenereringsmodus",
+              "state": {
+                  "mode_standard": "Standard",
+                  "mde_eco": "ECO",
+                  "mode_power": "Kraft",
+                  "mode_automatic": "Automatisk"
+              }
+          },
+          "regeneration_status": {
+              "name": "Status for regenerering",
+              "state": {
+                  "no_regeneration": "Ingen regenerering",
+                  "bottle_1_regenerated": "Flaske 1 regenerert",
+                  "bottle_2_regenerated": "Flaske 2 regenerert"
+              }
+          },
+          "regeneration_time_remaining": {
+              "name": "Gjenstående regenereringstid"
+          },
+          "hardware_version": {
+              "name": "Maskinvareversjon"
+          },
+          "microleakage_schedule": {
+              "name": "Mikrolekkasjetestintervall",
+              "state": {
+                  "daily": "Daglig",
+                  "weekly": "Ukentlig",
+                  "monthly": "Månedlig"
+              }
+          },
+          "microleakage_status": {
+              "name": "Status for mikrolekkasjetest",
+              "state": {
+                  "not_active": "Test ikke aktiv",
+                  "active": "Test aktiv",
+                  "aborted": "Avbrutt pga. trykkfall",
+                  "skipped": "Test hoppet over"
+              }
+          },
+          "profile_name_1": {
+              "name": "Profilnavn 1"
+          },
+          "profile_name_2": {
+              "name": "Profilnavn 2"
+          },
+          "profile_name_3": {
+              "name": "Profilnavn 3"
+          },
+          "profile_name_4": {
+              "name": "Profilnavn 4"
+          },
+          "profile_name_5": {
+              "name": "Profilnavn 5"
+          },
+          "profile_name_6": {
+              "name": "Profilnavn 6"
+          },
+          "profile_name_7": {
+              "name": "Profilnavn 7"
+          },
+          "profile_name_8": {
+              "name": "Profilnavn 8"
+          }
       },
       "valve": {
-        "water_supply": {"name": "Vanntilførsel"}
+          "water_supply": {
+              "name": "Vanntilførsel"
+          }
       },
       "button": {
-      "clear_alarms": {"name": "Tilbakestill alarmer"},
-      "clear_warnings": {"name": "Tilbakestill varsler"},
-      "clear_notifications": {"name": "Tilbakestill notifikasjoner"}
+          "clear_alarms": {
+              "name": "Tilbakestill alarmer"
+          },
+          "clear_warnings": {
+              "name": "Tilbakestill varsler"
+          },
+          "clear_notifications": {
+              "name": "Tilbakestill notifikasjoner"
+          }
       },
       "select": {
-        "profile_select": {"name": "Profil"}
+          "profile_select": {
+              "name": "Profil"
+          }
       }
-    }
   }
+}

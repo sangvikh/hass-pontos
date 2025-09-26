@@ -1,191 +1,286 @@
 {
-    "title": "Hansgrohe Pontos",
-    "config": {
+  "title": "Hansgrohe Pontos",
+  "config": {
       "step": {
-        "user": {
-          "title": "Set up device",
-          "description": "Please enter the IP address and device name for your device",
-          "data": {
-            "ip_address": "IP Address",
-            "fetch_interval": "Fetch interval (s)",
-            "device_name": "Device Name",
-            "make": "Device Type"
+          "user": {
+              "title": "Set up device",
+              "description": "Please enter the IP address and device name for your device",
+              "data": {
+                  "ip_address": "IP Address",
+                  "fetch_interval": "Fetch interval (s)",
+                  "device_name": "Device Name",
+                  "make": "Device Type"
+              }
           }
-        }
       },
       "error": {
-        "cannot_connect": "Failed to connect to the device"
+          "cannot_connect": "Failed to connect to the device"
       }
-    },
-    "options": {
+  },
+  "options": {
       "step": {
-        "init": {
-          "title": "Configure device",
-          "description": "Update your device configuration",
-          "data": {
-            "ip_address": "IP Address",
-            "fetch_interval": "Fetch interval (s)"
+          "init": {
+              "title": "Configure device",
+              "description": "Update your device configuration",
+              "data": {
+                  "ip_address": "IP Address",
+                  "fetch_interval": "Fetch interval (s)"
+              }
           }
-        }
       },
       "error": {
-        "cannot_connect": "Failed to connect to the device"
+          "cannot_connect": "Failed to connect to the device"
       }
-    },
-    "services": {
+  },
+  "services": {
       "set_profile": {
-        "name": "Set Profile",
-        "description": "Set the active profile on your device"
+          "name": "Set Profile",
+          "description": "Set the active profile on your device"
       },
       "set_regeneration_mode": {
-        "name": "Set regeneration mode",
-        "description": "Change the NeoSoft regeneration mode"
+          "name": "Set regeneration mode",
+          "description": "Change the NeoSoft regeneration mode"
       }
-    },
-    "entity": {
+  },
+  "entity": {
       "sensor": {
-        "total_consumption": {"name": "Total water consumption"},
-        "water_pressure": {"name": "Water pressure"},
-        "water_temperature": {"name": "Water temperature"},
-        "water_flow": { "name": "Water flow" },
-        "no_pulse_time": {"name": "Time since last turbine pulse"},
-        "current_consumption": {"name": "Current water consumption"},
-        "leak_test_pressure": {"name": "Leak test pressure drop"},
-        "wifi_state": {"name": "WiFi state"},
-        "wifi_signal_strength": {"name": "WiFi signal strength"},
-        "battery_voltage": {"name": "Battery voltage"},
-        "mains_voltage": {"name": "Mains voltage"},
-        "serial_number": {"name": "Serial number"},
-        "firmware_version": {"name": "Firmware version"},
-        "device_type": {"name": "Device type"},
-        "mac_address": {"name": "MAC address"},
-        "no_pulse_time_1": { "name": "No turbine pulses control head 1 since" },
-        "no_pulse_time_2": { "name": "No turbine pulses control head 2 since" },
-        "last_tapped_volume": { "name": "Last tapped volume" },
-        "salt_stock": { "name": "Salt stock" },
-        "salt_quantity": { "name": "Salt quantity" },
-        "reserve_capacity_bottle_1": { "name": "Reserve capacity bottle 1" },
-        "reserve_capacity_bottle_2": { "name": "Reserve capacity bottle 2" },
-        "regeneration_schedule": { "name": "Regeneration schedule" },
-        "regeneration_time": { "name": "Regeneration time" },
-        "next_bi_annual_maintenance": { "name": "Next bi-annual maintenance" },
-        "next_annual_maintenance": { "name": "Next annual maintenance" },
-        "buzzer_enabled": { "name": "Buzzer enabled" },
-        "alarm_status": {
-          "name": "Alarm status",
-          "state": {
-            "no_alarm": "No alarm",
-            "alarm_end_switch": "ALARM END SWITCH",
-            "alarm_turbine_blocked": "ALARM: Turbine blocked!",
-            "alarm_leakage_volume_reached": "ALARM: Leakage volume reached!",
-            "alarm_leakage_time_reached": "ALARM: Leakage time reached!",
-            "alarm_max_flow_rate_reached": "ALARM: Maximum flow rate reached!",
-            "alarm_microleakage_detected": "ALARM: Microleakage detected!",
-            "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LEAKAGE RADIO",
-            "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LEAKAGE CABLE",
-            "alarm_pressure_sensor_faulty": "ALARM: Pressure sensor faulty!",
-            "alarm_temperature_sensor_faulty": "ALARM: Temperature sensor faulty!",
-            "alarm_weak_battery": "ALARM: Weak battery!",
-            "error_no_information": "Error: no information available",
-            "alarm_increased_water_hardness": "ALARM: Increased water hardness",
-            "alarm_salt_supply_empty": "ALARM: Salt supply empty",
-            "alarm_valve_position": "ALARM: Valve position"
+          "total_consumption": {
+              "name": "Total water consumption"
+          },
+          "water_pressure": {
+              "name": "Water pressure"
+          },
+          "water_temperature": {
+              "name": "Water temperature"
+          },
+          "water_flow": {
+              "name": "Water flow"
+          },
+          "no_pulse_time": {
+              "name": "Time since last turbine pulse"
+          },
+          "current_consumption": {
+              "name": "Current water consumption"
+          },
+          "leak_test_pressure": {
+              "name": "Leak test pressure drop"
+          },
+          "wifi_state": {
+              "name": "WiFi state"
+          },
+          "wifi_signal_strength": {
+              "name": "WiFi signal strength"
+          },
+          "battery_voltage": {
+              "name": "Battery voltage"
+          },
+          "mains_voltage": {
+              "name": "Mains voltage"
+          },
+          "serial_number": {
+              "name": "Serial number"
+          },
+          "firmware_version": {
+              "name": "Firmware version"
+          },
+          "device_type": {
+              "name": "Device type"
+          },
+          "mac_address": {
+              "name": "MAC address"
+          },
+          "no_pulse_time_1": {
+              "name": "No turbine pulses control head 1 since"
+          },
+          "no_pulse_time_2": {
+              "name": "No turbine pulses control head 2 since"
+          },
+          "last_tapped_volume": {
+              "name": "Last tapped volume"
+          },
+          "salt_stock": {
+              "name": "Salt stock"
+          },
+          "salt_quantity": {
+              "name": "Salt quantity"
+          },
+          "reserve_capacity_bottle_1": {
+              "name": "Reserve capacity bottle 1"
+          },
+          "reserve_capacity_bottle_2": {
+              "name": "Reserve capacity bottle 2"
+          },
+          "regeneration_schedule": {
+              "name": "Regeneration schedule"
+          },
+          "regeneration_time": {
+              "name": "Regeneration time"
+          },
+          "next_bi_annual_maintenance": {
+              "name": "Next bi-annual maintenance"
+          },
+          "next_annual_maintenance": {
+              "name": "Next annual maintenance"
+          },
+          "buzzer_enabled": {
+              "name": "Buzzer enabled"
+          },
+          "alarm_status": {
+              "name": "Alarm status",
+              "state": {
+                  "no_alarm": "No alarm",
+                  "alarm_end_switch": "ALARM END SWITCH",
+                  "alarm_turbine_blocked": "ALARM: Turbine blocked!",
+                  "alarm_leakage_volume_reached": "ALARM: Leakage volume reached!",
+                  "alarm_leakage_time_reached": "ALARM: Leakage time reached!",
+                  "alarm_max_flow_rate_reached": "ALARM: Maximum flow rate reached!",
+                  "alarm_microleakage_detected": "ALARM: Microleakage detected!",
+                  "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LEAKAGE RADIO",
+                  "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LEAKAGE CABLE",
+                  "alarm_pressure_sensor_faulty": "ALARM: Pressure sensor faulty!",
+                  "alarm_temperature_sensor_faulty": "ALARM: Temperature sensor faulty!",
+                  "alarm_weak_battery": "ALARM: Weak battery!",
+                  "error_no_information": "Error: no information available",
+                  "alarm_increased_water_hardness": "ALARM: Increased water hardness",
+                  "alarm_salt_supply_empty": "ALARM: Salt supply empty",
+                  "alarm_valve_position": "ALARM: Valve position"
+              }
+          },
+          "warning_status": {
+              "name": "Warning status",
+              "state": {
+                  "power_outage": "Power outage",
+                  "leak_warning": "Leakage warning",
+                  "leak_warning_volume": "Leakage warning volume",
+                  "leak_warning_time": "Leakage warning time",
+                  "battery_low": "Battery low",
+                  "salt_supply_low": "Salt supply low",
+                  "initial_filling": "Initial filling",
+                  "no_warning": "No warning"
+              }
+          },
+          "notification_status": {
+              "name": "Notification status",
+              "state": {
+                  "new_software_available": "New software update available!",
+                  "new_software_installed": "New software update installed!",
+                  "bi_annual_maintenance": "Semi-annual maintenance",
+                  "annual_maintenance": "Annual maintenance",
+                  "no_notification": "No notification"
+              }
+          },
+          "active_profile": {
+              "name": "Active profile"
+          },
+          "valve_status": {
+              "name": "Valve status",
+              "state": {
+                  "open": "Open",
+                  "closed": "Closed",
+                  "opening": "Opening",
+                  "closing": "Closing"
+              }
+          },
+          "water_conductivity": {
+              "name": "Water conductivity"
+          },
+          "water_hardness": {
+              "name": "Water hardness"
+          },
+          "input_water_hardness": {
+              "name": "Input water hardness"
+          },
+          "output_water_hardness": {
+              "name": "Output water hardness"
+          },
+          "salt_level": {
+              "name": "Salt level"
+          },
+          "regeneration_mode": {
+              "name": "Regeneration mode",
+              "state": {
+                  "mode_standard": "Standard",
+                  "mde_eco": "ECO",
+                  "mode_power": "Power",
+                  "mode_automatic": "automatic"
+              }
+          },
+          "regeneration_status": {
+              "name": "Regeneration status",
+              "state": {
+                  "no_regeneration": "No regeneration",
+                  "bottle_1_regenerated": "Bottle 1 regenerated",
+                  "bottle_2_regenerated": "Bottle 2 regenerated"
+              }
+          },
+          "regeneration_time_remaining": {
+              "name": "Regeneration time remaining"
+          },
+          "hardware_version": {
+              "name": "Hardware version"
+          },
+          "microleakage_schedule": {
+              "name": "Microleakage test interval",
+              "state": {
+                  "daily": "Daily",
+                  "weekly": "Weekly",
+                  "monthly": "Monthly"
+              }
+          },
+          "microleakage_status": {
+              "name": "Microleakage test status",
+              "state": {
+                  "not_active": "Test not active",
+                  "active": "Test active",
+                  "aborted": "Aborted due to pressure drop",
+                  "skipped": "Test skipped"
+              }
+          },
+          "profile_name_1": {
+              "name": "Profile 1 name"
+          },
+          "profile_name_2": {
+              "name": "Profile 2 name"
+          },
+          "profile_name_3": {
+              "name": "Profile 3 name"
+          },
+          "profile_name_4": {
+              "name": "Profile 4 name"
+          },
+          "profile_name_5": {
+              "name": "Profile 5 name"
+          },
+          "profile_name_6": {
+              "name": "Profile 6 name"
+          },
+          "profile_name_7": {
+              "name": "Profile 7 name"
+          },
+          "profile_name_8": {
+              "name": "Profile 8 name"
           }
-        },
-        "warning_status": {
-          "name": "Warning status",
-          "state": {
-            "power_outage": "Power outage",
-            "leak_warning": "Leakage warning",
-            "leak_warning_volume": "Leakage warning volume",
-            "leak_warning_time": "Leakage warning time",
-            "battery_low": "Battery low",
-            "salt_supply_low": "Salt supply low",
-            "initial_filling": "Initial filling",
-            "no_warning": "No warning"
-          }
-        },
-        "notification_status": {
-          "name": "Notification status",
-          "state": {
-            "new_software_available": "New software update available!",
-            "new_software_installed": "New software update installed!",
-            "bi_annual_maintenance": "Semi-annual maintenance",
-            "annual_maintenance": "Annual maintenance",
-            "no_notification": "No notification"
-          }
-        },                   
-        "active_profile": {"name": "Active profile"},
-        "valve_status": {
-            "name": "Valve status",
-            "state": {
-              "open": "Open",
-              "closed": "Closed",
-              "opening": "Opening",
-              "closing": "Closing"
-            }
-        },          
-        "water_conductivity": {"name": "Water conductivity"},
-        "water_hardness": {"name": "Water hardness"},
-        "input_water_hardness": {"name": "Input water hardness"},
-        "output_water_hardness": {"name": "Output water hardness"},
-        "salt_level": {"name": "Salt level"},
-        "regeneration_mode": {
-          "name": "Regeneration mode",
-          "state": {
-            "mode_standard": "Standard",
-            "mde_eco": "ECO",
-            "mode_power": "Power",
-            "mode_automatic": "automatic"
-          }
-        },
-        "regeneration_status": {
-          "name": "Regeneration status",
-          "state": {
-            "no_regeneration": "No regeneration",
-            "bottle_1_regenerated": "Bottle 1 regenerated",
-            "bottle_2_regenerated": "Bottle 2 regenerated"
-          }
-        },
-        "regeneration_time_remaining": {"name": "Regeneration time remaining"},
-        "hardware_version": {"name": "Hardware version"},
-        "microleakage_schedule": {
-            "name": "Microleakage test interval",
-            "state": {
-                "daily": "Daily",
-                "weekly": "Weekly",
-                "monthly": "Monthly"
-            }
-        },
-        "microleakage_status": {
-            "name": "Microleakage test status",
-            "state": {
-                "not_active": "Test not active",
-                "active": "Test active",
-                "aborted": "Aborted due to pressure drop",
-                "skipped": "Test skipped"
-            }
-        },
-        "profile_name_1": { "name": "Profile 1 name" },
-        "profile_name_2": { "name": "Profile 2 name" },
-        "profile_name_3": { "name": "Profile 3 name" },
-        "profile_name_4": { "name": "Profile 4 name" },
-        "profile_name_5": { "name": "Profile 5 name" },
-        "profile_name_6": { "name": "Profile 6 name" },
-        "profile_name_7": { "name": "Profile 7 name" },
-        "profile_name_8": { "name": "Profile 8 name" }
       },
       "valve": {
-        "water_supply": {"name": "Water supply"}
+          "water_supply": {
+              "name": "Water supply"
+          }
       },
       "button": {
-        "clear_alarms": {"name": "Clear alarms"},
-        "clear_warnings": {"name": "Clear warnings"},
-        "clear_notifications": {"name": "Clear notifications"}
+          "clear_alarms": {
+              "name": "Clear alarms"
+          },
+          "clear_warnings": {
+              "name": "Clear warnings"
+          },
+          "clear_notifications": {
+              "name": "Clear notifications"
+          }
       },
       "select": {
-        "profile_select": {"name": "Profile"}
+          "profile_select": {
+              "name": "Profile"
+          }
       }
-    }
   }
-  
+}
