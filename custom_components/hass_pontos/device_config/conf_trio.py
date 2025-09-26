@@ -55,7 +55,7 @@ SENSOR_DETAILS = {
         "name": "Total water consumption",
         "endpoint": "getVOL",
         "unit": "L",
-        "device_class": "water",
+        "device_class": SensorDeviceClass.WATER,
         "state_class": "total_increasing"
     },
     "no_pulse_time": {
@@ -75,7 +75,7 @@ SENSOR_DETAILS = {
         "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
-        "device_class": "pressure",
+        "device_class": SensorDeviceClass.PRESSURE,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
@@ -94,7 +94,7 @@ SENSOR_DETAILS = {
         "name": "Battery voltage",
         "endpoint": "getBAT",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -102,7 +102,7 @@ SENSOR_DETAILS = {
         "name": "Mains voltage",
         "endpoint": "getNET",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
