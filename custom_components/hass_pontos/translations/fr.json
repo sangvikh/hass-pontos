@@ -1,189 +1,190 @@
 {
-    "title": "Hansgrohe Pontos",
-    "config": {
-      "step": {
-        "user": {
-          "title": "Configurer l'appareil",
-          "description": "Veuillez saisir l'adresse IP et le nom de votre appareil",
-          "data": {
-            "ip_address": "Adresse IP",
-            "fetch_interval": "fréquence de mise à jour (s)",
-            "device_name": "Nom de l'appareil",
-            "make": "Type d'appareil"
-          }
+  "title": "Hansgrohe Pontos",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configurer l’appareil",
+        "description": "Veuillez entrer l’adresse IP et le nom de l’appareil",
+        "data": {
+          "ip_address": "Adresse IP",
+          "fetch_interval": "Intervalle de relevé (s)",
+          "device_name": "Nom de l’appareil",
+          "make": "Type d’appareil"
         }
-      },
-      "error": {
-        "cannot_connect": "Échec de connexion à l'appareil"
       }
     },
-    "options": {
-      "step": {
-        "init": {
-          "title": "Configurer l'appareil",
-          "description": "Mettez à jour la configuration de votre appareil",
-          "data": {
-            "ip_address": "Adresse IP",
-            "fetch_interval": "fréquence de mise à jour (s)"
-          }
-        }
-      },
-      "error": {
-        "cannot_connect": "Impossible de se connecter à l'appareil"
-      }
-    },
-    "services": {
-      "set_profile": {
-        "name": "Définir le profil",
-        "description": "Définit le profil actif sur votre appareil"
-      },
-      "set_regeneration_mode": {
-        "name": "Définir le mode de régénération",
-        "description": "Changer le mode de régénération du NeoSoft"
-      }
-    },
-    "entity": {
-      "sensor": {
-        "total_consumption": {"name": "Consommation totale d'eau"},
-        "water_pressure": {"name": "Pression de l'eau"},
-        "water_temperature": {"name": "Température de l'eau"},
-        "water_flow": { "name": "Débit d'eau" },
-        "no_pulse_time": {"name": "Temps depuis la dernière impulsion de la turbine"},
-        "current_consumption": {"name": "Consommation d'eau actuelle"},
-        "leak_test_pressure": {"name": "Perte de pression (test de fuite)"},
-        "wifi_state": {"name": "État du WiFi"},
-        "wifi_signal_strength": {"name": "Force du signal WiFi"},
-        "battery_voltage": {"name": "Tension de la batterie"},
-        "mains_voltage": {"name": "Tension secteur"},
-        "serial_number": {"name": "Numéro de série"},
-        "firmware_version": {"name": "Version du firmware"},
-        "device_type": {"name": "Type d'appareil"},
-        "mac_address": {"name": "Adresse MAC"},
-        "alarm_status": {
-            "name": "État d'alarme",
-            "state": {
-            "no_alarm": "Aucune alarme",
-            "alarm_end_switch": "ALARM END SWITCH",
-            "alarm_turbine_blocked": "ALARM: Turbine bloquée!",
-            "alarm_leakage_volume_reached": "ALARM: Volume de fuite atteint!",
-            "alarm_leakage_time_reached": "ALARM: Durée de fuite atteinte!",
-            "alarm_max_flow_rate_reached": "ALARM: Débit maximal atteint!",
-            "alarm_microleakage_detected": "ALARM: Micro-fuite détectée!",
-            "alarm_external_sensor_leakage_radio": "ALARM: Fuite détectée par capteur radio externe",
-            "alarm_external_sensor_leakage_cable": "ALARM: Fuite détectée par câble externe",
-            "alarm_pressure_sensor_faulty": "ALARM: Capteur de pression défectueux!",
-            "alarm_temperature_sensor_faulty": "ALARM: Capteur de température défectueux!",
-            "alarm_weak_battery": "ALARM: Batterie faible!",
-            "error_no_information": "Erreur : aucune information disponible"
-          }
-        },
-        "warning_status": {
-            "name": "État des avertissements",
-            "state": {
-                "power_outage": "Coupure de courant",
-                "leak warning": "Avertissement de fuite",
-                "battery_low": "Batterie faible",
-                "no_warning": "Aucun avertissement"
-            }
-        },
-        "notification_status": {
-            "name": "État des notifications",
-            "state": {
-            "new_software_available": "Nouvelle mise à jour disponible !",
-            "new_software_installed": "Nouvelle mise à jour installée !",
-            "no_notification": "Aucune notification"
-            }
-        },
-        "active_profile": {"name": "Profil actif"},
-        "valve_status": {
-            "name": "État de la vanne",
-            "state": {
-                "open": "Ouverte",
-                "closed": "Fermée",
-                "opening": "Ouverture",
-                "closing": "Fermeture"
-            }
-        },
-        "water_conductivity": {"name": "Conductivité de l'eau"},
-        "water_hardness": {"name": "Dureté de l'eau"},
-        "input_water_hardness": {"name": "Dureté de l'eau à l'entrée"},
-        "output_water_hardness": {"name": "Dureté de l'eau à la sortie"},
-        "salt_level": {"name": "Niveau de sel"},
-        "salt_alarm": {
-          "name": "Alerte sel",
-          "state": {
-            "salt_level_ok": "Niveau de sel correct",
-            "salt_level_low": "Niveau de sel faible",
-            "salt_refill_required": "Remplissage de sel requis"
-          }
-        },
-        "operating_mode": {
-          "name": "Mode de régénération",
-          "state": {
-            "mode_service": "Service",
-            "mode_bypass": "Bypass",
-            "mode_standby": "Veille"
-          }
-        },
-        "regeneration_state": {
-          "name": "État de régénération",
-          "state": {
-            "regeneration_idle": "Au repos",
-            "regeneration_pending": "Planifiée",
-            "regeneration_running": "En cours",
-            "regeneration_rinsing": "Rinçage",
-            "regeneration_error": "Erreur"
-          }
-        },
-        "regeneration_trigger": {
-          "name": "Dernier déclencheur de régénération",
-          "state": {
-            "trigger_none": "Non déclenché",
-            "trigger_volume": "Seuil de volume",
-            "trigger_time": "Planification",
-            "trigger_manual": "Manuel",
-            "trigger_service": "Mode service"
-          }
-        },
-        "regeneration_time_remaining": {"name": "Temps de régénération restant"},
-        "regeneration_volume_remaining": {"name": "Volume restant avant régénération"},
-        "days_since_regeneration": {"name": "Jours depuis la dernière régénération"},
-        "next_regeneration_time": {"name": "Prochaine régénération"},
-        "hardware_version": {"name": "Version matérielle"},
-        "microleakage_schedule": {
-            "name": "Intervalle test de micro-fuite",
-            "state": {
-                "daily": "Tous les jours",
-                "weekly": "Hebdomadaire",
-                "monthly": "Mensuel"
-            }
-        },
-        "microleakage_status": {
-            "name": "État du test de microfuite",
-            "state": {
-                "not_active": "Test inactif",
-                "active": "Test actif",
-                "aborted": "Abandonné en raison d'une chute de pression",
-                "skipped": "Test ignoré"
-            }
-        },
-        "profile_name_1": { "name": "Profil 1" },
-        "profile_name_2": { "name": "Profil 2" },
-        "profile_name_3": { "name": "Profil 3" },
-        "profile_name_4": { "name": "Profil 4" },
-        "profile_name_5": { "name": "Profil 5" },
-        "profile_name_6": { "name": "Profil 6" },
-        "profile_name_7": { "name": "Profil 7" },
-        "profile_name_8": { "name": "Profil 8" }
-      },
-      "valve": {
-        "water_supply": {"name": "Alimentation en eau"}
-      },
-      "button": {
-        "clear_alarms": {"name": "Effacer les alarmes"}
-      },
-      "select": {
-        "profile_select": {"name": "Profil"}
-      }
+    "error": {
+      "cannot_connect": "Impossible de se connecter à l’appareil"
     }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Configurer l’appareil",
+        "description": "Mettez à jour la configuration de votre appareil",
+        "data": {
+          "ip_address": "Adresse IP",
+          "fetch_interval": "Intervalle de relevé (s)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Impossible de se connecter à l’appareil"
+    }
+  },
+  "services": {
+    "set_profile": {
+      "name": "Définir le profil",
+      "description": "Définir le profil actif sur votre appareil"
+    },
+    "set_regeneration_mode": {
+      "name": "Définir le mode de régénération",
+      "description": "Modifier le mode de régénération NeoSoft"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "total_consumption": { "name": "Consommation totale d’eau" },
+      "water_pressure": { "name": "Pression de l’eau" },
+      "water_temperature": { "name": "Température de l’eau" },
+      "water_flow": { "name": "Débit d’eau" },
+      "no_pulse_time": { "name": "Temps depuis la dernière impulsion du turbine" },
+      "current_consumption": { "name": "Consommation d’eau actuelle" },
+      "leak_test_pressure": { "name": "Chute de pression du test de fuite" },
+      "wifi_state": { "name": "État du WiFi" },
+      "wifi_signal_strength": { "name": "Force du signal WiFi" },
+      "battery_voltage": { "name": "Tension de la batterie" },
+      "mains_voltage": { "name": "Tension secteur" },
+      "serial_number": { "name": "Numéro de série" },
+      "firmware_version": { "name": "Version du firmware" },
+      "device_type": { "name": "Type d’appareil" },
+      "mac_address": { "name": "Adresse MAC" },
+      "no_pulse_time_1": { "name": "Pas d’impulsions turbine tête de contrôle 1 depuis" },
+      "no_pulse_time_2": { "name": "Pas d’impulsions turbine tête de contrôle 2 depuis" },
+      "last_tapped_volume": { "name": "Volume puisé dernier" },
+      "salt_stock": { "name": "Stock de sel" },
+      "salt_quantity": { "name": "Quantité de sel" },
+      "reserve_capacity_bottle_1": { "name": "Capacité de réserve flacon 1" },
+      "reserve_capacity_bottle_2": { "name": "Capacité de réserve flacon 2" },
+      "regeneration_schedule": { "name": "Programme de régénération" },
+      "regeneration_time": { "name": "Heure de régénération" },
+      "next_bi_annual_maintenance": { "name": "Prochaine maintenance semestrielle" },
+      "next_annual_maintenance": { "name": "Prochaine maintenance annuelle" },
+      "buzzer_enabled": { "name": "Bip sonore activé" },
+      "alarm_status": {
+        "name": "Statut d’alarme",
+        "state": {
+          "no_alarm": "Pas d’alarme",
+          "alarm_end_switch": "ALARME: Interrupteur de fin",
+          "alarm_turbine_blocked": "ALARME : Turbine bloquée !",
+          "alarm_leakage_volume_reached": "ALARME : Volume de fuite atteint !",
+          "alarm_leakage_time_reached": "ALARME : Durée de fuite atteinte !",
+          "alarm_max_flow_rate_reached": "ALARME : Débit maximal atteint !",
+          "alarm_microleakage_detected": "ALARME : Microfuite détectée !",
+          "alarm_external_sensor_leakage_radio": "ALARME FUITE CAPTEUR EXT. RADIO",
+          "alarm_external_sensor_leakage_cable": "ALARME FUITE CAPTEUR EXT. CÂBLE",
+          "alarm_pressure_sensor_faulty": "ALARME : Capteur de pression défectueux !",
+          "alarm_temperature_sensor_faulty": "ALARME : Capteur de température défectueux !",
+          "alarm_weak_battery": "ALARME : Batterie faible !",
+          "error_no_information": "Erreur : aucune information disponible",
+          "alarm_increased_water_hardness": "ALARME : Dureté de l’eau augmentée",
+          "alarm_salt_supply_empty": "ALARME : Approvisionnement en sel vide",
+          "alarm_valve_position": "ALARME : Position de la vanne"
+        }
+      },
+      "warning_status": {
+        "name": "Statut d’avertissement",
+        "state": {
+          "power_outage": "Panne de courant",
+          "leak_warning": "Avertissement fuite",
+          "leak_warning_volume": "Avertissement fuite volume",
+          "leak_warning_time": "Avertissement fuite durée",
+          "battery_low": "Batterie faible",
+          "salt_supply_low": "Approvisionnement en sel faible",
+          "initial_filling": "Remplissage initial",
+          "no_warning": "Aucun avertissement"
+        }
+      },
+      "notification_status": {
+        "name": "Statut de notification",
+        "state": {
+          "new_software_available": "Nouvelle mise à jour disponible !",
+          "new_software_installed": "Nouvelle mise à jour installée !",
+          "bi_annual_maintenance": "Maintenance semestrielle",
+          "annual_maintenance": "Maintenance annuelle",
+          "no_notification": "Aucune notification"
+        }
+      },
+      "active_profile": { "name": "Profil actif" },
+      "valve_status": {
+        "name": "Statut de la vanne",
+        "state": {
+          "open": "Ouvert",
+          "closed": "Fermé",
+          "opening": "Ouverture",
+          "closing": "Fermeture"
+        }
+      },
+      "water_conductivity": { "name": "Conductivité de l’eau" },
+      "water_hardness": { "name": "Dureté de l’eau" },
+      "input_water_hardness": { "name": "Dureté de l’eau d’entrée" },
+      "output_water_hardness": { "name": "Dureté de l’eau de sortie" },
+      "salt_level": { "name": "Niveau de sel" },
+      "regeneration_mode": {
+        "name": "Mode de régénération",
+        "state": {
+          "mode_standard": "Standard",
+          "mde_eco": "ÉCO",
+          "mode_power": "Puissance",
+          "mode_automatic": "Automatique"
+        }
+      },
+      "regeneration_status": {
+        "name": "Statut de régénération",
+        "state": {
+          "no_regeneration": "Pas de régénération",
+          "bottle_1_regenerated": "Flacon 1 régénéré",
+          "bottle_2_regenerated": "Flacon 2 régénéré"
+        }
+      },
+      "regeneration_time_remaining": { "name": "Temps de régénération restant" },
+      "hardware_version": { "name": "Version matérielle" },
+      "microleakage_schedule": {
+        "name": "Intervalle test microfuite",
+        "state": {
+          "daily": "Quotidien",
+          "weekly": "Hebdomadaire",
+          "monthly": "Mensuel"
+        }
+      },
+      "microleakage_status": {
+        "name": "Statut du test microfuite",
+        "state": {
+          "not_active": "Test non actif",
+          "active": "Test actif",
+          "aborted": "Annulé en raison de chute de pression",
+          "skipped": "Test ignoré"
+        }
+      },
+      "profile_name_1": { "name": "Nom du profil 1" },
+      "profile_name_2": { "name": "Nom du profil 2" },
+      "profile_name_3": { "name": "Nom du profil 3" },
+      "profile_name_4": { "name": "Nom du profil 4" },
+      "profile_name_5": { "name": "Nom du profil 5" },
+      "profile_name_6": { "name": "Nom du profil 6" },
+      "profile_name_7": { "name": "Nom du profil 7" },
+      "profile_name_8": { "name": "Nom du profil 8" }
+    },
+    "valve": {
+      "water_supply": { "name": "Approvisionnement en eau" }
+    },
+    "button": {
+      "clear_alarms": { "name": "Effacer les alarmes" },
+      "clear_warnings": { "name": "Effacer les avertissements" },
+      "clear_notifications": { "name": "Effacer les notifications" }
+    },    
+    "select": {
+      "profile_select": { "name": "Profil" }
+    }
+  }
 }

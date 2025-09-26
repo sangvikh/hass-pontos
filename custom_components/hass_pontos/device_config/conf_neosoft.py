@@ -35,15 +35,20 @@ ALARM_CODES = {
 
 NOTIFICATION_CODES = {
     "01": "new_software_available",
+    "02": "bi_annual_maintenance",
+    "03": "annual_maintenance",
     "04": "new_software_installed",
     "FF": "no_notification"
 }
 
 WARNING_CODES = {
     "01": "power_outage",
+    "02": "salt_supply_low",
     "07": "leak_warning",
     "08": "battery_low",
-    "02": "salt_supply_low",
+    "09": "initial_filling",
+    "10": "leak_warning_volume",
+    "11": "leak_warning_time",
     "FF": "no_warning"
 }
 
@@ -54,10 +59,10 @@ REGEN_STATUS_CODES = {
 }
 
 REGEN_MODE_CODES = {
-    "1": "Standard",
-    "2": "ECO",
-    "3": "Power",
-    "4": "Automatic",
+    "1": "mode_standard",
+    "2": "mode_eco",
+    "3": "mode_power",
+    "4": "mode_automatic",
 }
 
 SENSOR_DETAILS = {

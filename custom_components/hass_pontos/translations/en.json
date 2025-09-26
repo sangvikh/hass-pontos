@@ -59,6 +59,18 @@
         "firmware_version": {"name": "Firmware version"},
         "device_type": {"name": "Device type"},
         "mac_address": {"name": "MAC address"},
+        "no_pulse_time_1": { "name": "No turbine pulses control head 1 since" },
+        "no_pulse_time_2": { "name": "No turbine pulses control head 2 since" },
+        "last_tapped_volume": { "name": "Last tapped volume" },
+        "salt_stock": { "name": "Salt stock" },
+        "salt_quantity": { "name": "Salt quantity" },
+        "reserve_capacity_bottle_1": { "name": "Reserve capacity bottle 1" },
+        "reserve_capacity_bottle_2": { "name": "Reserve capacity bottle 2" },
+        "regeneration_schedule": { "name": "Regeneration schedule" },
+        "regeneration_time": { "name": "Regeneration time" },
+        "next_bi_annual_maintenance": { "name": "Next bi-annual maintenance" },
+        "next_annual_maintenance": { "name": "Next annual maintenance" },
+        "buzzer_enabled": { "name": "Buzzer enabled" },
         "alarm_status": {
           "name": "Alarm status",
           "state": {
@@ -74,15 +86,22 @@
             "alarm_pressure_sensor_faulty": "ALARM: Pressure sensor faulty!",
             "alarm_temperature_sensor_faulty": "ALARM: Temperature sensor faulty!",
             "alarm_weak_battery": "ALARM: Weak battery!",
-            "error_no_information": "Error: no information available"
+            "error_no_information": "Error: no information available",
+            "alarm_increased_water_hardness": "ALARM: Increased water hardness",
+            "alarm_salt_supply_empty": "ALARM: Salt supply empty",
+            "alarm_valve_position": "ALARM: Valve position"
           }
         },
         "warning_status": {
           "name": "Warning status",
           "state": {
             "power_outage": "Power outage",
-            "leak_warning": "Leak warning",
+            "leak_warning": "Leakage warning",
+            "leak_warning_volume": "Leakage warning volume",
+            "leak_warning_time": "Leakage warning time",
             "battery_low": "Battery low",
+            "salt_supply_low": "Salt supply low",
+            "initial_filling": "Initial filling",
             "no_warning": "No warning"
           }
         },
@@ -91,6 +110,8 @@
           "state": {
             "new_software_available": "New software update available!",
             "new_software_installed": "New software update installed!",
+            "bi_annual_maintenance": "Semi-annual maintenance",
+            "annual_maintenance": "Annual maintenance",
             "no_notification": "No notification"
           }
         },                   
@@ -109,46 +130,24 @@
         "input_water_hardness": {"name": "Input water hardness"},
         "output_water_hardness": {"name": "Output water hardness"},
         "salt_level": {"name": "Salt level"},
-        "salt_alarm": {
-          "name": "Salt alarm",
+        "regeneration_mode": {
+          "name": "Regeneration mode",
           "state": {
-            "salt_level_ok": "Salt level OK",
-            "salt_level_low": "Salt level low",
-            "salt_refill_required": "Salt refill required"
+            "mode_standard": "Standard",
+            "mde_eco": "ECO",
+            "mode_power": "Power",
+            "mode_automatic": "automatic"
           }
         },
-        "operating_mode": {
-          "name": "Operating mode",
+        "regeneration_status": {
+          "name": "Regeneration status",
           "state": {
-            "mode_service": "Service",
-            "mode_bypass": "Bypass",
-            "mode_standby": "Standby"
-          }
-        },
-        "regeneration_state": {
-          "name": "Regeneration state",
-          "state": {
-            "regeneration_idle": "Idle",
-            "regeneration_pending": "Pending",
-            "regeneration_running": "Running",
-            "regeneration_rinsing": "Rinsing",
-            "regeneration_error": "Error"
-          }
-        },
-        "regeneration_trigger": {
-          "name": "Last regeneration trigger",
-          "state": {
-            "trigger_none": "Not triggered",
-            "trigger_volume": "Volume threshold",
-            "trigger_time": "Scheduled",
-            "trigger_manual": "Manual",
-            "trigger_service": "Service mode"
+            "no_regeneration": "No regeneration",
+            "bottle_1_regenerated": "Bottle 1 regenerated",
+            "bottle_2_regenerated": "Bottle 2 regenerated"
           }
         },
         "regeneration_time_remaining": {"name": "Regeneration time remaining"},
-        "regeneration_volume_remaining": {"name": "Water until regeneration"},
-        "days_since_regeneration": {"name": "Days since last regeneration"},
-        "next_regeneration_time": {"name": "Next regeneration time"},
         "hardware_version": {"name": "Hardware version"},
         "microleakage_schedule": {
             "name": "Microleakage test interval",
@@ -180,7 +179,9 @@
         "water_supply": {"name": "Water supply"}
       },
       "button": {
-        "clear_alarms": {"name": "Clear alarms"}
+        "clear_alarms": {"name": "Clear alarms"},
+        "clear_warnings": {"name": "Clear warnings"},
+        "clear_notifications": {"name": "Clear notifications"}
       },
       "select": {
         "profile_select": {"name": "Profile"}
