@@ -55,28 +55,28 @@ SENSOR_DETAILS = {
         "name": "Total water consumption",
         "endpoint": "getVOL",
         "unit": "L",
-        "device_class": "water",
+        "device_class": SensorDeviceClass.WATER,
         "state_class": "total_increasing"
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
-        "device_class": "pressure",
+        "device_class": SensorDeviceClass.PRESSURE,
         "scale": 0.001
     },
     "water_temperature": {
         "name": "Water temperature",
         "endpoint": "getCEL",
         "unit": "°C",
-        "device_class": "temperature",
+        "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1
     },
     "water_flow": {
         "name": "Water flow",
         "endpoint": "getFLO",
         "unit": "L/min",
-        "device_class": "volume_flow_rate",
+        "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
         "scale": 1
     },
     "no_pulse_time": {
@@ -96,7 +96,7 @@ SENSOR_DETAILS = {
         "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
-        "device_class": "pressure",
+        "device_class": SensorDeviceClass.PRESSURE,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
@@ -115,7 +115,7 @@ SENSOR_DETAILS = {
         "name": "Battery voltage",
         "endpoint": "getBAT",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -123,7 +123,7 @@ SENSOR_DETAILS = {
         "name": "Mains voltage",
         "endpoint": "getNET",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -251,6 +251,14 @@ SERVICES = {
         "name": "Clear alarms",
         "endpoint": "set/ala/255"
     },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "endpoint": "set/wrn/255"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "endpoint": "set/not/255"
+    },
     "set_profile": {
         "name": "Set Profile",
         "endpoint": "set/prf/{profile_number}"
@@ -271,4 +279,29 @@ SERVICES = {
         "name": "Generic service call",
         "endpoint": "set/{endpoint}/{data}"
     },
+}
+
+BUTTONS = {
+    "clear_alarms": {
+        "name": "Clear alarms",
+        "service": "clear_alarms",
+        "availability_sensor": "alarm_status"
+    },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "service": "clear_warnings",
+        "availability_sensor": "warning_status"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "service": "clear_notifications",
+        "availability_sensor": "notification_status"
+    }
+}
+
+SELECT_CONFIG = {
+    "profile_select": {
+        "name": "Profile select",
+        "type": "profile_select"
+    }
 }
