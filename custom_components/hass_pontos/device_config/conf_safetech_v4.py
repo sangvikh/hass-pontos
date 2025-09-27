@@ -244,3 +244,10 @@ BUTTONS = {
         "availability_sensor": "alarm_status"
     }
 }
+
+SELECT_CONFIG = {
+    "profile_select": {
+        "name": "Profile select",
+        "type": "profile_select"
+    }
+}

@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button']
+PLATFORMS = ['sensor', 'button', 'select']
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -146,7 +146,7 @@ SENSOR_DETAILS = {
     },
     "regeneration_mode": {
         "name": "Regeneration mode",
-        "endpoint": "getRMO ",
+        "endpoint": "getRMO",
         "code_dict": REGEN_MODE_CODES
     },
     "regeneration_status": {
@@ -272,15 +272,15 @@ SERVICES = {
     },
     "set_regeneration_mode": {
         "name": "Set regeneration mode",
-        "endpoint": "set/rmo/{mode}"
+        "endpoint": "set/rmo/{data}"
     },
     "set_regeneration_interval": {
         "name": "Set regeneration interval",
-        "endpoint": "set/rpd/{period}"
+        "endpoint": "set/rpd/{data}"
     },
     "set_regeneration_time": {
         "name": "Set regeneration time",
-        "endpoint": "set/rtm/{time}"
+        "endpoint": "set/rtm/{data}"
     },
     "enable_buzzer": {
         "name": "Enable buzzer",
@@ -307,5 +307,14 @@ BUTTONS = {
         "name": "Clear notifications",
         "service": "clear_notifications",
         "availability_sensor": "notification_status"
+    }
+}
+
+SELECT_CONFIG = {
+    "regeneration_mode": {
+        "name": "Regeneration Mode",
+        "options": REGEN_MODE_CODES,
+        "sensor_key": "regeneration_mode",
+        "service": "set_regeneration_mode"
     }
 }

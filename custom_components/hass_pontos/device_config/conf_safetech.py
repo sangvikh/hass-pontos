@@ -298,3 +298,10 @@ BUTTONS = {
         "availability_sensor": "notification_status"
     }
 }
+
+SELECT_CONFIG = {
+    "profile_select": {
+        "name": "Profile select",
+        "type": "profile_select"
+    }
+}
