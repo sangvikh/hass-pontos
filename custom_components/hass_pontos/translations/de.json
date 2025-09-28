@@ -1,286 +1,295 @@
 {
   "title": "Hansgrohe Pontos",
   "config": {
-      "step": {
-          "user": {
-              "title": "Gerät einrichten",
-              "description": "Bitte gib die IP-Adresse und den Gerätenamen für dein Gerät ein",
-              "data": {
-                  "ip_address": "IP-Adresse",
-                  "fetch_interval": "Aktualisierungshäufigkeit (s)",
-                  "device_name": "Gerätename",
-                  "make": "Gerätetyp"
-              }
-          }
-      },
-      "error": {
-          "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+    "step": {
+      "user": {
+        "title": "Gerät einrichten",
+        "description": "Bitte gib die IP-Adresse und den Gerätenamen für dein Gerät ein",
+        "data": {
+          "ip_address": "IP-Adresse",
+          "fetch_interval": "Aktualisierungshäufigkeit (s)",
+          "device_name": "Gerätename",
+          "make": "Gerätetyp"
+        }
       }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+    }
   },
   "options": {
-      "step": {
-          "init": {
-              "title": "Gerät konfigurieren",
-              "description": "Aktualisiere die Konfiguration für dein Gerät",
-              "data": {
-                  "ip_address": "IP-Adresse",
-                  "fetch_interval": "Aktualisierungshäufigkeit (s)"
-              }
-          }
-      },
-      "error": {
-          "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+    "step": {
+      "init": {
+        "title": "Gerät konfigurieren",
+        "description": "Aktualisiere die Konfiguration für dein Gerät",
+        "data": {
+          "ip_address": "IP-Adresse",
+          "fetch_interval": "Aktualisierungshäufigkeit (s)"
+        }
       }
+    },
+    "error": {
+      "cannot_connect": "Verbindung zum Gerät fehlgeschlagen"
+    }
   },
   "services": {
-      "set_profile": {
-          "name": "Profil einstellen",
-          "description": "Aktives Profil auf deinem Gerät einstellen"
-      },
-      "set_regeneration_mode": {
-          "name": "Regenerationsmodus einstellen",
-          "description": "Regenerationsmodus des NeoSoft ändern"
-      }
+    "set_profile": {
+      "name": "Profil einstellen",
+      "description": "Aktives Profil auf deinem Gerät einstellen"
+    },
+    "set_regeneration_mode": {
+      "name": "Regenerationsmodus einstellen",
+      "description": "Regenerationsmodus des NeoSoft ändern"
+    }
   },
   "entity": {
-      "sensor": {
-          "total_consumption": {
-              "name": "Gesamtwasserverbrauch"
-          },
-          "water_pressure": {
-              "name": "Wasserdruck"
-          },
-          "water_temperature": {
-              "name": "Wassertemperatur"
-          },
-          "water_flow": {
-              "name": "Wasserfluss"
-          },
-          "no_pulse_time": {
-              "name": "Zeit seit letztem Turbinenimpuls"
-          },
-          "current_consumption": {
-              "name": "Aktueller Wasserverbrauch"
-          },
-          "leak_test_pressure": {
-              "name": "Druckabfall Lecktest"
-          },
-          "wifi_state": {
-              "name": "WiFi‑Status"
-          },
-          "wifi_signal_strength": {
-              "name": "WiFi‑Signalstärke"
-          },
-          "battery_voltage": {
-              "name": "Batteriespannung"
-          },
-          "mains_voltage": {
-              "name": "Netzspannung"
-          },
-          "serial_number": {
-              "name": "Seriennummer"
-          },
-          "firmware_version": {
-              "name": "Firmwareversion"
-          },
-          "device_type": {
-              "name": "Gerätetyp"
-          },
-          "mac_address": {
-              "name": "MAC‑Adresse"
-          },
-          "no_pulse_time_1": {
-              "name": "Keine Turbinenimpulse Steuerkopf 1 seit"
-          },
-          "no_pulse_time_2": {
-              "name": "Keine Turbinenimpulse Steuerkopf 2 seit"
-          },
-          "last_tapped_volume": {
-              "name": "Zuletzt entnommenes Volumen"
-          },
-          "salt_stock": {
-              "name": "Salzbestand"
-          },
-          "salt_quantity": {
-              "name": "Salzmenge"
-          },
-          "reserve_capacity_bottle_1": {
-              "name": "Reservekapazität Flasche 1"
-          },
-          "reserve_capacity_bottle_2": {
-              "name": "Reservekapazität Flasche 2"
-          },
-          "regeneration_schedule": {
-              "name": "Regenerationsplan"
-          },
-          "regeneration_time": {
-              "name": "Regenerationszeit"
-          },
-          "next_bi_annual_maintenance": {
-              "name": "Nächste halbjährliche Wartung"
-          },
-          "next_annual_maintenance": {
-              "name": "Nächste jährliche Wartung"
-          },
-          "buzzer_enabled": {
-              "name": "Summer aktiviert"
-          },
-          "alarm_status": {
-              "name": "Alarmstatus",
-              "state": {
-                  "no_alarm": "Kein Alarm",
-                  "alarm_end_switch": "ALARM: Endschalter",
-                  "alarm_turbine_blocked": "ALARM: Turbine blockiert!",
-                  "alarm_leakage_volume_reached": "ALARM: Leckvolumen erreicht!",
-                  "alarm_leakage_time_reached": "ALARM: Leckzeit erreicht!",
-                  "alarm_max_flow_rate_reached": "ALARM: Maximaler Durchfluss erreicht!",
-                  "alarm_microleakage_detected": "ALARM: Mikroleckage erkannt!",
-                  "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LECKAGE FUNK",
-                  "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LECKAGE KABEL",
-                  "alarm_pressure_sensor_faulty": "ALARM: Drucksensor fehlerhaft!",
-                  "alarm_temperature_sensor_faulty": "ALARM: Temperatursensor fehlerhaft!",
-                  "alarm_weak_battery": "ALARM: Schwache Batterie!",
-                  "error_no_information": "Fehler: keine Informationen verfügbar",
-                  "alarm_increased_water_hardness": "ALARM: Erhöhte Wasserhärte",
-                  "alarm_salt_supply_empty": "ALARM: Salzversorgung leer",
-                  "alarm_valve_position": "ALARM: Ventilstellung"
-              }
-          },
-          "warning_status": {
-              "name": "Warnungen",
-              "state": {
-                  "power_outage": "Stromunterbrechung",
-                  "leak_warning": "Leckagewarnung",
-                  "leak_warning_volume": "Volumenleckage",
-                  "leak_warning_time": "Leckagewarnung Zeit",
-                  "battery_low": "Batterien erschöpft",
-                  "salt_supply_low": "Salzvorrat geht zur neige",
-                  "initial_filling": "Erstbefüllung",
-                  "no_warning": "Keine Warnung"
-              }
-          },
-          "notification_status": {
-              "name": "Notifications",
-              "state": {
-                  "new_software_available": "Neues Software Update verfügbar!",
-                  "new_software_installed": "Neues Software Update installiert!",
-                  "bi_annual_maintenance": "Halbjährliche Wartung",
-                  "annual_maintenance": "Jährliche Wartung",
-                  "no_notification": "Kein Notification"
-              }
-          },
-          "active_profile": {
-              "name": "Aktives Profil"
-          },
-          "valve_status": {
-              "name": "Ventilstatus",
-              "state": {
-                  "open": "Geöffnet",
-                  "closed": "Geschlossen",
-                  "opening": "Wird geöffnet",
-                  "closing": "Wird verschlossen"
-              }
-          },
-          "water_conductivity": {
-              "name": "Wasserleitfähigkeit"
-          },
-          "water_hardness": {
-              "name": "Wasserhärte"
-          },
-          "input_water_hardness": {
-              "name": "Eingangs-Wasserhärte"
-          },
-          "output_water_hardness": {
-              "name": "Ausgangs-Wasserhärte"
-          },
-          "salt_level": {
-              "name": "Salzstand"
-          },
-          "regeneration_mode": {
-              "name": "Regenerationsmodus",
-              "state": {
-                  "mode_standard": "Standard",
-                  "mode_eco": "ECO",
-                  "mode_power": "Power",
-                  "mode_automatic": "Automatik"
-              }
-          },
-          "regeneration_status": {
-              "name": "Regenerationsstatus",
-              "state": {
-                  "no_regeneration": "Keine Regeneration",
-                  "bottle_1_regenerated": "Flasche 1 regeneriert",
-                  "bottle_2_regenerated": "Flasche 2 regeneriert"
-              }
-          },
-          "regeneration_time_remaining": {
-              "name": "Zeit bis Regeneration zu Ende"
-          },
-          "hardware_version": {
-              "name": "Hardware-Version"
-          },
-          "microleakage_schedule": {
-              "name": "Mikroleckage-Testintervall",
-              "state": {
-                  "daily": "Täglich",
-                  "weekly": "Wöchentlich",
-                  "monthly": "Monatlich"
-              }
-          },
-          "microleakage_status": {
-              "name": "Status der Mikroleckage",
-              "state": {
-                  "not_active": "Test nicht aktiv",
-                  "active": "Test aktiv",
-                  "aborted": "Abgebrochen durch druckabfall",
-                  "skipped": "Test übersprungen"
-              }
-          },
-          "profile_name_1": {
-              "name": "Profilname 1"
-          },
-          "profile_name_2": {
-              "name": "Profilname 2"
-          },
-          "profile_name_3": {
-              "name": "Profilname 3"
-          },
-          "profile_name_4": {
-              "name": "Profilname 4"
-          },
-          "profile_name_5": {
-              "name": "Profilname 5"
-          },
-          "profile_name_6": {
-              "name": "Profilname 6"
-          },
-          "profile_name_7": {
-              "name": "Profilname 7"
-          },
-          "profile_name_8": {
-              "name": "Profilname 8"
-          }
+    "sensor": {
+      "total_consumption": {
+        "name": "Gesamtwasserverbrauch"
       },
-      "valve": {
-          "water_supply": {
-              "name": "Wasserversorgung"
-          }
+      "water_pressure": {
+        "name": "Wasserdruck"
       },
-      "button": {
-          "clear_alarms": {
-              "name": "Alarme löschen"
-          },
-          "clear_warnings": {
-              "name": "Warnungen löschen"
-          },
-          "clear_notifications": {
-              "name": "Notification löschen"
-          }
+      "water_temperature": {
+        "name": "Wassertemperatur"
       },
-      "select": {
-          "profile_select": {
-              "name": "Profil"
-          }
+      "water_flow": {
+        "name": "Wasserfluss"
+      },
+      "no_pulse_time": {
+        "name": "Zeit seit letztem Turbinenimpuls"
+      },
+      "current_consumption": {
+        "name": "Aktueller Wasserverbrauch"
+      },
+      "leak_test_pressure": {
+        "name": "Druckabfall Lecktest"
+      },
+      "wifi_state": {
+        "name": "WiFi‑Status"
+      },
+      "wifi_signal_strength": {
+        "name": "WiFi‑Signalstärke"
+      },
+      "battery_voltage": {
+        "name": "Batteriespannung"
+      },
+      "mains_voltage": {
+        "name": "Netzspannung"
+      },
+      "serial_number": {
+        "name": "Seriennummer"
+      },
+      "firmware_version": {
+        "name": "Firmwareversion"
+      },
+      "device_type": {
+        "name": "Gerätetyp"
+      },
+      "mac_address": {
+        "name": "MAC‑Adresse"
+      },
+      "no_pulse_time_1": {
+        "name": "Keine Turbinenimpulse Steuerkopf 1 seit"
+      },
+      "no_pulse_time_2": {
+        "name": "Keine Turbinenimpulse Steuerkopf 2 seit"
+      },
+      "last_tapped_volume": {
+        "name": "Zuletzt entnommenes Volumen"
+      },
+      "salt_stock": {
+        "name": "Salzbestand"
+      },
+      "salt_quantity": {
+        "name": "Salzmenge"
+      },
+      "reserve_capacity_bottle_1": {
+        "name": "Reservekapazität Flasche 1"
+      },
+      "reserve_capacity_bottle_2": {
+        "name": "Reservekapazität Flasche 2"
+      },
+      "regeneration_schedule": {
+        "name": "Regenerationsplan"
+      },
+      "regeneration_time": {
+        "name": "Regenerationszeit"
+      },
+      "next_bi_annual_maintenance": {
+        "name": "Nächste halbjährliche Wartung"
+      },
+      "next_annual_maintenance": {
+        "name": "Nächste jährliche Wartung"
+      },
+      "buzzer_enabled": {
+        "name": "Summer aktiviert"
+      },
+      "alarm_status": {
+        "name": "Alarmstatus",
+        "state": {
+          "no_alarm": "Kein Alarm",
+          "alarm_end_switch": "ALARM: Endschalter",
+          "alarm_turbine_blocked": "ALARM: Turbine blockiert!",
+          "alarm_leakage_volume_reached": "ALARM: Leckvolumen erreicht!",
+          "alarm_leakage_time_reached": "ALARM: Leckzeit erreicht!",
+          "alarm_max_flow_rate_reached": "ALARM: Maximaler Durchfluss erreicht!",
+          "alarm_microleakage_detected": "ALARM: Mikroleckage erkannt!",
+          "alarm_external_sensor_leakage_radio": "ALARM EXT. SENSOR LECKAGE FUNK",
+          "alarm_external_sensor_leakage_cable": "ALARM EXT. SENSOR LECKAGE KABEL",
+          "alarm_pressure_sensor_faulty": "ALARM: Drucksensor fehlerhaft!",
+          "alarm_temperature_sensor_faulty": "ALARM: Temperatursensor fehlerhaft!",
+          "alarm_weak_battery": "ALARM: Schwache Batterie!",
+          "error_no_information": "Fehler: keine Informationen verfügbar",
+          "alarm_increased_water_hardness": "ALARM: Erhöhte Wasserhärte",
+          "alarm_salt_supply_empty": "ALARM: Salzversorgung leer",
+          "alarm_valve_position": "ALARM: Ventilstellung"
+        }
+      },
+      "warning_status": {
+        "name": "Warnungen",
+        "state": {
+          "power_outage": "Stromunterbrechung",
+          "leak_warning": "Leckagewarnung",
+          "leak_warning_volume": "Volumenleckage",
+          "leak_warning_time": "Leckagewarnung Zeit",
+          "battery_low": "Batterien erschöpft",
+          "salt_supply_low": "Salzvorrat geht zur neige",
+          "initial_filling": "Erstbefüllung",
+          "no_warning": "Keine Warnung"
+        }
+      },
+      "notification_status": {
+        "name": "Notifications",
+        "state": {
+          "new_software_available": "Neues Software Update verfügbar!",
+          "new_software_installed": "Neues Software Update installiert!",
+          "bi_annual_maintenance": "Halbjährliche Wartung",
+          "annual_maintenance": "Jährliche Wartung",
+          "no_notification": "Kein Notification"
+        }
+      },
+      "active_profile": {
+        "name": "Aktives Profil"
+      },
+      "valve_status": {
+        "name": "Ventilstatus",
+        "state": {
+          "open": "Geöffnet",
+          "closed": "Geschlossen",
+          "opening": "Wird geöffnet",
+          "closing": "Wird verschlossen"
+        }
+      },
+      "water_conductivity": {
+        "name": "Wasserleitfähigkeit"
+      },
+      "water_hardness": {
+        "name": "Wasserhärte"
+      },
+      "input_water_hardness": {
+        "name": "Eingangs-Wasserhärte"
+      },
+      "output_water_hardness": {
+        "name": "Ausgangs-Wasserhärte"
+      },
+      "salt_level": {
+        "name": "Salzstand"
+      },
+      "regeneration_mode": {
+        "name": "Regenerationsmodus",
+        "state": {
+          "mode_standard": "Standard",
+          "mode_eco": "ECO",
+          "mode_power": "Power",
+          "mode_automatic": "Automatik"
+        }
+      },
+      "regeneration_status": {
+        "name": "Regenerationsstatus",
+        "state": {
+          "no_regeneration": "Keine Regeneration",
+          "bottle_1_regenerated": "Flasche 1 regeneriert",
+          "bottle_2_regenerated": "Flasche 2 regeneriert"
+        }
+      },
+      "regeneration_time_remaining": {
+        "name": "Zeit bis Regeneration zu Ende"
+      },
+      "hardware_version": {
+        "name": "Hardware-Version"
+      },
+      "microleakage_schedule": {
+        "name": "Mikroleckage-Testintervall",
+        "state": {
+          "daily": "Täglich",
+          "weekly": "Wöchentlich",
+          "monthly": "Monatlich"
+        }
+      },
+      "microleakage_status": {
+        "name": "Status der Mikroleckage",
+        "state": {
+          "not_active": "Test nicht aktiv",
+          "active": "Test aktiv",
+          "aborted": "Abgebrochen durch druckabfall",
+          "skipped": "Test übersprungen"
+        }
+      },
+      "profile_name_1": {
+        "name": "Profilname 1"
+      },
+      "profile_name_2": {
+        "name": "Profilname 2"
+      },
+      "profile_name_3": {
+        "name": "Profilname 3"
+      },
+      "profile_name_4": {
+        "name": "Profilname 4"
+      },
+      "profile_name_5": {
+        "name": "Profilname 5"
+      },
+      "profile_name_6": {
+        "name": "Profilname 6"
+      },
+      "profile_name_7": {
+        "name": "Profilname 7"
+      },
+      "profile_name_8": {
+        "name": "Profilname 8"
       }
+    },
+    "valve": {
+      "water_supply": {
+        "name": "Wasserversorgung"
+      }
+    },
+    "button": {
+      "clear_alarms": {
+        "name": "Alarme löschen"
+      },
+      "clear_warnings": {
+        "name": "Warnungen löschen"
+      },
+      "clear_notifications": {
+        "name": "Notification löschen"
+      }
+    },
+    "select": {
+      "profile_select": {
+        "name": "Profil"
+      },
+      "regeneration_mode": {
+        "name": "Regenerationsmodus",
+        "state": {
+          "mode_standard": "Standard",
+          "mode_eco": "ECO",
+          "mode_power": "Power",
+          "mode_automatic": "Automatik"
+        }
+      }
+    }
   }
 }
