@@ -50,6 +50,18 @@ VALVE_CODES = {
     "21": STATE_OPENING
 }
 
+MICROLEAKAGE_SCHEDULE_CODES = {
+    "1": "daily",
+    "2": "weekly",
+    "3": "monthly"
+}
+
+WIFI_STATUS_CODES = {
+    "0": "not_connected",
+    "1": "connecting",
+    "2": "connected"
+}
+
 SENSOR_DETAILS = {
     "total_consumption": {
         "name": "Total water consumption",
@@ -103,7 +115,7 @@ SENSOR_DETAILS = {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": {"0":"Not connected","1":"Connecting","2":"Connected"}
+        "code_dict": WIFI_STATUS_CODES
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
@@ -187,7 +199,7 @@ SENSOR_DETAILS = {
         "microleakage_schedule": {
         "name": "Microleakage test schedule",
         "endpoint": "getDRP",
-        "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
+        "code_dict": MICROLEAKAGE_SCHEDULE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "microleakage_status": {
@@ -261,7 +273,7 @@ SERVICES = {
     },
     "set_profile": {
         "name": "Set Profile",
-        "endpoint": "set/prf/{profile_number}"
+        "endpoint": "set/prf/{data}"
     },
     "microleakage_test": {
         "name": "Start microleakage test",
@@ -269,11 +281,11 @@ SERVICES = {
     },
     "microleakage_time": {
         "name": "Set microleakage test time",
-        "endpoint": "set/dtt/{time}"
+        "endpoint": "set/dtt/{data}"
     },
     "microleakage_schedule": {
         "name": "Set microleakage test schedule",
-        "endpoint": "set/drp/{schedule}"
+        "endpoint": "set/drp/{data}"
     },
     "generic_service": {
         "name": "Generic service call",
@@ -296,12 +308,25 @@ BUTTONS = {
         "name": "Clear notifications",
         "service": "clear_notifications",
         "availability_sensor": "notification_status"
+    },
+    "microleakage_test": {
+        "name": "Start microleakage test",
+        "service": "microleakage_test",
+        "availability_sensor": "Microleakage test status",
+        "entity_category": EntityCategory.DIAGNOSTIC
     }
 }
 
 SELECTORS = {
     "profile_select": {
-        "name": "Profile select",
+        "name": "Profile",
         "type": "profile_select"
-    }
+    },
+    "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "options": MICROLEAKAGE_SCHEDULE_CODES,
+        "sensor": "Microleakage test schedule",
+        "service": "microleakage_schedule",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
 }

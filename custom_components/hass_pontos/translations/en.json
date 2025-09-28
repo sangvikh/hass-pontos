@@ -66,7 +66,12 @@
         "name": "Leak test pressure drop"
       },
       "wifi_state": {
-        "name": "WiFi state"
+        "name": "WiFi state",
+        "state": {
+            "not_connected": "Not connected",
+            "connecting": "Connecting",
+            "connected": "Connected"
+        }
       },
       "wifi_signal_strength": {
         "name": "WiFi signal strength"
@@ -275,6 +280,9 @@
       },
       "clear_notifications": {
         "name": "Clear notifications"
+      },
+      "microleakage_test": {
+        "name": "Start microleakage test"
       }
     },
     "select": {
@@ -288,6 +296,14 @@
           "mode_eco": "ECO",
           "mode_power": "Power",
           "mode_automatic": "Automatic"
+        }
+      },
+      "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "state": {
+          "daily": "Daily",
+          "weekly": "Weekly",
+          "monthly": "Monthly"
         }
       }
     }

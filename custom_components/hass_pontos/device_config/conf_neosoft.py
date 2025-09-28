@@ -65,6 +65,12 @@ REGEN_MODE_CODES = {
     "4": "mode_automatic",
 }
 
+WIFI_STATUS_CODES = {
+    "0": "not_connected",
+    "1": "connecting",
+    "2": "connected"
+}
+
 SENSOR_DETAILS = {
     "total_consumption": {
         "name": "Total water consumption",
@@ -188,7 +194,7 @@ SENSOR_DETAILS = {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": {"0": "Not connected", "1": "Connecting", "2": "Connected"}
+        "code_dict": WIFI_STATUS_CODES
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
@@ -314,7 +320,7 @@ SELECTORS = {
     "regeneration_mode": {
         "name": "Regeneration Mode",
         "options": REGEN_MODE_CODES,
-        "sensor_key": "regeneration_mode",
+        "sensor": "Regeneration Mode",
         "service": "set_regeneration_mode"
     }
 }

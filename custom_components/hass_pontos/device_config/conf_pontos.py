@@ -41,6 +41,12 @@ VALVE_CODES = {
     "21": STATE_OPENING
 }
 
+WIFI_STATUS_CODES = {
+    "0": "not_connected",
+    "1": "connecting",
+    "2": "connected"
+}
+
 SENSOR_DETAILS = {
     "total_consumption": {
         "name": "Total water consumption",
@@ -90,7 +96,7 @@ SENSOR_DETAILS = {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": {"0":"Not connected","1":"Connecting","2":"Connected"}
+        "code_dict": WIFI_STATUS_CODES
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
@@ -224,7 +230,7 @@ SERVICES = {
     },
     "set_profile": {
         "name": "Set Profile",
-        "endpoint": "set/prf/{profile_number}"
+        "endpoint": "set/prf/{data}"
     },
     "generic_service": {
         "name": "Generic service call",
@@ -242,7 +248,7 @@ BUTTONS = {
 
 SELECTORS = {
     "profile_select": {
-        "name": "Profile select",
+        "name": "Profile",
         "type": "profile_select"
     }
 }

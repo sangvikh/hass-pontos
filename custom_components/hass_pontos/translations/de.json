@@ -66,7 +66,12 @@
         "name": "Druckabfall Lecktest"
       },
       "wifi_state": {
-        "name": "WiFi‑Status"
+        "name": "WiFi‑Status",
+        "state": {
+            "not_connected": "Nicht verbunden",
+            "connecting": "Verbindung wird aufgebaut",
+            "connected": "Verbunden"
+        }
       },
       "wifi_signal_strength": {
         "name": "WiFi‑Signalstärke"
@@ -275,6 +280,9 @@
       },
       "clear_notifications": {
         "name": "Notification löschen"
+      },
+      "microleakage_test": {
+        "name": "Mikroleckagetest starten"
       }
     },
     "select": {
@@ -288,6 +296,14 @@
           "mode_eco": "ECO",
           "mode_power": "Power",
           "mode_automatic": "Automatik"
+        }
+      },
+      "microleakage_schedule": {
+        "name": "Mikroleckage-Testintervall",
+        "state": {
+          "daily": "Täglich",
+          "weekly": "Wöchentlich",
+          "monthly": "Monatlich"
         }
       }
     }

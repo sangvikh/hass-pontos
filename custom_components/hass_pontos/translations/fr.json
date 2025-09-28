@@ -66,7 +66,12 @@
         "name": "Chute de pression du test de fuite"
       },
       "wifi_state": {
-        "name": "État du WiFi"
+        "name": "État du Wi-Fi",
+        "state": {
+            "not_connected": "Non connecté",
+            "connecting": "Connexion",
+            "connected": "Connecté"
+        }
       },
       "wifi_signal_strength": {
         "name": "Force du signal WiFi"
@@ -275,6 +280,9 @@
       },
       "clear_notifications": {
         "name": "Effacer les notifications"
+      },
+      "microleakage_test": {
+        "name": "Lancer le test de microfuites"
       }
     },
     "select": {
@@ -288,6 +296,14 @@
           "mode_eco": "Éco",
           "mode_power": "Puissant",
           "mode_automatic": "Automatique"
+        }
+      },
+      "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "state": {
+          "daily": "Quotidien",
+          "weekly": "Hebdomadaire",
+          "monthly": "Mensuel"
         }
       }
     }

@@ -45,16 +45,16 @@
   "entity": {
     "sensor": {
       "total_consumption": {
-        "name": "Total vannforbruk"
+        "name": "Totalt vannforbruk"
       },
       "water_pressure": {
-        "name": "Vanndekktrykk"
+        "name": "Vanntrykk"
       },
       "water_temperature": {
         "name": "Vanntemperatur"
       },
       "water_flow": {
-        "name": "Vannstrøm"
+        "name": "Vannstrømning"
       },
       "no_pulse_time": {
         "name": "Tid siden siste turbinimpuls"
@@ -66,7 +66,12 @@
         "name": "Trykkfall lekkasjetest"
       },
       "wifi_state": {
-        "name": "WiFi‑tilstand"
+        "name": "WiFi status",
+        "state": {
+            "not_connected": "Ikke tilkoblet",
+            "connecting": "Kobler til",
+            "connected": "Tilkoblet"
+        }
       },
       "wifi_signal_strength": {
         "name": "WiFi signalstyrke"
@@ -75,7 +80,7 @@
         "name": "Batterispenning"
       },
       "mains_voltage": {
-        "name": "Netspenning"
+        "name": "Nettspenning"
       },
       "serial_number": {
         "name": "Produksjonsnummer"
@@ -111,7 +116,7 @@
         "name": "Reservekapasitet flaske 2"
       },
       "regeneration_schedule": {
-        "name": "Regenereringsplan"
+        "name": "Regeneraringsintervall"
       },
       "regeneration_time": {
         "name": "Regenereringstid"
@@ -275,6 +280,9 @@
       },
       "clear_notifications": {
         "name": "Tilbakestill notifikasjoner"
+      },
+      "microleakage_test": {
+        "name": "Start mikrolekkasjetest"
       }
     },
     "select": {
@@ -288,6 +296,14 @@
           "mode_eco": "Øko",
           "mode_power": "Kraftig",
           "mode_automatic": "Automatisk"
+        }
+      },
+      "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "state": {
+          "daily": "Daglig",
+          "weekly": "Ukentlig",
+          "monthly": "Månedlig"
         }
       }
     }

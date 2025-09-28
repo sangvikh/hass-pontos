@@ -39,22 +39,16 @@ class PontosDropdownSelect(SelectEntity):
         self._device_info = device_info
         self._key = key
         self._config = config
-
-        self._sensor_key = config["sensor_key"]
+        self._sensor = config["sensor"]
         self._service = config["service"]
         self._options_dict = config["options"]  # code -> raw sensor value
-
-        # Create mappings
         self._code_to_raw_map = self._options_dict  # code -> raw string
         self._raw_to_code_map = {v: k for k, v in self._code_to_raw_map.items()}  # raw -> code
-
-        serial = device_info["serial_number"]
-        self._sensor_unique_id = slugify(f"{serial}_{self._sensor_key}")
-
-        self._attr_name = config.get("name")
+        self._sensor_unique_id = slugify(f"{device_info["serial_number"]}_{self._sensor}")
+        self._attr_entity_category = config.get("entity_category", None)
         self._attr_translation_key = key
         self._attr_has_entity_name = True
-        self._attr_unique_id = slugify(f"{serial}_{key}_select")
+        self._attr_unique_id = slugify(f"{device_info["serial_number"]}_{key}_select")
         self._attr_options = list(self._code_to_raw_map.values())  # raw values as options
         self._attr_current_option = None
         self._available = True
