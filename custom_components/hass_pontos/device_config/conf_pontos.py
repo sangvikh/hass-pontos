@@ -240,7 +240,7 @@ BUTTONS = {
     }
 }
 
-SELECT_CONFIG = {
+SELECTORS = {
     "profile_select": {
         "name": "Profile select",
         "type": "profile_select"

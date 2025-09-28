@@ -310,7 +310,7 @@ BUTTONS = {
     }
 }
 
-SELECT_CONFIG = {
+SELECTORS = {
     "regeneration_mode": {
         "name": "Regeneration Mode",
         "options": REGEN_MODE_CODES,

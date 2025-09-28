@@ -16,12 +16,12 @@ async def async_setup_entry(hass, entry, async_add_entities):
     """Set up select entities from config."""
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
-    SELECT_CONFIG = device_const.SELECT_CONFIG
+    SELECTORS = device_const.SELECTORS
 
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
     entities = []
 
-    for key, config in SELECT_CONFIG.items():
+    for key, config in SELECTORS.items():
         select_type = config.get("type", "default")
 
         if select_type == "profile_select":
@@ -44,16 +44,9 @@ class PontosDropdownSelect(SelectEntity):
         self._service = config["service"]
         self._options_dict = config["options"]  # code -> raw sensor value
 
-        # Create reverse mapping: raw sensor value -> code
-        self._raw_to_code_map = {v: k for k, v in self._options_dict.items()}
-
-        # Create user-friendly labels for options from raw sensor values
-        self._code_to_label_map = {
-            code: self._make_label_from_raw(raw)
-            for code, raw in self._options_dict.items()
-        }
-        # Reverse: label -> code
-        self._reverse_label_map = {label: code for code, label in self._code_to_label_map.items()}
+        # Create mappings
+        self._code_to_raw_map = self._options_dict  # code -> raw string
+        self._raw_to_code_map = {v: k for k, v in self._code_to_raw_map.items()}  # raw -> code
 
         serial = device_info["serial_number"]
         self._sensor_unique_id = slugify(f"{serial}_{self._sensor_key}")
@@ -62,16 +55,10 @@ class PontosDropdownSelect(SelectEntity):
         self._attr_translation_key = key
         self._attr_has_entity_name = True
         self._attr_unique_id = slugify(f"{serial}_{key}_select")
-        self._attr_options = list(self._code_to_label_map.values())
+        self._attr_options = list(self._code_to_raw_map.values())  # raw values as options
         self._attr_current_option = None
         self._available = True
         self._sensor_entity_id = None
-
-    def _make_label_from_raw(self, raw_value: str) -> str:
-        # Convert raw sensor values like "mode_eco" to "Eco"
-        if raw_value.startswith("mode_"):
-            raw_value = raw_value[len("mode_"):]
-        return raw_value.replace("_", " ").title()
 
     async def async_added_to_hass(self):
         registry = er.async_get(self._hass)
@@ -103,20 +90,19 @@ class PontosDropdownSelect(SelectEntity):
             self.async_write_ha_state()
 
     def _update_current_option(self, state_value):
-        # Map sensor raw value -> code -> label
         code = self._raw_to_code_map.get(state_value)
         if code is None:
             _LOGGER.warning(f"{self._key} state value '{state_value}' not in options")
             return
 
-        label = self._code_to_label_map.get(code)
-        if label and label != self._attr_current_option:
-            _LOGGER.debug(f"{self._key} updated to '{label}'")
-            self._attr_current_option = label
+        raw_value = self._code_to_raw_map.get(code)
+        if raw_value and raw_value != self._attr_current_option:
+            _LOGGER.debug(f"{self._key} updated to '{raw_value}'")
+            self._attr_current_option = raw_value
             self.async_write_ha_state()
 
     async def async_select_option(self, option: str):
-        code = self._reverse_label_map.get(option)
+        code = self._raw_to_code_map.get(option)
         if code is None:
             _LOGGER.warning(f"No matching code for option: {option}")
             return
