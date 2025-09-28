@@ -200,7 +200,7 @@
               "name": "Mode de régénération",
               "state": {
                   "mode_standard": "Standard",
-                  "mde_eco": "ÉCO",
+                  "mode_eco": "ÉCO",
                   "mode_power": "Puissance",
                   "mode_automatic": "Automatique"
               }

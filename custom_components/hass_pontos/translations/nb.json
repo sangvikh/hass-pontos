@@ -200,7 +200,7 @@
               "name": "Regenereringsmodus",
               "state": {
                   "mode_standard": "Standard",
-                  "mde_eco": "ECO",
+                  "mode_eco": "ECO",
                   "mode_power": "Kraft",
                   "mode_automatic": "Automatisk"
               }
