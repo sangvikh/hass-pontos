@@ -36,17 +36,12 @@ The integration provides the following sensors in Home Assistant:
 | Valve status               | Current valve status               |           |
 | Water conductivity         | Water conductivity                 | µS/cm     |
 | Water hardness             | Water hardness                     | dH        |
-| Raw water hardness         | Inlet water hardness (NeoSoft)     | °dH       |
-| Treated water hardness     | Outlet water hardness (NeoSoft)    | °dH       |
-| Target water hardness      | Configured outlet hardness (NeoSoft)| °dH      |
-| Salt level                 | Remaining salt in the brine tank (NeoSoft) | % |
-| Salt alarm                 | Salt refill warning (NeoSoft)      |           |
-| Regeneration state         | Current regeneration step (NeoSoft)|           |
-| Last regeneration trigger  | Last reason for regeneration (NeoSoft)|        |
-| Regeneration time remaining| Time remaining for current regeneration (NeoSoft)| min |
-| Water until regeneration   | Remaining water before next regeneration (NeoSoft)| L |
-| Days since last regeneration| Days passed since last regeneration (NeoSoft)| d |
-| Next regeneration time     | Scheduled time for the next regeneration (NeoSoft)|           |
+| Raw water hardness         | Inlet water hardness               | °dH       |
+| Treated water hardness     | Outlet water hardness              | °dH       |
+| Salt quantity              | Remaining salt in the brine tank   | kg        |
+| Salt stock                 | Remaining duration of salt         | weeks     |
+| Regeneration status        | Current regeneration status        |           |
+| Regeneration time remaining| Remaining regeneratio time         | s         |
 | Microleakage test interval | Microleakage test schedule         |           |
 | Profile 1-8 name           | Name of each profile               |           |
 
@@ -65,10 +60,7 @@ The integration provides the following Home Assistant services:
 | `hass_pontos.microleakage_test` | Starts a microleakage test                  |
 | `hass_pontos.microleakage_time` | Sets the time for the microleakage test     |
 | `hass_pontos.microleakage_schedule` | Sets the schedule for microleakage test |
-| `hass_pontos.start_regeneration` | Starts a manual regeneration on NeoSoft |
-| `hass_pontos.stop_regeneration` | Cancels the running NeoSoft regeneration |
-| `hass_pontos.set_target_hardness` | Sets the treated water hardness on NeoSoft |
-| `hass_pontos.set_operating_mode` | Switches the NeoSoft operating mode |
+| `hass_pontos.set_regeneration_mode` | Switches the NeoSoft regeneration mode |
 | `hass_pontos.generic_service` | Sends a custom command to the device           |
 
 *Note: Available services may depend on your device model.*

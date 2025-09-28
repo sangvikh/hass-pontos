@@ -9,7 +9,7 @@ cd $TARGET_DIR
 
 # Remove the existing directory and create a new one
 sudo rm -rf hass_pontos
-mkdir hass_pontos
+sudo mkdir hass_pontos
 
 # Create hard links for the main files
 sudo ln $SOURCE_DIR/* $TARGET_DIR/hass_pontos/
@@ -18,12 +18,12 @@ sudo ln $SOURCE_DIR/* $TARGET_DIR/hass_pontos/
 cd hass_pontos
 
 # Create the translations directory and hard link the translation files
-mkdir translations
+sudo mkdir translations
 cd translations
 sudo ln $SOURCE_DIR/translations/* .
 
 cd ..
-mkdir device_config
+sudo mkdir device_config
 cd device_config
 sudo ln $SOURCE_DIR/device_config/* . 
 

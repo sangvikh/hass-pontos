@@ -9,6 +9,7 @@ Run with python from terminal, specify which sensor to simulate using '--device=
 python3 serve.py --device safetech
 python3 serve.py --device pontos
 python3 serve.py --device safetech_v4
+python3 serve.py --device neosoft
 ````
 
 ## Hardlinking into home assistant

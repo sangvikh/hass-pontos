@@ -50,33 +50,45 @@ VALVE_CODES = {
     "21": STATE_OPENING
 }
 
+MICROLEAKAGE_SCHEDULE_CODES = {
+    "1": "daily",
+    "2": "weekly",
+    "3": "monthly"
+}
+
+WIFI_STATUS_CODES = {
+    "0": "not_connected",
+    "1": "connecting",
+    "2": "connected"
+}
+
 SENSOR_DETAILS = {
     "total_consumption": {
         "name": "Total water consumption",
         "endpoint": "getVOL",
         "unit": "L",
-        "device_class": "water",
+        "device_class": SensorDeviceClass.WATER,
         "state_class": "total_increasing"
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
-        "device_class": "pressure",
+        "device_class": SensorDeviceClass.PRESSURE,
         "scale": 0.001
     },
     "water_temperature": {
         "name": "Water temperature",
         "endpoint": "getCEL",
         "unit": "°C",
-        "device_class": "temperature",
+        "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1
     },
     "water_flow": {
         "name": "Water flow",
         "endpoint": "getFLO",
         "unit": "L/min",
-        "device_class": "volume_flow_rate",
+        "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
         "scale": 1
     },
     "no_pulse_time": {
@@ -96,14 +108,14 @@ SENSOR_DETAILS = {
         "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
-        "device_class": "pressure",
+        "device_class": SensorDeviceClass.PRESSURE,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": {"0":"Not connected","1":"Connecting","2":"Connected"}
+        "code_dict": WIFI_STATUS_CODES
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
@@ -115,7 +127,7 @@ SENSOR_DETAILS = {
         "name": "Battery voltage",
         "endpoint": "getBAT",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -123,7 +135,7 @@ SENSOR_DETAILS = {
         "name": "Mains voltage",
         "endpoint": "getNET",
         "unit": "V",
-        "device_class": "voltage",
+        "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -187,7 +199,7 @@ SENSOR_DETAILS = {
         "microleakage_schedule": {
         "name": "Microleakage test schedule",
         "endpoint": "getDRP",
-        "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
+        "code_dict": MICROLEAKAGE_SCHEDULE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "microleakage_status": {
@@ -251,9 +263,17 @@ SERVICES = {
         "name": "Clear alarms",
         "endpoint": "set/ala/255"
     },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "endpoint": "set/wrn/255"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "endpoint": "set/not/255"
+    },
     "set_profile": {
         "name": "Set Profile",
-        "endpoint": "set/prf/{profile_number}"
+        "endpoint": "set/prf/{data}"
     },
     "microleakage_test": {
         "name": "Start microleakage test",
@@ -261,14 +281,52 @@ SERVICES = {
     },
     "microleakage_time": {
         "name": "Set microleakage test time",
-        "endpoint": "set/dtt/{time}"
+        "endpoint": "set/dtt/{data}"
     },
     "microleakage_schedule": {
         "name": "Set microleakage test schedule",
-        "endpoint": "set/drp/{schedule}"
+        "endpoint": "set/drp/{data}"
     },
     "generic_service": {
         "name": "Generic service call",
         "endpoint": "set/{endpoint}/{data}"
+    },
+}
+
+BUTTONS = {
+    "clear_alarms": {
+        "name": "Clear alarms",
+        "service": "clear_alarms",
+        "availability_sensor": "alarm_status"
+    },
+    "clear_warnings": {
+        "name": "Clear warnings",
+        "service": "clear_warnings",
+        "availability_sensor": "warning_status"
+    },
+    "clear_notifications": {
+        "name": "Clear notifications",
+        "service": "clear_notifications",
+        "availability_sensor": "notification_status"
+    },
+    "microleakage_test": {
+        "name": "Start microleakage test",
+        "service": "microleakage_test",
+        "availability_sensor": "Microleakage test status",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    }
+}
+
+SELECTORS = {
+    "profile_select": {
+        "name": "Profile",
+        "type": "profile_select"
+    },
+    "microleakage_schedule": {
+        "name": "Microleakage test interval",
+        "options": MICROLEAKAGE_SCHEDULE_CODES,
+        "sensor": "Microleakage test schedule",
+        "service": "microleakage_schedule",
+        "entity_category": EntityCategory.DIAGNOSTIC
     },
 }

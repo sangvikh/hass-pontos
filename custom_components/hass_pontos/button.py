@@ -7,77 +7,88 @@ from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers import entity_registry as er
 from homeassistant.const import STATE_UNAVAILABLE
 
-from .const import DOMAIN
+from .const import DOMAIN, MAKES, CONF_MAKE
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
-    # Fetch device info
+    make = entry.data.get(CONF_MAKE)
+    device_const = MAKES[make]
+    BUTTONS = device_const.BUTTONS
+
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
 
-    # Instantiate button
-    reset_button = PontosClearAlarmsButton(hass, entry, device_info)
-    
-    # Add entities
-    async_add_entities([reset_button], True)
+    buttons = [
+        PontosServiceButton(hass, entry, device_info, key, config)
+        for key, config in BUTTONS.items()
+    ]
 
-class PontosClearAlarmsButton(ButtonEntity):
-    """Button to clear alarms on the Pontos Base device."""
+    async_add_entities(buttons, True)
 
-    def __init__(self, hass, entry, device_info):
-        """Initialize the button."""
+
+class PontosServiceButton(ButtonEntity):
+    def __init__(self, hass, entry, device_info, key, config):
         self._hass = hass
         self._entry = entry
-        self._attr_translation_key = "clear_alarms"
-        self._attr_has_entity_name = True
-        self._attr_unique_id = slugify(f"{device_info['serial_number']}_clear_alarms")
         self._device_info = device_info
-        self._availability_sensor_unique_id = slugify(f"{device_info['serial_number']}_alarm_status")
+        self._key = key
+        self._config = config
+        self._attr_translation_key = key
+        self._attr_has_entity_name = True
+        self._attr_entity_category = config.get("entity_category", None)
+        self._attr_unique_id = slugify(f"{device_info['serial_number']}_{key}")
+        self._availability_sensor_unique_id = None
         self._available = True
 
-    async def async_press(self):
-        """Handle the button press to clear alarms."""
-        LOGGER.info("Clear Alarms button pressed")
-        await self._hass.services.async_call(
-            DOMAIN, 
-            "clear_alarms",  # Assuming the service name for clearing alarms is "clear_alarms"
-            service_data={"entry_id": self._entry.entry_id}
-        )
+        availability_sensor_key = config.get("availability_sensor")
+        if availability_sensor_key:
+            self._availability_sensor_unique_id = slugify(f"{device_info['serial_number']}_{availability_sensor_key}")
 
     async def async_added_to_hass(self):
-        """When entity is added to hass."""
         await super().async_added_to_hass()
 
-        # Get the entity ID of the alarm sensor using the unique ID
+        if not self._availability_sensor_unique_id:
+            return
+
         entity_registry = er.async_get(self._hass)
         sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._availability_sensor_unique_id)
-        
+
         if sensor_entity_id:
-            # Fetch the initial availability from the alarm sensor entity
             sensor_state = self._hass.states.get(sensor_entity_id)
             self._available = sensor_state.state != STATE_UNAVAILABLE if sensor_state else False
-            LOGGER.debug(f"Fetched initial alarm state availability: {self._available}")
             self.async_write_ha_state()
 
-            # Register state change listener
-            LOGGER.debug(f"Registering state change listener for {sensor_entity_id}")
             async_track_state_change_event(
                 self._hass,
                 sensor_entity_id,
                 self._sensor_state_changed
             )
         else:
-            LOGGER.error(f"Alarm sensor with unique ID {self._alarm_availability_sensor_unique_id} not found")
+            LOGGER.warning(f"Availability sensor {self._availability_sensor_unique_id} not found")
             self._available = False
             self.async_write_ha_state()
 
     @callback
     def _sensor_state_changed(self, event):
-        new_state = event.data.get('new_state')
+        new_state = event.data.get("new_state")
         if new_state is not None:
             self._available = new_state.state != STATE_UNAVAILABLE
-            if new_state is not None:
-                self.async_write_ha_state()
+            self.async_write_ha_state()
+
+    async def async_press(self):
+        """Handle button press."""
+        service = self._config.get("service")
+        if not service:
+            LOGGER.error(f"No service defined for button {self._key}")
+            return
+
+        LOGGER.info(f"Button pressed: {self._key} → calling service {service}")
+        await self._hass.services.async_call(
+            DOMAIN,
+            service,
+            service_data={"entry_id": self._entry.entry_id},
+        )
 
     @property
     def unique_id(self):

@@ -11,7 +11,6 @@ HACS integration for Hansgrohe Pontos and SYR water meters
 * Adds sensors for water consumption, water pressure, water temperature +++
 * Monitors NeoSoft-specific values such as salt level and regeneration state
 * Opening/Closing of water valve
-* Clearing alarms and triggering NeoSoft regeneration cycles
 
 ## Supported devices
 
