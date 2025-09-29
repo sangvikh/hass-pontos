@@ -320,7 +320,7 @@ SELECTORS = {
     "regeneration_mode": {
         "name": "Regeneration Mode",
         "options": REGEN_MODE_CODES,
-        "sensor": "Regeneration Mode",
+        "sensor": "regeneration_mode",
         "service": "set_regeneration_mode"
     }
 }

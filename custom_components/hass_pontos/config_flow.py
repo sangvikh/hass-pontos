@@ -6,7 +6,7 @@ from .utils import fetch_data
 from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    VERSION = 4
+    VERSION = 5
     CONNECTION_CLASS = config_entries.CONN_CLASS_LOCAL_POLL
 
     async def async_step_user(self, user_input=None):
