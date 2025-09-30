@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'select']
+PLATFORMS = ['sensor', 'button', 'select', 'time_entry']
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -322,5 +322,14 @@ SELECTORS = {
         "options": REGEN_MODE_CODES,
         "sensor": "Regeneration Mode",
         "service": "set_regeneration_mode"
+    }
+}
+
+TIME_ENTRIES = {
+    "regeneration_time": {
+        "name": "Regeneration time",
+        "sensor": "Regeneration time",
+        "service": "set_regeneration_time",
+        "entity_category": EntityCategory.DIAGNOSTIC
     }
 }

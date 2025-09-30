@@ -241,6 +241,9 @@
           "skipped": "Test hoppet over"
         }
       },
+        "microleakage_time": {
+          "name": "Tid for mikrolekkasjetest"
+        },
       "profile_name_1": {
         "name": "Profilnavn 1"
       },
@@ -299,12 +302,21 @@
         }
       },
       "microleakage_schedule": {
-        "name": "Microleakage test interval",
+        "name": "Mikrolekkasje testintervall",
         "state": {
           "daily": "Daglig",
           "weekly": "Ukentlig",
           "monthly": "Månedlig"
         }
+      }
+    }
+    ,
+    "time": {
+      "microleakage_time": {
+        "name": "Tid for mikrolekkasjetest"
+      },
+      "regeneration_time": {
+        "name": "Tid for regenerering"
       }
     }
   }

@@ -232,6 +232,9 @@
           "monthly": "Monthly"
         }
       },
+      "microleakage_time": {
+        "name": "Microleakage test time"
+      },
       "microleakage_status": {
         "name": "Microleakage test status",
         "state": {
@@ -305,6 +308,15 @@
           "weekly": "Weekly",
           "monthly": "Monthly"
         }
+      }
+    }
+    ,
+    "time": {
+      "microleakage_time": {
+        "name": "Microleakage test time"
+      },
+      "regeneration_time": {
+        "name": "Regeneration time"
       }
     }
   }

@@ -208,6 +208,11 @@ SENSOR_DETAILS = {
         "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
+        "microleakage_time": {
+        "name": "Microleakage test time",
+        "endpoint": "getDTT",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
         "profile_name_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
@@ -329,4 +334,13 @@ SELECTORS = {
         "service": "microleakage_schedule",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
+}
+
+TIME_ENTRIES = {
+    "microleakage_time": {
+        "name": "Microleakage test time",
+        "sensor": "Microleakage test time",
+        "service": "microleakage_time",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    }
 }

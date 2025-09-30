@@ -232,6 +232,9 @@
           "monthly": "Mensuel"
         }
       },
+        "microleakage_time": {
+          "name": "Heure du test de microfuite"
+        },
       "microleakage_status": {
         "name": "Statut du test microfuite",
         "state": {
@@ -305,6 +308,15 @@
           "weekly": "Hebdomadaire",
           "monthly": "Mensuel"
         }
+      }
+    }
+    ,
+    "time": {
+      "microleakage_time": {
+        "name": "Heure du test de microfuite"
+      },
+      "regeneration_time": {
+        "name": "Heure de régénération"
       }
     }
   }
