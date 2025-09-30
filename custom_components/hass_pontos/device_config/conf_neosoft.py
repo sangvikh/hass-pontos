@@ -333,3 +333,13 @@ TIME_ENTRIES = {
         "entity_category": EntityCategory.DIAGNOSTIC
     }
 }
+
+SWITCHES = {
+    "buzzer": {
+        "name": "Buzzer",
+        "sensor": "Buzzer enabled",
+        "service_on": "enable_buzzer",
+        "service_off": "disable_buzzer",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    }
+}

@@ -309,8 +309,12 @@
           "monthly": "Monatlich"
         }
       }
-    }
-    ,
+  },
+    "switch": {
+      "buzzer": {
+        "name": "Summer"
+      }
+    },
     "time": {
       "microleakage_time": {
         "name": "Mikroleckage-Testzeit"

@@ -309,8 +309,12 @@
           "monthly": "Monthly"
         }
       }
-    }
-    ,
+    },
+    "switch": {
+      "buzzer": {
+        "name": "Buzzer"
+      }
+    },
     "time": {
       "microleakage_time": {
         "name": "Microleakage test time"

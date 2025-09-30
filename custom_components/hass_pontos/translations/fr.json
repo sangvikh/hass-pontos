@@ -309,8 +309,12 @@
           "monthly": "Mensuel"
         }
       }
-    }
-    ,
+  },
+    "switch": {
+      "buzzer": {
+        "name": "Buzzer"
+      }
+    },
     "time": {
       "microleakage_time": {
         "name": "Heure du test de microfuite"
