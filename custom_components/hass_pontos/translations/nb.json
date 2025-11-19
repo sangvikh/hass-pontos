@@ -83,10 +83,10 @@
         "name": "Nettspenning"
       },
       "serial_number": {
-        "name": "Produksjonsnummer"
+        "name": "Serienummer"
       },
       "firmware_version": {
-        "name": "Firmware versjon"
+        "name": "Firmwareversjon"
       },
       "device_type": {
         "name": "Enhetstype"
