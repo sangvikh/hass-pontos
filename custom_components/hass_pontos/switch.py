@@ -75,7 +75,8 @@ class PontosSwitch(SwitchEntity):
             self.async_write_ha_state()
 
     def _update_state(self, state_value):
-        self._state = state_value.lower() == "on"
+        value_str = str(state_value).lower()
+        self._state = value_str in ("true", "on", "1")
 
     async def async_turn_on(self, **kwargs):
         """Turn the switch on."""
