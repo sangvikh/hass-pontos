@@ -65,6 +65,12 @@ REGEN_MODE_CODES = {
     "4": "mode_automatic",
 }
 
+REGEN_SCHEDULE_CODES = {
+    1: "1_day",
+    2: "2_days",
+    3: "3_days",
+}
+
 WIFI_STATUS_CODES = {
     "0": "not_connected",
     "1": "connecting",
@@ -179,7 +185,7 @@ SENSOR_DETAILS = {
         "unit": "L",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "regeneration_schedule": {
+    "regeneration_interval": {
         "name": "Regeneration interval",
         "endpoint": "getRPD",
         "unit": "days",
@@ -326,9 +332,9 @@ SELECTORS = {
     },
     "regeneration_interval": {
         "name": "Regeneration interval",
-        "options": REGEN_MODE_CODES,
         "sensor": "Regeneration interval",
         "service": "set_regeneration_interval",
+        "options": REGEN_SCHEDULE_CODES,
         "entity_category": EntityCategory.CONFIG
     }
 }

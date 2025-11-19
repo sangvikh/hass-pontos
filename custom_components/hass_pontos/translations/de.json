@@ -308,6 +308,14 @@
           "weekly": "Wöchentlich",
           "monthly": "Monatlich"
         }
+      },
+      "regeneration_interval": {
+        "name": "Regenerationsintervall",
+        "state": {
+          "1_day": "1 Tag",
+          "2_days": "2 Tage",
+          "3_days": "3 Tage"
+        }
       }
   },
     "switch": {

@@ -308,6 +308,14 @@
           "weekly": "Ukentlig",
           "monthly": "Månedlig"
         }
+      },
+      "regeneration_interval": {
+        "name": "Regeneraringsintervall",
+        "state": {
+          "1_day": "1 dag",
+          "2_days": "2 dager",
+          "3_days": "3 dager"
+        }
       }
     },
     "switch": {
