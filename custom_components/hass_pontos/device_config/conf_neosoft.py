@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'select', 'time_entry']
+PLATFORMS = ['sensor', 'button', 'select', 'switch', 'time']
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
