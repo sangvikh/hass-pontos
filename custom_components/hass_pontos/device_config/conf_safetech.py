@@ -332,7 +332,7 @@ SELECTORS = {
         "options": MICROLEAKAGE_SCHEDULE_CODES,
         "sensor": "Microleakage test schedule",
         "service": "microleakage_schedule",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.CONFIG
     },
 }
 
@@ -341,6 +341,6 @@ TIME_ENTRIES = {
         "name": "Microleakage test time",
         "sensor": "Microleakage test time",
         "service": "microleakage_time",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.CONFIG
     }
 }

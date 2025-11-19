@@ -330,7 +330,7 @@ TIME_ENTRIES = {
         "name": "Regeneration time",
         "sensor": "Regeneration time",
         "service": "set_regeneration_time",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.CONFIG
     }
 }
 
@@ -340,6 +340,6 @@ SWITCHES = {
         "sensor": "Buzzer enabled",
         "service_on": "enable_buzzer",
         "service_off": "disable_buzzer",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.CONFIG
     }
 }
