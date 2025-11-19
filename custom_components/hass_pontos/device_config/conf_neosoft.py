@@ -321,7 +321,8 @@ SELECTORS = {
         "name": "Regeneration Mode",
         "options": REGEN_MODE_CODES,
         "sensor": "Regeneration Mode",
-        "service": "set_regeneration_mode"
+        "service": "set_regeneration_mode",
+        "entity_category": EntityCategory.CONFIG
     }
 }
 
