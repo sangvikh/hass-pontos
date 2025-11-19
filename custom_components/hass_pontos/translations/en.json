@@ -115,8 +115,8 @@
       "reserve_capacity_bottle_2": {
         "name": "Reserve capacity bottle 2"
       },
-      "regeneration_schedule": {
-        "name": "Regeneration schedule"
+      "regeneration_interval": {
+        "name": "Regeneration interval"
       },
       "regeneration_time": {
         "name": "Regeneration time"
@@ -232,6 +232,9 @@
           "monthly": "Monthly"
         }
       },
+      "microleakage_time": {
+        "name": "Microleakage test time"
+      },
       "microleakage_status": {
         "name": "Microleakage test status",
         "state": {
@@ -305,6 +308,27 @@
           "weekly": "Weekly",
           "monthly": "Monthly"
         }
+      },
+      "regeneration_interval": {
+        "name": "Regeneration interval",
+        "state": {
+          "1_day": "1 day",
+          "2_days": "2 days",
+          "3_days": "3 days"
+        }
+      }
+    },
+    "switch": {
+      "buzzer": {
+        "name": "Buzzer"
+      }
+    },
+    "time": {
+      "microleakage_time": {
+        "name": "Microleakage test time"
+      },
+      "regeneration_time": {
+        "name": "Regeneration time"
       }
     }
   }

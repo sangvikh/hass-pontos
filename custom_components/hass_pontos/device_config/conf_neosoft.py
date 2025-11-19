@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'select']
+PLATFORMS = ['sensor', 'button', 'select', 'switch', 'time']
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -63,6 +63,12 @@ REGEN_MODE_CODES = {
     "2": "mode_eco",
     "3": "mode_power",
     "4": "mode_automatic",
+}
+
+REGEN_SCHEDULE_CODES = {
+    1: "1_day",
+    2: "2_days",
+    3: "3_days",
 }
 
 WIFI_STATUS_CODES = {
@@ -179,8 +185,8 @@ SENSOR_DETAILS = {
         "unit": "L",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-    "regeneration_schedule": {
-        "name": "Regeneration schedule",
+    "regeneration_interval": {
+        "name": "Regeneration interval",
         "endpoint": "getRPD",
         "unit": "days",
         "entity_category": EntityCategory.DIAGNOSTIC
@@ -318,9 +324,36 @@ BUTTONS = {
 
 SELECTORS = {
     "regeneration_mode": {
-        "name": "Regeneration Mode",
+        "name": "Regeneration mode",
         "options": REGEN_MODE_CODES,
-        "sensor": "Regeneration Mode",
-        "service": "set_regeneration_mode"
+        "sensor": "Regeneration mode",
+        "service": "set_regeneration_mode",
+        "entity_category": EntityCategory.CONFIG
+    },
+    "regeneration_interval": {
+        "name": "Regeneration interval",
+        "sensor": "Regeneration interval",
+        "service": "set_regeneration_interval",
+        "options": REGEN_SCHEDULE_CODES,
+        "entity_category": EntityCategory.CONFIG
+    }
+}
+
+TIME_ENTRIES = {
+    "regeneration_time": {
+        "name": "Regeneration time",
+        "sensor": "Regeneration time",
+        "service": "set_regeneration_time",
+        "entity_category": EntityCategory.CONFIG
+    }
+}
+
+SWITCHES = {
+    "buzzer": {
+        "name": "Buzzer",
+        "sensor": "Buzzer enabled",
+        "service_on": "enable_buzzer",
+        "service_off": "disable_buzzer",
+        "entity_category": EntityCategory.CONFIG
     }
 }

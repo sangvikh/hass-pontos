@@ -115,8 +115,8 @@
       "reserve_capacity_bottle_2": {
         "name": "Reservekapazität Flasche 2"
       },
-      "regeneration_schedule": {
-        "name": "Regenerationsplan"
+      "regeneration_interval": {
+        "name": "Regenerationsintervall"
       },
       "regeneration_time": {
         "name": "Regenerationszeit"
@@ -232,6 +232,9 @@
           "monthly": "Monatlich"
         }
       },
+      "microleakage_time": {
+        "name": "Mikroleckage-Testzeit"
+      },
       "microleakage_status": {
         "name": "Status der Mikroleckage",
         "state": {
@@ -305,6 +308,27 @@
           "weekly": "Wöchentlich",
           "monthly": "Monatlich"
         }
+      },
+      "regeneration_interval": {
+        "name": "Regenerationsintervall",
+        "state": {
+          "1_day": "1 Tag",
+          "2_days": "2 Tage",
+          "3_days": "3 Tage"
+        }
+      }
+  },
+    "switch": {
+      "buzzer": {
+        "name": "Summer"
+      }
+    },
+    "time": {
+      "microleakage_time": {
+        "name": "Mikroleckage-Testzeit"
+      },
+      "regeneration_time": {
+        "name": "Regenerationszeit"
       }
     }
   }

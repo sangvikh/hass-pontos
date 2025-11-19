@@ -2,7 +2,7 @@ from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOS
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'valve', 'select']
+PLATFORMS = ['sensor', 'button', 'valve', 'select', 'time']
 
 MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
@@ -208,6 +208,11 @@ SENSOR_DETAILS = {
         "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
+        "microleakage_time": {
+        "name": "Microleakage test time",
+        "endpoint": "getDTT",
+        "entity_category": EntityCategory.DIAGNOSTIC
+    },
         "profile_name_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
@@ -327,6 +332,15 @@ SELECTORS = {
         "options": MICROLEAKAGE_SCHEDULE_CODES,
         "sensor": "Microleakage test schedule",
         "service": "microleakage_schedule",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.CONFIG
     },
+}
+
+TIME_ENTRIES = {
+    "microleakage_time": {
+        "name": "Microleakage test time",
+        "sensor": "Microleakage test time",
+        "service": "microleakage_time",
+        "entity_category": EntityCategory.CONFIG
+    }
 }

@@ -83,10 +83,10 @@
         "name": "Nettspenning"
       },
       "serial_number": {
-        "name": "Produksjonsnummer"
+        "name": "Serienummer"
       },
       "firmware_version": {
-        "name": "Firmware versjon"
+        "name": "Firmwareversjon"
       },
       "device_type": {
         "name": "Enhetstype"
@@ -115,7 +115,7 @@
       "reserve_capacity_bottle_2": {
         "name": "Reservekapasitet flaske 2"
       },
-      "regeneration_schedule": {
+      "regeneration_interval": {
         "name": "Regeneraringsintervall"
       },
       "regeneration_time": {
@@ -241,6 +241,9 @@
           "skipped": "Test hoppet over"
         }
       },
+        "microleakage_time": {
+          "name": "Tid for mikrolekkasjetest"
+        },
       "profile_name_1": {
         "name": "Profilnavn 1"
       },
@@ -299,12 +302,33 @@
         }
       },
       "microleakage_schedule": {
-        "name": "Microleakage test interval",
+        "name": "Mikrolekkasje testintervall",
         "state": {
           "daily": "Daglig",
           "weekly": "Ukentlig",
           "monthly": "Månedlig"
         }
+      },
+      "regeneration_interval": {
+        "name": "Regeneraringsintervall",
+        "state": {
+          "1_day": "1 dag",
+          "2_days": "2 dager",
+          "3_days": "3 dager"
+        }
+      }
+    },
+    "switch": {
+      "buzzer": {
+        "name": "Buzzer"
+      }
+    },
+    "time": {
+      "microleakage_time": {
+        "name": "Tid for mikrolekkasjetest"
+      },
+      "regeneration_time": {
+        "name": "Tid for regenerering"
       }
     }
   }

@@ -84,7 +84,11 @@ class PontosDropdownSelect(SelectEntity):
             self.async_write_ha_state()
 
     def _update_current_option(self, state_value):
-        code = self._raw_to_code_map.get(state_value)
+        try:
+            code = int(state_value)
+        except (ValueError, TypeError):
+            code = self._raw_to_code_map.get(str(state_value).strip())
+
         if code is None:
             _LOGGER.warning(f"{self._key} state value '{state_value}' not in options")
             return

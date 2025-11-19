@@ -115,8 +115,8 @@
       "reserve_capacity_bottle_2": {
         "name": "Capacité de réserve flacon 2"
       },
-      "regeneration_schedule": {
-        "name": "Programme de régénération"
+      "regeneration_interval": {
+        "name": "Intervalle de régénération"
       },
       "regeneration_time": {
         "name": "Heure de régénération"
@@ -232,6 +232,9 @@
           "monthly": "Mensuel"
         }
       },
+        "microleakage_time": {
+          "name": "Heure du test de microfuite"
+        },
       "microleakage_status": {
         "name": "Statut du test microfuite",
         "state": {
@@ -305,6 +308,27 @@
           "weekly": "Hebdomadaire",
           "monthly": "Mensuel"
         }
+      },
+      "regeneration_interval": {
+        "name": "Intervalle de régénération",
+        "state": {
+          "1_day": "1 jour",
+          "2_days": "2 jours",
+          "3_days": "3 jours"
+        }
+      }
+  },
+    "switch": {
+      "buzzer": {
+        "name": "Buzzer"
+      }
+    },
+    "time": {
+      "microleakage_time": {
+        "name": "Heure du test de microfuite"
+      },
+      "regeneration_time": {
+        "name": "Heure de régénération"
       }
     }
   }
