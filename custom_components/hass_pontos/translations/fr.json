@@ -115,8 +115,8 @@
       "reserve_capacity_bottle_2": {
         "name": "Capacité de réserve flacon 2"
       },
-      "regeneration_schedule": {
-        "name": "Programme de régénération"
+      "regeneration_interval": {
+        "name": "Intervalle de régénération"
       },
       "regeneration_time": {
         "name": "Heure de régénération"

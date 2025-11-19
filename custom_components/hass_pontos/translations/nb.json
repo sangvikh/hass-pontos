@@ -115,7 +115,7 @@
       "reserve_capacity_bottle_2": {
         "name": "Reservekapasitet flaske 2"
       },
-      "regeneration_schedule": {
+      "regeneration_interval": {
         "name": "Regeneraringsintervall"
       },
       "regeneration_time": {

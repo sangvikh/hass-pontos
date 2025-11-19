@@ -180,7 +180,7 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "regeneration_schedule": {
-        "name": "Regeneration schedule",
+        "name": "Regeneration interval",
         "endpoint": "getRPD",
         "unit": "days",
         "entity_category": EntityCategory.DIAGNOSTIC
@@ -318,10 +318,17 @@ BUTTONS = {
 
 SELECTORS = {
     "regeneration_mode": {
-        "name": "Regeneration Mode",
+        "name": "Regeneration mode",
         "options": REGEN_MODE_CODES,
-        "sensor": "Regeneration Mode",
+        "sensor": "Regeneration mode",
         "service": "set_regeneration_mode",
+        "entity_category": EntityCategory.CONFIG
+    },
+    "regeneration_interval": {
+        "name": "Regeneration interval",
+        "options": REGEN_MODE_CODES,
+        "sensor": "Regeneration interval",
+        "service": "set_regeneration_interval",
         "entity_category": EntityCategory.CONFIG
     }
 }

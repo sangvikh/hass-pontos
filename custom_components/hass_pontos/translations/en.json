@@ -115,8 +115,8 @@
       "reserve_capacity_bottle_2": {
         "name": "Reserve capacity bottle 2"
       },
-      "regeneration_schedule": {
-        "name": "Regeneration schedule"
+      "regeneration_interval": {
+        "name": "Regeneration interval"
       },
       "regeneration_time": {
         "name": "Regeneration time"
