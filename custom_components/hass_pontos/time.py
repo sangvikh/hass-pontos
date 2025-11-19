@@ -17,7 +17,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     """Set up time entry entities from config."""
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
-    TIME_ENTRIES = device_const.get("TIME_ENTRIES", {})
+    TIME_ENTRIES = device_const.TIME_ENTRIES
 
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
     entities = []
