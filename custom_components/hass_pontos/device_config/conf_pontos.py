@@ -49,7 +49,6 @@ WIFI_STATUS_CODES = {
 
 SENSOR_DETAILS = {
     "total_consumption": {
-        "name": "Total water consumption",
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
@@ -57,7 +56,6 @@ SENSOR_DETAILS = {
         "format_dict": {"Vol[L]": ""}
     },
     "water_pressure": {
-        "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
@@ -65,19 +63,16 @@ SENSOR_DETAILS = {
         "scale": 0.001
     },
     "water_temperature": {
-        "name": "Water temperature",
         "endpoint": "getCEL",
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1
     },
     "no_pulse_time": {
-        "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
         "unit": "s"
     },
     "current_consumption": {
-        "name": "Current water consumption",
         "endpoint": "getAVO",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
@@ -86,26 +81,22 @@ SENSOR_DETAILS = {
         "scale": 0.001
     },
     "leak_test_pressure": {
-        "name": "Leak test pressure drop",
         "endpoint": "getDBD",
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "wifi_state": {
-        "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "code_dict": WIFI_STATUS_CODES
     },
     "wifi_signal_strength": {
-        "name": "Wifi signal strength",
         "endpoint": "getWFR",
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "battery_voltage": {
-        "name": "Battery voltage",
         "endpoint": "getBAT",
         "unit": "V",
         "device_class": SensorDeviceClass.VOLTAGE,
@@ -113,7 +104,6 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mains_voltage": {
-        "name": "Mains voltage",
         "endpoint": "getNET",
         "unit": "V",
         "device_class": SensorDeviceClass.VOLTAGE,
@@ -121,95 +111,77 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "serial_number": {
-        "name": "Serial number",
         "endpoint": "getSRN",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "firmware_version": {
-        "name": "Firmware version",
         "endpoint": "getVER",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "device_type": {
-        "name": "Device type",
         "endpoint": "getTYP",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "mac_address": {
-        "name": "MAC address",
         "endpoint": "getMAC",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "alarm_status": {
-        "name": "Alarm status",
         "endpoint": "getALA",
         "code_dict": ALARM_CODES
     },
     "active_profile": {
-        "name": "Active profile",
         "endpoint": "getPRF",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "valve_status": {
-        "name": "Valve status",
         "endpoint": "getVLV",
         "code_dict": VALVE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
     "water_conductivity": {
-        "name": "Water conductivity",
         "endpoint": "getCND",
         "unit": "µS/cm"
     },
     "water_hardness": {
-        "name": "Water hardness",
         "endpoint": "getCND",
         "unit": "dH",
         "scale": 1/30
     },
         "microleakage_schedule": {
-        "name": "Microleakage test interval",
         "endpoint": "getDRP",
         "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_1": {
-        "name": "Profile 1 name",
         "endpoint": "getPN1",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_2": {
-        "name": "Profile 2 name",
         "endpoint": "getPN2",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_3": {
-        "name": "Profile 3 name",
         "endpoint": "getPN3",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_4": {
-        "name": "Profile 4 name",
         "endpoint": "getPN4",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_5": {
-        "name": "Profile 5 name",
         "endpoint": "getPN5",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_6": {
-        "name": "Profile 6 name",
         "endpoint": "getPN6",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_7": {
-        "name": "Profile 7 name",
         "endpoint": "getPN7",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
         "profile_name_8": {
-        "name": "Profile 8 name",
         "endpoint": "getPN8",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
@@ -217,30 +189,24 @@ SENSOR_DETAILS = {
 
 SERVICES = {
     "open_valve": {
-        "name": "Open valve",
         "endpoint": "set/ab/1"
     },
     "close_valve": {
-        "name": "Close valve",
         "endpoint": "set/ab/2"
     },
     "clear_alarms": {
-        "name": "Clear alarms",
         "endpoint": "clr/ala"
     },
     "set_profile": {
-        "name": "Set Profile",
         "endpoint": "set/prf/{data}"
     },
     "generic_service": {
-        "name": "Generic service call",
         "endpoint": "set/{endpoint}/{data}"
     },
 }
 
 BUTTONS = {
     "clear_alarms": {
-        "name": "Clear alarms",
         "service": "clear_alarms",
         "availability_sensor": "alarm_status"
     }
@@ -248,7 +214,6 @@ BUTTONS = {
 
 SELECTORS = {
     "profile_select": {
-        "name": "Profile",
         "type": "profile_select"
     }
 }
