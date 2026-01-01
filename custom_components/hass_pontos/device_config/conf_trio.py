@@ -31,15 +31,15 @@ ALARM_CODES = {
 }
 
 NOTIFICATION_CODES = {
-    "1": "new_software_available",
-    "4": "new_software_installed",
+    "01": "new_software_available",
+    "04": "new_software_installed",
     "FF": "no_notification"
 }
 
 WARNING_CODES = {
-    "1": "power_outage",
-    "7": "leak_warning",
-    "8": "battery_low",
+    "01": "power_outage",
+    "07": "leak_warning",
+    "08": "battery_low",
     "FF": "no_warning"
 }
 
