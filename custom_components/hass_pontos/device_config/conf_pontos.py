@@ -181,9 +181,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN1",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV1",
-            "leakage_time": "getPT1",
-            "leakage_flow": "getPF1",
+            "allowed_leakage_volume": "getPV1",
+            "allowed_leakage_time": "getPT1",
+            "permissible_flow": "getPF1",
             "microleakage_test_enabled": "getPM1",
             "return_time_hours": "getPR1"
         }
@@ -193,9 +193,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN2",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV2",
-            "leakage_time": "getPT2",
-            "leakage_flow": "getPF2",
+            "allowed_leakage_volume": "getPV2",
+            "allowed_leakage_time": "getPT2",
+            "permissible_flow": "getPF2",
             "microleakage_test_enabled": "getPM2",
             "return_time_hours": "getPR2"
         }
@@ -205,9 +205,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN3",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV3",
-            "leakage_time": "getPT3",
-            "leakage_flow": "getPF3",
+            "allowed_leakage_volume": "getPV3",
+            "allowed_leakage_time": "getPT3",
+            "permissible_flow": "getPF3",
             "microleakage_test_enabled": "getPM3",
             "return_time_hours": "getPR3"
         }
@@ -217,9 +217,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN4",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV4",
-            "leakage_time": "getPT4",
-            "leakage_flow": "getPF4",
+            "allowed_leakage_volume": "getPV4",
+            "allowed_leakage_time": "getPT4",
+            "permissible_flow": "getPF4",
             "microleakage_test_enabled": "getPM4",
             "return_time_hours": "getPR4"
         }
@@ -229,9 +229,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN5",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV5",
-            "leakage_time": "getPT5",
-            "leakage_flow": "getPF5",
+            "allowed_leakage_volume": "getPV5",
+            "allowed_leakage_time": "getPT5",
+            "permissible_flow": "getPF5",
             "microleakage_test_enabled": "getPM5",
             "return_time_hours": "getPR5"
         }
@@ -241,9 +241,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN6",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV6",
-            "leakage_time": "getPT6",
-            "leakage_flow": "getPF6",
+            "allowed_leakage_volume": "getPV6",
+            "allowed_leakage_time": "getPT6",
+            "permissible_flow": "getPF6",
             "microleakage_test_enabled": "getPM6",
             "return_time_hours": "getPR6"
         }
@@ -253,9 +253,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN7",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV7",
-            "leakage_time": "getPT7",
-            "leakage_flow": "getPF7",
+            "allowed_leakage_volume": "getPV7",
+            "allowed_leakage_time": "getPT7",
+            "permissible_flow": "getPF7",
             "microleakage_test_enabled": "getPM7",
             "return_time_hours": "getPR7"
         }
@@ -265,9 +265,9 @@ SENSOR_DETAILS = {
         "endpoint": "getPN8",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "leakage_volume": "getPV8",
-            "leakage_time": "getPT8",
-            "leakage_flow": "getPF8",
+            "allowed_leakage_volume": "getPV8",
+            "allowed_leakage_time": "getPT8",
+            "permissible_flow": "getPF8",
             "microleakage_test_enabled": "getPM8",
             "return_time_hours": "getPR8"
         }
