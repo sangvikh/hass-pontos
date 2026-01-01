@@ -34,6 +34,7 @@ class PontosSensor(CoordinatorEntity, SensorEntity):
         self._format_dict = sensor_config.get('format_dict', None)
         self._code_dict = sensor_config.get('code_dict', None)
         self._scale = sensor_config.get('scale', None)
+        self._attributes = sensor_config.get("attributes", {})
         self._attr_unique_id = slugify(f"{device_info['serial_number']}_{sensor_config['name']}")
         self._device_info = device_info
 
@@ -56,6 +57,18 @@ class PontosSensor(CoordinatorEntity, SensorEntity):
     def available(self):
         data = self.coordinator.data or {}
         return self.parse_data(data) is not None
+
+    @property
+    def extra_state_attributes(self):
+        if not self._attributes:
+            return None
+
+        data = self.coordinator.data or {}
+        return {
+            attr_name: data.get(endpoint)
+            for attr_name, endpoint in self._attributes.items()
+            if data.get(endpoint) is not None
+        }
 
     # Parsing and updating sensor data
     def parse_data(self, data):

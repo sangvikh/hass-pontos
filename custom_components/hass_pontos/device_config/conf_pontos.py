@@ -143,7 +143,10 @@ SENSOR_DETAILS = {
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES
+        "code_dict": ALARM_CODES,
+        "attributes": {
+            "raw": "getALA"
+        }
     },
     "active_profile": {
         "name": "Active profile",
@@ -173,45 +176,101 @@ SENSOR_DETAILS = {
         "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-        "profile_name_1": {
+        "profile_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV1",
+            "leakage_time": "getPT1",
+            "leakage_flow": "getPF1",
+            "microleakage_test_enabled": "getPM1",
+            "return_time_hours": "getPR1"
+        }
     },
-        "profile_name_2": {
+        "profile_2": {
         "name": "Profile 2 name",
         "endpoint": "getPN2",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV2",
+            "leakage_time": "getPT2",
+            "leakage_flow": "getPF2",
+            "microleakage_test_enabled": "getPM2",
+            "return_time_hours": "getPR2"
+        }
     },
-        "profile_name_3": {
+        "profile_3": {
         "name": "Profile 3 name",
         "endpoint": "getPN3",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV3",
+            "leakage_time": "getPT3",
+            "leakage_flow": "getPF3",
+            "microleakage_test_enabled": "getPM3",
+            "return_time_hours": "getPR3"
+        }
     },
-        "profile_name_4": {
+        "profile_4": {
         "name": "Profile 4 name",
         "endpoint": "getPN4",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV4",
+            "leakage_time": "getPT4",
+            "leakage_flow": "getPF4",
+            "microleakage_test_enabled": "getPM4",
+            "return_time_hours": "getPR4"
+        }
     },
-        "profile_name_5": {
+        "profile_5": {
         "name": "Profile 5 name",
         "endpoint": "getPN5",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV5",
+            "leakage_time": "getPT5",
+            "leakage_flow": "getPF5",
+            "microleakage_test_enabled": "getPM5",
+            "return_time_hours": "getPR5"
+        }
     },
-        "profile_name_6": {
+        "profile_6": {
         "name": "Profile 6 name",
         "endpoint": "getPN6",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV6",
+            "leakage_time": "getPT6",
+            "leakage_flow": "getPF6",
+            "microleakage_test_enabled": "getPM6",
+            "return_time_hours": "getPR6"
+        }
     },
-        "profile_name_7": {
+        "profile_7": {
         "name": "Profile 7 name",
         "endpoint": "getPN7",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV7",
+            "leakage_time": "getPT7",
+            "leakage_flow": "getPF7",
+            "microleakage_test_enabled": "getPM7",
+            "return_time_hours": "getPR7"
+        }
     },
-        "profile_name_8": {
+        "profile_8": {
         "name": "Profile 8 name",
         "endpoint": "getPN8",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "leakage_volume": "getPV8",
+            "leakage_time": "getPT8",
+            "leakage_flow": "getPF8",
+            "microleakage_test_enabled": "getPM8",
+            "return_time_hours": "getPR8"
+        }
     },
 }
 
