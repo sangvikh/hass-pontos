@@ -231,26 +231,17 @@ SENSOR_DETAILS = {
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES,
-        "attributes": {
-            "raw": "getALA"
-        }
+        "code_dict": ALARM_CODES
     },
     "warning_status": {
         "name": "Warning status",
         "endpoint": "getWRN",
-        "code_dict": WARNING_CODES,
-        "attributes": {
-            "raw": "getWRN"
-        }
+        "code_dict": WARNING_CODES
     },
     "notification_status": {
         "name": "Notification status",
         "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES,
-        "attributes": {
-            "raw": "getNOT"
-        }
+        "code_dict": NOTIFICATION_CODES
     },
     "water_conductivity": {
         "name": "Water conductivity",
