@@ -90,7 +90,8 @@ SENSOR_DETAILS = {
         "endpoint": "getDBD",
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 0.1
     },
     "wifi_state": {
         "name": "Wifi state",
@@ -185,7 +186,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT1",
             "permissible_flow_liters_per_hour": "getPF1",
             "microleakage_test_enabled": "getPM1",
-            "return_to_present_after_hours": "getPR1"
+            "return_time_hours": "getPR1"
         }
     },
     "profile_2": {
@@ -197,7 +198,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT2",
             "permissible_flow_liters_per_hour": "getPF2",
             "microleakage_test_enabled": "getPM2",
-            "return_to_present_after_hours": "getPR2"
+            "return_time_hours": "getPR2"
         }
     },
     "profile_3": {
@@ -209,7 +210,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT3",
             "permissible_flow_liters_per_hour": "getPF3",
             "microleakage_test_enabled": "getPM3",
-            "return_to_present_after_hours": "getPR3"
+            "return_time_hours": "getPR3"
         }
     },
     "profile_4": {
@@ -221,7 +222,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT4",
             "permissible_flow_liters_per_hour": "getPF4",
             "microleakage_test_enabled": "getPM4",
-            "return_to_present_after_hours": "getPR4"
+            "return_time_hours": "getPR4"
         }
     },
     "profile_5": {
@@ -233,7 +234,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT5",
             "permissible_flow_liters_per_hour": "getPF5",
             "microleakage_test_enabled": "getPM5",
-            "return_to_present_after_hours": "getPR5"
+            "return_time_hours": "getPR5"
         }
     },
     "profile_6": {
@@ -245,7 +246,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT6",
             "permissible_flow_liters_per_hour": "getPF6",
             "microleakage_test_enabled": "getPM6",
-            "return_to_present_after_hours": "getPR6"
+            "return_time_hours": "getPR6"
         }
     },
     "profile_7": {
@@ -257,7 +258,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT7",
             "permissible_flow_liters_per_hour": "getPF7",
             "microleakage_test_enabled": "getPM7",
-            "return_to_present_after_hours": "getPR7"
+            "return_time_hours": "getPR7"
         }
     },
     "profile_8": {
@@ -269,7 +270,7 @@ SENSOR_DETAILS = {
             "allowed_leakage_time_minutes": "getPT8",
             "permissible_flow_liters_per_hour": "getPF8",
             "microleakage_test_enabled": "getPM8",
-            "return_to_present_after_hours": "getPR8"
+            "return_time_hours": "getPR8"
         }
     },
 }

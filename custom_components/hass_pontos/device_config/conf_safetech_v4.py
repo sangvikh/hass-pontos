@@ -95,7 +95,8 @@ SENSOR_DETAILS = {
         "endpoint": "getDBD",
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "scale": 0.1
     },
     "wifi_state": {
         "name": "Wifi state",
