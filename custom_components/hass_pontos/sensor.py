@@ -60,15 +60,23 @@ class PontosSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def extra_state_attributes(self):
-        if not self._attributes:
-            return None
-
         data = self.coordinator.data or {}
-        return {
-            attr_name: data.get(endpoint)
-            for attr_name, endpoint in self._attributes.items()
-            if data.get(endpoint) is not None
-        }
+        attributes = {}
+
+        # Always add the raw value of the main sensor endpoint
+        raw_value = data.get(self._endpoint)
+        if raw_value is not None:
+            attributes["raw_value"] = raw_value
+
+        # Add explicitly defined attributes
+        if self._attributes:
+            attributes.update({
+                attr_name: data.get(endpoint)
+                for attr_name, endpoint in self._attributes.items()
+                if data.get(endpoint) is not None
+            })
+
+        return attributes if attributes else None
 
     # Parsing and updating sensor data
     def parse_data(self, data):
