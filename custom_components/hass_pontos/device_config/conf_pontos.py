@@ -181,11 +181,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN1",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV1",
-            "allowed_leakage_time": "getPT1",
-            "permissible_flow": "getPF1",
+            "allowed_leakage_volume_liters": "getPV1",
+            "allowed_leakage_time_minutes": "getPT1",
+            "permissible_flow_liters_per_hour": "getPF1",
             "microleakage_test_enabled": "getPM1",
-            "return_time_hours": "getPR1"
+            "return_to_present_after_hours": "getPR1"
         }
     },
     "profile_2": {
@@ -193,11 +193,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN2",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV2",
-            "allowed_leakage_time": "getPT2",
-            "permissible_flow": "getPF2",
+            "allowed_leakage_volume_liters": "getPV2",
+            "allowed_leakage_time_minutes": "getPT2",
+            "permissible_flow_liters_per_hour": "getPF2",
             "microleakage_test_enabled": "getPM2",
-            "return_time_hours": "getPR2"
+            "return_to_present_after_hours": "getPR2"
         }
     },
     "profile_3": {
@@ -205,11 +205,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN3",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV3",
-            "allowed_leakage_time": "getPT3",
-            "permissible_flow": "getPF3",
+            "allowed_leakage_volume_liters": "getPV3",
+            "allowed_leakage_time_minutes": "getPT3",
+            "permissible_flow_liters_per_hour": "getPF3",
             "microleakage_test_enabled": "getPM3",
-            "return_time_hours": "getPR3"
+            "return_to_present_after_hours": "getPR3"
         }
     },
     "profile_4": {
@@ -217,11 +217,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN4",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV4",
-            "allowed_leakage_time": "getPT4",
-            "permissible_flow": "getPF4",
+            "allowed_leakage_volume_liters": "getPV4",
+            "allowed_leakage_time_minutes": "getPT4",
+            "permissible_flow_liters_per_hour": "getPF4",
             "microleakage_test_enabled": "getPM4",
-            "return_time_hours": "getPR4"
+            "return_to_present_after_hours": "getPR4"
         }
     },
     "profile_5": {
@@ -229,11 +229,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN5",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV5",
-            "allowed_leakage_time": "getPT5",
-            "permissible_flow": "getPF5",
+            "allowed_leakage_volume_liters": "getPV5",
+            "allowed_leakage_time_minutes": "getPT5",
+            "permissible_flow_liters_per_hour": "getPF5",
             "microleakage_test_enabled": "getPM5",
-            "return_time_hours": "getPR5"
+            "return_to_present_after_hours": "getPR5"
         }
     },
     "profile_6": {
@@ -241,11 +241,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN6",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV6",
-            "allowed_leakage_time": "getPT6",
-            "permissible_flow": "getPF6",
+            "allowed_leakage_volume_liters": "getPV6",
+            "allowed_leakage_time_minutes": "getPT6",
+            "permissible_flow_liters_per_hour": "getPF6",
             "microleakage_test_enabled": "getPM6",
-            "return_time_hours": "getPR6"
+            "return_to_present_after_hours": "getPR6"
         }
     },
     "profile_7": {
@@ -253,11 +253,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN7",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV7",
-            "allowed_leakage_time": "getPT7",
-            "permissible_flow": "getPF7",
+            "allowed_leakage_volume_liters": "getPV7",
+            "allowed_leakage_time_minutes": "getPT7",
+            "permissible_flow_liters_per_hour": "getPF7",
             "microleakage_test_enabled": "getPM7",
-            "return_time_hours": "getPR7"
+            "return_to_present_after_hours": "getPR7"
         }
     },
     "profile_8": {
@@ -265,11 +265,11 @@ SENSOR_DETAILS = {
         "endpoint": "getPN8",
         "entity_category": EntityCategory.DIAGNOSTIC,
         "attributes": {
-            "allowed_leakage_volume": "getPV8",
-            "allowed_leakage_time": "getPT8",
-            "permissible_flow": "getPF8",
+            "allowed_leakage_volume_liters": "getPV8",
+            "allowed_leakage_time_minutes": "getPT8",
+            "permissible_flow_liters_per_hour": "getPF8",
             "microleakage_test_enabled": "getPM8",
-            "return_time_hours": "getPR8"
+            "return_to_present_after_hours": "getPR8"
         }
     },
 }
