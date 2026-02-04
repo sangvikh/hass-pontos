@@ -43,20 +43,28 @@ class PontosDropdownSelect(SelectEntity):
         self._service = config["service"]
         self._options_dict = config["options"]  # code -> raw sensor value
         self._code_to_raw_map = self._options_dict  # code -> raw string
-        self._raw_to_code_map = {v: k for k, v in self._code_to_raw_map.items()}  # raw -> code
-        self._sensor_unique_id = slugify(f"{device_info["serial_number"]}_{self._sensor}")
+        self._raw_to_code_map = {
+            v: k for k, v in self._code_to_raw_map.items()
+        }  # raw -> code
+        self._sensor_unique_id = slugify(
+            f"{device_info['serial_number']}_{self._sensor}"
+        )
         self._attr_entity_category = config.get("entity_category", None)
         self._attr_translation_key = key
         self._attr_has_entity_name = True
-        self._attr_unique_id = slugify(f"{device_info["serial_number"]}_{key}_select")
-        self._attr_options = list(self._code_to_raw_map.values())  # raw values as options
+        self._attr_unique_id = slugify(f"{device_info['serial_number']}_{key}_select")
+        self._attr_options = list(
+            self._code_to_raw_map.values()
+        )  # raw values as options
         self._attr_current_option = None
         self._available = True
         self._sensor_entity_id = None
 
     async def async_added_to_hass(self):
         registry = er.async_get(self._hass)
-        self._sensor_entity_id = registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
+        self._sensor_entity_id = registry.async_get_entity_id(
+            "sensor", DOMAIN, self._sensor_unique_id
+        )
 
         if self._sensor_entity_id:
             state = self._hass.states.get(self._sensor_entity_id)
@@ -69,7 +77,9 @@ class PontosDropdownSelect(SelectEntity):
                 self._hass, self._sensor_entity_id, self._sensor_state_changed
             )
         else:
-            _LOGGER.warning(f"Sensor for {self._key} not found: {self._sensor_unique_id}")
+            _LOGGER.warning(
+                f"Sensor for {self._key} not found: {self._sensor_unique_id}"
+            )
             self._available = False
 
         self.async_write_ha_state()
@@ -112,7 +122,7 @@ class PontosDropdownSelect(SelectEntity):
             {
                 "ip_address": self._entry.options[CONF_IP_ADDRESS],
                 "data": code,
-            }
+            },
         )
         self._attr_current_option = option
         self.async_write_ha_state()

@@ -8,6 +8,7 @@ from .const import CONF_DEVICE_NAME, CONF_IP_ADDRESS, CONF_FETCH_INTERVAL
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class PontosDataUpdateCoordinator(DataUpdateCoordinator):
     def __init__(self, hass, entry, device_const):
         self.hass = hass
@@ -33,11 +34,13 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
                     self.ip_address,
                     self.url_list,
                     max_attempts=4,
-                    retry_delay=int(self.update_interval.total_seconds())
+                    retry_delay=int(self.update_interval.total_seconds()),
                 )
                 if not data:
                     self.async_set_updated_data(None)
-                    raise UpdateFailed(f"No data received from device at {self.ip_address}")
+                    raise UpdateFailed(
+                        f"No data received from device at {self.ip_address}"
+                    )
 
                 return data
 
@@ -47,4 +50,6 @@ class PontosDataUpdateCoordinator(DataUpdateCoordinator):
 
     def _update_options(self):
         self.ip_address = self.entry.options[CONF_IP_ADDRESS]
-        self.update_interval = timedelta(seconds=self.entry.options[CONF_FETCH_INTERVAL])
+        self.update_interval = timedelta(
+            seconds=self.entry.options[CONF_FETCH_INTERVAL]
+        )

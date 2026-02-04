@@ -36,7 +36,9 @@ class PontosSwitch(SwitchEntity):
         self._sensor = config["sensor"]
         self._service_on = config["service_on"]
         self._service_off = config["service_off"]
-        self._sensor_unique_id = slugify(f"{device_info['serial_number']}_{self._sensor}")
+        self._sensor_unique_id = slugify(
+            f"{device_info['serial_number']}_{self._sensor}"
+        )
         self._attr_entity_category = config.get("entity_category", None)
         self._attr_translation_key = key
         self._attr_has_entity_name = True
@@ -47,7 +49,9 @@ class PontosSwitch(SwitchEntity):
 
     async def async_added_to_hass(self):
         registry = er.async_get(self._hass)
-        self._sensor_entity_id = registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
+        self._sensor_entity_id = registry.async_get_entity_id(
+            "sensor", DOMAIN, self._sensor_unique_id
+        )
 
         if self._sensor_entity_id:
             state = self._hass.states.get(self._sensor_entity_id)
@@ -60,7 +64,9 @@ class PontosSwitch(SwitchEntity):
                 self._hass, self._sensor_entity_id, self._sensor_state_changed
             )
         else:
-            _LOGGER.warning(f"Sensor for {self._key} not found: {self._sensor_unique_id}")
+            _LOGGER.warning(
+                f"Sensor for {self._key} not found: {self._sensor_unique_id}"
+            )
             self._available = False
 
         self.async_write_ha_state()

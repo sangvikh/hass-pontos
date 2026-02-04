@@ -43,7 +43,9 @@ class PontosServiceButton(ButtonEntity):
 
         availability_sensor_key = config.get("availability_sensor")
         if availability_sensor_key:
-            self._availability_sensor_unique_id = slugify(f"{device_info['serial_number']}_{availability_sensor_key}")
+            self._availability_sensor_unique_id = slugify(
+                f"{device_info['serial_number']}_{availability_sensor_key}"
+            )
 
     async def async_added_to_hass(self):
         await super().async_added_to_hass()
@@ -52,20 +54,24 @@ class PontosServiceButton(ButtonEntity):
             return
 
         entity_registry = er.async_get(self._hass)
-        sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._availability_sensor_unique_id)
+        sensor_entity_id = entity_registry.async_get_entity_id(
+            "sensor", DOMAIN, self._availability_sensor_unique_id
+        )
 
         if sensor_entity_id:
             sensor_state = self._hass.states.get(sensor_entity_id)
-            self._available = sensor_state.state != STATE_UNAVAILABLE if sensor_state else False
+            self._available = (
+                sensor_state.state != STATE_UNAVAILABLE if sensor_state else False
+            )
             self.async_write_ha_state()
 
             async_track_state_change_event(
-                self._hass,
-                sensor_entity_id,
-                self._sensor_state_changed
+                self._hass, sensor_entity_id, self._sensor_state_changed
             )
         else:
-            LOGGER.warning(f"Availability sensor {self._availability_sensor_unique_id} not found")
+            LOGGER.warning(
+                f"Availability sensor {self._availability_sensor_unique_id} not found"
+            )
             self._available = False
             self.async_write_ha_state()
 
@@ -97,7 +103,7 @@ class PontosServiceButton(ButtonEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._device_info['identifiers'],
+            "identifiers": self._device_info["identifiers"],
         }
 
     @property

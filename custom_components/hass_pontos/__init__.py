@@ -13,6 +13,7 @@ from .const import DOMAIN, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Access which 'make' the user selected in config_flow
     make = entry.data.get(CONF_MAKE)
@@ -49,6 +50,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
     return True
 
+
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     # Dynamically figure out which device_const file to unload from
     make = entry.data.get(CONF_MAKE)
@@ -60,7 +62,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.config_entries.async_forward_entry_unload(entry, platform)
         for platform in platforms
     ]
-    
+
     results = await asyncio.gather(*tasks)
     unload_ok = all(results)
 
@@ -68,10 +70,12 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.data[DOMAIN]["entries"].pop(entry.entry_id, None)
     return unload_ok
 
+
 async def async_reload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Handle config entry reload (triggered by options flow changes)."""
     await async_unload_entry(hass, entry)
     return await async_setup_entry(hass, entry)
+
 
 async def async_migrate_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Migrate old entry data to new format/version."""

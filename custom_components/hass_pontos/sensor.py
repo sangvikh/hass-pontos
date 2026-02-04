@@ -7,6 +7,7 @@ from .const import CONF_MAKE, MAKES, DOMAIN
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
     make = entry.data.get(CONF_MAKE)
     device_const = MAKES[make]
@@ -20,21 +21,25 @@ async def async_setup_entry(hass, entry, async_add_entities):
     ]
     async_add_entities(sensors)
 
+
 class PontosSensor(CoordinatorEntity, SensorEntity):
     def __init__(self, key, sensor_config, device_info, coordinator):
         super().__init__(coordinator)
         self._key = key
-        self._endpoint = sensor_config['endpoint']
+        self._endpoint = sensor_config["endpoint"]
         self._attr_translation_key = key
         self._attr_has_entity_name = True
-        self._attr_native_unit_of_measurement = sensor_config.get('unit', None)
-        self._attr_device_class = sensor_config.get('device_class', None)
+        self._attr_native_unit_of_measurement = sensor_config.get("unit", None)
+        self._attr_device_class = sensor_config.get("device_class", None)
         self._attr_entity_category = sensor_config.get("entity_category", None)
-        self._attr_state_class = sensor_config.get('state_class', None)
-        self._format_dict = sensor_config.get('format_dict', None)
-        self._code_dict = sensor_config.get('code_dict', None)
-        self._scale = sensor_config.get('scale', None)
-        self._attr_unique_id = slugify(f"{device_info['serial_number']}_{sensor_config['name']}")
+        self._attr_state_class = sensor_config.get("state_class", None)
+        self._format_dict = sensor_config.get("format_dict", None)
+        self._code_dict = sensor_config.get("code_dict", None)
+        self._scale = sensor_config.get("scale", None)
+        self._attributes = sensor_config.get("attributes", {})
+        self._attr_unique_id = slugify(
+            f"{device_info['serial_number']}_{sensor_config['name']}"
+        )
         self._device_info = device_info
 
     @property
@@ -44,7 +49,7 @@ class PontosSensor(CoordinatorEntity, SensorEntity):
     @property
     def device_info(self):
         return {
-            "identifiers": self._device_info['identifiers'],
+            "identifiers": self._device_info["identifiers"],
         }
 
     @property
@@ -56,6 +61,28 @@ class PontosSensor(CoordinatorEntity, SensorEntity):
     def available(self):
         data = self.coordinator.data or {}
         return self.parse_data(data) is not None
+
+    @property
+    def extra_state_attributes(self):
+        data = self.coordinator.data or {}
+        attributes = {}
+
+        # Always add the raw value of the main sensor endpoint
+        raw_value = data.get(self._endpoint)
+        if raw_value is not None:
+            attributes["raw_value"] = raw_value
+
+        # Add explicitly defined attributes
+        if self._attributes:
+            attributes.update(
+                {
+                    attr_name: data.get(endpoint)
+                    for attr_name, endpoint in self._attributes.items()
+                    if data.get(endpoint) is not None
+                }
+            )
+
+        return attributes if attributes else None
 
     # Parsing and updating sensor data
     def parse_data(self, data):

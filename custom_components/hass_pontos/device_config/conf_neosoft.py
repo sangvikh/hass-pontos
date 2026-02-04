@@ -1,7 +1,7 @@
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'select', 'switch', 'time']
+PLATFORMS = ["sensor", "button", "select", "switch", "time"]
 
 MODEL = "NeoSoft"
 MANUFACTURER = "SYR"
@@ -9,9 +9,7 @@ MANUFACTURER = "SYR"
 BASE_URL = "http://{ip}:5333/neosoft/"
 URL_ALL_DATA = f"{BASE_URL}get/all"
 
-URL_LIST = [
-    URL_ALL_DATA
-]
+URL_LIST = [URL_ALL_DATA]
 
 ALARM_CODES = {
     "FF": "no_alarm",
@@ -38,7 +36,7 @@ NOTIFICATION_CODES = {
     "02": "bi_annual_maintenance",
     "03": "annual_maintenance",
     "04": "new_software_installed",
-    "FF": "no_notification"
+    "FF": "no_notification",
 }
 
 WARNING_CODES = {
@@ -49,7 +47,7 @@ WARNING_CODES = {
     "09": "initial_filling",
     "10": "leak_warning_volume",
     "11": "leak_warning_time",
-    "FF": "no_warning"
+    "FF": "no_warning",
 }
 
 REGEN_STATUS_CODES = {
@@ -71,11 +69,7 @@ REGEN_SCHEDULE_CODES = {
     3: "3_days",
 }
 
-WIFI_STATUS_CODES = {
-    "0": "not_connected",
-    "1": "connecting",
-    "2": "connected"
-}
+WIFI_STATUS_CODES = {"0": "not_connected", "1": "connecting", "2": "connected"}
 
 SENSOR_DETAILS = {
     "total_consumption": {
@@ -83,21 +77,21 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "state_class": "total_increasing"
+        "state_class": "total_increasing",
     },
     "water_pressure": {
         "name": "Water pressure",
         "endpoint": "getBAR",
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
-        "scale": 0.001
+        "scale": 0.001,
     },
     "water_temperature": {
         "name": "Water temperature",
         "endpoint": "getCEL",
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
-        "scale": 0.1
+        "scale": 0.1,
     },
     "no_pulse_time_1": {
         "name": "No turbine pulses control head 1 since",
@@ -116,7 +110,7 @@ SENSOR_DETAILS = {
         "endpoint": "getFLO",
         "unit": "L/h",
         "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
-        "scale": 1
+        "scale": 1,
     },
     "current_consumption": {
         "name": "Current water consumption",
@@ -124,7 +118,7 @@ SENSOR_DETAILS = {
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "scale": 0.001
+        "scale": 0.001,
     },
     "last_tapped_volume": {
         "name": "Last tapped volume",
@@ -132,13 +126,13 @@ SENSOR_DETAILS = {
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "scale": 1
+        "scale": 1,
     },
     "input_water_hardness": {
         "name": "Input water hardness",
         "endpoint": "getIWH",
         "unit": "°dH",
-        "scale": 1
+        "scale": 1,
     },
     "output_water_hardness": {
         "name": "Output water hardness",
@@ -146,180 +140,157 @@ SENSOR_DETAILS = {
         "unit": "°dH",
         "scale": 1,
     },
-    "salt_stock": {
-        "name": "Salt stock",
-        "endpoint": "getSS1",
-        "unit": "weeks"
-    },
-    "salt_quantity": {
-        "name": "Salt quantity",
-        "endpoint": "getSV1",
-        "unit": "kg"
-    },
+    "salt_stock": {"name": "Salt stock", "endpoint": "getSS1", "unit": "weeks"},
+    "salt_quantity": {"name": "Salt quantity", "endpoint": "getSV1", "unit": "kg"},
     "regeneration_mode": {
         "name": "Regeneration mode",
         "endpoint": "getRMO",
-        "code_dict": REGEN_MODE_CODES
+        "code_dict": REGEN_MODE_CODES,
     },
     "regeneration_status": {
         "name": "Regeneration status",
         "endpoint": "getRG1",
         "code_dict": REGEN_STATUS_CODES,
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "regeneration_time_remaining": {
         "name": "Regeneration time remaining",
         "endpoint": "getRTI",
         "unit": "s",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "reserve_capacity_bottle_1": {
         "name": "Reserve capacity bottle 1",
         "endpoint": "getRE1",
         "unit": "L",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "reserve_capacity_bottle_2": {
         "name": "Reserve capacity bottle 2",
         "endpoint": "getRE2",
         "unit": "L",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "regeneration_interval": {
         "name": "Regeneration interval",
         "endpoint": "getRPD",
         "unit": "days",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "regeneration_time": {
         "name": "Regeneration time",
         "endpoint": "getRTM",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "wifi_state": {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": WIFI_STATUS_CODES
+        "code_dict": WIFI_STATUS_CODES,
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
         "unit": "%",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "serial_number": {
         "name": "Serial number",
         "endpoint": "getSRN",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "firmware_version": {
         "name": "Firmware version",
         "endpoint": "getVER",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "hardware_version": {
         "name": "Hardware version",
         "endpoint": "getHWV",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "mac_address": {
         "name": "MAC address",
         "endpoint": "getMAC1",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES
+        "code_dict": ALARM_CODES,
     },
     "warning_status": {
         "name": "Warning status",
         "endpoint": "getWRN",
-        "code_dict": WARNING_CODES
+        "code_dict": WARNING_CODES,
     },
     "notification_status": {
         "name": "Notification status",
         "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES
+        "code_dict": NOTIFICATION_CODES,
     },
     "water_conductivity": {
         "name": "Water conductivity",
         "endpoint": "getCND",
-        "unit": "µS/cm"
+        "unit": "µS/cm",
     },
     "next_bi_annual_maintenance": {
         "name": "Next bi-annual maintenance",
         "endpoint": "getSRH",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "next_annual_maintenance": {
         "name": "Next annual maintenance",
         "endpoint": "getSRV",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "buzzer_enabled": {
         "name": "Buzzer enabled",
         "endpoint": "getBUZ",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
 }
 
 SERVICES = {
     "generic_service": {
         "name": "Generic service call",
-        "endpoint": "set/{endpoint}/{data}"
+        "endpoint": "set/{endpoint}/{data}",
     },
-    "clear_alarms": {
-        "name": "Clear alarms",
-        "endpoint": "set/ala/255"
-    },
-    "clear_warnings": {
-        "name": "Clear warnings",
-        "endpoint": "set/wrn/255"
-    },
-    "clear_notifications": {
-        "name": "Clear notifications",
-        "endpoint": "set/not/255"
-    },
+    "clear_alarms": {"name": "Clear alarms", "endpoint": "set/ala/255"},
+    "clear_warnings": {"name": "Clear warnings", "endpoint": "set/wrn/255"},
+    "clear_notifications": {"name": "Clear notifications", "endpoint": "set/not/255"},
     "set_regeneration_mode": {
         "name": "Set regeneration mode",
-        "endpoint": "set/rmo/{data}"
+        "endpoint": "set/rmo/{data}",
     },
     "set_regeneration_interval": {
         "name": "Set regeneration interval",
-        "endpoint": "set/rpd/{data}"
+        "endpoint": "set/rpd/{data}",
     },
     "set_regeneration_time": {
         "name": "Set regeneration time",
-        "endpoint": "set/rtm/{data}"
+        "endpoint": "set/rtm/{data}",
     },
-    "enable_buzzer": {
-        "name": "Enable buzzer",
-        "endpoint": "set/buz/true"
-    },
-    "disable_buzzer": {
-        "name": "Disable buzzer",
-        "endpoint": "set/buz/false"
-    },
+    "enable_buzzer": {"name": "Enable buzzer", "endpoint": "set/buz/true"},
+    "disable_buzzer": {"name": "Disable buzzer", "endpoint": "set/buz/false"},
 }
 
 BUTTONS = {
     "clear_alarms": {
         "name": "Clear alarms",
         "service": "clear_alarms",
-        "availability_sensor": "alarm_status"
+        "availability_sensor": "alarm_status",
     },
     "clear_warnings": {
         "name": "Clear warnings",
         "service": "clear_warnings",
-        "availability_sensor": "warning_status"
+        "availability_sensor": "warning_status",
     },
     "clear_notifications": {
         "name": "Clear notifications",
         "service": "clear_notifications",
-        "availability_sensor": "notification_status"
-    }
+        "availability_sensor": "notification_status",
+    },
 }
 
 SELECTORS = {
@@ -328,15 +299,15 @@ SELECTORS = {
         "options": REGEN_MODE_CODES,
         "sensor": "Regeneration mode",
         "service": "set_regeneration_mode",
-        "entity_category": EntityCategory.CONFIG
+        "entity_category": EntityCategory.CONFIG,
     },
     "regeneration_interval": {
         "name": "Regeneration interval",
         "sensor": "Regeneration interval",
         "service": "set_regeneration_interval",
         "options": REGEN_SCHEDULE_CODES,
-        "entity_category": EntityCategory.CONFIG
-    }
+        "entity_category": EntityCategory.CONFIG,
+    },
 }
 
 TIME_ENTRIES = {
@@ -344,7 +315,7 @@ TIME_ENTRIES = {
         "name": "Regeneration time",
         "sensor": "Regeneration time",
         "service": "set_regeneration_time",
-        "entity_category": EntityCategory.CONFIG
+        "entity_category": EntityCategory.CONFIG,
     }
 }
 
@@ -354,6 +325,6 @@ SWITCHES = {
         "sensor": "Buzzer enabled",
         "service_on": "enable_buzzer",
         "service_off": "disable_buzzer",
-        "entity_category": EntityCategory.CONFIG
+        "entity_category": EntityCategory.CONFIG,
     }
 }

@@ -3,7 +3,15 @@ from homeassistant import config_entries
 from homeassistant.core import callback
 
 from .utils import fetch_data
-from .const import DOMAIN, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS, CONF_DEVICE_NAME, CONF_MAKE, MAKES
+from .const import (
+    DOMAIN,
+    CONF_FETCH_INTERVAL,
+    CONF_IP_ADDRESS,
+    CONF_DEVICE_NAME,
+    CONF_MAKE,
+    MAKES,
+)
+
 
 class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     VERSION = 4
@@ -40,12 +48,20 @@ class PontosConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 errors["base"] = "cannot_connect"
 
         # Show the form (including the dropdown for make)
-        data_schema = vol.Schema({
-            vol.Required(CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}): str,
-            vol.Required(CONF_FETCH_INTERVAL, default=10): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            vol.Required(CONF_DEVICE_NAME, default="Pontos"): str,
-            vol.Required(CONF_MAKE, default="Hansgrohe Pontos"): vol.In(list(MAKES.keys())),
-        })
+        data_schema = vol.Schema(
+            {
+                vol.Required(
+                    CONF_IP_ADDRESS, description={"suggested_value": "192.168.1.100"}
+                ): str,
+                vol.Required(CONF_FETCH_INTERVAL, default=10): vol.All(
+                    vol.Coerce(int), vol.Range(min=1)
+                ),
+                vol.Required(CONF_DEVICE_NAME, default="Pontos"): str,
+                vol.Required(CONF_MAKE, default="Hansgrohe Pontos"): vol.In(
+                    list(MAKES.keys())
+                ),
+            }
+        )
 
         return self.async_show_form(
             step_id="user",
@@ -87,7 +103,9 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
         if user_input is not None:
             # Validate the new IP by fetching from the device
             new_ip = user_input[CONF_IP_ADDRESS]
-            config_entry = self.hass.config_entries.async_get_entry(self.config_entry_id)
+            config_entry = self.hass.config_entries.async_get_entry(
+                self.config_entry_id
+            )
             make = config_entry.data[CONF_MAKE]
 
             if await self._test_connection(new_ip, make):
@@ -106,11 +124,15 @@ class PontosOptionsFlowHandler(config_entries.OptionsFlow):
 
         return self.async_show_form(
             step_id="init",
-            data_schema=vol.Schema({
-                vol.Required(CONF_IP_ADDRESS, default=current_ip): str,
-                vol.Required(CONF_FETCH_INTERVAL, default=current_fetch_interval): vol.All(vol.Coerce(int), vol.Range(min=1)),
-            }),
-            errors=errors
+            data_schema=vol.Schema(
+                {
+                    vol.Required(CONF_IP_ADDRESS, default=current_ip): str,
+                    vol.Required(
+                        CONF_FETCH_INTERVAL, default=current_fetch_interval
+                    ): vol.All(vol.Coerce(int), vol.Range(min=1)),
+                }
+            ),
+            errors=errors,
         )
 
     async def _test_connection(self, ip_address: str, make: str) -> bool:

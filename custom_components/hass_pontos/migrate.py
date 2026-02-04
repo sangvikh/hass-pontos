@@ -3,6 +3,7 @@ from .const import CONF_MAKE, CONF_FETCH_INTERVAL, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def migrate_entry(hass, config_entry) -> bool:
     if config_entry.version < 2:
         new_data = dict(config_entry.data)
@@ -19,8 +20,7 @@ async def migrate_entry(hass, config_entry) -> bool:
         )
 
         LOGGER.info(
-            "Migrated config entry '%s' from version 1 to 2",
-            config_entry.entry_id
+            "Migrated config entry '%s' from version 1 to 2", config_entry.entry_id
         )
 
     if config_entry.version < 3:
@@ -38,8 +38,7 @@ async def migrate_entry(hass, config_entry) -> bool:
         )
 
         LOGGER.info(
-            "Migrated config entry '%s' from version 2 to 3",
-            config_entry.entry_id
+            "Migrated config entry '%s' from version 2 to 3", config_entry.entry_id
         )
 
     if config_entry.version < 4:
@@ -49,7 +48,9 @@ async def migrate_entry(hass, config_entry) -> bool:
 
         # Move relevant values from data to options if they exist
         if CONF_FETCH_INTERVAL in old_data:
-            old_options.setdefault(CONF_FETCH_INTERVAL, old_data.pop(CONF_FETCH_INTERVAL))
+            old_options.setdefault(
+                CONF_FETCH_INTERVAL, old_data.pop(CONF_FETCH_INTERVAL)
+            )
         if CONF_IP_ADDRESS in old_data:
             old_options.setdefault(CONF_IP_ADDRESS, old_data.pop(CONF_IP_ADDRESS))
 
@@ -61,8 +62,7 @@ async def migrate_entry(hass, config_entry) -> bool:
         )
 
         LOGGER.info(
-            "Migrated config entry '%s' from version 3 to 4",
-            config_entry.entry_id
+            "Migrated config entry '%s' from version 3 to 4", config_entry.entry_id
         )
 
     # Return True if migration was successful (or if no migration needed)
