@@ -65,7 +65,7 @@ SENSOR_DETAILS = {
     "water_flow": {
         "name": "Water flow",
         "endpoint": "getFLO",
-        "unit": "L/min",
+        "unit": "L/h",
         "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
         "scale": 1
     },
