@@ -162,17 +162,26 @@ SENSOR_DETAILS = {
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES
+        "code_dict": ALARM_CODES,
+        "attributes": {
+            "raw": "getALA"
+        }
     },
     "warning_status": {
         "name": "Warning status",
         "endpoint": "getWRN",
-        "code_dict": WARNING_CODES
+        "code_dict": WARNING_CODES,
+        "attributes": {
+            "raw": "getWRN"
+        }
     },
     "notification_status": {
         "name": "Notification status",
         "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES
+        "code_dict": NOTIFICATION_CODES,
+        "attributes": {
+            "raw": "getNOT"
+        }
     },
     "active_profile": {
         "name": "Active profile",
@@ -196,62 +205,118 @@ SENSOR_DETAILS = {
         "unit": "dH",
         "scale": 1/30
     },
-        "microleakage_schedule": {
+    "microleakage_schedule": {
         "name": "Microleakage test schedule",
         "endpoint": "getDRP",
         "code_dict": MICROLEAKAGE_SCHEDULE_CODES,
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-        "microleakage_status": {
+    "microleakage_status": {
         "name": "Microleakage test status",
         "endpoint": "getDRP",
         "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-        "microleakage_time": {
+    "microleakage_time": {
         "name": "Microleakage test time",
         "endpoint": "getDTT",
         "entity_category": EntityCategory.DIAGNOSTIC
     },
-        "profile_name_1": {
+    "profile_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV1",
+            "allowed_leakage_time": "getPT1",
+            "permissible_flow": "getPF1",
+            "microleakage_test_enabled": "getPM1",
+            "return_time_hours": "getPR1"
+        }
     },
-        "profile_name_2": {
+    "profile_2": {
         "name": "Profile 2 name",
         "endpoint": "getPN2",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV2",
+            "allowed_leakage_time": "getPT2",
+            "permissible_flow": "getPF2",
+            "microleakage_test_enabled": "getPM2",
+            "return_time_hours": "getPR2"
+        }
     },
-        "profile_name_3": {
+    "profile_3": {
         "name": "Profile 3 name",
         "endpoint": "getPN3",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV3",
+            "allowed_leakage_time": "getPT3",
+            "permissible_flow": "getPF3",
+            "microleakage_test_enabled": "getPM3",
+            "return_time_hours": "getPR3"
+        }
     },
-        "profile_name_4": {
+    "profile_4": {
         "name": "Profile 4 name",
         "endpoint": "getPN4",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV4",
+            "allowed_leakage_time": "getPT4",
+            "permissible_flow": "getPF4",
+            "microleakage_test_enabled": "getPM4",
+            "return_time_hours": "getPR4"
+        }
     },
-        "profile_name_5": {
+    "profile_5": {
         "name": "Profile 5 name",
         "endpoint": "getPN5",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV5",
+            "allowed_leakage_time": "getPT5",
+            "permissible_flow": "getPF5",
+            "microleakage_test_enabled": "getPM5",
+            "return_time_hours": "getPR5"
+        }
     },
-        "profile_name_6": {
+    "profile_6": {
         "name": "Profile 6 name",
         "endpoint": "getPN6",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV6",
+            "allowed_leakage_time": "getPT6",
+            "permissible_flow": "getPF6",
+            "microleakage_test_enabled": "getPM6",
+            "return_time_hours": "getPR6"
+        }
     },
-        "profile_name_7": {
+    "profile_7": {
         "name": "Profile 7 name",
         "endpoint": "getPN7",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV7",
+            "allowed_leakage_time": "getPT7",
+            "permissible_flow": "getPF7",
+            "microleakage_test_enabled": "getPM7",
+            "return_time_hours": "getPR7"
+        }
     },
-        "profile_name_8": {
+    "profile_8": {
         "name": "Profile 8 name",
         "endpoint": "getPN8",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
+        "attributes": {
+            "allowed_leakage_volume": "getPV8",
+            "allowed_leakage_time": "getPT8",
+            "permissible_flow": "getPF8",
+            "microleakage_test_enabled": "getPM8",
+            "return_time_hours": "getPR8"
+        }
     },
 }
 

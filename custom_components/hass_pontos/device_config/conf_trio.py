@@ -135,17 +135,26 @@ SENSOR_DETAILS = {
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES
+        "code_dict": ALARM_CODES,
+        "attributes": {
+            "raw": "getALA"
+        }
     },
     "warning_status": {
         "name": "Warning status",
         "endpoint": "getWRN",
-        "code_dict": WARNING_CODES
+        "code_dict": WARNING_CODES,
+        "attributes": {
+            "raw": "getWRN"
+        }
     },
     "notification_status": {
         "name": "Notification status",
         "endpoint": "getNOT",
-        "code_dict": NOTIFICATION_CODES
+        "code_dict": NOTIFICATION_CODES,
+        "attributes": {
+            "raw": "getNOT"
+        }
     },
     "active_profile": {
         "name": "Active profile",
