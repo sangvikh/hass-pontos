@@ -5,6 +5,7 @@ from .const import DOMAIN, MAKES, CONF_MAKE, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
     """Helper function to send commands to the device."""
     # Format the endpoint with dynamic data if provided
@@ -15,19 +16,14 @@ async def async_send_command(hass, ip_address, base_url, endpoint, data=None):
     url = base_url.format(ip=ip_address) + endpoint
 
     # Use fetch_data for retries
-    result = await fetch_data(
-        hass,
-        ip_address,
-        url,
-        max_attempts=4,
-        retry_delay=1
-    )
+    result = await fetch_data(hass, ip_address, url, max_attempts=4, retry_delay=1)
 
     # Log the response
     if result:
         LOGGER.debug(f"Command sent successfully to {url}: {result}")
     else:
         LOGGER.error(f"Failed to send command to {url}")
+
 
 async def async_service_handler(hass, call, service_name):
     """General service handler to handle different services."""
@@ -41,7 +37,9 @@ async def async_service_handler(hass, call, service_name):
             continue
 
         if lock.locked():
-            LOGGER.warning(f"Service '{service_name}' skipped: previous command still running")
+            LOGGER.warning(
+                f"Service '{service_name}' skipped: previous command still running"
+            )
             continue
 
         async with lock:
@@ -60,7 +58,8 @@ async def async_service_handler(hass, call, service_name):
 
             # Trigger a data refresh after the command
             await coordinator.async_refresh()
-    
+
+
 async def register_services(hass):
     """Register custom services for all current config entries."""
     entries = hass.data[DOMAIN].get("entries", {})
@@ -71,12 +70,10 @@ async def register_services(hass):
 
         # For each service this device supports, register a handler
         for service_name in device_const.SERVICES.keys():
+
             async def service_handler(call, service_name=service_name):
                 await async_service_handler(hass, call, service_name)
 
             hass.services.async_register(
-                DOMAIN,
-                service_name,
-                service_handler,
-                schema=None
+                DOMAIN, service_name, service_handler, schema=None
             )

@@ -7,7 +7,7 @@ DEVICE_CONFIGS = {
     "safetech": {
         "prefix": "/trio",
         "filename": "safetech.json",
-        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"}
+        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"},
     },
     "pontos": {
         "prefix": "/pontos-base",
@@ -16,49 +16,47 @@ DEVICE_CONFIGS = {
             "getVLV": 20,  # 10=closed, 20=open in your example
             "getPRF": 1,
             "getALA": "ff",
-            "getCND": "300"  # For "water conductivity/hardness"
-        }
+            "getCND": "300",  # For "water conductivity/hardness"
+        },
     },
     "safetech_v4": {
         "prefix": "/safe-tec",
         "filename": "safetech_v4.json",
-        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
+        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"},
     },
     "safetech_v4_copy": {
         "prefix": "/safe-tec",
         "filename": "safetech_v4_copy.json",
-        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"}
+        "defaults": {"getVLV": 10, "getPRF": 2, "getALA": "ff"},
     },
-        "neosoft": {
+    "neosoft": {
         "prefix": "/neosoft",
         "filename": "neosoft.json",
-        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"}
+        "defaults": {"getVLV": 10, "getPRF": 1, "getALA": "ff"},
     },
 }
 
 ALL_DEVICE_DATA = {}
 
+
 def parse_args():
-    parser = argparse.ArgumentParser(description="Run the test server for a specific device type.")
+    parser = argparse.ArgumentParser(
+        description="Run the test server for a specific device type."
+    )
     parser.add_argument(
         "--device",
         choices=DEVICE_CONFIGS.keys(),
         required=True,
-        help="Which device to serve: 'safetech', 'pontos', 'safetech_v4', 'safetech_v4_copy', or 'neosoft'."
+        help="Which device to serve: 'safetech', 'pontos', 'safetech_v4', 'safetech_v4_copy', or 'neosoft'.",
     )
     parser.add_argument(
-        "--port",
-        type=int,
-        default=5333,
-        help="Port to run the Flask app on."
+        "--port", type=int, default=5333, help="Port to run the Flask app on."
     )
     parser.add_argument(
-        "--host",
-        type=str,
-        default="0.0.0.0",
-        help="Host to run the Flask app on."
+        "--host", type=str, default="0.0.0.0", help="Host to run the Flask app on."
     )
     return parser.parse_args()
+
 
 def load_device_data(device_key):
     """
@@ -74,7 +72,10 @@ def load_device_data(device_key):
         print(f"Loaded {filename} for '{device_key}'.")
     except (FileNotFoundError, json.JSONDecodeError):
         ALL_DEVICE_DATA[device_key] = {}
-        print(f"Warning: Could not load {filename} for '{device_key}', using empty data.")
+        print(
+            f"Warning: Could not load {filename} for '{device_key}', using empty data."
+        )
+
 
 def register_device_endpoints(app, device_key):
     """
@@ -128,11 +129,11 @@ def register_device_endpoints(app, device_key):
         cmd_upper = command.upper()
         response_data = {}
 
-    # The AB command is used for opening/closing the valve. 
+        # The AB command is used for opening/closing the valve.
         if cmd_upper == "AB":
             if value is None:
                 return jsonify({"error": "Missing value for AB command"}), 400
-            
+
             # Check which device we’re dealing with:
             if device_key == "pontos" or device_key == "safetech_v4":
                 # For Pontos, "1" => open, "2" => close
@@ -147,16 +148,19 @@ def register_device_endpoints(app, device_key):
                     response_data["getVLV"] = data["getVLV"]
                     response_data["setAB"] = "close"
                 else:
-                    return jsonify({"error": f"Invalid AB value for Pontos: {value}"}), 400
+                    return (
+                        jsonify({"error": f"Invalid AB value for Pontos: {value}"}),
+                        400,
+                    )
             else:
                 # For Trio / SafeTec, "true" => closed (10), "false" => open (20)
-                bool_val = (value.lower() == "true")
+                bool_val = value.lower() == "true"
                 data["setAB"] = bool_val
                 # If “true” => valve closed => getVLV=10; “false” => valve open => getVLV=20
                 data["getVLV"] = 10 if bool_val else 20
                 response_data["setAB"] = bool_val
                 response_data["getVLV"] = data["getVLV"]
-            
+
         # Profile switching logic:
         elif cmd_upper == "PRF":
             if value is None:
@@ -188,6 +192,7 @@ def register_device_endpoints(app, device_key):
 
         return jsonify(response_data)
 
+
 def create_app(device_key):
     """
     Create a Flask app that only serves endpoints for the specified device.
@@ -195,6 +200,7 @@ def create_app(device_key):
     app = Flask(__name__)
     register_device_endpoints(app, device_key)
     return app
+
 
 if __name__ == "__main__":
     args = parse_args()

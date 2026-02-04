@@ -7,6 +7,7 @@ from .const import DOMAIN, CONF_DEVICE_NAME, CONF_MAKE, MAKES
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def get_device_info(entry, coordinator):
     entry_id = entry.entry_id
     device_name = entry.data[CONF_DEVICE_NAME]
@@ -18,9 +19,16 @@ async def get_device_info(entry, coordinator):
         LOGGER.error(f"No data available from coordinator for device {entry_id}")
         raise Exception("No data available from coordinator")
 
-    mac_address = data.get(device_const.SENSOR_DETAILS.get("mac_address", {}).get("endpoint"), "00:00:00:00:00:00")
-    serial_number = data.get(device_const.SENSOR_DETAILS.get("serial_number", {}).get("endpoint"), "")
-    firmware_version = data.get(device_const.SENSOR_DETAILS.get("firmware_version", {}).get("endpoint"), "")
+    mac_address = data.get(
+        device_const.SENSOR_DETAILS.get("mac_address", {}).get("endpoint"),
+        "00:00:00:00:00:00",
+    )
+    serial_number = data.get(
+        device_const.SENSOR_DETAILS.get("serial_number", {}).get("endpoint"), ""
+    )
+    firmware_version = data.get(
+        device_const.SENSOR_DETAILS.get("firmware_version", {}).get("endpoint"), ""
+    )
 
     if not mac_address or not serial_number:
         LOGGER.error("Invalid MAC address or serial number")
@@ -38,6 +46,7 @@ async def get_device_info(entry, coordinator):
 
     return device_info
 
+
 async def register_device(hass, entry, coordinator=None):
     entry_id = entry.entry_id
 
@@ -49,7 +58,4 @@ async def register_device(hass, entry, coordinator=None):
 
     # Register device in the device registry
     device_registry = async_get_device_registry(hass)
-    device_registry.async_get_or_create(
-        config_entry_id=entry_id,
-        **device_info
-    )
+    device_registry.async_get_or_create(config_entry_id=entry_id, **device_info)

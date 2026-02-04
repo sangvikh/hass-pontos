@@ -1,6 +1,15 @@
 import logging
-from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
-from homeassistant.components.valve import ValveEntity, ValveEntityFeature, ValveDeviceClass
+from homeassistant.components.valve import (
+    STATE_OPEN,
+    STATE_OPENING,
+    STATE_CLOSED,
+    STATE_CLOSING,
+)
+from homeassistant.components.valve import (
+    ValveEntity,
+    ValveEntityFeature,
+    ValveDeviceClass,
+)
 from homeassistant.helpers.event import async_track_state_change_event
 from homeassistant.helpers import entity_registry as er
 from homeassistant.const import STATE_UNAVAILABLE
@@ -9,6 +18,7 @@ from homeassistant.core import callback, Event
 from .const import DOMAIN
 
 LOGGER = logging.getLogger(__name__)
+
 
 async def async_setup_entry(hass, entry, async_add_entities):
     # Get device info
@@ -19,6 +29,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
 
     # Add the entity to Home Assistant
     async_add_entities([valve_entity], True)
+
 
 class PontosValve(ValveEntity):
     """Representation of the Pontos Valve entity."""
@@ -42,8 +53,10 @@ class PontosValve(ValveEntity):
 
         # Get the entity ID of the sensor using the unique ID
         entity_registry = er.async_get(self.hass)
-        sensor_entity_id = entity_registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
-        
+        sensor_entity_id = entity_registry.async_get_entity_id(
+            "sensor", DOMAIN, self._sensor_unique_id
+        )
+
         # Fetch the initial state from the sensor entity
         if sensor_entity_id:
             sensor_state = self.hass.states.get(sensor_entity_id)
@@ -54,9 +67,7 @@ class PontosValve(ValveEntity):
             # Register state change listener
             LOGGER.debug(f"Registering state change listener for {sensor_entity_id}")
             async_track_state_change_event(
-                self.hass,
-                sensor_entity_id,
-                self._sensor_state_changed
+                self.hass, sensor_entity_id, self._sensor_state_changed
             )
         else:
             LOGGER.error(f"Sensor with unique ID {self._sensor_unique_id} not found")
@@ -68,10 +79,10 @@ class PontosValve(ValveEntity):
 
     @callback
     def _sensor_state_changed(self, event: Event) -> None:
-        new_state = event.data.get('new_state')
+        new_state = event.data.get("new_state")
         if new_state is not None:
             self.set_state(new_state.state)
-    
+
     @property
     def is_open(self):
         return self._state == STATE_OPEN
@@ -79,7 +90,7 @@ class PontosValve(ValveEntity):
     @property
     def is_closed(self):
         return self._state == STATE_CLOSED
-    
+
     @property
     def is_opening(self):
         return self._state == STATE_OPENING
@@ -87,7 +98,7 @@ class PontosValve(ValveEntity):
     @property
     def is_closing(self):
         return self._state == STATE_CLOSING
-    
+
     @property
     def available(self):
         return self._state != STATE_UNAVAILABLE
@@ -95,7 +106,7 @@ class PontosValve(ValveEntity):
     @property
     def supported_features(self):
         """Return the features supported by this valve."""
-        return ValveEntityFeature.OPEN | ValveEntityFeature.CLOSE   
+        return ValveEntityFeature.OPEN | ValveEntityFeature.CLOSE
 
     @property
     def unique_id(self):
@@ -106,19 +117,15 @@ class PontosValve(ValveEntity):
     def device_info(self):
         """Return device info to link this entity with the device."""
         return {
-            "identifiers": self._device_info['identifiers'],
+            "identifiers": self._device_info["identifiers"],
         }
 
     async def async_open_valve(self, **kwargs):
         await self._hass.services.async_call(
-            DOMAIN,
-            "open_valve",
-            service_data={"entry_id": self._entry.entry_id}
+            DOMAIN, "open_valve", service_data={"entry_id": self._entry.entry_id}
         )
 
     async def async_close_valve(self, **kwargs):
         await self._hass.services.async_call(
-            DOMAIN,
-            "close_valve",
-            service_data={"entry_id": self._entry.entry_id}
+            DOMAIN, "close_valve", service_data={"entry_id": self._entry.entry_id}
         )

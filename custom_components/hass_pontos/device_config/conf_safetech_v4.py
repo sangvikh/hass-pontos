@@ -1,8 +1,13 @@
-from homeassistant.components.valve import STATE_OPEN, STATE_OPENING, STATE_CLOSED, STATE_CLOSING
+from homeassistant.components.valve import (
+    STATE_OPEN,
+    STATE_OPENING,
+    STATE_CLOSED,
+    STATE_CLOSING,
+)
 from homeassistant.helpers.entity import EntityCategory
 from homeassistant.components.sensor import SensorDeviceClass
 
-PLATFORMS = ['sensor', 'button', 'valve', 'select']
+PLATFORMS = ["sensor", "button", "valve", "select"]
 
 MODEL = "SafeTech+"
 MANUFACTURER = "SYR"
@@ -11,10 +16,7 @@ BASE_URL = "http://{ip}:5333/safe-tec/"
 URL_ADMIN = f"{BASE_URL}set/ADM/(2)f"
 URL_ALL_DATA = f"{BASE_URL}get/all"
 
-URL_LIST = [
-    URL_ADMIN,
-    URL_ALL_DATA
-]
+URL_LIST = [URL_ADMIN, URL_ALL_DATA]
 
 ALARM_CODES = {
     "FF": "no_alarm",
@@ -29,21 +31,17 @@ ALARM_CODES = {
     "A9": "alarm_pressure_sensor_faulty",
     "AA": "alarm_temperature_sensor_faulty",
     "AB": "alarm_weak_battery",
-    "AE": "error_no_information"
+    "AE": "error_no_information",
 }
 
 VALVE_CODES = {
     "10": STATE_CLOSED,
     "11": STATE_CLOSING,
     "20": STATE_OPEN,
-    "21": STATE_OPENING
+    "21": STATE_OPENING,
 }
 
-WIFI_STATUS_CODES = {
-    "0": "not_connected",
-    "1": "connecting",
-    "2": "connected"
-}
+WIFI_STATUS_CODES = {"0": "not_connected", "1": "connecting", "2": "connected"}
 
 SENSOR_DETAILS = {
     "total_consumption": {
@@ -52,7 +50,7 @@ SENSOR_DETAILS = {
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
         "state_class": "total_increasing",
-        "format_dict": {"Vol[L]": ""}
+        "format_dict": {"Vol[L]": ""},
     },
     "water_pressure": {
         "name": "Water pressure",
@@ -60,26 +58,26 @@ SENSOR_DETAILS = {
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
         "format_dict": {"mbar": ""},
-        "scale": 0.001
+        "scale": 0.001,
     },
     "water_flow": {
         "name": "Water flow",
         "endpoint": "getFLO",
         "unit": "L/h",
         "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
-        "scale": 1
+        "scale": 1,
     },
     "water_temperature": {
         "name": "Water temperature",
         "endpoint": "getCEL",
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
-        "scale": 0.1
+        "scale": 0.1,
     },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
         "endpoint": "getNPS",
-        "unit": "s"
+        "unit": "s",
     },
     "current_consumption": {
         "name": "Current water consumption",
@@ -88,7 +86,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.WATER,
         "format_dict": {"mL": ""},
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "scale": 0.001
+        "scale": 0.001,
     },
     "leak_test_pressure": {
         "name": "Leak test pressure drop",
@@ -96,19 +94,19 @@ SENSOR_DETAILS = {
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "scale": 0.1
+        "scale": 0.1,
     },
     "wifi_state": {
         "name": "Wifi state",
         "endpoint": "getWFS",
         "entity_category": EntityCategory.DIAGNOSTIC,
-        "code_dict": WIFI_STATUS_CODES
+        "code_dict": WIFI_STATUS_CODES,
     },
     "wifi_signal_strength": {
         "name": "Wifi signal strength",
         "endpoint": "getWFR",
         "unit": "%",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "battery_voltage": {
         "name": "Battery voltage",
@@ -116,7 +114,7 @@ SENSOR_DETAILS = {
         "unit": "V",
         "device_class": SensorDeviceClass.VOLTAGE,
         "format_dict": {",": "."},
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "mains_voltage": {
         "name": "Mains voltage",
@@ -124,60 +122,60 @@ SENSOR_DETAILS = {
         "unit": "V",
         "device_class": SensorDeviceClass.VOLTAGE,
         "format_dict": {",": "."},
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "serial_number": {
         "name": "Serial number",
         "endpoint": "getSRN",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "firmware_version": {
         "name": "Firmware version",
         "endpoint": "getVER",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "device_type": {
         "name": "Device type",
         "endpoint": "getTYP",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "mac_address": {
         "name": "MAC address",
         "endpoint": "getMAC",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "alarm_status": {
         "name": "Alarm status",
         "endpoint": "getALA",
-        "code_dict": ALARM_CODES
+        "code_dict": ALARM_CODES,
     },
     "active_profile": {
         "name": "Active profile",
         "endpoint": "getPRF",
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "valve_status": {
         "name": "Valve status",
         "endpoint": "getVLV",
         "code_dict": VALVE_CODES,
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "water_conductivity": {
         "name": "Water conductivity",
         "endpoint": "getCND",
-        "unit": "µS/cm"
+        "unit": "µS/cm",
     },
     "water_hardness": {
         "name": "Water hardness",
         "endpoint": "getCND",
         "unit": "dH",
-        "scale": 1/30
+        "scale": 1 / 30,
     },
     "microleakage_schedule": {
         "name": "Microleakage test schedule",
         "endpoint": "getDRP",
         "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
-        "entity_category": EntityCategory.DIAGNOSTIC
+        "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "profile_1": {
         "name": "Profile 1 name",
@@ -191,8 +189,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM1",
             "leakage_warning_enabled": "getPW1",
             "buzzer_enabled": "getPB1",
-            "return_time_hours": "getPR1"
-        }
+            "return_time_hours": "getPR1",
+        },
     },
     "profile_2": {
         "name": "Profile 2 name",
@@ -206,8 +204,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM2",
             "leakage_warning_enabled": "getPW2",
             "buzzer_enabled": "getPB2",
-            "return_time_hours": "getPR2"
-        }
+            "return_time_hours": "getPR2",
+        },
     },
     "profile_3": {
         "name": "Profile 3 name",
@@ -221,8 +219,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM3",
             "leakage_warning_enabled": "getPW3",
             "buzzer_enabled": "getPB3",
-            "return_time_hours": "getPR3"
-        }
+            "return_time_hours": "getPR3",
+        },
     },
     "profile_4": {
         "name": "Profile 4 name",
@@ -236,8 +234,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM4",
             "leakage_warning_enabled": "getPW4",
             "buzzer_enabled": "getPB4",
-            "return_time_hours": "getPR4"
-        }
+            "return_time_hours": "getPR4",
+        },
     },
     "profile_5": {
         "name": "Profile 5 name",
@@ -251,8 +249,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM5",
             "leakage_warning_enabled": "getPW5",
             "buzzer_enabled": "getPB5",
-            "return_time_hours": "getPR5"
-        }
+            "return_time_hours": "getPR5",
+        },
     },
     "profile_6": {
         "name": "Profile 6 name",
@@ -266,8 +264,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM6",
             "leakage_warning_enabled": "getPW6",
             "buzzer_enabled": "getPB6",
-            "return_time_hours": "getPR6"
-        }
+            "return_time_hours": "getPR6",
+        },
     },
     "profile_7": {
         "name": "Profile 7 name",
@@ -281,8 +279,8 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM7",
             "leakage_warning_enabled": "getPW7",
             "buzzer_enabled": "getPB7",
-            "return_time_hours": "getPR7"
-        }
+            "return_time_hours": "getPR7",
+        },
     },
     "profile_8": {
         "name": "Profile 8 name",
@@ -296,31 +294,19 @@ SENSOR_DETAILS = {
             "microleakage_test_enabled": "getPM8",
             "leakage_warning_enabled": "getPW8",
             "buzzer_enabled": "getPB8",
-            "return_time_hours": "getPR8"
-        }
+            "return_time_hours": "getPR8",
+        },
     },
 }
 
 SERVICES = {
-    "open_valve": {
-        "name": "Open valve",
-        "endpoint": "set/ab/1"
-    },
-    "close_valve": {
-        "name": "Close valve",
-        "endpoint": "set/ab/2"
-    },
-    "clear_alarms": {
-        "name": "Clear alarms",
-        "endpoint": "clr/ala"
-    },
-    "set_profile": {
-        "name": "Set Profile",
-        "endpoint": "set/prf/{data}"
-    },
+    "open_valve": {"name": "Open valve", "endpoint": "set/ab/1"},
+    "close_valve": {"name": "Close valve", "endpoint": "set/ab/2"},
+    "clear_alarms": {"name": "Clear alarms", "endpoint": "clr/ala"},
+    "set_profile": {"name": "Set Profile", "endpoint": "set/prf/{data}"},
     "generic_service": {
         "name": "Generic service call",
-        "endpoint": "set/{endpoint}/{data}"
+        "endpoint": "set/{endpoint}/{data}",
     },
 }
 
@@ -328,13 +314,8 @@ BUTTONS = {
     "clear_alarms": {
         "name": "Clear alarms",
         "service": "clear_alarms",
-        "availability_sensor": "alarm_status"
+        "availability_sensor": "alarm_status",
     }
 }
 
-SELECTORS = {
-    "profile_select": {
-        "name": "Profile",
-        "type": "profile_select"
-    }
-}
+SELECTORS = {"profile_select": {"name": "Profile", "type": "profile_select"}}

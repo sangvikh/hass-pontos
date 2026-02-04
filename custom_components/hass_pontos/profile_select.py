@@ -10,6 +10,7 @@ from .const import DOMAIN, CONF_IP_ADDRESS
 
 LOGGER = logging.getLogger(__name__)
 
+
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the custom profile select entity."""
     device_info = hass.data[DOMAIN]["entries"][entry.entry_id]["device_info"]
@@ -17,6 +18,7 @@ async def async_setup_entry(hass, entry, async_add_entities):
     # Instantiate the select entity
     select_entity = PontosProfileSelect(hass, entry, device_info)
     async_add_entities([select_entity], True)
+
 
 class PontosProfileSelect(SelectEntity):
     """
@@ -39,7 +41,9 @@ class PontosProfileSelect(SelectEntity):
         self._attr_unique_id = slugify(f"{serial_number}_profile_select")
 
         # The sensor that holds the numeric active profile code
-        self._active_profile_sensor_unique_id = slugify(f"{serial_number}_active_profile")
+        self._active_profile_sensor_unique_id = slugify(
+            f"{serial_number}_active_profile"
+        )
 
         # Track which entity_id corresponds to each profile code's name sensor
         self._profile_name_entity_ids = {}
@@ -57,14 +61,18 @@ class PontosProfileSelect(SelectEntity):
         active_sensor_id = entity_registry.async_get_entity_id(
             "sensor", DOMAIN, self._active_profile_sensor_unique_id
         )
-        LOGGER.debug(f"Active profile sensor unique id: {self._active_profile_sensor_unique_id}")
+        LOGGER.debug(
+            f"Active profile sensor unique id: {self._active_profile_sensor_unique_id}"
+        )
         LOGGER.debug(f"Active profile sensor name: {active_sensor_id}")
 
         if active_sensor_id:
             # Fetch its initial state
             sensor_state_obj = self._hass.states.get(active_sensor_id)
             initial_code_str = sensor_state_obj.state if sensor_state_obj else None
-            LOGGER.debug(f"Fetched initial profile state from sensor: {initial_code_str}")
+            LOGGER.debug(
+                f"Fetched initial profile state from sensor: {initial_code_str}"
+            )
 
             # Convert code -> name
             self._attr_current_option = self._code_to_name(initial_code_str)
@@ -82,7 +90,9 @@ class PontosProfileSelect(SelectEntity):
 
         # 2) For each code 1..8, see if we have a name sensor
         for code in range(1, 9):
-            profile_sensor_uid = slugify(f"{self._device_info['serial_number']}_profile_{code}_name")
+            profile_sensor_uid = slugify(
+                f"{self._device_info['serial_number']}_profile_{code}_name"
+            )
             profile_sensor_entity_id = entity_registry.async_get_entity_id(
                 "sensor", DOMAIN, profile_sensor_uid
             )
@@ -92,9 +102,7 @@ class PontosProfileSelect(SelectEntity):
                     f"Found dynamic name sensor for code {code}: {profile_sensor_entity_id}"
                 )
                 async_track_state_change_event(
-                    self._hass,
-                    profile_sensor_entity_id,
-                    self._profile_name_changed
+                    self._hass, profile_sensor_entity_id, self._profile_name_changed
                 )
 
         # Build the dropdown from current sensor states
@@ -138,7 +146,9 @@ class PontosProfileSelect(SelectEntity):
         code_str = new_state_obj.state
         new_name = self._code_to_name(code_str)
         if new_name != self._attr_current_option:
-            LOGGER.debug(f"Active profile code changed => {code_str} => label '{new_name}'")
+            LOGGER.debug(
+                f"Active profile code changed => {code_str} => label '{new_name}'"
+            )
             self.set_state(new_name)
 
     def set_state(self, new_label: str):
@@ -177,7 +187,11 @@ class PontosProfileSelect(SelectEntity):
         for code, name_entity_id in self._profile_name_entity_ids.items():
             state_obj = self._hass.states.get(name_entity_id)
             if state_obj and state_obj.state not in (
-                "unknown", "unavailable", STATE_UNAVAILABLE, "", None
+                "unknown",
+                "unavailable",
+                STATE_UNAVAILABLE,
+                "",
+                None,
             ):
                 label = state_obj.state.strip()
                 if label:
@@ -241,7 +255,11 @@ class PontosProfileSelect(SelectEntity):
 
         state_obj = self._hass.states.get(name_entity_id)
         if state_obj and state_obj.state not in (
-            "unknown", "unavailable", STATE_UNAVAILABLE, "", None
+            "unknown",
+            "unavailable",
+            STATE_UNAVAILABLE,
+            "",
+            None,
         ):
             return state_obj.state.strip()
 

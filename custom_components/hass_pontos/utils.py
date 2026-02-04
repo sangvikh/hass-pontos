@@ -5,6 +5,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 LOGGER = logging.getLogger(__name__)
 
+
 # Fetching data with error handling and URL logging
 async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
     """Fetch data from the Pontos device using the shared aiohttp session (with simple retry logic)."""
@@ -16,7 +17,7 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
 
     # Get the shared aiohttp session from Home Assistant
     session = async_get_clientsession(hass)
-    
+
     # Loop over attempts for a simple retry mechanism
     for attempt in range(1, max_attempts + 1):
         data = {}
@@ -29,9 +30,13 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
                 async with session.get(url, timeout=5) as response:
                     if response.status == 200:
                         # Allow decoding JSON even if the Content-Type header is missing.
-                        data.update(await response.json(content_type=None))  # Update data with response
+                        data.update(
+                            await response.json(content_type=None)
+                        )  # Update data with response
                     else:
-                        LOGGER.error(f"HTTP response error (status {response.status}): {url}")
+                        LOGGER.error(
+                            f"HTTP response error (status {response.status}): {url}"
+                        )
                         failed = True
             except (ClientConnectorError, asyncio.TimeoutError) as e:
                 LOGGER.error(f"HTTP request exeption for {url}: {e}")
@@ -48,6 +53,8 @@ async def fetch_data(hass, ip, url_list, max_attempts=1, retry_delay=10):
             )
             await asyncio.sleep(retry_delay * attempt)
         else:
-            LOGGER.error(f"Attempt {attempt}/{max_attempts} failed. No response from device.")
+            LOGGER.error(
+                f"Attempt {attempt}/{max_attempts} failed. No response from device."
+            )
 
     return data if not failed else {}

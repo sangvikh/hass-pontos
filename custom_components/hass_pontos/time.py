@@ -45,7 +45,11 @@ class PontosTimeEntry(TimeEntity):
         self._attr_unique_id = slugify(f"{device_info['serial_number']}_{key}_time")
         self._attr_native_value = None
         self._available = True
-        self._sensor_unique_id = slugify(f"{device_info['serial_number']}_{self._sensor}") if self._sensor else None
+        self._sensor_unique_id = (
+            slugify(f"{device_info['serial_number']}_{self._sensor}")
+            if self._sensor
+            else None
+        )
         self._sensor_entity_id = None
 
     async def async_added_to_hass(self):
@@ -56,7 +60,9 @@ class PontosTimeEntry(TimeEntity):
             self.async_write_ha_state()
             return
 
-        self._sensor_entity_id = registry.async_get_entity_id("sensor", DOMAIN, self._sensor_unique_id)
+        self._sensor_entity_id = registry.async_get_entity_id(
+            "sensor", DOMAIN, self._sensor_unique_id
+        )
 
         if self._sensor_entity_id:
             state = self._hass.states.get(self._sensor_entity_id)
@@ -69,7 +75,9 @@ class PontosTimeEntry(TimeEntity):
                 self._hass, self._sensor_entity_id, self._sensor_state_changed
             )
         else:
-            _LOGGER.warning(f"Sensor for %s not found: %s", self._key, self._sensor_unique_id)
+            _LOGGER.warning(
+                f"Sensor for %s not found: %s", self._key, self._sensor_unique_id
+            )
             self._available = False
 
         self.async_write_ha_state()
@@ -93,7 +101,9 @@ class PontosTimeEntry(TimeEntity):
 
         # Accept empty/invalid values as unavailable
         if not value or "ERROR" in value.upper():
-            _LOGGER.debug("Time entry %s received invalid sensor value: %s", self._key, value)
+            _LOGGER.debug(
+                "Time entry %s received invalid sensor value: %s", self._key, value
+            )
             return
 
         parsed = None
@@ -125,7 +135,9 @@ class PontosTimeEntry(TimeEntity):
                 self._attr_native_value = parsed
                 self.async_write_ha_state()
         else:
-            _LOGGER.warning("%s state value '%s' could not be parsed as time", self._key, value)
+            _LOGGER.warning(
+                "%s state value '%s' could not be parsed as time", self._key, value
+            )
 
     async def async_set_value(self, value):
         """Handle user setting a new time value.
