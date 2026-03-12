@@ -62,6 +62,9 @@
       "current_consumption": {
         "name": "Current water consumption"
       },
+      "current_flow": {
+        "name": "Current water flow"
+      },
       "leak_test_pressure": {
         "name": "Leak test pressure drop"
       },

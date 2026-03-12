@@ -5,7 +5,7 @@ from homeassistant.components.valve import (
     STATE_CLOSING,
 )
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 
 PLATFORMS = ["sensor", "button", "valve", "select"]
 
@@ -76,6 +76,14 @@ SENSOR_DETAILS = {
         "entity_category": EntityCategory.DIAGNOSTIC,
         "scale": 0.001,
     },
+    "current_flow": {
+            "name": "Current water flow rate",
+            "endpoint": "getFLO",
+            "unit": "L/h",
+            "device_class": SensorDeviceClass.WATER,
+            "state_class": SensorStateClass.TOTAL_INCREASING,
+            "entity_category": EntityCategory.DIAGNOSTIC,
+        },
     "leak_test_pressure": {
         "name": "Leak test pressure drop",
         "endpoint": "getDBD",

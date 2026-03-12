@@ -62,6 +62,9 @@
       "current_consumption": {
         "name": "Nåværende vannforbruk"
       },
+      "current_flow": {
+        "name": "Nåværende vannføring"
+      },
       "leak_test_pressure": {
         "name": "Trykkfall lekkasjetest"
       },
