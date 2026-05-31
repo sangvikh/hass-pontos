@@ -1,5 +1,5 @@
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 
 PLATFORMS = ["sensor", "button", "select", "switch", "time"]
 
@@ -77,7 +77,7 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "state_class": "total_increasing",
+        "state_class": SensorStateClass.TOTAL_INCREASING,
     },
     "water_pressure": {
         "name": "Water pressure",

@@ -5,7 +5,7 @@ from homeassistant.components.valve import (
     STATE_CLOSING,
 )
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 
 PLATFORMS = ["sensor", "button", "valve", "select"]
 
@@ -61,7 +61,14 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "state_class": "total_increasing",
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+    },
+    "water_flow": {
+        "name": "Water flow",
+        "endpoint": "getFLO",
+        "unit": "L/h",
+        "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
+        "scale": 1,
     },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
@@ -164,7 +171,7 @@ SENSOR_DETAILS = {
         "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
-    "profile_name_1": {
+    "profile_1": {
         "name": "Profile 1 name",
         "endpoint": "getPN1",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -179,7 +186,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR1",
         },
     },
-    "profile_name_2": {
+    "profile_2": {
         "name": "Profile 2 name",
         "endpoint": "getPN2",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -194,7 +201,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR2",
         },
     },
-    "profile_name_3": {
+    "profile_3": {
         "name": "Profile 3 name",
         "endpoint": "getPN3",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -209,7 +216,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR3",
         },
     },
-    "profile_name_4": {
+    "profile_4": {
         "name": "Profile 4 name",
         "endpoint": "getPN4",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -224,7 +231,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR4",
         },
     },
-    "profile_name_5": {
+    "profile_5": {
         "name": "Profile 5 name",
         "endpoint": "getPN5",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -239,7 +246,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR5",
         },
     },
-    "profile_name_6": {
+    "profile_6": {
         "name": "Profile 6 name",
         "endpoint": "getPN6",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -254,7 +261,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR6",
         },
     },
-    "profile_name_7": {
+    "profile_7": {
         "name": "Profile 7 name",
         "endpoint": "getPN7",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -269,7 +276,7 @@ SENSOR_DETAILS = {
             "return_time_hours": "getPR7",
         },
     },
-    "profile_name_8": {
+    "profile_8": {
         "name": "Profile 8 name",
         "endpoint": "getPN8",
         "entity_category": EntityCategory.DIAGNOSTIC,
