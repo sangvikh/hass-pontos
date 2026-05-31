@@ -5,7 +5,7 @@ from homeassistant.components.valve import (
     STATE_CLOSING,
 )
 from homeassistant.helpers.entity import EntityCategory
-from homeassistant.components.sensor import SensorDeviceClass
+from homeassistant.components.sensor import SensorDeviceClass, SensorStateClass
 
 PLATFORMS = ["sensor", "button", "valve", "select"]
 
@@ -49,7 +49,7 @@ SENSOR_DETAILS = {
         "endpoint": "getVOL",
         "unit": "L",
         "device_class": SensorDeviceClass.WATER,
-        "state_class": "total_increasing",
+        "state_class": SensorStateClass.TOTAL_INCREASING,
         "format_dict": {"Vol[L]": ""},
     },
     "water_pressure": {
