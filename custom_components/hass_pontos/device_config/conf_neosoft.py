@@ -111,6 +111,7 @@ SENSOR_DETAILS = {
         "unit": "L/h",
         "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
         "scale": 1,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "current_consumption": {
         "name": "Current water consumption",
