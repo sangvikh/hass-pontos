@@ -66,6 +66,7 @@ SENSOR_DETAILS = {
         "unit": "L/h",
         "device_class": SensorDeviceClass.VOLUME_FLOW_RATE,
         "scale": 1,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_temperature": {
         "name": "Water temperature",
