@@ -208,7 +208,7 @@ SENSOR_DETAILS = {
     },
     "microleakage_status": {
         "name": "Microleakage test status",
-        "endpoint": "getDRP",
+        "endpoint": "getDSV",
         "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
