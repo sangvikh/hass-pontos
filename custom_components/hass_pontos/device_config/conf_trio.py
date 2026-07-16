@@ -103,6 +103,7 @@ SENSOR_DETAILS = {
         "endpoint": "getWFR",
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "battery_voltage": {
         "name": "Battery voltage",
@@ -111,6 +112,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "mains_voltage": {
         "name": "Mains voltage",
@@ -119,6 +121,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "serial_number": {
         "name": "Serial number",
@@ -169,7 +172,7 @@ SENSOR_DETAILS = {
     "microleakage_schedule": {
         "name": "Microleakage test schedule",
         "endpoint": "getDRP",
-        "code_dict": {"1": "daily", "2": "weekly", "3": "montly"},
+        "code_dict": {"1": "daily", "2": "weekly", "3": "monthly"},
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
     "profile_1": {

@@ -71,6 +71,7 @@ SENSOR_DETAILS = {
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
         "scale": 0.001,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_temperature": {
         "name": "Water temperature",
@@ -78,6 +79,7 @@ SENSOR_DETAILS = {
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_flow": {
         "name": "Water flow",
@@ -119,6 +121,7 @@ SENSOR_DETAILS = {
         "endpoint": "getWFR",
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "battery_voltage": {
         "name": "Battery voltage",
@@ -127,6 +130,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "mains_voltage": {
         "name": "Mains voltage",
@@ -135,6 +139,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "scale": 0.01,
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "serial_number": {
         "name": "Serial number",
@@ -186,12 +191,14 @@ SENSOR_DETAILS = {
         "name": "Water conductivity",
         "endpoint": "getCND",
         "unit": "µS/cm",
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_hardness": {
         "name": "Water hardness",
         "endpoint": "getCND",
         "unit": "dH",
         "scale": 1 / 30,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "microleakage_schedule": {
         "name": "Microleakage test schedule",
@@ -201,7 +208,7 @@ SENSOR_DETAILS = {
     },
     "microleakage_status": {
         "name": "Microleakage test status",
-        "endpoint": "getDRP",
+        "endpoint": "getDSV",
         "code_dict": {"0": "not_active", "1": "active", "2": "aborted", "3": "skipped"},
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
