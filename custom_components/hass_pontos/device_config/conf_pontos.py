@@ -60,6 +60,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.PRESSURE,
         "format_dict": {"mbar": ""},
         "scale": 0.001,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_temperature": {
         "name": "Water temperature",
@@ -67,6 +68,7 @@ SENSOR_DETAILS = {
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "no_pulse_time": {
         "name": "Time since last turbine pulse",
@@ -101,6 +103,7 @@ SENSOR_DETAILS = {
         "endpoint": "getWFR",
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "battery_voltage": {
         "name": "Battery voltage",
@@ -109,6 +112,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "format_dict": {",": "."},
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "mains_voltage": {
         "name": "Mains voltage",
@@ -117,6 +121,7 @@ SENSOR_DETAILS = {
         "device_class": SensorDeviceClass.VOLTAGE,
         "format_dict": {",": "."},
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "serial_number": {
         "name": "Serial number",
@@ -158,12 +163,14 @@ SENSOR_DETAILS = {
         "name": "Water conductivity",
         "endpoint": "getCND",
         "unit": "µS/cm",
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_hardness": {
         "name": "Water hardness",
         "endpoint": "getCND",
         "unit": "dH",
         "scale": 1 / 30,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "microleakage_schedule": {
         "name": "Microleakage test interval",

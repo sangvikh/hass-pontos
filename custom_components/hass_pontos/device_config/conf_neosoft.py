@@ -85,6 +85,7 @@ SENSOR_DETAILS = {
         "unit": "bar",
         "device_class": SensorDeviceClass.PRESSURE,
         "scale": 0.001,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "water_temperature": {
         "name": "Water temperature",
@@ -92,6 +93,7 @@ SENSOR_DETAILS = {
         "unit": "°C",
         "device_class": SensorDeviceClass.TEMPERATURE,
         "scale": 0.1,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "no_pulse_time_1": {
         "name": "No turbine pulses control head 1 since",
@@ -194,6 +196,7 @@ SENSOR_DETAILS = {
         "endpoint": "getWFR",
         "unit": "%",
         "entity_category": EntityCategory.DIAGNOSTIC,
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "serial_number": {
         "name": "Serial number",
@@ -234,6 +237,7 @@ SENSOR_DETAILS = {
         "name": "Water conductivity",
         "endpoint": "getCND",
         "unit": "µS/cm",
+        "state_class": SensorStateClass.MEASUREMENT,
     },
     "next_bi_annual_maintenance": {
         "name": "Next bi-annual maintenance",
